@@ -1,0 +1,25 @@
+.backBox{
+    height: 60px;
+    width: 50px;
+}
+.backBox svg{
+    height: 25px;
+    width: 25px;
+}
+.PageHeader{
+    height: 60px;
+    background: var(--PRIMARY-COLOR);
+}
+.cartQtyCount{
+    color: #FFF;
+    z-index: 9;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: #E86339;
+    border-radius: 50%;
+}

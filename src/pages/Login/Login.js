@@ -1,18 +1,25 @@
 import React from "react";
 import styles from './Login.module.css';
 import siteLogo from '../../assets/images/site_logo.png';
+import { enviroment } from "../../enviroment";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+    const navigate = useNavigate();
+
+    const routeHome = () => {
+        navigate('/');
+    }
     return (
         <React.Fragment>
             <div className="min-vh-100 col-12 d-inline-flex flex-column">
                 <div className={`${styles.loginTitle} col-12 d-inline-flex flex-column`}>
                     <div className={`${styles.siteLogoBox} col-12 d-inline-flex justify-content-center mb-3`}>
-                        <img src={siteLogo} alt="Site Logo" className="object-fit-contain"/>
+                        <img src={siteLogo} alt="Site Logo" className="object-fit-contain" onClick={routeHome}/>
                     </div>
                     <h1 className={`${styles.welcomeBiz} col-12 d-inline-block mt-0 mb-1`}>
                         Welcome <br/>
-                        to <strong className={`${styles.bizName}`}>{process.env.REACT_APP_BUSINESS_NAME}</strong>
+                        to <strong className={`${styles.bizName}`}>{enviroment.BUSINESS_NAME}</strong>
                     </h1>
                     <span className={`${styles.loginSubTitle} col-12 d-inline-flex`}>Create an account to continue shopping</span>
                 </div>

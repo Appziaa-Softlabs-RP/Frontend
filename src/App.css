@@ -4,6 +4,12 @@
   --MENU_HOVER_COLOR : rgba(207,16,46,0.12);
   --ADD_BUTTON_COLOR : #E88219;
 }
+body{
+  background: #E7ECF2;
+}
 img{
   max-width: 100%;
+}
+.owl-carousel .owl-stage-outer .owl-stage{
+  padding: 0 !important;
 }

@@ -1,0 +1,32 @@
+.offerContainer{
+    background: #FFF;
+}
+.exploreByCategoryHeader{
+    font-weight: bold;
+    color: #1D2A39;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.singleFruitBlock {
+    float: left;
+    width: 50%;
+    padding: 12px 10px 0px;
+}
+.fruitImgBlock {
+    padding-top: 100%;
+    border-radius: 5px;
+}
+.bottomLabelName {
+    border-radius: 5px;
+    bottom: 10px;
+    right: 15px;
+    background: #FFF;
+    left: 15px;
+    height: 35px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    padding: 10px;
+    line-height: 13px;
+}

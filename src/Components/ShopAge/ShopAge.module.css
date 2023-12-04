@@ -1,0 +1,31 @@
+
+.shopAgeContainer .ageBlock{
+	width: calc(50% - 10px);
+}
+.ageBlockIcon{
+	padding-top: 100%;
+	border-radius: 100%;
+	background: #FFF;
+}
+.ageBlockIcon img{
+	inset: 0;
+	border-radius: 100%;
+}
+.shopAgeContainer{
+	background: var(--PRIMARY_COLOR);
+	border-radius: 10px;
+}
+.shopAgeNumber{
+	font-size: 14px;
+	margin-top: 10px;
+	color: #FFF;
+	font-weight: 500;
+}
+.shopAgeBox .exploreByCategoryHeader{
+	color: #FFF;
+	font-size: 16px;
+	font-weight: 700;
+}
+.scrollAgeBox{
+	gap: 20px;
+}

@@ -71,8 +71,8 @@
 	fill: currentColor;
 }
 .menuDrawerNavigation ul li .menuDrawerMenuItem.activeTab{
-	background: rgba(207,16,46,0.12);
-	color: #CF102E;
+	background: var(--MENU_HOVER_COLOR);
+	color: var;
 	border-radius: 0px 30px 30px 0px;
 }
 .menuDrawerNavigation ul li .menu-text{
@@ -108,7 +108,7 @@
 }
 .loginSignup .loggedName{
 	font-weight: 700;
-	color: #CF102E;
+	color: var(--PRIMARY_COLOR);
 	font-size: 16px;
 }
 .loginSignup .loginText{
