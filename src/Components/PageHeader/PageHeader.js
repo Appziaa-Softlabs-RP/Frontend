@@ -14,7 +14,7 @@ export const PageHeader = ({title}) => {
                 </div>
                 <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}>
                     <CartIcon color="#FFF" />
-                    <span className={`${styles.cartQtyCount} d-inline-flex align-items-center justify-content-center text-center position-absolute align-top`}>
+                    <span className={`${styles.cartQtyCount} d-inline-flex align-items-center justify-content-center text-center position-absolute align-top`}>0</span>
                 </div>
             </div>
         </React.Fragment>

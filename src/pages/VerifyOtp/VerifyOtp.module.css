@@ -1,0 +1,51 @@
+.optHeader svg{
+    height: 25px;
+    width: 25px;
+}
+.OtpImgIcon{
+    height: 76px;
+    width: 76px;
+}
+.verifyTxt, .otpTxt{
+    color: #161E42;
+    font-size: 30px;
+    line-height: 36px;
+}
+.otpTxt{
+    font-weight: 700;
+}
+.otpInfo {
+    color: #49537D;
+    font-size: 14px;
+    line-height: 17px;
+}
+.resendInfo{
+    color: rgba(73, 83, 125, .7);
+    font-size: 14px;
+    line-height: 17px;
+}
+.resendOtp{
+    color: #007BFF;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: bold;
+}
+.verifyBtn{
+    height: 60px;
+    border-radius: 6px;
+    background: var(--PRIMARY_COLOR);
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 600;
+}
+.otpInput{
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    height: 59px;
+    width: 67px;
+    border-radius: 4px;
+    background-color: #F1F3FB;
+}
