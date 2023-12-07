@@ -24,13 +24,13 @@ export const Login = () => {
                     <span className={`${styles.loginSubTitle} col-12 d-inline-flex`}>Create an account to continue shopping</span>
                 </div>
                 <div className="d-inline-flex col-12 flex-column">
-                    <div className="col-12 d-inline-flex flex-column p-4 gap-2">
+                    <div className="col-12 d-inline-flex flex-column p-4 pt-2 gap-2">
                         <label className={`${styles.inputLabel} col-12 d-inline-flex`}>Enter Mobile No.</label>
                         <div className="col-12 position-relative">
                             <span className={`${styles.isdCode} position-absolute top-0 bottom-0 d-inline-flex align-items-center`}>+91</span>
                             <input type="tel" minLength="10" maxLength="10" placeholder="9XXXXXXXXX" className={`${styles.formInput} col-12 d-inline-block`} />
                         </div>
-                        <span className={`${styles.formLoginBtn} col-12 d-inline-flex justify-content-center align-items-center`}>Continue</span>
+                        <span className={`${styles.formLoginBtn} col-12 d-inline-flex justify-content-center align-items-center mt-2`}>Continue</span>
                     </div>
                 </div>
             </div>
