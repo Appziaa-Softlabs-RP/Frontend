@@ -1,4 +1,5 @@
 import React from "react";
+import { BackArrowIcon, CartIcon, SearchIcon } from "../siteIcons";
 import styles from './PageHeader.module.css';
 
 export const PageHeader = ({title}) => {
