@@ -1,15 +1,19 @@
 import React from "react";
 import { BackArrowIcon, CartIcon, SearchIcon } from "../siteIcons";
 import styles from './PageHeader.module.css';
+import { useNavigate } from "react-router-dom";
 
 export const PageHeader = ({title}) => {
+    const navigate = useNavigate();
     return (
         <React.Fragment>
             <div className={`${styles.PageHeader} col-12 d-inline-flex gap-2`}>
-                <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}>
+                <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`} onClick={() => navigate(-1)}>
                     <BackArrowIcon color="#FFF" />
                 </div>
-                <label className={`${styles.currentName} d-inline-flex`}>{title}</label>
+                <div className="d-inline-flex flex-grow-1 align-items-center">
+                    <label className={`${styles.currentName} text-truncate col-12 d-inline-block`}>{title}</label>
+                </div>
                 <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}>
                     <SearchIcon color="#FFF" />
                 </div>

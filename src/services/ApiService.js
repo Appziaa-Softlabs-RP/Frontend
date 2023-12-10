@@ -1,92 +1,85 @@
 import fetch from "./ApiInterceptor";
 
 const ApiService = {};
-const coachingID = "6501f8da58b0e277c0031082";
 
-ApiService.login = function (data) {
+ApiService.banner = function (data) {
   return fetch({
-    url: "/login",
+    url: "/store/banner",
     method: "post",
     data: data,
   });
 };
 
-ApiService.register = function (data) {
+ApiService.PromoBanner = function (data) {
   return fetch({
-    url: "/register",
+    url: "/store/promobanner",
     method: "post",
     data: data,
   });
 };
 
-ApiService.coachingDetails = function () {
+ApiService.sendOTP = function (data) {
   return fetch({
-    url:
-      "/coaching-details"+
-      coachingID,
-    method: "get",
-  });
-};
-
-ApiService.coaching = function () {
-  return fetch({
-    url:
-      "/coaching/"+
-      coachingID+"/courses",
-    method: "get",
-  });
-};
-
-ApiService.coachingInstructor = function () {
-  return fetch({
-    url:
-      "/coaching-instructors/"+coachingID,
-    method: "get",
-  });
-};
-
-ApiService.courseDetails = function (courseid) {
-  return fetch({
-    url:
-      "/course-details/"+courseid,
-    method: "get",
-  });
-};
-
-ApiService.purchaseCourse = function (data) {
-  return fetch({
-    url:
-      "/purchase-course",
+    url: "company/sendotp",
     method: "post",
-    data: data,
-  });
-};
+    data: data
+  })
+}
 
-ApiService.purchasedCourse = function (data) {
+ApiService.VerifyOTP = function (data) {
   return fetch({
-    url:
-      "/purchased-courses",
+    url: "company/verifyotp",
     method: "post",
-    data: data,
-  });
-};
+    data: data
+  })
+}
 
-ApiService.studentAssignment = function (data) {
+ApiService.StoreCategory = function (data) {
   return fetch({
-    url:
-      "/purchased-courses",
+    url: "store/verticalList",
     method: "post",
-    data: data,
-  });
-};
+    data: data
+  })
+}
 
-ApiService.purchaseHistory = function (data) {
+ApiService.StoreSubCategory = function (data) {
   return fetch({
-    url:
-      "/purchase-history",
+    url: "store/verticalByCategory",
     method: "post",
-    data: data,
-  });
-};
+    data: data
+  })
+}
+
+ApiService.StoreSubChildCategory = function (data) {
+  return fetch({
+    url: "store/categoryBySubCategory",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.StoreCategoryProd = function (data) {
+  return fetch({
+    url: "store/VerticalByProduct",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.CategoryByProd = function (data) {
+  return fetch({
+    url: "store/CategoryByProduct",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.CategoryBySubProd = function (data) {
+  return fetch({
+    url: "store/SubCategoryByProduct",
+    method: "post",
+    data: data
+  })
+}
 
 export default ApiService;

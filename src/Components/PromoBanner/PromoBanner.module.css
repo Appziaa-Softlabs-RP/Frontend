@@ -5,3 +5,11 @@
     font-weight: 700;
     margin-bottom: 20px;
 }
+.categoryBox{
+    border-radius: 10px;
+    background: #FFF;
+}
+.offersBox{
+    background: yellow;
+    border-radius: 10px;
+}

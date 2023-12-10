@@ -37,12 +37,12 @@ export const Aside = ({asideOpen, setAsideOpen}) => {
                     <div className={`${styles.menuDrawerUtilityLinks} bottom-0 start-0 mt-auto col-12 d-inline-block position-absolute`}>
                         <h6 className={`${styles.listSocialTitle} mt-2 mb-2 d-block`}>Contact Us</h6>
                         <ul className={`${styles.footerMenu} list-unstyled`}>
-                            <li className={`${styles.footerIconLink} d-inline-flex col-md-12 p-0 align-items-center`}>
+                            <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                 <Link className="d-inline-flex align-items-center text-decoration-none" href="tel:+919999756468">
                                     <span className="icon-and-text"><svg className="icon icon-phone" viewBox="0 0 64 64"><defs></defs><path className="cls-1" d="M16.57 5l12.32 12.33L21.26 25c2.53 8.5 8.32 15 18.78 18.78l7.63-7.63L60 48.43 49.43 59C25.4 54.11 11.05 39.5 6 15.57z"></path></svg><span>+91-99997 56468</span></span>
                                 </Link>
                             </li>
-                            <li className={`${styles.footerIconLink} d-inline-flex col-md-12 p-0 align-items-center`}>
+                            <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                 <Link className="d-inline-flex align-items-center text-decoration-none" href="mailto:hello@knickknack.online">
                                     <span className="icon-and-text"><svg viewBox="0 0 512 512"><g><path d="M467 76H45C20.137 76 0 96.262 0 121v270c0 24.885 20.285 45 45 45h422c24.655 0 45-20.03 45-45V121c0-24.694-20.057-45-45-45zm-6.302 30L287.82 277.967c-8.5 8.5-19.8 13.18-31.82 13.18s-23.32-4.681-31.848-13.208L51.302 106h409.396zM30 384.894V127.125L159.638 256.08 30 384.894zM51.321 406l129.587-128.763 22.059 21.943c14.166 14.166 33 21.967 53.033 21.967s38.867-7.801 53.005-21.939l22.087-21.971L460.679 406H51.321zM482 384.894 352.362 256.08 482 127.125v257.769z" fill="#000000" data-original="#000000"></path></g></svg><span>hello@knickknack.online</span></span>
                                 </Link>

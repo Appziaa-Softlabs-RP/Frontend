@@ -1,0 +1,81 @@
+.productsGlance{
+	margin-bottom: 10px;
+	padding: 10px 15px;
+	min-height: 90px;
+    border-radius: 4px;
+	background: #FFF;
+}
+.offerImgContainer {
+    width: 70px;
+    height: 70px;
+}
+.offerImgContainer img{
+    height: 100%;
+    width: 100%;
+}
+.offerItemName{
+    font-size: 15px;
+    line-height: 17px;
+    color: #212121;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 400;
+    white-space: normal;
+}
+.offerPrice{
+    font-size: 14px;
+    line-height: 16px;
+    color: #16253B;
+}
+.savePrice{
+	color: #00A100;
+    font-size: 13px;
+    font-weight: 500;
+}
+.itemQuantityBtnBox{
+	bottom: 10px;
+	right: 15px;
+    z-index: 9;
+}
+.itemQuantityBtnBox button{
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.itemQuantityBtn .decreaseBtn{
+	width: 20px;
+}
+.itemQuantityBtn{
+	padding-right: 0;
+    padding-left: 0;
+    margin-top: auto;
+    margin-bottom: 0px;
+	position: relative;
+	z-index: 9;
+}
+.countValue{
+	width: 20px;
+	text-align: center;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: default;
+	font-weight: 500;
+}
+.increaseBtn, .decreaseBtn{
+	cursor: pointer;
+	outline:none;
+	border:none;
+	color: #E88219;
+	display: inline-block;
+	width: 20px;
+	border-radius: 50%;
+	line-height: 15px;
+	height: 20px;
+	border: 1px solid #E88219;
+}

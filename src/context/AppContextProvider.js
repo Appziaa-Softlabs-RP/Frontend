@@ -4,6 +4,9 @@ export const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
   const initialValues = {
+    user: localStorage.getItem("bettoken"),
+    loggedIn: localStorage.getItem("bettoken") ? true : false,
+    fetchWallet : localStorage.getItem("bettoken") ? true : false,
   };
   const [appData, setAppData] = useState(initialValues);
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './BrandFocus.module.css';
-import OwlCarousel from 'react-owl-carousel';
+import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
@@ -10,7 +10,7 @@ export const BrandFocus = () => {
             <div className={`col-12 p-3 mt-4 d-inline-block`}>
                 <div className={`col-12 p-3 d-inline-block`}>
                     <h6 className={`${styles.brandInTitle} col-12 mb-3 mt-0`}>Brands in Focus</h6>
-                    <OwlCarousel className={`${styles.bannerContainer} col-12 pb-4 owl-theme`} margin={15} stagePadding={10} item={1}>
+                    <ReactOwlCarousel className={`${styles.bannerContainer} col-12 pb-4 owl-theme`} margin={15} stagePadding={10} item={1}>
                         
                         <div className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12`}>
                             <span className={`${styles.brandItemPhotoBox} position-relative col-12 d-inline-block`}>
@@ -23,7 +23,7 @@ export const BrandFocus = () => {
                             </div>
                         </div>
 
-                    </OwlCarousel>
+                    </ReactOwlCarousel>
                 </div>
             </div>
         </React.Fragment>

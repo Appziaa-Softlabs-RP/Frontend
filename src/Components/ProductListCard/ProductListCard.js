@@ -1,80 +1,82 @@
 import React from "react";
 import styles from './ProductListCard.module.css';
+import notAvail from '../../assets/images/image-not-available.jpg';
 
-export const ProductListCard = () => {
+export const ProductListCard = ({Product}) => {
+    let discountOff = '';
+    if(Product?.mrp > Product?.selling_price){
+        discountOff = ((Product?.mrp - Product?.selling_price) * 100) / Product?.mrp;
+        discountOff = Math.ceil(discountOff);
+    }
     return (
         <React.Fragment>
-            <div className="product_section_four container-fluid">
+            <div className="col-12 d-inline-flex flex-column px-3">
                 
-		<a className="products_glance col-12 pr-0 d-inline-block text-decoration-none">
-			<div className="col-md-12 p-0 d-inline-flex align-items-center">
-				<div className="offer-img-container float-left flex-shrink-0 text-decoration-none position-relative">
-					
-                    <img src="https://store.rewardsplus.in/uploads/app/public/company/product/{{$getProduct->photo}}" className="sec_eight_item_img"/>
+                <div className={`${styles.productsGlance} col-12 d-inline-block position-relative`}>
+                    <div className="col-12 p-0 d-inline-flex align-items-center">
+                        <div className={`${styles.offerImgContainer} flex-shrink-0 text-decoration-none position-relative d-inline-block`}>
+                            {Product?.image !== '' ? (
+                                <img src={Product?.image} alt={Product?.name} className="object-fit-contain"/>
+                            ) : (   
+                                <img src={notAvail} alt={Product?.name} className="object-fit-contain"/>
+                            )}
                             
-                    <img src="{{ asset('public/images/image-not-available.jpg')}}" className="sec_eight_item_img"/>
-                    
-                    <span className="sold-out-text position-absolute d-block">Sold Out</span>
-                    
-				</div>
-				<div className="col-8 float-left pr-0">
-					<div className="col-md-12 p-0">
-						<span className="item_name"><span className="offer-item-name text-decoration-none"></span></span>
-					</div>
-					<div className="offer-price-box d-inline-flex align-items-center col-md-12 mb-1 pl-0 flex-wrap">
-						
-							<span className="offer-price"><b>₹ </b></span>
+                            {Product?.stock === 0 &&
+                                <span className={`${styles.soldOutText} position-absolute d-inline-flex align-items-center`}>Sold Out</span>
+                            }
                             
-							<span className="offer-price"><b>₹ </b> <del>₹ </del></span>
-                            
-                            <span className="offer-percentage"> &nbsp;OFF</span>
-
-							<span className="save-price col-md-12 d-inline-block p-0 float-left">Save ₹ </span>
-                            
-					</div>
-				</div>
-			</div>
-			<div className="item-quantity-btn position-absolute">
-				<div className="col-2 item_quantity_btn">
-					<div className="col-12 p-0">
-						<input type="hidden" value="{{$store->id}}"/>
-						<input type="hidden" value="{{$getProduct->id}}"/>
-						<input type="hidden" value="{{$getProduct->company_id}}"/>
-					
-                    
-                        <div className="item-peice">
-                            <button className="d-inline-flex flex-shrink-0">
-	    						<span className="decrease_btn minus-icon">-</span>
-							</button>
-						 
-						    <span className="d-inline-flex flex-shrink-0">
-							    <input type="text" readonly className="countValue d-inline-block piece_value"/>
-						    </span>
-
-						    <button className="d-inline-flex flex-shrink-0">
-							    <span className="increase_btn plus-icon increase_btn">+</span>
-						    </button>
-					    </div>
-                        
-						<div className="item-peice">
-							<button className="d-inline-flex flex-shrink-0">
-								<span className="decrease_btn minus-icon">-</span>
-							</button>
-											
-                            <span className="d-inline-flex flex-shrink-0">
-                                <input type="text" readonly value="0" className="countValue piece_value"/>
-                            </span>
-
-                            <button className="d-inline-flex flex-shrink-0">
-								<span className="increase_btn plus-icon">+</span>
-                            </button>
                         </div>
-                         
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
+                        <div className="col-8 float-left ps-3">
+                            <div className="col-12 d-inline-flex">
+                                <span className={`${styles.offerItemName}`}>{Product?.name}</span>
+                            </div>
+                            <div className={`d-inline-flex align-items-center col-12 mb-1 flex-wrap`}>
+
+                                    {Product.selling_price === Product.mrp ? (
+                                        <span className={`${styles.offerPrice}`}><b>₹ {Product.mrp}</b></span>
+                                    ) : (
+                                        <React.Fragment>
+                                            <span className={`${styles.offerPrice}`}><b>₹ {Product.selling_price}</b> <del>₹ {Product.mrp}</del></span>
+                                            <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff} &nbsp;OFF</span>
+                                            <span className={`${styles.savePrice} col-12 d-inline-block p-0 float-left`}>Save ₹ {Product?.mrp - Product?.selling_price}</span>
+                                        </React.Fragment>
+                                    )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
+                        <div className={`${styles.itemQuantityBtn} col-2`}>
+                            <div className="col-12 p-0">
+                                <input type="hidden" value="{{$store->id}}"/>
+                                <input type="hidden" value="{{$getProduct->id}}"/>
+                                <input type="hidden" value="{{$getProduct->company_id}}"/>
+                            
+                            
+                                <div className={`${styles.itemPeice}`}>
+                                    <button className="d-inline-flex flex-shrink-0">
+                                        <span className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                    </button>
+                                </div>
+                                
+                                {/* <div className={`${styles.itemPeice}`}>
+                                    <button className="d-inline-flex flex-shrink-0">
+                                        <span className={`${styles.decreaseBtn} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                    </button>
+                                                    
+                                    <span className="d-inline-flex flex-shrink-0">
+                                        <input type="text" readOnly className={`${styles.countValue} d-inline-block`}/>
+                                    </span>
+
+                                    <button className="d-inline-flex flex-shrink-0">
+                                        <span className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                    </button>
+                                </div> */}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </React.Fragment>
     )
 }

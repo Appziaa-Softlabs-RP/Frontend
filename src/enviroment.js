@@ -1,5 +1,8 @@
 export const enviroment = {
+    API_BASE_URL: process.env.REACT_APP_API_BASE_URL,
     BUSINESS_NAME: process.env.REACT_APP_BUSINESS_NAME,
+    COMPANY_ID: process.env.REACT_APP_COMPANY_ID,
+    STORE_ID: process.env.REACT_APP_STORE_ID,
     PRIMARY_COLOR: process.env.REACT_APP_PRIMARY_COLOR,
     SECONDARY_COLOR: process.env.REACT_APP_SECONDARY_COLOR,
     MENU_HOVER_COLOR: process.env.REACT_APP_MENU_HOVER_COLOR,

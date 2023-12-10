@@ -3,18 +3,36 @@ import styles from './VerifyOtp.module.css';
 import { BackArrowIcon } from '../../Components/siteIcons';
 import OtpImg from '../../assets/images/mobile-otp.png';
 import { enviroment } from '../../enviroment';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContextProvider';
+import ApiService from '../../services/ApiService';
+import { AppNotification } from '../../utils/helper';
+
+
+let mobileOTP = '';
+let mobileOTPId = '';
 
 export const VerifyOtp = () => {
     const [optInput, setOptInput] = useState({otpInput1: '', otpInput2: '', otpInput3: '', otpInput4: ''});
+    const appData = useApp();
+
+
     const optInput1 = useRef();
     const optInput2 = useRef();
     const optInput3 = useRef();
     const optInput4 = useRef();
+    const locationState = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - User Verify';
+        console.log(locationState)
+        if(locationState?.state?.opt && locationState?.state?.optID){
+            mobileOTP = locationState.state.opt;
+            mobileOTPId = locationState.state.optID;
+        }else{
+            navigate('/');
+        }
     }, []);
 
     const changeOptInput1 = (e) => {
@@ -31,6 +49,32 @@ export const VerifyOtp = () => {
 
     const changeOptInput4 = (e) => {
         setOptInput({...optInput, otpInput4: e.target.value})
+    }
+
+    const proceedVerify = () => {
+        if(optInput.otpInput1 !== '' && optInput.otpInput2 !== '' && optInput.otpInput3 !== '' && optInput.otpInput4 !== ''){
+            let matchOTP = optInput.otpInput1+optInput.otpInput2+optInput.otpInput3+optInput.otpInput4;
+            matchOTP = parseInt(matchOTP);
+            console.log(mobileOTP, matchOTP);
+            if(mobileOTP === matchOTP){
+                const payload = {
+                    otp_id:mobileOTPId,
+                    otp:matchOTP,
+                    otp_type:"mobile"
+                }
+                ApiService.VerifyOTP(payload).then((res) => {
+                    if(res.message === "Successfully."){
+                        AppNotification('Welcome', 'OTP verified successfully.', 'success');
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }else{
+                AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
+            }
+        }else{
+            AppNotification('Error', 'Please enter OTP', 'danger');
+        }
     }
     
     useEffect(() => {
@@ -88,7 +132,7 @@ export const VerifyOtp = () => {
                         <span className={`${styles.resendInfo}`}>Didn't recieve the OTP?</span>&nbsp;<span className={`${styles.resendOtp}`}>Resend Code</span>
                     </div>
                     <div className="col-12 p-0 d-inline-block">
-                        <span role="button" className={`${styles.verifyBtn}  d-inline-flex align-items-center justify-content-center col-12`}>Verify &amp; Proceed</span>
+                        <span role="button" className={`${styles.verifyBtn}  d-inline-flex align-items-center justify-content-center col-12`} onClick={() => proceedVerify()}>Verify &amp; Proceed</span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,29 @@
+.lookingContainer{
+    background: #FFF;
+}
+.imgBox{
+    border-radius: 5px;
+    border: 2px solid #F9F01F;
+    transition: .2s;
+}
+.active .imgBox{
+    border: 2px solid var(--PRIMARY_COLOR);
+}
+.categoryProdName{
+    font-size: 12px;
+    line-height: 13px;
+    color: #495B71;
+}
+.productsItemsName{
+    padding: 10px 20px;
+    background: #FFF;
+    border-radius: 30px;
+    color: #16253B;
+    font-size: 14px;
+    line-height: 14px;
+    border: 1px solid transparent;
+    transition: .2s;
+}
+.productsItemsName.active{
+    border: 1px solid var(--PRIMARY_COLOR);
+}

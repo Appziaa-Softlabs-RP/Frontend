@@ -17,10 +17,11 @@ export const Home = () => {
                 <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 <HeroBanner/>
-                <ShopAge />
+                {/* <ShopAge /> */}
                 <CategoryShop />
-                <PromoBanner />
-                <BrandFocus/>
+                <PromoBanner type="Promo Banner" />
+                <PromoBanner type="Offers" />
+                {/* <BrandFocus/> */}
                 <Footer />
             </div>
         </React.Fragment>

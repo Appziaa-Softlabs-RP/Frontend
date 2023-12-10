@@ -1,20 +1,21 @@
 .backBox{
     height: 60px;
-    width: 50px;
+    width: 40px;
+    padding-top: 2px;
 }
 .backBox svg{
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
 }
 .PageHeader{
     height: 60px;
-    background: var(--PRIMARY-COLOR);
+    background: var(--PRIMARY_COLOR);
 }
 .cartQtyCount{
     color: #FFF;
     z-index: 9;
-    top: -5px;
-    right: -5px;
+    top: 10px;
+    right: 2px;
     width: 18px;
     height: 18px;
     line-height: 17px;
@@ -22,4 +23,9 @@
     font-size: 12px;
     background-color: #E86339;
     border-radius: 50%;
+}
+.currentName{
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
 }

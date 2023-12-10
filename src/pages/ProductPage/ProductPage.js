@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from './ProductPage.module.css';
-import OwlCarousel from 'react-owl-carousel';
+import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
@@ -12,36 +12,36 @@ export const ProductPage = () => {
             <div className="d-inline-flex flex-column col-12"></div>
             <PageHeader title={productTitle} />
             <div className="col-12 d-inline-block position-relative">
-                <div className={`${styles.productSoldOutBox} position-absolute col-md-12 p-0 h-100`}>
+                <div className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}>
                     <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>
                 </div>
-                <OwlCarousel className={`${styles.bannerContainer} col-12 d-inline-flex pb-4 owl-theme`} margin={0} loop dots>
+                <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-flex pb-4 owl-theme`} margin={0} loop dots>
                     <div className={`${styles.item} col-12 d-inline-block`}>
                         <img src="" alt="" className="object-fit-cover col-12 d-inline-block" />
                     </div>
-                </OwlCarousel>
+                </ReactOwlCarousel>
             </div>
 
-            <div className={`${styles.productAllDetail} col-md-12 d-inline-block`}>
-				<h2 className={`${styles.productDetailName} col-md-12 mb-1`}> </h2>
+            <div className={`${styles.productAllDetail} col-12 d-inline-block`}>
+				<h2 className={`${styles.productDetailName} col-12 mb-1`}> </h2>
 				<span className='ml-3 mb-2'>Item Code :  </span>
-				<div className={`${styles.offerPriceBox} d-inline-flex align-items-center col-md-12 mb-0 position-relative`}>
+				<div className={`${styles.offerPriceBox} d-inline-flex align-items-center col-12 mb-0 position-relative`}>
                     <span className={`${styles.offerPrice}`}><b>₹ </b></span>
                     
                     <span className={`${styles.offerPrice}`}><b>₹ </b> <del>₹ </del></span>
                     <span className={`${styles.offerPercentage}`}> &nbsp;OFF</span>
 				</div>
-				<span className={`${styles.inclusivTax} col-md-12 d-inline-block`}>(Inclusive of all taxes)</span>
+				<span className={`${styles.inclusivTax} col-12 d-inline-block`}>(Inclusive of all taxes)</span>
 			</div>
 
-            <div className={`${styles.availableSizes} col-md-12 d-none`}>
-				<h2 className={`${styles.availSizeTitle} mb-2 col-md-12 d-inline-block p-0`}>Available pack size</h2>
-				<div className={`${styles.availProdList} col-md-12 p-0`} id="avail-prod-list">
+            <div className={`${styles.availableSizes} col-12 d-none`}>
+				<h2 className={`${styles.availSizeTitle} mb-2 col-12 d-inline-block p-0`}>Available pack size</h2>
+				<div className={`${styles.availProdList} col-12 p-0`} id="avail-prod-list">
 					
-					<div className={`${styles.avialProdBox} col-md-12 d-inline-flex align-items-center`}>
+					<div className={`${styles.avialProdBox} col-12 d-inline-flex align-items-center`}>
 						<span className={`${styles.availQtyImage} overflow-hidden d-inline-block position-relative`}><img src="{{$ptvalue['image']}}"/></span>
 						<div className={`${styles.availProdDetail}`}>
-							<div className={`${styles.availPriceRow} d-inline-flex col-md-12 p-0 align-items-center justify-content-between`}>
+							<div className={`${styles.availPriceRow} d-inline-flex col-12 p-0 align-items-center justify-content-between`}>
 
                                 <span className={`${styles.availPrice}`}><b>₹ </b>&nbsp;<del>₹ </del></span>
                                 
@@ -50,7 +50,7 @@ export const ProductPage = () => {
 								<span className={`${styles.availQtyPrice}`}><b>₹ </b></span>
 							</div>
                             
-                            <div className={`${styles.savingOfferRow} col-md-12 p-0 d-inline-block`}>
+                            <div className={`${styles.savingOfferRow} col-12 p-0 d-inline-block`}>
                                 <span className={`${styles.offerPercentage} mr-0`}>
                                 </span>
                             </div>
@@ -59,10 +59,10 @@ export const ProductPage = () => {
 						<div className={`${styles.circleSelect} position-absolute d-inline-block`}></div>
 					</div>
                     
-					<div className={`${styles.avialProdBox} col-md-12 d-inline-flex align-items-center`}>
+					<div className={`${styles.avialProdBox} col-12 d-inline-flex align-items-center`}>
 						<span className={`${styles.availQtyImage} overflow-hidden d-inline-block position-relative`}><img src=" "/></span>
 						<div className={`${styles.availProdDetail}`}>
-							<div className={`${styles.availPriceRow} d-inline-flex col-md-12 p-0 align-items-center justify-content-between`}>
+							<div className={`${styles.availPriceRow} d-inline-flex col-12 p-0 align-items-center justify-content-between`}>
                                 
                                 <span className={`${styles.availPrice}`}><b>₹ </b>&nbsp;<del>₹ </del></span>
                                 
@@ -71,7 +71,7 @@ export const ProductPage = () => {
 								<span className={`${styles.availQtyPrice}`}><b>₹ </b></span>
 							</div>
                             
-                            <div className={`${styles.savingOfferRow} col-md-12 p-0 d-inline-block`}>
+                            <div className={`${styles.savingOfferRow} col-12 p-0 d-inline-block`}>
                                 <span className={`${styles.offerPercentage} mr-0`}> SAVINGS</span>
                             </div>
 						</div>
