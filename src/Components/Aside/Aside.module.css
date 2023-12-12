@@ -36,6 +36,11 @@
 	width: 20px;
 	fill: currentColor;
 }
+.loggedName{
+	font-weight: 700;
+	color: var(--PRIMARY_COLOR);
+	font-size: 16px;
+}
 .menuDrawerInnerContainer{
 	background: #FFF;
 	inset: 0;

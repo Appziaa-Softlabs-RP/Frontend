@@ -1,16 +1,16 @@
 .featuredProductBox{
 	margin-top: 20px;
-	background: #FFF;
+	background: #14273E;
 }
 .availSizeTitle{
     font-size: 16px;
 	line-height: 18px;
-	color: #16253B;
+	color: #FFF;
 }
 .smallTitle{
     font-size: 12px;
 	line-height: 12px;
-	color: #000;
+	color: #FFF;
 }
 .allFeaturedProduct{
 	white-space: nowrap;

@@ -26,7 +26,6 @@ export const VerifyOtp = () => {
 
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - User Verify';
-        console.log(locationState)
         if(locationState?.state?.opt && locationState?.state?.optID){
             mobileOTP = locationState.state.opt;
             mobileOTPId = locationState.state.optID;
@@ -64,10 +63,15 @@ export const VerifyOtp = () => {
                 }
                 ApiService.VerifyOTP(payload).then((res) => {
                     if(res.message === "Successfully."){
+                        appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
+                        localStorage.setItem('user', JSON.stringify(res.payload));
+                        localStorage.setItem('loggedIn', true);
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
+                        navigate('/');
                     }
                 }).catch((err) => {
                     console.log(err);
+                    AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
                 });
             }else{
                 AppNotification('Error', 'Entered OTP is incorrect.', 'danger');

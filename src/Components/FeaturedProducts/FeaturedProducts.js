@@ -4,13 +4,11 @@ import styles from './FeaturedProducts.module.css';
 export const FeaturedProducts = () => {
     return (
         <React.Fragment>
-            <div className={`${styles.featuredProductBox} col-12 d-inline-block p-0`}>
-				<h2 className={`${styles.availSizeTitle} mb-0 mt-3 col-12 d-inline-flex align-items-center justify-content-between`}>Featured Products</h2>
-				<span className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left`}>Hurry Up ! Steal  your deals now</span>
+            <div className={`${styles.featuredProductBox} col-12 d-inline-block py-4`}>
+				<h2 className={`${styles.availSizeTitle} m-0 col-12 d-inline-flex align-items-center justify-content-between px-4`}>Featured Products</h2>
+				<span className={`${styles.smallTitle} col-12 mb-3 mt-0 d-inline-block float-left px-4`}>Hurry Up ! Steal  your deals now</span>
 
-				<div className={`${styles.allFeaturedProduct} col-12 mb-3`}>
-
-
+				<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4`}>
 					<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`}>
                         
                         <span className={`${styles.featureOffBox} float-right`}>  OFF</span>
@@ -36,11 +34,6 @@ export const FeaturedProducts = () => {
                         </div>
                             
 						<div className={`${styles.itemQuantityBtn} position-absolute`}>
-							<input type="hidden" value="{{$store->id}}"/>
-						    <input type="hidden" value="{{$fvalue['product_id']}}"/>
-						    <input type="hidden" value="{{$fvalue->company_id}}"/>
-                            
-
                             <span id="quant_input">
                                 <input type="text" readonly value="0"  className={`${styles.countValue} d-inline-block`}/>
                             </span>

@@ -4,11 +4,11 @@ import styles from './SimilarProduct.module.css';
 export const SimilarProduct = () => {
     return (
         <React.Fragment>
-            <div className={`${styles.similarProductBox} col-12 d-inline-block p-0`}>
-				<h2 className={`${styles.availSizeTitle} mb-0 mt-3 col-12 d-inline-flex align-items-center justify-content-between`}>Similar Products</h2>
-				<span className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left`}>Explore similar products</span>
+            <div className={`${styles.similarProductBox} col-12 d-inline-block py-4`}>
+				<h2 className={`${styles.availSizeTitle} m-0 col-12 d-inline-flex align-items-center justify-content-between px-4`}>Similar Products</h2>
+				<span className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left px-4`}>Explore similar products</span>
 
-				<div className={`${styles.allFeaturedProduct} col-12 mb-3`}>
+				<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4`}>
 
 
 					<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`}>
@@ -36,10 +36,6 @@ export const SimilarProduct = () => {
                         </div>
                             
 						<div className={`${styles.itemQuantityBtn} position-absolute`}>
-							<input type="hidden" value="{{$store->id}}"/>
-						    <input type="hidden" value="{{$fvalue['product_id']}}"/>
-						    <input type="hidden" value="{{$fvalue->company_id}}"/>
-                            
 
                             <span id="quant_input">
                                 <input type="text" readonly value="0"  className={`${styles.countValue} d-inline-block`}/>

@@ -1,3 +1,5 @@
+import ApiService from "../services/ApiService";
+import { enviroment } from "../enviroment";
 import { Store } from 'react-notifications-component';
 
 export const AppNotification = (title, message, type) => {
@@ -14,4 +16,25 @@ export const AppNotification = (title, message, type) => {
       onScreen: true
     }
   });
+}
+
+export const AddToCart = (customerId, ProductId, Name, mrp, sellingPrice, quantity, noOfQty, hotDeals, dealId) => {
+  const payload = {
+    compnay_id: enviroment.COMPANY_ID,
+    store_id: enviroment.STORE_ID,
+    customer_id: customerId,
+    product_id: ProductId,
+    product_name:Name,
+    mrp: mrp,
+    selling_price:sellingPrice,
+    quantity: quantity,
+    no_of_quantity_allowed: noOfQty,
+    is_hot_deals: hotDeals,
+    deal_type_id: dealId
+  }
+  ApiService.addToCart(payload).then((res) => {
+    return res;
+  }).catch((err) => {
+    return err;
+  })
 }
