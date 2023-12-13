@@ -26,6 +26,7 @@ export const VerifyOtp = () => {
 
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - User Verify';
+        console.log(locationState)
         if(locationState?.state?.opt && locationState?.state?.optID){
             mobileOTP = locationState.state.opt;
             mobileOTPId = locationState.state.optID;
