@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from './ProductPage.module.css';
 import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';

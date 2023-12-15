@@ -4,10 +4,13 @@ import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { OrderIcon, UserIcon, LocationIcon, ServiceIcon, NotificationIcon, LogoutIcon } from "../../Components/siteIcons";
 import { useApp } from '../../context/AppContextProvider';
 import { enviroment } from "../../enviroment";
+import { useNavigate } from "react-router-dom";
 
 export const MyAccount = () => {
     const appData = useApp();
     const userInfo = JSON.parse(appData?.appData?.user);
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - My Account';
     }, []);
@@ -26,7 +29,7 @@ export const MyAccount = () => {
                     </div>
                 </div>
                 <div className={`${styles.loginBox} d-inline-flex flex-column col-12 gap-2 py-4 p-3`}>
-                    <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`}>
+                    <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-orders')}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                             <OrderIcon color="#454545"/>
                         </span>

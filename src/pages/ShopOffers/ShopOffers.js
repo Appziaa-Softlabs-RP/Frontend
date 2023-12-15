@@ -1,10 +1,10 @@
 import React from "react";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 
-export const ShoppingCart = () => {
+export const ShopOffers = () => {
     return (
         <React.Fragment>
-            <PageHeader title="Personal Cart" hide={true}/>
+            <PageHeader title="Offers" />
         </React.Fragment>
     )
 }

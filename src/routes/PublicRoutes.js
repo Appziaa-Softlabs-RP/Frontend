@@ -10,6 +10,9 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 import { MyAccount } from "../pages/MyAccount/MyAccount";
 import { Offers } from "../pages/Offers/Offers";
 import { ShoppingCart } from "../pages/ShoppingCart/ShoppingCart";
+import { MyOrders } from "../pages/MyOrders/MyOrders";
+import { ShopOffers } from "../pages/ShopOffers/ShopOffers";
+import { OrderDetails } from "../pages/OrderDetails/OrderDetails";
 
 export const PublicRoutes = () => {
   return (
@@ -19,6 +22,7 @@ export const PublicRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product" element={<ProductPage />} />
+      <Route path="/offers" element={<ShopOffers />} />
       <Route path="/store/:category" element={<SubCategoryPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route
@@ -28,6 +32,14 @@ export const PublicRoutes = () => {
       <Route
         path="/checkout"
         element={<ProtectedRoutes element={<ShoppingCart />} />}
+      />
+      <Route
+        path="/my-orders"
+        element={<ProtectedRoutes element={<MyOrders />} />}
+      />
+      <Route
+        path="/order-details"
+        element={<ProtectedRoutes element={<OrderDetails />} />}
       />
       <Route path="*" element={<Home />} />
     </Routes>

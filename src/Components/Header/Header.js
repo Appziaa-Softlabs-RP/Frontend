@@ -3,10 +3,12 @@ import styles from './Header.module.css';
 import { MenuIcons, CartIcon } from "../siteIcons";
 import siteLogo from '../../assets/images/site_logo.png';
 import { enviroment } from "../../enviroment";
+import { useNavigate } from "react-router-dom";
 
 export const Header = ({setAsideOpen, asideOpen}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
+    const navigate = useNavigate();
 
     const openAsideMenu = () => {
         if(asideOpen === true){
@@ -14,6 +16,10 @@ export const Header = ({setAsideOpen, asideOpen}) => {
         }else{
             setAsideOpen(true);
         }
+    }
+
+    const openCart = () => {
+        navigate('/checkout')
     }
 
     return (
@@ -26,7 +32,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                     <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}>
                         <img src={siteLogo} alt="Logo" className="object-fit-contain" />
                     </span>
-                    <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`}>
+                    <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`} onClick={() => openCart()}>
                         <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{cartCount}</span>
                         <CartIcon color={enviroment.SECONDARY_COLOR} />
                     </span>

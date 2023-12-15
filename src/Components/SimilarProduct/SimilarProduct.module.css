@@ -9,7 +9,6 @@
 }
 .smallTitle{
     font-size: 12px;
-	line-height: 12px;
 	color: #000;
 }
 .allFeaturedProduct{
@@ -136,13 +135,9 @@
 }
 .increaseBtn, .decreaseBtn{
 	cursor: pointer;
-	outline:none;
-	border:none;
 	color: #E88219;
-	display: inline-block;
 	width: 20px;
 	border-radius: 50%;
-	line-height: 15px;
 	height: 20px;
 	border: 1px solid #E88219;
 }
