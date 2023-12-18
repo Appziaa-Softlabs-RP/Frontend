@@ -1,0 +1,18 @@
+.orderDetailBox{
+    background: #FFF;
+    border-radius: 6px;
+}
+.orderDescript, .orderDetailTitle{
+    font-size: 15px;
+    color: #111;
+}
+.orderDescript{
+    font-size: 14px;
+}
+.amountLabel, .amountTotal{
+    font-size: 16px;
+    color: #111;
+}
+.amountTotal{
+    font-weight: 700;
+}

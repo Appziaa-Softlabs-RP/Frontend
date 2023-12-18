@@ -13,6 +13,8 @@ import { ShoppingCart } from "../pages/ShoppingCart/ShoppingCart";
 import { MyOrders } from "../pages/MyOrders/MyOrders";
 import { ShopOffers } from "../pages/ShopOffers/ShopOffers";
 import { OrderDetails } from "../pages/OrderDetails/OrderDetails";
+import { MyAddress } from "../pages/MyAddress/MyAddress";
+import { AddAddress } from "../pages/AddAddress/AddAddress";
 
 export const PublicRoutes = () => {
   return (
@@ -40,6 +42,14 @@ export const PublicRoutes = () => {
       <Route
         path="/order-details"
         element={<ProtectedRoutes element={<OrderDetails />} />}
+      />
+      <Route
+        path="/my-address"
+        element={<ProtectedRoutes element={<MyAddress />} />}
+      />
+      <Route
+        path="/add-new-address"
+        element={<ProtectedRoutes element={<AddAddress />} />}
       />
       <Route path="*" element={<Home />} />
     </Routes>

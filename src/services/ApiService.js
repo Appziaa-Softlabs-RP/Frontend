@@ -98,4 +98,12 @@ ApiService.productDetails = function (data) {
   })
 }
 
+ApiService.orderList = function (data) {
+  return fetch({
+    url: "store/orderList",
+    method: "post",
+    data: data
+  })
+}
+
 export default ApiService;

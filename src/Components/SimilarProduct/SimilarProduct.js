@@ -1,7 +1,28 @@
 import React from "react";
 import styles from './SimilarProduct.module.css';
+import { enviroment } from "../../enviroment";
+import { useNavigate } from "react-router-dom";
+import ApiService from "../../services/ApiService";
+import { AppNotification } from "../../utils/helper";
 
 export const SimilarProduct = ({product}) => {
+    const navigate = useNavigate();
+    const showProductDetail = (id) => {
+        const payload = {
+            product_id: id,
+            company_id: enviroment.COMPANY_ID,
+            store_id: enviroment.STORE_ID
+        }
+        ApiService.productDetails(payload).then((res) => {
+            if(res.message === "Product Detail"){
+                navigate('/product', {state: {product: res.payload}})
+            }else{
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');     
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'Sorry, Product detail not found.', 'danger'); 
+        });
+    }
     return (
         <React.Fragment>
             <div className={`${styles.similarProductBox} col-12 d-inline-flex flex-column py-4`}>
@@ -11,7 +32,7 @@ export const SimilarProduct = ({product}) => {
 				<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4`}>
 					{product?.map((item, index) => {
 						return (
-							<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`} key={index}>
+							<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`} key={index} onClick={() => showProductDetail(item.product_id)}>
 								{item.mrp > item.selling_price && 
 								<span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}  OFF</span>
 								}

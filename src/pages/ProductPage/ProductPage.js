@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from './ProductPage.module.css';
 import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -11,7 +11,6 @@ import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 export const ProductPage = () => {
     const locationState = useLocation();
     const ProductData = locationState?.state?.product;
-    console.log(ProductData);
     let discountOff = '';
     if(ProductData?.mrp > ProductData?.selling_price){
         discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
@@ -27,6 +26,10 @@ export const ProductPage = () => {
     const openProductColpse = () => {
 
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[locationState]);
     return (
         <React.Fragment>
             <PageHeader title={ProductData?.name} />
@@ -74,19 +77,19 @@ export const ProductPage = () => {
                 <div className={`${styles.productCollapseBox} col-12 d-inline-block p-0`} onClick={openProductColpse(this)}>
 					<button className={`${styles.productTabBox} col-12 text-decoration-none cursor-pointer d-inline-flex align-items-center justify-content-between`}><span>Other Info</span>&nbsp;<span className="close-icon position-relative"></span></button>
 					<p className={`${styles.productDetailText} col-12 p-0`}>
-						<strong>Type: </strong>{ProductData?.other?.type}<br/>
-						<strong>Model Name: </strong>{ProductData?.other?.model_name} <br/>
-						<strong>Shelf Life: </strong>{ProductData?.other?.shelf_life} <br/>
-						<strong>Shelf Life Month Years: </strong>{ProductData?.other?.shelf_life_month_years} <br/>
-						<strong>Container Type: </strong>{ProductData?.other?.container_type} <br/>
-						<strong>Organic: </strong>{ProductData?.other?.organic} <br/>
-						<strong>Polished: </strong>{ProductData?.other?.polished} <br/>
-						<strong>Package Dimension Length: </strong>{ProductData?.other?.package_dimension_length} <br/>
-						<strong>Package Dimension Width: </strong>{ProductData?.other?.package_dimension_width} <br/>
-						<strong>Package Dimension Height: </strong>{ProductData?.other?.package_dimension_height} <br/>
-						<strong>Manufactured By: </strong>{ProductData?.other?.manufactured_by} <br/>
-						<strong>Packed By: </strong>{ProductData?.other?.packed_by} <br/>
-						<strong>Exp Date: </strong>{ProductData?.other?.exp_date} <br/>
+						{ProductData?.other?.type && <React.Fragment><strong>Type: </strong>{ProductData?.other?.type}<br/></React.Fragment>}
+						{ProductData?.other?.model_name && <React.Fragment><strong>Model Name: </strong>{ProductData?.other?.model_name} <br/></React.Fragment>}
+						{ProductData?.other?.shelf_life && <React.Fragment><strong>Shelf Life: </strong>{ProductData?.other?.shelf_life} <br/></React.Fragment>}
+						{ProductData?.other?.shelf_life_month_years && <React.Fragment><strong>Shelf Life Month Years: </strong>{ProductData?.other?.shelf_life_month_years} <br/></React.Fragment>}
+						{ProductData?.other?.container_type && <React.Fragment><strong>Container Type: </strong>{ProductData?.other?.container_type} <br/></React.Fragment>}
+						{ProductData?.other?.organic && <React.Fragment><strong>Organic: </strong>{ProductData?.other?.organic} <br/></React.Fragment>}
+						{ProductData?.other?.polished && <React.Fragment><strong>Polished: </strong>{ProductData?.other?.polished} <br/></React.Fragment>}
+						{ProductData?.other?.package_dimension_length && <React.Fragment><strong>Package Dimension Length: </strong>{ProductData?.other?.package_dimension_length} <br/></React.Fragment>}
+						{ProductData?.other?.package_dimension_width && <React.Fragment><strong>Package Dimension Width: </strong>{ProductData?.other?.package_dimension_width} <br/></React.Fragment>}
+						{ProductData?.other?.package_dimension_height && <React.Fragment><strong>Package Dimension Height: </strong>{ProductData?.other?.package_dimension_height} <br/></React.Fragment>}
+						{ProductData?.other?.manufactured_by && <React.Fragment><strong>Manufactured By: </strong>{ProductData?.other?.manufactured_by} <br/></React.Fragment>}
+						{ProductData?.other?.packed_by && <React.Fragment><strong>Packed By: </strong>{ProductData?.other?.packed_by} <br/></React.Fragment>}
+						{ProductData?.other?.exp_date && <React.Fragment><strong>Exp Date: </strong>{ProductData?.other?.exp_date} <br/></React.Fragment>}
 					</p>
 				</div>
                 }

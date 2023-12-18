@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import styles from "./MyAccount.module.css";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { OrderIcon, UserIcon, LocationIcon, ServiceIcon, NotificationIcon, LogoutIcon } from "../../Components/siteIcons";
+import { OrderIcon, UserIcon, LocationIcon, LogoutIcon } from "../../Components/siteIcons";
 import { useApp } from '../../context/AppContextProvider';
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
 
 export const MyAccount = () => {
     const appData = useApp();
@@ -35,13 +36,13 @@ export const MyAccount = () => {
                         </span>
                         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>My Orders</h6>
                     </div>
-                    <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`}>
+                    <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-address')}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                             <LocationIcon color="#454545" />
                         </span>
                         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Delivery Address</h6>
                     </div>
-                    <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`}>
+                    {/* <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                             <ServiceIcon color="#454545" />
                         </span>
@@ -52,7 +53,7 @@ export const MyAccount = () => {
                             <NotificationIcon color="#454545" />
                         </span>
                         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Notification</h6>
-                    </div>
+                    </div> */}
                     <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                             <LogoutIcon color="#CF102E" />
@@ -61,6 +62,7 @@ export const MyAccount = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </React.Fragment>
     )
 }
