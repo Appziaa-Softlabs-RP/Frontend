@@ -1,0 +1,29 @@
+.addedAdres{
+    background: #FFF;
+}
+.addressName{
+    color: #14273E;
+    font-size: 16px;
+    font-weight: 700;
+}
+.addressTag{
+    color: #676E8A;
+    font-size: 12px;
+    border-radius: 2px;
+    background-color: #E4E9F2;
+}
+.addressdetail{
+    color: #000;
+    font-size: 14px;
+}
+.deleteBtn, .editBtn{
+    height: 30px;
+    color: #DD5E5E;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.editBtn{
+    border: 1px solid #CF102E;
+    color: #CF102E;
+}

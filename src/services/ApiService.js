@@ -106,4 +106,20 @@ ApiService.orderList = function (data) {
   })
 }
 
+ApiService.addressList = function (data) {
+  return fetch({
+    url: "store/addressList",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.addNewAddress = function (data) {
+  return fetch({
+    url: "store/addToaddress",
+    method: "post",
+    data: data
+  })
+}
+
 export default ApiService;
