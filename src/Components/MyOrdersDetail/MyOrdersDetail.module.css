@@ -1,0 +1,28 @@
+.orderItems{
+    font-size: 18px;
+    color: #111;
+}
+.orderBox{
+    background: #FFF;
+}
+.orderLabel{
+    font-size: 16px;
+    color: #111;
+}
+.orderImag{
+    height: 50px;
+    width: 50px;
+}
+.orderItemName{
+    font-size: 12px;
+    font-weight: 700;
+    color: #111;
+}
+.itemName{
+    font-size: 11px;
+    color: #676E8A;
+}
+.itemPrice{
+    font-size: 14px;
+    color: #676E8A;
+}

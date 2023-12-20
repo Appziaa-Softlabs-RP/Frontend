@@ -90,6 +90,46 @@ ApiService.addToCart = function (data) {
   })
 }
 
+ApiService.addToCart = function (data) {
+  return fetch({
+    url: "store/addToCart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.similarProd = function (data) {
+  return fetch({
+    url: "store/cartSimilarProduct",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.showCart = function (data) {
+  return fetch({
+    url: "store/cartList",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateCart = function (data) {
+  return fetch({
+    url: "store/updateTocart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.removeCart = function (data) {
+  return fetch({
+    url: "store/removeTocart",
+    method: "post",
+    data: data
+  })
+}
+
 ApiService.productDetails = function (data) {
   return fetch({
     url: "store/productDetail",
@@ -106,6 +146,38 @@ ApiService.orderList = function (data) {
   })
 }
 
+ApiService.getOrderDetail = function (data) {
+  return fetch({
+    url: "store/orderDetails",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.orderCancel = function (data) {
+  return fetch({
+    url: "store/orderCancelled",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.orderReschdule = function (data) {
+  return fetch({
+    url: "store/orderReschedule",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.orderItemCancel = function (data) {
+  return fetch({
+    url: "store/orderItemCancel",
+    method: "post",
+    data: data
+  })
+}
+
 ApiService.addressList = function (data) {
   return fetch({
     url: "store/addressList",
@@ -117,6 +189,30 @@ ApiService.addressList = function (data) {
 ApiService.addNewAddress = function (data) {
   return fetch({
     url: "store/addToaddress",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateAddress = function (data) {
+  return fetch({
+    url: "store/updateToaddress",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.removeAddress = function (data) {
+  return fetch({
+    url: "store/removeToaddress",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.getAddressDetail = function (data) {
+  return fetch({
+    url: "store/addressDetail",
     method: "post",
     data: data
   })

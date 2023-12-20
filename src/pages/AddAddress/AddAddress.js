@@ -5,9 +5,11 @@ import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { useApp } from "../../context/AppContextProvider";
 import { AppNotification } from "../../utils/helper";
+import { useNavigate } from "react-router-dom";
 
 export const AddAddress = () => {
     const appData = useApp();
+    const navigate = useNavigate();
     const userInfo = JSON.parse(appData.appData.user);
     const [addressObj, setAddressObj] = useState({
         store_id: enviroment.STORE_ID,
@@ -47,9 +49,14 @@ export const AddAddress = () => {
             AppNotification('Error', 'Please choose your address type.', 'danger');
         }else{
             ApiService.addNewAddress(addressObj).then((res) => {
-                console.log(res);
+                if(res.message === 'Add successfully.'){
+                    AppNotification('Address Added', 'Your address has been saved successfully', 'success');
+                    navigate('/my-address');
+                }else{
+                    AppNotification('Error', 'We got an error while saving your address.', 'danger');
+                }
             }).catch((err) => {
-                console.log(err);
+                AppNotification('Error', 'We got an error while saving your address.', 'danger');
             });
         }
     }
