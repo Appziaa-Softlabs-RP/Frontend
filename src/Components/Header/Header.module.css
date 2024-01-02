@@ -36,3 +36,105 @@
 .searchProdInput:focus{
     outline: none;
 }
+.topHeaderSale{
+    background: #009CDE;
+    height: 30px;
+}
+.dealsLink{
+    font-size: 13px;
+    color: #FFF;
+}
+.headerRow{
+    background: var(--PRIMARY_COLOR);
+    height: 74px;
+}
+/* Desktop CSS */
+.supportDrop svg{
+	height: 20px;
+	width: 20px;
+}
+.supportDrop .supportText{
+	font-size: 16px;
+	color: #FFF;
+	font-weight: 500;
+}
+.supportDropDown{
+	opacity: 0;
+	visibility: hidden;
+	background: #FFF;
+	left: 50%;
+	transition: all ease 400ms;
+	-webkit-transition: all ease 400ms;
+	-webkit-transform: translateX(-50%) translateY(200px);
+	transform: translateX(-50%) translateY(200px);
+	top: 70px;
+	width: 320px;
+	border-radius: 4px;
+	box-shadow: 1px 1px 0px 2px rgba(0,0,0,0.10);
+	z-index: 5;
+	padding: 20px;
+}
+.supportDrop:hover .supportDropDown{
+	transform: translateX(-50%) translateY(0%);
+	-webkit-transform: translateX(-50%) translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}
+.timingPhoneBox{
+	background: #e0f9fe;
+	padding: 10px;
+	border-radius: 10px;
+}
+.timingPhoneBox .timingCallIcon {
+    position: absolute;
+    height: 25px;
+    top: 50%;
+    margin-top: -12px;
+}
+.supportTimings{
+	font-size: 14px;
+	color: #000;
+	line-height: 1.5;
+}
+.supportPhoneNumber, .mailtoEmail{
+	font-size: 18px;
+	color: #000;
+	font-weight: 600;
+	line-height: 2;
+}
+.mailtoBox{
+	background: #f8f8f8;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0px;
+}
+.mailtoBox svg{
+	height: 25px;
+	width: 25px;
+}
+.supportLinks{
+	font-size: 14px;
+	color: #000;
+}
+.dotSymbol{
+	font-size: 20px;
+	color: #000;
+}
+.searchIcon, .searchIcon svg{
+    height: 20px;
+    width: 20px;
+}
+.inputSearch{
+    height: 45px;
+    border-radius: 6px;
+    background: #FFF;
+    font-size: 16px;
+    color: #000;
+    border: none;
+    box-shadow: none;
+}
+.inputSearch:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+}

@@ -14,4 +14,7 @@ export const enviroment = {
     INSTAGRAM_LINK: process.env.REACT_APP_INSTAGRAM_LINK,
     TWITTER_LINK: process.env.REACT_APP_TWITTER_LINK,
     LINKEDIN_LINK: process.env.REACT_APP_LINKEDIN_LINK,
+    YOUTUBE_LINK: process.env.REACT_APP_YOUTUBE_LINK,
+    GOOGLE_APP: process.env.REACT_APP_GOOGLE_APP,
+    APPLE_APP: process.env.REACT_APP_APPLE_APP,
 }

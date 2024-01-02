@@ -7,6 +7,8 @@ export const AppProvider = ({ children }) => {
     user: localStorage.getItem("user"),
     loggedIn: localStorage.getItem("loggedIn") ? true : false,
     fetchWallet : localStorage.getItem("bettoken") ? true : false,
+    windowWidth: window.innerWidth > 560 ? "desktop" : "mobile",
+    cartCount: 0,
   };
   const [appData, setAppData] = useState(initialValues);
   return (
