@@ -1,39 +1,130 @@
-
-.siteFooter{
+.siteFooter {
 	background: #f9f9fb;
 	padding: 30px 20px 10px 20px;
 	margin-top: 50px;
 }
-.footerBlocks{
+
+.footerBlocks {
 	gap: 30px;
 }
-.footerBlocks .footerBlock{
+
+.footerBlocks .footerBlock {
 	width: calc(50% - 15px);
 	float: left;
 }
-.footerTitle{
+
+.footerTitle {
 	margin-bottom: 15px;
-    font-weight: 700;
+	font-weight: 700;
 	font-size: 15px;
 	color: #000;
 }
-.footerMenu li a{
+
+.footerMenu li a {
 	display: inline-block;
-    padding: 4px 0;
+	padding: 4px 0;
 	color: #000;
 	font-size: 14px;
 }
-.footerMenu li svg{
+
+.footerMenu li svg {
 	height: 20px;
 	width: 20px;
 	display: inline-block;
 	margin-right: 10px;
 }
-.footerIconLink{
-	gap: 10px;	
+
+.footerIconLink {
+	gap: 10px;
 }
-.footerSection{
+
+.footerSection {
 	margin-top: 15px;
 	padding: 15px;
-	border-top: 1px solid #e8e8e1
+	border-top: 1px solid #e8e8e1;
+}
+
+/* Desktop CSS */
+.footerContainer {
+	margin-top: 20px;
+	background-color: #fff2c5;
+	padding-top: 10px;
+}
+.imgBoxText .imgBoxTitle {
+	font-size: 18px;
+}
+.imgBoxText .imgBoxDesc {
+	font-size: 13px;
+}
+.livetracking {
+	width: 70px;
+}
+.fasttruck {
+	width: 95px;
+}
+.livetracking {
+	margin-top: 10px;
+}
+.imgBoxImg {
+	min-height: 95px;
+}
+.footerTabCol h5 {
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+}
+.footerTabCol ul li a {
+	color: #555;
+	font-size: 14px;
+}
+.footer_section_five .copyright_section {
+	display: flex;
+	justify-content: space-between;
+}
+.copyright .fa-heart {
+	color: red;
+}
+.copyright p {
+	font-size: 14px;
+}
+.social-Icon .fa {
+	font-size: 20px;
+}
+
+.footerTabCol ul .facebook a:hover {
+	color: #4267B2;
+}
+
+.footerTabCol ul .twitter a:hover {
+	color: #00ACEE;
+}
+
+.footerTabCol ul .instagram a:hover {
+	color: #833AB4;
+}
+
+.footerTabCol ul .youtube a:hover {
+	color: #FF0000;
+}
+
+.whats-app-link {
+	font-size: 12px;
+	color: #555;
+}
+
+.whats-app-link .fa-whatsapp {
+	font-size: 20px;
+}
+
+.whats-app-link:hover {
+	color: #2874f0;
+	text-decoration: none;
+}
+
+.whats-app-link:hover span {
+	text-decoration: underline;
+}
+
+.whats-app-link:hover .fa-whatsapp {
+	color: #128C7E;
 }

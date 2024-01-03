@@ -63,7 +63,7 @@ export const VerifyOtp = () => {
                     otp_type:"mobile"
                 }
                 ApiService.VerifyOTP(payload).then((res) => {
-                    if(res.message === "Successfully."){
+                    if(res.message === "Registration successfully."){
                         appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
                         localStorage.setItem('user', JSON.stringify(res.payload));
                         localStorage.setItem('loggedIn', true);
@@ -71,7 +71,6 @@ export const VerifyOtp = () => {
                         navigate('/');
                     }
                 }).catch((err) => {
-                    console.log(err);
                     AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
                 });
             }else{

@@ -20,7 +20,7 @@ ApiService.PromoBanner = function (data) {
 
 ApiService.sendOTP = function (data) {
   return fetch({
-    url: "company/sendotp",
+    url: "user/sendotp",
     method: "post",
     data: data
   })
@@ -28,7 +28,7 @@ ApiService.sendOTP = function (data) {
 
 ApiService.VerifyOTP = function (data) {
   return fetch({
-    url: "company/verifyotp",
+    url: "user/verifyotp",
     method: "post",
     data: data
   })

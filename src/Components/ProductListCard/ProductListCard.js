@@ -66,7 +66,6 @@ export const ProductListCard = ({Product}) => {
                             {Product?.stock === 0 &&
                                 <span className={`${styles.soldOutText} position-absolute d-inline-flex align-items-center`}>Sold Out</span>
                             }
-                            
                         </div>
                         <div className="col-8 float-left ps-3">
                             <div className="col-12 d-inline-flex">

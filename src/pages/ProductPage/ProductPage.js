@@ -66,7 +66,7 @@ export const ProductPage = () => {
 				<span className={`${styles.inclusivTax} col-12 d-inline-block`}>(Inclusive of all taxes)</span>
 			</div>
 
-			<div className={`${styles.productDesciptionBox} col-12 d-inline-block mb-5 p-4`}>
+			<div className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}>
 				<h2 className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}>Product Details</h2>
                 <div className={`${styles.productCollapseBox} mb-4 active col-12 d-inline-block p-0`} onClick={openProductColpse(this)}>
                     <button className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}><span>About product</span>&nbsp;<span className="close-icon position-relative"></span></button>
