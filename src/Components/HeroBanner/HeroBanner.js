@@ -10,7 +10,6 @@ export const HeroBanner = ({allBanner}) => {
     let windowWidth = appData.appData.windowWidth;
     return (
         <React.Fragment>
-            {console.log(allBanner)}
             {windowWidth === "mobile" ? (
                 <div className={`${styles.heroBannerContainer} col-12 d-inline-flex p-3`}>
                     <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={5} loop={true} dots={true} stagePadding={10} items={1}>

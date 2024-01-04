@@ -28,7 +28,7 @@ export const Aside = ({asideOpen, setAsideOpen}) => {
                                 </svg>
                                 <div className={`${styles.loginUserDetail} flex-grow-1 d-inline-flex flex-column`}>
                                     {userInfo?.name && <span className={`${styles.loggedName} text-left col-12 d-inline-block`}>{userInfo?.name}</span>}
-                                    <span className={`${styles.loggedPhone} text-left col-12 d-inline-block`}>+91- {userInfo?.mobile}</span>
+                                    <span className={`${styles.loggedPhone} text-left col-12 d-inline-block`}>+91- {userInfo?.contact}</span>
                                 </div>
                             </div>
                         ) : (

@@ -13,3 +13,8 @@
     background: yellow;
     border-radius: 10px;
 }
+/* Desktop CSS */
+.categoryHeaderTitle{
+    font-size: 20px;
+    font-weight: 700;
+}

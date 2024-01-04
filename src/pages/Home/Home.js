@@ -32,6 +32,11 @@ export const Home = () => {
             store_id: enviroment.STORE_ID
         };
         fetchBanner(payload);
+        ApiService.NewArivalCategory(payload).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+
+        });
     }, []);
     return (
         <React.Fragment>

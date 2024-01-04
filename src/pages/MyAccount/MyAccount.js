@@ -24,8 +24,8 @@ export const MyAccount = () => {
                         <UserIcon color="#000" />
                     </div>
                     <div className="d-inline-flex flex-column flex-grow-1">
-                        {userInfo?.name && <h5 className={`${styles.profileName} col-12 d-inline-block mb-0`}></h5>}
-                        <span className={`${styles.profileNumber} col-12 d-inline-block`}>+91- {userInfo?.mobile}</span>
+                        {userInfo?.name && <h5 className={`${styles.profileName} col-12 d-inline-block mb-0`}>{userInfo?.name}</h5>}
+                        <span className={`${styles.profileNumber} col-12 d-inline-block`}>+91- {userInfo?.contact}</span>
                         <span className={`${styles.profileEmail} col-12 d-inline-block`}></span>
                     </div>
                 </div>

@@ -34,6 +34,14 @@ ApiService.VerifyOTP = function (data) {
   })
 }
 
+ApiService.NewArivalCategory = function (data) {
+  return fetch({
+    url: "store/newarrivalCategory",
+    method: "post",
+    data: data
+  })
+}
+
 ApiService.StoreCategory = function (data) {
   return fetch({
     url: "store/verticalList",
