@@ -86,11 +86,11 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                                 <Link href={`mailto:${enviroment.EMAIL_ADDRESS}`} className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}>{enviroment.EMAIL_ADDRESS}</Link>
                                             </div>
                                             <div className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}>
-                                                <a href="javascript:void(0);" className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Chat With Us</a>
+                                                <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Chat With Us</Link>
                                                 <span className={`${styles.dotSymbol} d-inline-flex`}>&bull;</span>
-                                                <a href="javascript:void(0);" className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>FAQ’s</a>
+                                                <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>FAQ’s</Link>
                                                 <span className={`${styles.dotSymbol} d-inline-flex`}>&bull;</span>
-                                                <a href="javascript:void(0);" className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Track Order</a>
+                                                <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Track Order</Link>
                                             </div>
                                         </div>
                                     </div>

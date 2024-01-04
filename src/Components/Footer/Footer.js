@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import styles from './Footer.module.css';
 import { enviroment } from "../../enviroment";
 import { Link } from "react-router-dom";
-import { EmailIcon, FacebookIcon, InstagramIcon, LinkedInIcon, PhoneIcon, TwitterIcon, YoutubeIcon } from "../siteIcons";
+import { EmailIcon, FacebookIcon, InstagramIcon, LinkedInIcon, PhoneIcon, TwitterIcon, YoutubeIcon, TruckIcon, LiveTrackIcon, SpecialOfferIcon } from "../siteIcons";
 import { useApp } from "../../context/AppContextProvider";
 
 export const Footer = () => {
@@ -76,13 +76,13 @@ export const Footer = () => {
                                     </Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="javascript:void(0)" title={`${enviroment.BUSINESS_NAME}  on Twitter`}>
+                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="" title={`${enviroment.BUSINESS_NAME}  on Twitter`}>
                                         <TwitterIcon/>
                                         <span className="icon__fallback-text">Twitter</span>
                                     </Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="javascript:void(0)" title={`${enviroment.BUSINESS_NAME} on LinkedIn`}>
+                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="" title={`${enviroment.BUSINESS_NAME} on LinkedIn`}>
                                         <LinkedInIcon />
                                         <span className="icon__fallback-text">LinkedIn</span>
                                     </Link>
@@ -98,30 +98,30 @@ export const Footer = () => {
                 </footer>
             ) : windowWidth === "desktop" ? (
                 <React.Fragment>
-                    <footer className={`${styles.footerContainer} col-12 d-inline-flex`}>
+                    <footer className={`${styles.footerContainer} col-12 d-inline-flex pt-5`}>
                         <div className="container">
                             <div className="col-md-12 p-0 d-inline-flex">
-                                <div className="col-4">
+                                <div className="col-4 px-3">
                                     <div className={`${styles.imgBoxImg} col-md-12 p-0 text-center d-inline-block mb-1`}>
-                                        <img src="" className={`${styles.fasttruck}`} alt="Fast Delivery"/>
+                                        <TruckIcon />
                                     </div>
                                     <div className={`${styles.imgBoxText} col-md-12 p-0 text-center d-inline-block`}>
                                         <h6 className={`${styles.imgBoxTitle} col-md-12 p-0 d-inline-block mb-2 text-center`}>Fast Delivery</h6>
                                         <p className={`${styles.imgBoxDesc} col-md-12 p-0 d-inline-block mb-0 text-center`}>We ship your products through fastest means of transportation.</p>
                                     </div>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-4 px-3">
                                     <div className={`${styles.imgBoxImg} col-md-12 p-0 text-center d-inline-block mb-1`}>
-                                        <img src="" className={`${styles.livetracking}`} alt="Live Track"/>
+                                        <LiveTrackIcon />
                                     </div>
                                     <div className={`${styles.imgBoxText} col-md-12 p-0 text-center d-inline-block`}>
                                         <h6 className={`${styles.imgBoxTitle} col-md-12 p-0 d-inline-block mb-2 text-center`}>Live Track</h6>
                                         <p className={`${styles.imgBoxDesc} col-md-12 p-0 d-inline-block mb-0 text-center`}>We keep you posted with every steps of your order. </p>
                                     </div>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-4 px-3">
                                     <div className={`${styles.imgBoxImg} col-md-12 p-0 text-center d-inline-block mb-1`}>
-                                        <img src="" className={`${styles.fasttruck}`} alt="Special Offers"/>
+                                        <SpecialOfferIcon />
                                     </div>
                                     <div className={`${styles.imgBoxText} col-md-12 p-0 text-center d-inline-block`}>
                                         <h6 className={`${styles.imgBoxTitle} col-md-12 p-0 d-inline-block mb-2 text-center`}>Special Offers</h6>
@@ -129,43 +129,43 @@ export const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-12 d-inline-flex justify-content-between">
-                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column`}>
+                            <div className="col-12 d-inline-flex justify-content-between mt-5">
+                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>About Us</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link to="">About Us</Link></li>
-                                        <li><Link to="">Our Team</Link></li>
-                                        <li><Link to="">Press</Link></li>
-                                        <li><Link to="">Our Stores</Link></li>
+                                        <li><Link className="text-decoration-none" to="">About Us</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Our Team</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Press</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Our Stores</Link></li>
                                     </ul>
                                 </div>
-                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column`}>
+                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Get Help</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link to="">Cancellation</Link></li>
-                                        <li><Link to="">Payments</Link></li>
-                                        <li><Link to="">FAQ</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Cancellation</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Payments</Link></li>
+                                        <li><Link className="text-decoration-none" to="">FAQ</Link></li>
                                     </ul>
                                 </div>
-                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column`}>
+                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Policies</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link to="">Privacy</Link></li>
-                                        <li><Link to="">Terms & Conditions</Link></li>
-                                        <li><Link to="">Return Policies</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Privacy</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Terms & Conditions</Link></li>
+                                        <li><Link className="text-decoration-none" to="">Return Policies</Link></li>
                                     </ul>
                                 </div>
-                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column`}>
+                                <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Get social with us</h5>
-                                    <ul className="list-unstyled d-inline-flex align-items-center mb-3">
-                                        <li className="list-unstyled social-Icon facebook"><Link to={enviroment.FACEBOOK_LINK}><FacebookIcon /></Link></li>
-                                        <li className="list-unstyled ml-3 social-Icon twitter"><Link to={enviroment.TWITTER_LINK}><TwitterIcon /></Link></li>
-                                        <li className="list-unstyled ml-3 social-Icon instagram"><Link to={enviroment.INSTAGRAM_LINK}><InstagramIcon /></Link></li>
-                                        <li className="list-unstyled ml-3 social-Icon youtube"><Link to={enviroment.YOUTUBE_LINK}><YoutubeIcon /></Link></li>
+                                    <ul className="list-unstyled d-inline-flex align-items-center mb-3 gap-3">
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.FACEBOOK_LINK} className="text-decoration-none"><FacebookIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.TWITTER_LINK} className="text-decoration-none"><TwitterIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.INSTAGRAM_LINK}><InstagramIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.YOUTUBE_LINK} className="text-decoration-none"><YoutubeIcon /></Link></li>
                                     </ul>
                                     <h5 className="mb-2">Contact Us</h5>
                                     <div className="d-inline-flex align-items-center mb-3">
-                                        <Link to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`} className={`d-inline-flex align-items-center ${styles.whatsAppLink}`}><i className="fa fa-whatsapp"></i>&nbsp;<span>{enviroment.PHONE_NUMBER}</span></Link>
+                                        <Link to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`} className={`text-decoration-none d-inline-flex align-items-center ${styles.whatsAppLink}`}><i className="fa fa-whatsapp"></i>&nbsp;<span>{enviroment.PHONE_NUMBER}</span></Link>
                                     </div>
                                 </div>
                             </div>
@@ -174,9 +174,9 @@ export const Footer = () => {
                     <div className="col-md-12 d-inline-flex justify-content-center">
                         <div className="container">
                             <div className="col-md-12 d-inline-flex justify-content-between align-items-center">
-                                <div className={`${styles.copyrightSection} col-12 d-inline-flex mt-3`}>
+                                <div className={`col-12 d-inline-flex mt-3`}>
                                     <div className={`${styles.copyright}`}>
-                                        <p>© Copyright {new Date().getFullYear()} {enviroment.BUSINESS_NAME}. All Rights Reserved<br/><small> Made with <i className="fa fa-heart" aria-hidden="true"></i> by <Link className={`${styles.copyrightReward}`} to="https://rewardsplus.in">RewardsPlus</Link></small></p>
+                                        <p>© Copyright {new Date().getFullYear()} {enviroment.BUSINESS_NAME}. All Rights Reserved<br/><small> Made with <i className="fa fa-heart" aria-hidden="true"></i> by <Link className={`${styles.copyrightReward} text-decoration-none`} to="https://rewardsplus.in">RewardsPlus</Link></small></p>
                                     </div>
                                 </div>
                             </div>
