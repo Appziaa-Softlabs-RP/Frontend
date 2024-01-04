@@ -6,6 +6,7 @@ import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { LoginPopup } from "../LoginPopup/LoginPopup";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -106,6 +107,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                             </div>
                         </div>
                     </div>
+                    <LoginPopup />
                 </React.Fragment>
             ) : ( <></>)}
         </React.Fragment>

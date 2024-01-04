@@ -2,6 +2,71 @@
     background: rgba(0, 0, 0, 0.50);
     z-index: 999;
 }
+.loginLayerBox{
+    z-index: 1000;
+}
 .loginContainer{
-
+    background: #FFF;
+    border-radius: 6px;
+    min-height: 450px;
+}
+.loginGradientBox{
+    background: var(--PRIMARY_COLOR);
+}
+.loginGradientBox h2{
+    font-size: 18px;
+    color: #FFF;
+    font-weight: bold;
+}
+.loginGradientBox p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #EEE;
+}
+.closeLogin{
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    color: #000;
+    right: 10px;
+    top: 10px;
+    font-weight: 800;
+}
+.loginTitle{
+    font-size: 25px;
+}
+.loginDesc{
+    font-size: 14px;
+    color: #000;
+}
+.inputField{
+    height: 50px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 15px;
+    color: #111;
+    font-weight: 500;
+}
+.loginFilledBtn, .loginUnfilledBtn{
+    height: 56px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 1px solid var(--PRIMARY_COLOR);
+}
+.loginFilledBtn{
+    background: var(--PRIMARY_COLOR);
+    color: var(--SECONDARY_COLOR);
+}
+.loginUnfilledBtn{
+    background: var(--SECONDARY_COLOR);
+    color: var(--PRIMARY_COLOR);
+}
+.alreadyTxt, .privacyTxt{
+    font-size: 14px;
+    color: #111;
+}
+.loginLink{
+    color: var(--PRIMARY_COLOR);
 }
