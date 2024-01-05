@@ -75,14 +75,21 @@ const Register = ({setLoginType}) => {
     );
 }
 
-export const LoginPopup = () => {
+export const LoginPopup = ({setLoginPop}) => {
     const [loginType, setLoginType] = useState('Login');
+
+    const hideLoginPop = () => {
+        setLoginPop(false);
+    }
+
+    const stopParentLayer = (e) => {
+        e.stopPropagation();
+    }
     return (
         <React.Fragment>
-            <div className={`${styles.loginLayer} position-fixed top-0 bottom-0 start-0 end-0`}></div>
             <div className={`${styles.loginLayerBox} position-fixed top-0 bottom-0 start-0 end-0 d-inline-flex align-items-center justify-content-center`}>
                 <div className={`${styles.loginContainer} col-6 d-inline-flex align-items-stretch`}>
-                    <div class="col-4 d-inline-flex flex-column align-items-center">
+                    <div class="col-4 d-inline-flex flex-column align-items-center" onClick={(e) => stopParentLayer(e)}>
                         <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-3 px-4 flex-grow-1 justify-content-center`}>
                             <div className="col-12 d-inline-flex flex-column">
                                 <h2 className="col-12 d-inline-flex mb-2 mt-0">Original Products</h2>
@@ -99,7 +106,7 @@ export const LoginPopup = () => {
                         </div>
                     </div>
                     <div class="col-8 p-4 position-relative">
-                        <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button">&times;</span>
+                        <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
                         {loginType === 'Login' ? 
                             <LoginPassword setLoginType={setLoginType}/>
                         : loginType === 'LoginOTP' ? 

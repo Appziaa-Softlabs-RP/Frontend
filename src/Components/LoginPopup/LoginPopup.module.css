@@ -1,8 +1,5 @@
-.loginLayer{
-    background: rgba(0, 0, 0, 0.50);
-    z-index: 999;
-}
 .loginLayerBox{
+    background: rgba(0, 0, 0, 0.50);
     z-index: 1000;
 }
 .loginContainer{

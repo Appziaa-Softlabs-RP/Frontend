@@ -14,6 +14,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 export const Header = ({setAsideOpen, asideOpen}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
+    const [loginPop, setLoginPop] = useState(false);
     const navigate = useNavigate();  
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
@@ -95,7 +96,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}>
+                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)}>
                                         <UserIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Account</span>
                                     </div>
@@ -107,7 +108,8 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                             </div>
                         </div>
                     </div>
-                    <LoginPopup />
+                    {loginPop === true &&
+                    <LoginPopup setLoginPop={setLoginPop} />}
                 </React.Fragment>
             ) : ( <></>)}
         </React.Fragment>
