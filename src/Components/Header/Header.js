@@ -72,7 +72,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                     <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}/>
                                 </div>
                                 <div className="d-inline-flex align-items-stretch justify-content-end gap-5">
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}>
+                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}  role="button">
                                         <SupportIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Support</span>
                                         <div className={`${styles.supportDropDown} position-absolute d-inline-block`}>
@@ -96,11 +96,11 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)}>
+                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)} role="button">
                                         <UserIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Account</span>
                                     </div>
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}>
+                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
                                         <CartIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                                     </div>

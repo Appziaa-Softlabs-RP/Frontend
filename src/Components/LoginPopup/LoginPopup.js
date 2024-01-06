@@ -22,7 +22,7 @@ const LoginPassword = ({setLoginType}) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank">Privacy Policy</Link>and <Link to="/terms" target="_blank">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -45,7 +45,30 @@ const LoginOTP = ({setLoginType}) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank">Privacy Policy</Link>and <Link to="/terms" target="_blank">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+}
+
+const LoginVerifyOTP = ({setLoginType}) => {
+    return(
+        <React.Fragment>
+            <div className="d-inline-flex flex-column col-12">
+                <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-4 mt-0`}>Login</h2>
+                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
+                <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
+                    <div className="col-12 d-inline-flex">
+                        <input type="text" name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                    </div>
+                </div>
+                <div className="d-inline-flex justify-content-between col-12 mb-4">
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Login</span>
+                </div>
+                <div className="col-12 d-inline-flex flex-column">
+                    <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -64,11 +87,11 @@ const Register = ({setLoginType}) => {
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Login</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Register</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank">Privacy Policy</Link>and <Link to="/terms" target="_blank">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -113,6 +136,8 @@ export const LoginPopup = ({setLoginPop}) => {
                             <LoginOTP setLoginType={setLoginType} />
                         : loginType === 'Register' ? 
                             <Register setLoginType={setLoginType} />
+                        : loginType === 'VerifyOTP' ? 
+                            <LoginVerifyOTP setLoginType={setLoginType} />
                         : ''}
                     </div>
                 </div>
