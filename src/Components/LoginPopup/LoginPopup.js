@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import styles from './LoginPopup.module.css';
+import ApiService from "../../services/ApiService";
+import { AppNotification } from '../../utils/helper';
+import { useApp } from '../../context/AppContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPassword = ({setLoginType}) => {
     return(
@@ -29,7 +33,25 @@ const LoginPassword = ({setLoginType}) => {
     );
 }
 
-const LoginOTP = ({setLoginType}) => {
+const LoginOTP = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
+
+    const sendMobileOtp = () => {
+        const payload = {
+            otp_type:'mobile',
+            username:mobileVal
+        }
+        ApiService.sendOTP(payload).then((res) => {
+            if(res.message === 'Otp send successfully.'){
+                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
+                setLoginType('VerifyOTP');
+            }
+        }).catch((err) => {
+            console.log(err);
+            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+        })
+    }
+
     return(
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
@@ -37,11 +59,11 @@ const LoginOTP = ({setLoginType}) => {
                 <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex">
-                        <input type="text" name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                        <input type="tel" value={mobileVal} minLength="10" maxLength="10" placeholder="9XXXXXXXXX" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value.replace(/\D/g, ""))} />
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Login</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button" onClick={() => sendMobileOtp()}>Proceed</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
@@ -52,19 +74,73 @@ const LoginOTP = ({setLoginType}) => {
     );
 }
 
-const LoginVerifyOTP = ({setLoginType}) => {
+const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj, setOTPObj, setLoginPop}) => {
+    const appData = useApp();
+    const navigate = useNavigate();
+
+    const sendMobileOtp = () => {
+        const payload = {
+            otp_type:'mobile',
+            username:mobileVal
+        }
+        ApiService.sendOTP(payload).then((res) => {
+            if(res.message === 'Otp send successfully.'){
+                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
+            }
+        }).catch((err) => {
+            console.log(err);
+            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+        })
+    }
+
+    const proceedVerify = () => {
+        if(mobileOTP !== ''){
+            let matchOTP = mobileOTP;
+            matchOTP = parseInt(matchOTP);
+            if(otpObj.otp === matchOTP){
+                const payload = {
+                    otp_id:otpObj.otpID,
+                    otp:matchOTP,
+                    otp_type:"mobile"
+                }
+                ApiService.VerifyOTP(payload).then((res) => {
+                    if(res.message === "Registration successfully."){
+                        appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
+                        localStorage.setItem('user', JSON.stringify(res.payload));
+                        localStorage.setItem('loggedIn', true);
+                        AppNotification('Welcome', 'OTP verified successfully.', 'success');
+                        setLoginPop(false);
+                        navigate('/');
+                    }
+                }).catch((err) => {
+                    AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
+                });
+            }else{
+                AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
+            }
+        }else{
+            AppNotification('Error', 'Please enter OTP', 'danger');
+        }
+    }
+
     return(
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
                 <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-4 mt-0`}>Login</h2>
                 <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
-                    <div className="col-12 d-inline-flex">
-                        <input type="text" name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                    <div className="col-12 d-inline-flex position-relative">
+                        <input type="text" value={mobileVal} readOnly placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                        <span className={`${styles.changeNumber} top-0 bottom-0 d-inline-flex align-items-center end-0 px-3 position-absolute text-uppercase`} onClick={() => setLoginType('LoginOTP')} role="button">Change</span>
+                    </div>
+                    <div className="col-12 d-inline-flex position-relative">
+                        <input type="tel" placeholder="Enter Mobile OTP" className={`${styles.inputField} col-12 d-inline-flex px-3`} minLength="4" maxLength="4" value={mobileOTP} onChange={(e) => setMobileOTP(e.target.value.replace(/\D/g, ""))} />
+                        <span className={`${styles.resendOTp} top-0 bottom-0 d-inline-flex align-items-center end-0 px-3 position-absolute text-uppercase`}  role="button" onClick={() => sendMobileOtp()}>Resend</span>
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Login</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button" onClick={() => proceedVerify()}>Login</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
@@ -100,6 +176,9 @@ const Register = ({setLoginType}) => {
 
 export const LoginPopup = ({setLoginPop}) => {
     const [loginType, setLoginType] = useState('Login');
+    const [mobileVal, setMobileVal] = useState('');
+    const [mobileOTP, setMobileOTP] = useState('');
+    const [otpObj, setOTPObj] = useState({});
 
     const hideLoginPop = () => {
         setLoginPop(false);
@@ -111,9 +190,9 @@ export const LoginPopup = ({setLoginPop}) => {
     return (
         <React.Fragment>
             <div className={`${styles.loginLayerBox} position-fixed top-0 bottom-0 start-0 end-0 d-inline-flex align-items-center justify-content-center`}>
-                <div className={`${styles.loginContainer} col-6 d-inline-flex align-items-stretch`}>
-                    <div class="col-4 d-inline-flex flex-column align-items-center" onClick={(e) => stopParentLayer(e)}>
-                        <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-3 px-4 flex-grow-1 justify-content-center`}>
+                <div className={`${styles.loginContainer} d-inline-flex align-items-stretch`}>
+                    <div className="col-4 d-inline-flex flex-column align-items-center" onClick={(e) => stopParentLayer(e)}>
+                        <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-4 px-4 flex-grow-1 justify-content-center`}>
                             <div className="col-12 d-inline-flex flex-column">
                                 <h2 className="col-12 d-inline-flex mb-2 mt-0">Original Products</h2>
                                 <p className="col-12 d-inline-flex m-0">All of the toys on our site have been obtained straight from the manufacturers.</p>
@@ -128,16 +207,16 @@ export const LoginPopup = ({setLoginPop}) => {
                             </div>
                         </div>
                     </div>
-                    <div class="col-8 p-4 position-relative">
+                    <div className="col-8 p-4 position-relative">
                         <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
                         {loginType === 'Login' ? 
                             <LoginPassword setLoginType={setLoginType}/>
                         : loginType === 'LoginOTP' ? 
-                            <LoginOTP setLoginType={setLoginType} />
+                            <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
                         : loginType === 'Register' ? 
                             <Register setLoginType={setLoginType} />
                         : loginType === 'VerifyOTP' ? 
-                            <LoginVerifyOTP setLoginType={setLoginType} />
+                            <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
                         : ''}
                     </div>
                 </div>

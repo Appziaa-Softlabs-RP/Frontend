@@ -7,7 +7,21 @@ import { useApp } from '../../context/AppContextProvider';
 export const Aside = ({asideOpen, setAsideOpen}) => {
     const navigate = useNavigate();
     const appData = useApp();
-    const userInfo = JSON.parse(appData?.appData?.user);
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);    
+    }else{
+        userInfo = appData?.appData?.user;
+    }
 
     const openLoginPage = () => {
         navigate("/login");

@@ -19,6 +19,22 @@ export const Header = ({setAsideOpen, asideOpen}) => {
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);    
+    }else{
+        userInfo = appData?.appData?.user;
+    }
+
     const openAsideMenu = () => {
         if(asideOpen === true){
             setAsideOpen(false);
@@ -96,10 +112,17 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)} role="button">
-                                        <UserIcon color="#FFF"/>
-                                        <span className={`${styles.supportText} d-inline-flex`}>Account</span>
-                                    </div>
+                                    {userInfo && userInfo?.user_id !== '' ? (
+                                        <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
+                                            <UserIcon color="#FFF"/>
+                                            <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                                        </div>
+                                    ) : (
+                                        <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)} role="button">
+                                            <UserIcon color="#FFF"/>
+                                            <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                                        </div>
+                                    )}
                                     <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
                                         <CartIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
@@ -109,7 +132,8 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                         </div>
                     </div>
                     {loginPop === true &&
-                    <LoginPopup setLoginPop={setLoginPop} />}
+                        <LoginPopup setLoginPop={setLoginPop} />
+                    }
                 </React.Fragment>
             ) : ( <></>)}
         </React.Fragment>

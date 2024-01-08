@@ -55,7 +55,6 @@ export const VerifyOtp = () => {
         if(optInput.otpInput1 !== '' && optInput.otpInput2 !== '' && optInput.otpInput3 !== '' && optInput.otpInput4 !== ''){
             let matchOTP = optInput.otpInput1+optInput.otpInput2+optInput.otpInput3+optInput.otpInput4;
             matchOTP = parseInt(matchOTP);
-            console.log(mobileOTP, matchOTP);
             if(mobileOTP === matchOTP){
                 const payload = {
                     otp_id:mobileOTPId,

@@ -6,6 +6,8 @@
     background: #FFF;
     border-radius: 6px;
     min-height: 470px;
+    width: 100%;
+    max-width: 800px;
 }
 .loginGradientBox{
     background: var(--PRIMARY_COLOR);
@@ -66,4 +68,15 @@
 }
 .loginLink{
     color: var(--PRIMARY_COLOR);
+}
+.changeNumber{
+    color: #CF102E
+}
+.resendOTp{
+    color: #009CDE;
+}
+.resendOTp, .changeNumber{
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 5;
 }
