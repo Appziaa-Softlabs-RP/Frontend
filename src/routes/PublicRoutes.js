@@ -15,6 +15,7 @@ import { ShopOffers } from "../pages/ShopOffers/ShopOffers";
 import { OrderDetails } from "../pages/OrderDetails/OrderDetails";
 import { MyAddress } from "../pages/MyAddress/MyAddress";
 import { AddAddress } from "../pages/AddAddress/AddAddress";
+import { CategoryPage } from "../pages/CategoryPage/CategoryPage";
 
 export const PublicRoutes = () => {
   return (
@@ -26,6 +27,7 @@ export const PublicRoutes = () => {
       <Route path="/product" element={<ProductPage />} />
       <Route path="/offers" element={<ShopOffers />} />
       <Route path="/store/:category" element={<SubCategoryPage />} />
+      <Route path="/store-product/:category" element={<CategoryPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route
         path="/my-account"

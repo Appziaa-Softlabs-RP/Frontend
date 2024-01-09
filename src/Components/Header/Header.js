@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './Header.module.css';
-import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon } from "../siteIcons";
+import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon } from "../siteIcons";
 import siteLogo from '../../assets/images/site_logo.png';
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,14 @@ import { LoginPopup } from "../LoginPopup/LoginPopup";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import ApiService from "../../services/ApiService";
 
 export const Header = ({setAsideOpen, asideOpen}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
+    const [shopNavList, setShopNavList] = useState([]);
+    const [menuList, setMenuList] = useState([]);
     const navigate = useNavigate();  
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
@@ -46,6 +49,65 @@ export const Header = ({setAsideOpen, asideOpen}) => {
     const openCart = () => {
         navigate('/checkout')
     }
+
+    useEffect(() => {
+        const payload = {
+            store_id: enviroment.STORE_ID
+        }
+        ApiService.StoreCategory(payload).then((res) => {
+            setShopNavList(res?.payload_verticalList?.vertical);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+    const showCategroryProd = (id,name) => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            category_id: id
+        }
+        ApiService.CategoryByProd(payload).then((res) => {
+            if(res.message === "Fetch successfully."){
+                let category = name?.replaceAll("[^A-Za-z0-9]","-");
+                navigate(`/store-product/${category}`, {state: {product: res.payload_CategoryByProduct}});
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+    
+    let MainNavArr = [];
+    const readAllNav = (id) => {
+        let navObj = {};
+        navObj.navName = shopNavList[id].name;
+        navObj.navId = shopNavList[id].vertical_id;
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            vertical_id: shopNavList[id].vertical_id
+        }
+        ApiService.StoreSubCategory(payload).then((res) => {
+            if(res.message === "Fetch successfully."){
+                navObj.subNav = res.payload_verticalByCategory;
+                MainNavArr.push(navObj);
+                let loopCount = shopNavList.length;
+                id = id + 1;
+                if(id !== loopCount){
+                    readAllNav(id);
+                }else{
+                    setMenuList(MainNavArr);
+                }
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    useEffect(() => {
+        let loopCount = shopNavList.length;
+        if(loopCount > 0){
+            readAllNav(0);
+        }
+    }, [shopNavList]);
 
     return (
         <React.Fragment>
@@ -80,7 +142,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                     <div className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}>
                         <div className="container h-100 d-flex align-items-stretch">
                             <div className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}>
-                                <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}>
+                                <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`} role="button" onClick={navigate('/')}>
                                     <img src={siteLogo} alt="Logo" className="object-fit-contain" />
                                 </span>
                                 <div className={`d-inline-flex col-6 position-relative align-items-center`}>
@@ -128,6 +190,28 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                         <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}>
+                        <div className="container">
+                            <div className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}>
+                                {menuList.length > 0 && menuList.map((item, index) => {
+                                    return (
+                                        <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
+                                            <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.navName} <BackArrowIcon color="#000"  role="button" /></span>
+                                            {item.subNav?.length > 0 &&
+                                                <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
+                                                    {item.subNav.map((subNme, subIdx) => {
+                                                        return(
+                                                            <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
+                                                        )
+                                                    })}
+                                                </div>
+                                            }
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

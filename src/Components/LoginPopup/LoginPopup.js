@@ -151,7 +151,24 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
     );
 }
 
-const Register = ({setLoginType}) => {
+const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
+
+    const sendMobileOtp = () => {
+        const payload = {
+            otp_type:'mobile',
+            username:mobileVal
+        }
+        ApiService.sendOTP(payload).then((res) => {
+            if(res.message === 'Otp send successfully.'){
+                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
+                setLoginType('VerifyOTP');
+            }
+        }).catch((err) => {
+            console.log(err);
+            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+        })
+    }
     return(
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
@@ -159,11 +176,11 @@ const Register = ({setLoginType}) => {
                 <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex">
-                        <input type="text" name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                        <input type="tel" value={mobileVal} minLength="10" maxLength="10" placeholder="9XXXXXXXXX" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value.replace(/\D/g, ""))} />
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button">Register</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-12`} role="button" onClick={() => sendMobileOtp()}>Register</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
@@ -214,7 +231,7 @@ export const LoginPopup = ({setLoginPop}) => {
                         : loginType === 'LoginOTP' ? 
                             <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
                         : loginType === 'Register' ? 
-                            <Register setLoginType={setLoginType} />
+                            <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
                         : loginType === 'VerifyOTP' ? 
                             <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
                         : ''}

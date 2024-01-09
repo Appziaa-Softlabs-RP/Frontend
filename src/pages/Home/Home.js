@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import styles from './Home.module.css';
 import { Header } from "../../Components/Header/Header";
 import { Aside } from "../../Components/Aside/Aside";
 import { ShopAge } from "../../Components/ShopAge/ShopAge";
@@ -10,11 +9,13 @@ import { BrandFocus } from "../../Components/BrandFocus/BrandFocus";
 import { Footer } from "../../Components/Footer/Footer";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
+import { useApp } from "../../context/AppContextProvider";
 
 export const Home = () => {
     const [asideOpen, setAsideOpen] = useState(false);
     const [allBanner, setAllBanner] = useState([]);
     const [allPromoBanner, setAllPromoBanner] = useState([]);
+    const appData = useApp();
 
     const fetchBanner = (payload) => {
         ApiService.banner(payload).then((res) => {
@@ -41,7 +42,9 @@ export const Home = () => {
                 {allBanner.length > 0 &&
                     <HeroBanner allBanner={allBanner}/>}
                 {/* <ShopAge /> */}
-                <CategoryShop />
+                {appData.appData.windowWidth === 'mobile' &&
+                    <CategoryShop />
+                }
                 {allPromoBanner?.payload_banner?.promobanner?.length > 0 && 
                     <PromoBanner allPromoBanner={allPromoBanner} type="Promo Banner" />
                 }

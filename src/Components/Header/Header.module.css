@@ -138,3 +138,65 @@
     box-shadow: none;
     outline: none;
 }
+.headerNavList{
+    background: #FFF;
+}
+.headerMenuRow{
+    height: 50px;
+}
+.menuName, .subMenuName{
+    font-size: 15px;
+    color: #000;
+}
+.menuName{
+    font-weight: 500;
+}
+.menuName svg{
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    height: 8px;
+    width: 8px;
+    transition: transform .1s,-webkit-transform .1s;
+}
+.SubMenuList{
+    background: #FFF;
+    z-index: 5;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
+    top: 48px;
+    border-radius: 5px;
+    padding: 12px;
+    min-width: 240px;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+.headerNavBox:hover .SubMenuList:after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    background: #FFF;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: -5px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+}
+.headerNavBox:hover .SubMenuList{
+    opacity: 1;
+    visibility: visible;
+}
+.subMenuName{
+    min-height: 40px;
+    border-radius: 4px;
+}
+.headerNavBox:hover .menuName svg{
+    transform: rotate(-90deg) scaleX(-1);
+    -webkit-transform: rotate(-90deg) scaleX(-1);
+}
+.subMenuName:hover{
+    font-weight: 500;
+    background: var(--MENU_HOVER_COLOR);
+}
