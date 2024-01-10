@@ -11,11 +11,13 @@ import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import ApiService from "../../services/ApiService";
+import { CartAside } from "../CartAside/CartAside";
 
 export const Header = ({setAsideOpen, asideOpen}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
+    const [cartPop, setCartPop] = useState(false);
     const [shopNavList, setShopNavList] = useState([]);
     const [menuList, setMenuList] = useState([]);
     const navigate = useNavigate();  
@@ -48,6 +50,10 @@ export const Header = ({setAsideOpen, asideOpen}) => {
 
     const openCart = () => {
         navigate('/checkout')
+    }
+
+    const routeHome = () => {
+        navigate('/');
     }
 
     useEffect(() => {
@@ -104,6 +110,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
 
     useEffect(() => {
         let loopCount = shopNavList.length;
+        console.log(loopCount)
         if(loopCount > 0){
             readAllNav(0);
         }
@@ -139,10 +146,10 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                             <span className={`d-inline-block text-decoration-none ${styles.dealsLink}`} title="Superdeals">Shipping Across India.</span>
                         </div>
                     </ReactOwlCarousel>
-                    <div className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}>
+                    <div className={`${styles.headerRow} ${styles.cartDrawer} col-12 d-inline-flex align-items-center`}>
                         <div className="container h-100 d-flex align-items-stretch">
                             <div className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}>
-                                <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`} role="button" onClick={navigate('/')}>
+                                <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`} role="button" onClick={() => routeHome()}>
                                     <img src={siteLogo} alt="Logo" className="object-fit-contain" />
                                 </span>
                                 <div className={`d-inline-flex col-6 position-relative align-items-center`}>
@@ -185,7 +192,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                             <span className={`${styles.supportText} d-inline-flex`}>Account</span>
                                         </div>
                                     )}
-                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
+                                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => setCartPop(true)}>
                                         <CartIcon color="#FFF"/>
                                         <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                                     </div>
@@ -217,6 +224,9 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                     </div>
                     {loginPop === true &&
                         <LoginPopup setLoginPop={setLoginPop} />
+                    }
+                    {cartPop === true &&
+                        <CartAside setCartPop={setCartPop} />
                     }
                 </React.Fragment>
             ) : ( <></>)}

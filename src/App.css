@@ -13,3 +13,7 @@ img{
 .owl-carousel .owl-stage-outer .owl-stage{
   padding: 0 !important;
 }
+.galleryBox .owl-stage{
+  display: flex;
+  align-items: stretch;
+}

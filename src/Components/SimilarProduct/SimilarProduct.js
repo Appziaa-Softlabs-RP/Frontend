@@ -4,9 +4,12 @@ import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
+import { useApp } from "../../context/AppContextProvider";
 
 export const SimilarProduct = ({product}) => {
     const navigate = useNavigate();
+    const appData = useApp();
+    let windowWidth = appData.appData.windowWidth;
     const showProductDetail = (id) => {
         const payload = {
             product_id: id,
@@ -26,51 +29,54 @@ export const SimilarProduct = ({product}) => {
     return (
         <React.Fragment>
             <div className={`${styles.similarProductBox} col-12 d-inline-flex flex-column py-4`}>
-				<h2 className={`${styles.availSizeTitle} m-0 col-12 d-inline-flex align-items-center justify-content-between px-4`}>Similar Products</h2>
-				<span className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left px-4`}>Explore similar products</span>
-
-				<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4`}>
-					{product?.map((item, index) => {
-						return (
-							<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`} key={index} onClick={() => showProductDetail(item.product_id)}>
-								{item.mrp > item.selling_price && 
-								<span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}  OFF</span>
-								}
-									
-								<div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`}>
-									{item.stock === 0 &&
-									<span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
+				<div className={`${windowWidth === "mobile" && 'p-0'} container`}>
+					<h2 className={`${styles.availSizeTitle} mt-0 col-12 d-inline-flex align-items-center justify-content-between px-4`}>Similar Products</h2>
+					{windowWidth === "mobile" &&
+						<span className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left px-4`}>Explore similar products</span>
+					}
+					<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4`}>
+						{product?.map((item, index) => {
+							return (
+								<div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`} key={index} onClick={() => showProductDetail(item.product_id)}>
+									{item.mrp > item.selling_price && 
+									<span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}  OFF</span>
+									}
 										
-									<img src={item?.image} className="position-absolute h-100 col-12 p-0"/>
-								</div>
+									<div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`}>
+										{item.stock === 0 &&
+										<span className={`${styles.soldOutText} position-absolute d-inline-block text-center text-uppercase`}>Sold Out</span>}
+											
+										<img src={item?.image} className="position-absolute h-100 col-12 p-0"/>
+									</div>
 
-								<span className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
-								{item.mrp > item.selling_price ? (
-								<div className="col-12 float-left p-0 d-inline-block">
-									<span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.selling_price}</b></span>
-									<del className={`${styles.offerDiscountPrice} col-12 p-0 d-inline-block float-left`}>₹{item.mrp}</del>
-								</div>
-								) : (	
-								<div className="col-12 float-left p-0 d-inline-block">
-									<span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
-								</div>
-								)}
-									
-								<div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-									<span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span>
-									
-									{/* <React.Fragment>
-									<span className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex`}>-</span>
-									<span className="d-inline-flex flex-shrink-0">
-										<input type="text" readOnly  value="" className={`${styles.countValue} d-inline-block`}/>
-									</span>
-									<span className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex`}>+</span>
-									</React.Fragment> */}
+									<span className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
+									{item.mrp > item.selling_price ? (
+									<div className="col-12 float-left p-0 d-inline-block">
+										<span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.selling_price}</b></span>
+										<del className={`${styles.offerDiscountPrice} col-12 p-0 d-inline-block float-left`}>₹{item.mrp}</del>
+									</div>
+									) : (	
+									<div className="col-12 float-left p-0 d-inline-block">
+										<span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
+									</div>
+									)}
+										
+									<div className={`${styles.itemQuantityBtnBox} position-absolute`}>
+										<span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span>
+										
+										{/* <React.Fragment>
+										<span className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex`}>-</span>
+										<span className="d-inline-flex flex-shrink-0">
+											<input type="text" readOnly  value="" className={`${styles.countValue} d-inline-block`}/>
+										</span>
+										<span className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex`}>+</span>
+										</React.Fragment> */}
 
+									</div>
 								</div>
-							</div>
-						)
-					})}
+							)
+						})}
+					</div>
 				</div>
 			</div>
         </React.Fragment>

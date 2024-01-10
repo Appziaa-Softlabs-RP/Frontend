@@ -21,7 +21,7 @@
 .productDetailName{
     font-size: 16px;
     line-height: 18px;
-    color: #1A1A1A;
+    color: #000;
 }
 .offerPrice{
     font-size: 18px;
@@ -85,4 +85,36 @@
 	font-size: 11px;
 	padding: 4px 5px;
 	z-index: 9;
+}
+/* Desktop CSS */
+.productContainer{
+    background: #FFF;
+    border-radius: 8px;
+}
+.productMainImage{
+    margin-bottom: 10px;
+}
+.productGalleryRow .galleryBox{
+    border: 1px solid #EEE;
+    height: 100%;
+}
+.continueShop {
+    background: #e88219;
+    border: none;
+    padding: 5px 37px;
+    color: #fff;
+    border-radius: 25px;
+    height: 40px;
+    font-size: 14px;
+}
+.specialTitle{
+    font-size: 16px;
+    color: #808080;
+    font-weight: 500;
+}
+@media screen and (min-width:568px) {
+    .productDetailName{
+        font-size: 20px;
+        line-height: 24px;
+    }
 }

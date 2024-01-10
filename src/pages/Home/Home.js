@@ -41,7 +41,7 @@ export const Home = () => {
                 <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 {allBanner.length > 0 &&
                     <HeroBanner allBanner={allBanner}/>}
-                {/* <ShopAge /> */}
+                <ShopAge />
                 {appData.appData.windowWidth === 'mobile' &&
                     <CategoryShop />
                 }

@@ -6,6 +6,7 @@
     font-size: 16px;
 	line-height: 18px;
 	color: #FFF;
+    margin-bottom: 0px;
 }
 .smallTitle{
     font-size: 12px;
@@ -140,4 +141,24 @@
 	border-radius: 50%;
 	height: 20px;
 	border: 1px solid #E88219;
+}
+/* Desktop CSS */
+@media screen and (min-width:568px) {
+	.featuredProductBox{
+		background: transparent;
+	}
+    .availSizeTitle{
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #000;
+    }
+    .allFeaturedProduct{
+        display: flex;
+        gap: 20px;
+    }
+    .singleFeaturedProduct{
+        width: calc(20% - 15px);
+        margin: 0px;
+    }
 }

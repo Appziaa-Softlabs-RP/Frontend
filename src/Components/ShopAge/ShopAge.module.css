@@ -29,3 +29,19 @@
 .scrollAgeBox{
 	gap: 20px;
 }
+/* Desktop CSS */
+.categoryHeaderTitle{
+    font-size: 20px;
+    font-weight: 700;
+}
+@media screen and (min-width:568px) {
+	.shopAgeContainer .ageBlock{
+		width: calc(25% - 30px);
+	}
+	.scrollAgeBox{
+		gap: 30px;
+	}
+	.shopAgeNumber{
+		font-size: 17px;
+	}
+}

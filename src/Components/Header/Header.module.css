@@ -144,6 +144,9 @@
 .headerMenuRow{
     height: 50px;
 }
+.headerNavBox{
+    min-width: 240px;
+}
 .menuName, .subMenuName{
     font-size: 15px;
     color: #000;

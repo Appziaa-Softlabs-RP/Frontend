@@ -226,4 +226,12 @@ ApiService.getAddressDetail = function (data) {
   })
 }
 
+ApiService.ageGroupBox = function (data) {
+  return fetch({
+    url: 'store/ageGroupList',
+    method: 'post',
+    data: data
+  })
+}
+
 export default ApiService;

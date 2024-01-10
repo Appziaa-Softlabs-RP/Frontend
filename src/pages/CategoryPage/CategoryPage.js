@@ -30,7 +30,7 @@ export const CategoryPage = () => {
     }
     return (
         <React.Fragment>
-            {/* <Header /> */}
+            <Header />
             <div className="col-12 d-inline-flex mt-5">
                 <div className="container">
                     <div className={`d-inline-flex flex-wrap gap-3 col-12 mb-3 px-4`}>
