@@ -10,6 +10,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { useApp } from "../../context/AppContextProvider";
+import { LookingFor } from "../../Components/LookingFor/LookingFor";
 
 export const Home = () => {
     const [asideOpen, setAsideOpen] = useState(false);
@@ -34,24 +35,29 @@ export const Home = () => {
         };
         fetchBanner(payload);
     }, []);
+
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column">
                 <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 {allBanner.length > 0 &&
-                    <HeroBanner allBanner={allBanner}/>}
-                <ShopAge />
+                    <HeroBanner allBanner={allBanner}/>
+                }
+                {appData.appData.windowWidth === 'desktop' &&
+                    <LookingFor />
+                }
                 {appData.appData.windowWidth === 'mobile' &&
                     <CategoryShop />
                 }
                 {allPromoBanner?.payload_banner?.promobanner?.length > 0 && 
                     <PromoBanner allPromoBanner={allPromoBanner} type="Promo Banner" />
                 }
+                <ShopAge />
                 {allPromoBanner?.payload_banner?.offeroftheday?.length > 0 && 
                     <PromoBanner allPromoBanner={allPromoBanner} type="Offers" />
                 }
-                {/* <BrandFocus/> */}
+                <BrandFocus/>
                 <Footer />
             </div>
         </React.Fragment>

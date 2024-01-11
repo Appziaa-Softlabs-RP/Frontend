@@ -43,13 +43,13 @@ export const PromoBanner = ({type, allPromoBanner}) => {
             ) : windowWidth === 'desktop' ? (
                 <React.Fragment>
                     {allBanner?.length > 0 && 
-                        <div className={`col-12 d-inline-flex flex-column p-3`}>
+                        <div className={`col-12 d-inline-flex flex-column px-3 mt-3`}>
                             <div className="container">
                                 <div className={`col-12 d-inline-flex flex-column p-3`}>
                                     <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3`}>
                                         {type === 'Promo Banner' ? '✨ Promos for you ✨' : type === 'Offers' ? '✨ Offers Of The Day ✨' : ''}
                                     </h5>
-                                    <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block pb-4 owl-theme`} margin={10} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : '' }`} stagePadding={0}>
+                                    <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : '' }`} stagePadding={0}>
                                         {allBanner.map((item, index) => {
                                             return (
                                                 <div className={styles.item} key={index}>

@@ -234,4 +234,20 @@ ApiService.ageGroupBox = function (data) {
   })
 }
 
+ApiService.ageGroupProduct = function (data) {
+  return fetch({
+    url: 'store/ageGroupByProduct',
+    method: 'post',
+    data: data
+  })
+}
+
+ApiService.brandInFocus = function (data) {
+  return fetch({
+    url: 'store/brandOffer',
+    method: 'post',
+    data: data
+  })
+}
+
 export default ApiService;

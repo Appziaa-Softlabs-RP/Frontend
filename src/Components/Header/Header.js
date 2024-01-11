@@ -63,7 +63,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
         ApiService.StoreCategory(payload).then((res) => {
             setShopNavList(res?.payload_verticalList?.vertical);
         }).catch((err) => {
-            console.log(err);
+            
         });
     }, []);
 
@@ -78,7 +78,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                 navigate(`/store-product/${category}`, {state: {product: res.payload_CategoryByProduct}});
             }
         }).catch((err) => {
-            console.log(err);
+            
         });
     }
     
@@ -104,13 +104,12 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                 }
             }
         }).catch((err) => {
-            console.log(err);
+            
         });
     }
 
     useEffect(() => {
         let loopCount = shopNavList.length;
-        console.log(loopCount)
         if(loopCount > 0){
             readAllNav(0);
         }
