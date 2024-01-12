@@ -36,7 +36,7 @@ export const CategoryPage = () => {
                     <div className={`d-inline-flex flex-wrap gap-3 col-12 mb-3 px-4`}>
                         {ProductData?.length > 0 && ProductData?.map((item, index) => {
                             return (
-                                <div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden`} key={index} onClick={() => showProductDetail(item.product_id)}>
+                                <div className={`${styles.singleFeaturedProduct} d-inline-block position-relative overflow-hidden mouse-cursor`} key={index} onClick={() => showProductDetail(item.product_id)}>
                                     {item.mrp > item.selling_price && 
                                     <span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}  OFF</span>
                                     }
@@ -48,20 +48,23 @@ export const CategoryPage = () => {
                                         <img src={item?.image} className="position-absolute h-100 col-12 p-0"/>
                                     </div>
 
-                                    <span className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
+                                    <span className={`${styles.offerItemName} col-12 p-0 mt-4`}>{item.name}</span>
                                     {item.mrp > item.selling_price ? (
-                                    <div className="col-12 float-left p-0 d-inline-block">
+                                    <div className="col-12 float-left p-0 d-inline-block my-4">
                                         <span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.selling_price}</b></span>
                                         <del className={`${styles.offerDiscountPrice} col-12 p-0 d-inline-block float-left`}>₹{item.mrp}</del>
                                     </div>
                                     ) : (	
-                                    <div className="col-12 float-left p-0 d-inline-block">
+                                    <div className="col-12 float-left p-0 d-inline-block my-2">
                                         <span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
                                     </div>
                                     )}
                                         
+                                    {/* add to cart button */}
+                                    <div className={`${styles.addCartBtn}`}>Add to Cart</div>
+                                    
                                     <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-                                        <span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span>
+                                        {/* <span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span> */}
                                         
                                         {/* <React.Fragment>
                                         <span className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex`}>-</span>
