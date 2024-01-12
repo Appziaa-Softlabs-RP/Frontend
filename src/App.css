@@ -17,3 +17,41 @@ img{
   display: flex;
   align-items: stretch;
 }
+
+.mouse-cursor {
+  cursor: pointer;
+}
+
+/* owl  carousel left & right arrow */
+.owl-nav {
+  position: absolute;
+  top: calc(50% - 50px);
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+}
+
+.owl-nav button {
+  min-width: 40px;
+}
+.owl-nav span {
+  font-size: 30px;
+}
+
+.carousel-looking-for .owl-nav button{
+  position: absolute;
+  background: #fff !important;
+  border-radius: 50% !important;
+  height: 40px;
+  width: 40px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-looking-for .owl-nav button.owl-prev {
+  left: -25px;
+}
+.carousel-looking-for .owl-nav button.owl-next {
+  right: -25px;
+}
