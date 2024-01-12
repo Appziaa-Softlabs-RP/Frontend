@@ -60,9 +60,10 @@ export const SimilarProduct = ({product}) => {
 										<span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
 									</div>
 									)}
-										
+									{/* add to cart button */}
+                                    <div className={`${styles.addCartBtn}`}>Add to Cart</div>
 									<div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-										<span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span>
+										{/* <span className={`d-inline-flex align-items-center justify-content-center ${styles.increaseBtn}`}>+</span> */}
 										
 										{/* <React.Fragment>
 										<span className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex`}>-</span>

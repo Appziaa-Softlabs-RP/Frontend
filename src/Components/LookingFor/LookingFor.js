@@ -64,13 +64,13 @@ export const LookingFor = () => {
                     <div className={`${windowWidth === "mobile" && 'p-0'} container d-flex flex-column m-auto`}>
                         <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ What are you looking for? ✨</h5>
                         <div className="col-12 d-inline-flex">
-                        <ReactOwlCarousel className={`col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={8} stagePadding={0}>
+                        <ReactOwlCarousel className={`carousel-looking-for col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={8} stagePadding={0} nav={true}>
                             {menuList?.map((subCat, idx) => {
                                 return(
                                     <React.Fragment key={idx}>
                                         {subCat?.subNav?.map((item, index) => {
                                             return (
-                                                <div className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2`} key={index} onClick={() => subCatProduts(item.category_id)}>
+                                                <div className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2 mouse-cursor`} key={index} onClick={() => subCatProduts(item.category_id)}>
                                                     <img src={item?.image} alt={item?.name} className="object-fit-cover col-12 d-inline-block" />
                                                     <p className={`${styles.thumbName} text-truncate col-12 text-center mb-0`}>{item?.name}</p>
                                                 </div>

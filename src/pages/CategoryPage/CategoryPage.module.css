@@ -119,3 +119,15 @@
 	height: 20px;
 	border: 1px solid #E88219;
 }
+
+.addCartBtn {
+    background: #e88219;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 14px;
+    margin: 10px auto;
+    text-align: center;
+    width: 80%;
+}
