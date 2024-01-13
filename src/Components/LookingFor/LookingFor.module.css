@@ -4,7 +4,6 @@
 }
 .thumbItem img{
     height: 160px;
-    /* width: 112px; */
     border-radius: 6px;
     object-fit: cover;
 }

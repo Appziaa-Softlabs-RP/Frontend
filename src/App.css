@@ -39,7 +39,7 @@ img{
   font-size: 30px;
 }
 
-.carousel-looking-for .owl-nav button{
+.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button{
   position: absolute;
   background: #fff !important;
   border-radius: 50% !important;
@@ -54,4 +54,17 @@ img{
 }
 .carousel-looking-for .owl-nav button.owl-next {
   right: -25px;
+}
+.heroBanner .owl-nav button{
+  background: transparent !important;
+}
+.heroBanner .owl-nav button.owl-prev {
+  left: 15px;
+}
+.heroBanner .owl-nav button.owl-next {
+  right: 15px;
+}
+.heroBanner .owl-nav button span{
+  font-size: 80px;
+  color: #FFF;
 }
