@@ -31,6 +31,10 @@
     margin-right: 15px;
     flex-shrink: 0;
 }
+.singleFeaturedProduct:hover {
+    border: 1px solid var(--PRIMARY_COLOR);
+}
+
 .featureOffBox{
     color: #389956;
 	border: 1px solid #389956;
