@@ -12,6 +12,6 @@
     font-size: 12px;
 }
 
-.thumbName:hover {
+.thumbItem:hover .thumbName{
     color: blue;
 }
