@@ -31,7 +31,7 @@ export const ShopAge = () => {
             <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex`}>
                 <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
                     {windowWidth === 'desktop' && 
-                    <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ Shop By Age ✨</h5>
+                    <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center`}>✨ Shop By Age ✨</h5>
                     }
                     <div className={`${styles.shopAgeContainer} col-12 pt-4 pb-4 pl-0 pr-0`}>
                         {windowWidth === "mobile" &&
