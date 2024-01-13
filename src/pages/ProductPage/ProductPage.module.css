@@ -99,7 +99,7 @@
     height: 100%;
 }
 .continueShop {
-    background: #e88219;
+    background: var(--ADD_BUTTON_COLOR);
     border: none;
     padding: 5px 37px;
     color: #fff;

@@ -43,9 +43,9 @@ export const PromoBanner = ({type, allPromoBanner}) => {
             ) : windowWidth === 'desktop' ? (
                 <React.Fragment>
                     {allBanner?.length > 0 && 
-                        <div className={`col-12 d-inline-flex flex-column px-3 mt-3`}>
+                        <div className={`col-12 d-inline-flex flex-column mt-3`}>
                             <div className="container">
-                                <div className={`col-12 d-inline-flex flex-column p-3`}>
+                                <div className={`col-12 d-inline-flex flex-column py-3`}>
                                     <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3`}>
                                         {type === 'Promo Banner' ? '✨ Promos for you ✨' : type === 'Offers' ? '✨ Offers Of The Day ✨' : ''}
                                     </h5>

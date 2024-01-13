@@ -37,11 +37,12 @@
     outline: none;
 }
 .topHeaderSale{
-    background: #009CDE;
+    background: #BA1C37;
     height: 30px;
 }
 .dealsLink{
-    font-size: 13px;
+    font-size: 16px;
+    line-height: 16px;
     color: #FFF;
 }
 .headerRow{

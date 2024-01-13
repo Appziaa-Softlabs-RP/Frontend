@@ -2,7 +2,7 @@
   --PRIMARY_COLOR : #CF102E;
   --SECONDARY_COLOR : #FFF;
   --MENU_HOVER_COLOR : rgba(207,16,46,0.12);
-  --ADD_BUTTON_COLOR : #E88219;
+  --ADD_BUTTON_COLOR : #CF102E;
 }
 body{
   background: #E7ECF2;
@@ -41,19 +41,31 @@ img{
 
 .carousel-looking-for .owl-nav button, .heroBanner .owl-nav button{
   position: absolute;
-  background: #fff !important;
+  background: var(--SECONDARY_COLOR) !important;
   border-radius: 50% !important;
   height: 40px;
   width: 40px;
   display: flex !important;
   align-items: center;
   justify-content: center;
+  transition: .2s;
 }
 .carousel-looking-for .owl-nav button.owl-prev {
   left: -25px;
 }
 .carousel-looking-for .owl-nav button.owl-next {
   right: -25px;
+}
+.carousel-looking-for .owl-nav button span{
+  color: var(--PRIMARY_COLOR);
+  position: relative;
+  top: -2px;
+}
+.carousel-looking-for .owl-nav button:hover{
+  background: var(--PRIMARY_COLOR) !important;
+}
+.carousel-looking-for .owl-nav button:hover span{
+  color: var(--SECONDARY_COLOR);
 }
 .heroBanner .owl-nav button{
   background: transparent !important;

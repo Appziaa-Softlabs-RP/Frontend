@@ -93,8 +93,8 @@
 }
 .quantityButton{
 	width: 35px;
-	color: #e88219;
-	border: 1px solid #e88219;
+	color: var(--ADD_BUTTON_COLOR);
+	border: 1px solid var(--ADD_BUTTON_COLOR);
 	border-radius: 100%;
 }
 .buttonTertiary{
@@ -123,7 +123,7 @@
 	line-height: normal;
 }
 .cartCheckoutButton {
-	background: #CF102E;
+	background: var(--PRIMARY_COLOR);
 	border: none;
 	box-shadow: none;
 	font-size: 18px;
@@ -132,7 +132,7 @@
 	border-radius: 4px;
 }
 .continueShop {
-    background: #e88219;
+    background: var(--ADD_BUTTON_COLOR);
     border: none;
     padding: 5px 37px;
     color: #fff;

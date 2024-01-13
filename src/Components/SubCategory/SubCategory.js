@@ -130,7 +130,7 @@ export const SubCategory = ({categoryID}) => {
                     return (
                         <React.Fragment key={index}>
                             {item.name !== '' && 
-                                <div className="col-6 px-2 flex-shrink-0 mb-2">
+                                <div className="col-6 px-2 flex-shrink-0 mb-2" key={index}>
                                     <ProductCard item={item} index={index} />
                                 </div>
                             }

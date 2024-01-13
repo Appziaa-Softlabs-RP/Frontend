@@ -20,7 +20,7 @@ export const LookingFor = ({allSubCat}) => {
     return (
         <React.Fragment>
             {allSubCat?.length > 0 &&
-                <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex`}>
+                <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container d-flex flex-column m-auto`}>
                         <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ What are you looking for? ✨</h5>
                         <div className="col-12 d-inline-flex">

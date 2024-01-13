@@ -72,7 +72,7 @@ export const MyAccount = () => {
                     </div> */}
                     <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
-                            <LogoutIcon color="#CF102E" />
+                            <LogoutIcon color="var(--PRIMARY_COLOR)" />
                         </span>
                         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Logout</h6>
                     </div>

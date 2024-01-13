@@ -71,11 +71,11 @@
 	cursor: pointer;
 	outline:none;
 	border:none;
-	color: #E88219;
+	color: var(--ADD_BUTTON_COLOR);
 	display: inline-block;
 	width: 20px;
 	border-radius: 50%;
 	line-height: 15px;
 	height: 20px;
-	border: 1px solid #E88219;
+	border: 1px solid var(--ADD_BUTTON_COLOR);
 }

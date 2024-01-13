@@ -9,7 +9,7 @@ export const MyOrdersBox = () => {
     const [orders, allOrder] = useState([]);
     const appData = useApp();
     const navigate = useNavigate();
-    
+
     let userInfo = '';
     const isJSON = (str) => {
         try {
@@ -36,7 +36,7 @@ export const MyOrdersBox = () => {
             ApiService.orderList(payload).then((res) => {
                 console.log(res);
             }).catch((err) => {
-                console.log(err);
+                
             });
         }
     }, []);

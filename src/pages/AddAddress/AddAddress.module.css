@@ -53,7 +53,7 @@
     color: #FFF;
 }
 .customRadio{
-    border: 1px solid #E88219;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -65,7 +65,7 @@
     width: 14px;
     display: block;
     border-radius: 50%;
-    background-color: #E88219;
+    background-color: var(--ADD_BUTTON_COLOR);
     position: absolute;
     inset: 0;
 }

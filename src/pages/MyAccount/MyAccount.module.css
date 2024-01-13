@@ -39,5 +39,5 @@
     font-weight: 500;
 }
 .LoggedOutRow .accountLabel{
-    color: #CF102E;
+    color: var(--PRIMARY_COLOR);
 }

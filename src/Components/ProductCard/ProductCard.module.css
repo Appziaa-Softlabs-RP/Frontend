@@ -3,7 +3,7 @@
     border: 1px solid #DDD;
     padding: 10px 12px 45px;
     background: #FFF;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .featureOffBox{
     color: #389956;
@@ -110,21 +110,36 @@
 }
 .increaseBtn, .decreaseBtn{
 	cursor: pointer;
-	color: #E88219;
+	color: var(--ADD_BUTTON_COLOR);
 	width: 20px;
 	border-radius: 50%;
 	height: 20px;
-	border: 1px solid #E88219;
+	border: 1px solid var(--ADD_BUTTON_COLOR);
 }
 .addCartBtn {
-    background: #e88219;
+    background: var(--ADD_BUTTON_COLOR);
     padding: 0 15px;
     color: #FFF;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
     height: 30px;
     bottom: 10px;
     right: 10px;
+    left: 10px;
+}
+/* Desktop CSS */
+@media screen and (min-width:568px) {
+    .offerItemName{
+        min-height: 34px;
+    }
+    .addCartBtn{
+        font-size: 15px;
+        line-height: 15px;
+        height: 45px;
+    }
+    .singleFeaturedProduct{
+        padding-bottom: 60px;
+    }
 }

@@ -47,7 +47,7 @@ const LoginOTP = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
                 setLoginType('VerifyOTP');
             }
         }).catch((err) => {
-            console.log(err);
+            
             AppNotification('Error', 'Unable to send OTP to your number', 'danger');
         })
     }
@@ -89,7 +89,7 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
                 setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
             }
         }).catch((err) => {
-            console.log(err);
+            
             AppNotification('Error', 'Unable to send OTP to your number', 'danger');
         })
     }
@@ -165,7 +165,7 @@ const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
                 setLoginType('VerifyOTP');
             }
         }).catch((err) => {
-            console.log(err);
+            
             AppNotification('Error', 'Unable to send OTP to your number', 'danger');
         })
     }

@@ -29,13 +29,12 @@ export const ProductCard = ({item, index}) => {
         <React.Fragment>
             <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} key={index} onClick={() => showProductDetail(item.product_id)}>
                 {item.mrp > item.selling_price && 
-                <span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}  OFF</span>
+                <span className={`${styles.featureOffBox} float-right`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}%  OFF</span>
                 }
                     
                 <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`}>
                     {item.stock === 0 &&
-                    <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
-                        
+                    <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}  
                     <img src={item?.image} className="position-absolute h-100 col-12 p-0"/>
                 </div>
 
@@ -51,7 +50,7 @@ export const ProductCard = ({item, index}) => {
                 </div>
                 )}
                 {/* add to cart button */}
-                <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-between position-absolute text-uppercase`}>Add</span>
+                <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}>Add to cart</span>
                 <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
                     
                     {/* <React.Fragment>

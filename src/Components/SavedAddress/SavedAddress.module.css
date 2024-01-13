@@ -24,6 +24,6 @@
     font-weight: 700;
 }
 .editBtn{
-    border: 1px solid #CF102E;
-    color: #CF102E;
+    border: 1px solid var(--PRIMARY_COLOR);
+    color: var(--PRIMARY_COLOR);
 }

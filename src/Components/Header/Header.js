@@ -83,8 +83,8 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                     })
                 }
             });
-            setAllSubCat(allCatList);
             setMenuList(res?.payload_verticalWithCatList?.vertical);
+            setAllSubCat(allCatList);
         }).catch((err) => {
             
         });
@@ -111,7 +111,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                     </div>
                 </div>
             ): windowWidth === "desktop" ? (
-                <React.Fragment>
+                <div className="col-12 d-inline-flex flex-column">
                     <ReactOwlCarousel className={`${styles.topHeaderSale} col-12 owl-theme`} margin={0} items={1} loop={true} dots={false} animateOut='slideOutUp' animateIn='slideInUp' autoPlay={true}>
                         <div className={`col-12 d-inline-flex align-items-center justify-content-center`}>
                             <span className={`d-inline-block text-decoration-none ${styles.dealsLink}`} title="Superdeals">Shipping Across India.</span>
@@ -202,7 +202,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                     {cartPop === true &&
                         <CartAside setCartPop={setCartPop} />
                     }
-                </React.Fragment>
+                </div>
             ) : ( <></>)}
         </React.Fragment>
     )

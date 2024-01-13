@@ -26,7 +26,7 @@ export const HeroBanner = ({allBanner}) => {
                     </ReactOwlCarousel>
                 </div>
             ) : windowWidth === "desktop" ? (
-                <div className={`col-12 d-inline-flex`}>
+                <div className={`col-12 d-inline-flex mb-4`}>
                     <ReactOwlCarousel className={`${styles.desktopBanner} heroBanner col-12 d-inline-block owl-theme`} margin={0} loop={true} dots={false} nav={true} stagePadding={0} items={1} autoplay={true}>
                         {allBanner?.length > 0 && allBanner.map((item, index) => {
                             return (
