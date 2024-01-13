@@ -34,23 +34,7 @@ export const ProductListCard = ({Product}) => {
             AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
         }
     }
-
-    const showProductDetail = (id) => {
-        const payload = {
-            product_id: id,
-            company_id: enviroment.COMPANY_ID,
-            store_id: enviroment.STORE_ID
-        }
-        ApiService.productDetails(payload).then((res) => {
-            if(res.message === "Product Detail"){
-                navigate('/product', {state: {product: res.payload}})
-            }else{
-                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');     
-            }
-        }).catch((err) => {
-            AppNotification('Error', 'Sorry, Product detail not found.', 'danger'); 
-        });
-    }
+    
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column px-3">

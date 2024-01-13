@@ -1,0 +1,130 @@
+
+.singleFeaturedProduct{
+    border: 1px solid #DDD;
+    padding: 10px 12px 45px;
+    background: #FFF;
+    border-radius: 5px;
+}
+.featureOffBox{
+    color: #389956;
+	border: 1px solid #389956;
+	font-weight: 600;
+	border-radius: 2px;
+	font-size: 10px;
+	line-height: 10px;
+	padding: 2px 3px;
+	margin-left: 10px;
+}
+.featuredImageBox{
+    padding-top: 100%;
+    border-radius: 5px;
+}
+.featuredImageBox img{
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+.soldOutText{
+    background: #ED1F29;
+    -webkit-transform: rotate(-5deg) translateY(-50%);
+    transform: rotate(-5deg) translateY(-50%);
+    border-radius: 4px;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    max-width: 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #FFF;
+    font-size: 11px;
+    text-align: center;
+    padding: 4px 5px;
+    z-index: 9;
+}
+.soldOutText::after{
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border-radius: 3px;
+    border: 1px solid #FFF;
+    display: inline-block;
+}
+.offerItemName{
+    font-size: 15px;
+    line-height: 17px;
+    color: #212121;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 400;
+    white-space: normal;
+}
+.offerPrice{
+    font-size: 14px;
+    line-height: 16px;
+    color: #16253B;
+}
+.offerDiscountPrice{
+    font-size: 13px;
+	color: #16253B;
+	opacity: 0.8;
+	line-height: 14px;
+}
+.itemQuantityBtnBox{
+	bottom: 10px;
+	right: 15px;
+    z-index: 9;
+}
+.itemQuantityBtnBox button{
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.itemQuantityBtn .decreaseBtn{
+	width: 20px;
+}
+.itemQuantityBtn{
+	padding-right: 0;
+    padding-left: 0;
+    margin-top: auto;
+    margin-bottom: 0px;
+	position: relative;
+	z-index: 9;
+}
+.countValue{
+	width: 20px;
+	text-align: center;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: default;
+	font-weight: 500;
+}
+.increaseBtn, .decreaseBtn{
+	cursor: pointer;
+	color: #E88219;
+	width: 20px;
+	border-radius: 50%;
+	height: 20px;
+	border: 1px solid #E88219;
+}
+.addCartBtn {
+    background: #e88219;
+    padding: 0 15px;
+    color: #FFF;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    height: 30px;
+    bottom: 10px;
+    right: 10px;
+}

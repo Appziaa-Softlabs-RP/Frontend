@@ -5,6 +5,8 @@
     border-radius: 5px;
     border: 2px solid #F9F01F;
     transition: .2s;
+    padding-top: 100%;
+    border-radius: 100%;
 }
 .active .imgBox{
     border: 2px solid var(--PRIMARY_COLOR);
