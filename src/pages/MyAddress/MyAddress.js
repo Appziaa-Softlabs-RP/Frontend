@@ -25,6 +25,7 @@ export const MyAddress = () => {
         userInfo = JSON.parse(appData?.appData?.user);
     }else{
         userInfo = appData?.appData?.user;
+        userInfo= JSON.parse(userInfo);
     }
 
     const [allAddress, setAllAddress] = useState([]);
@@ -32,12 +33,14 @@ export const MyAddress = () => {
     useEffect(() => {
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
-            customer_id:userInfo?.user_id
+            customer_id:userInfo?.customer_id
         }
         ApiService.addressList(payload).then((res) => {
-            console.log(res);
+            if(res.message === "Address list successfully"){
+                setAllAddress(res?.payload_addressList);
+            }
         }).catch((err) => {
-            console.log(err);
+            
         })
     }, []);
     return (
@@ -48,9 +51,15 @@ export const MyAddress = () => {
                     <span className={`${styles.addAressTxt} d-inline-flex`}>Add New Address</span>
                     <span className={`${styles.addAressIcon} d-inline-flex mb-2`}>+</span>
                 </div>
-                <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2`}>Saved Address {allAddress.length > 0 &&<span className={`${styles.addressCnt}`}>{allAddress.length}</span>}</h2>
                 {allAddress.length > 0 &&
-                    <SavedAddress/>
+                    <React.Fragment>
+                        <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2`}>Saved Address {allAddress.length > 0 &&<span className={`${styles.addressCnt}`}>({allAddress.length})</span>}</h2>
+                        {allAddress.map((item, index) => {
+                            return(
+                                <SavedAddress item={item} key={index} />
+                            );
+                        })}
+                    </React.Fragment>
                 }
             </div>
         </React.Fragment>

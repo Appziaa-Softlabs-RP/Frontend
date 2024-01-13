@@ -26,7 +26,7 @@ export const Home = () => {
                 setAllPromoBanner(res);
             }
         }).catch((err) => {
-            console.log(err)
+            
         });
     }
 

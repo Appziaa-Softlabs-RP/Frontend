@@ -5,11 +5,13 @@ import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { useApp } from "../../context/AppContextProvider";
 import { AppNotification } from "../../utils/helper";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const AddAddress = () => {
     const appData = useApp();
     const navigate = useNavigate();
+    const location = useLocation();
+    const addresState = location.state;
     
     let userInfo = '';
     const isJSON = (str) => {
@@ -25,11 +27,12 @@ export const AddAddress = () => {
         userInfo = JSON.parse(appData?.appData?.user);
     }else{
         userInfo = appData?.appData?.user;
+        userInfo = JSON.parse(userInfo);
     }
     
     const [addressObj, setAddressObj] = useState({
         store_id: enviroment.STORE_ID,
-        customer_id:userInfo?.user_id,
+        customer_id:userInfo?.customer_id,
         pincode: '',
         name: '',
         contact: '',
@@ -64,23 +67,64 @@ export const AddAddress = () => {
         }else if(addressObj.address_type === ''){
             AppNotification('Error', 'Please choose your address type.', 'danger');
         }else{
-            ApiService.addNewAddress(addressObj).then((res) => {
-                if(res.message === 'Add successfully.'){
-                    AppNotification('Address Added', 'Your address has been saved successfully', 'success');
-                    navigate('/my-address');
-                }else{
+            if(addresState.addressEdit === true){
+                setAddressObj({...addressObj, address_id: addresState.addressId})
+                ApiService.updateAddress(addressObj).then((res) => {
+                    if(res.message === 'Add successfully.'){
+                        AppNotification('Address Added', 'Your address has been saved successfully', 'success');
+                        navigate('/my-address');
+                    }else{
+                        AppNotification('Error', 'We got an error while saving your address.', 'danger');
+                    }
+                }).catch((err) => {
                     AppNotification('Error', 'We got an error while saving your address.', 'danger');
-                }
-            }).catch((err) => {
-                AppNotification('Error', 'We got an error while saving your address.', 'danger');
-            });
+                });
+            }else{
+                ApiService.addNewAddress(addressObj).then((res) => {
+                    if(res.message === 'Add successfully.'){
+                        AppNotification('Address Added', 'Your address has been saved successfully', 'success');
+                        navigate('/my-address');
+                    }else{
+                        AppNotification('Error', 'We got an error while saving your address.', 'danger');
+                    }
+                }).catch((err) => {
+                    AppNotification('Error', 'We got an error while saving your address.', 'danger');
+                });
+            }
         }
     }
+
+    useEffect(() => {
+        if(addresState.addressEdit === true){
+            const payload = {
+                store_id: enviroment.STORE_ID,
+                customer_id: userInfo.customer_id,
+                address_id:addresState.addressId
+            }
+            ApiService.getAddressDetail(payload).then((res) => {
+                let editAddressObj = res.payload_addressDetail;
+                if(res.message === "Address detail successfully"){
+                    setAddressObj({...addressObj, pincode: editAddressObj.pincode,
+                    name: editAddressObj.name,
+                    contact: editAddressObj.contact,
+                    email: editAddressObj.email,
+                    city: editAddressObj.city,
+                    state: editAddressObj.state,
+                    house_no: editAddressObj.house_no,
+                    street: editAddressObj.street,
+                    landmark: editAddressObj.landmark,
+                    address_type: editAddressObj.address_type})
+                }
+            }).catch((err) => {
+
+            });
+        }
+    }, []);
     return (
         <React.Fragment>
-            <PageHeader title="Add Address"/>
+            <PageHeader title={`${addresState.addressEdit === true ? 'Edit Address' : 'Add Address'}`}/>
             <div className={`${styles.addressFrom} col-12 d-inline-flex flex-column p-3`}>
-                <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2 mb-3`}>Add new address</h2>
+                <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2 mb-3`}>{addresState.addressEdit === true ? 'Edit this Address' : 'Add new address'}</h2>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
                         <input placeholder="name" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="name" value={addressObj.name} onChange={(e) => setAddressObj({...addressObj, name: e.target.value})}/>
@@ -124,21 +168,21 @@ export const AddAddress = () => {
                 <h6 className="addres-type col-md-12 p-0 mb-2">Address Type</h6>
                 <div className="col-12 pb-3 pr-0 d-inline-flex align-items-center justify-content-between">
                   <div className={`${styles.addressOptionBox} d-inline-flex`}>
-                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'home'})}>
+                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'Home'})}>
                         <input type="radio" className={`${styles.address_option}`} value="Home" name="address_type"/>
                         <div className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}></div>
                         Home
                     </label>
                   </div>
                   <div className={`${styles.addressOptionBox} d-inline-flex`}>
-                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'office'})}>
+                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'Office'})}>
                         <input type="radio" className={`${styles.address_option}`} value="Office" name="address_type"/>
                         <div className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}></div>
                         Office
                     </label>
                   </div>
                   <div className={`${styles.addressOptionBox} d-inline-flex`}>
-                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'others'})}>
+                    <label className="d-inline-flex align-items-center" onClick={() => setAddressObj({...addressObj, address_type: 'Others'})}>
                         <input type="radio" className={`${styles.address_option}`} value="Others" name="address_type"/>
                         <div className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}></div>
                         Others

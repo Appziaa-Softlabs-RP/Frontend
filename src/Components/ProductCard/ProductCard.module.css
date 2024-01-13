@@ -6,14 +6,15 @@
     border-radius: 10px;
 }
 .featureOffBox{
-    color: #389956;
-	border: 1px solid #389956;
+    background: #389956;
+    color: #FFF;
 	font-weight: 600;
 	border-radius: 2px;
 	font-size: 10px;
 	line-height: 10px;
 	padding: 2px 3px;
-	margin-left: 10px;
+    right: 10px;
+    top: 10px;
 }
 .featuredImageBox{
     padding-top: 100%;
@@ -124,7 +125,7 @@
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
-    height: 30px;
+    height: 35px;
     bottom: 10px;
     right: 10px;
     left: 10px;

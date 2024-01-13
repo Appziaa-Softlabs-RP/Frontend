@@ -18,7 +18,7 @@ export const SimilarProduct = ({product}) => {
 					<div className={`${styles.allFeaturedProduct} col-12 mb-3 px-4 d-inline-flex gap-3`}>
 						{product?.map((item, index) => {
 							return (
-								<div className="col-5 flex-shrink-0">
+								<div className="col-5 flex-shrink-0" key={index}>
 									<ProductCard item={item} index={index} />
 								</div>
 							)

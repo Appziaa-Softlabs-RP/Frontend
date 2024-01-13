@@ -20,7 +20,7 @@ export const CategoryShop = () => {
         ApiService.StoreCategory(payload).then((res) => {
             setShopCategory(res?.payload_verticalList?.vertical);
         }).catch((err) => {
-            console.log(err);
+            
         });
     }, []);
     return (

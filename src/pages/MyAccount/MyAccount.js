@@ -6,6 +6,7 @@ import { useApp } from '../../context/AppContextProvider';
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../../Components/Footer/Footer";
+import { AppNotification } from "../../utils/helper";
 
 export const MyAccount = () => {
     const appData = useApp();
@@ -24,9 +25,18 @@ export const MyAccount = () => {
         userInfo = JSON.parse(appData?.appData?.user);
     }else{
         userInfo = appData?.appData?.user;
+        userInfo = JSON.parse(userInfo);
     }
 
     const navigate = useNavigate();
+
+    const userLoggedOut = () => {
+        appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
+        localStorage.removeItem('user');
+        localStorage.removeItem('loggedIn');
+        AppNotification('Logged Out', 'You have been successfully logged out.', 'success');
+        navigate('/');
+    }
 
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - My Account';
@@ -70,7 +80,7 @@ export const MyAccount = () => {
                         </span>
                         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Notification</h6>
                     </div> */}
-                    <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`}>
+                    <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`} role="button" onClick={() => userLoggedOut()}>
                         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                             <LogoutIcon color="var(--PRIMARY_COLOR)" />
                         </span>

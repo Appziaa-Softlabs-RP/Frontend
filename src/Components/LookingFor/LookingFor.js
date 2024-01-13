@@ -13,10 +13,6 @@ export const LookingFor = ({allSubCat}) => {
 
     }
 
-    useEffect(() => {
-        console.log(allSubCat);
-    }, []);
-
     return (
         <React.Fragment>
             {allSubCat?.length > 0 &&

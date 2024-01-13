@@ -34,7 +34,7 @@ export const ProductListCard = ({Product}) => {
     }
 
     const addToCart = (e,productId) => {
-        if(userInfo?.user_id !== ''){
+        if(userInfo?.customer_id !== ''){
             let ProdId = productId;
             let prodName = Product?.name;
             let Mrp = Product?.mrp;
@@ -43,7 +43,7 @@ export const ProductListCard = ({Product}) => {
             let noQty = Product?.no_of_q_a;
             let dealType = Product?.deal_type;
             let dealId = Product?.deal_type_id;
-            const res = AddToCart(userInfo?.user_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
             console.log(res);
             e.stopPropagation();
         }else{
