@@ -10,7 +10,23 @@ import { useNavigate } from "react-router-dom";
 export const AddAddress = () => {
     const appData = useApp();
     const navigate = useNavigate();
-    const userInfo = JSON.parse(appData.appData.user);
+    
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);
+    }else{
+        userInfo = appData?.appData?.user;
+    }
+    
     const [addressObj, setAddressObj] = useState({
         store_id: enviroment.STORE_ID,
         customer_id:userInfo?.user_id,

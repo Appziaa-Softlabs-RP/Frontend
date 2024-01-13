@@ -9,7 +9,22 @@ export const MyOrdersDetail = () => {
     const [orders, allOrder] = useState([]);
     const appData = useApp();
     const navigate = useNavigate();
-    const userInfo = JSON.parse(appData.appData.user);
+    
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);
+    }else{
+        userInfo = appData?.appData?.user;
+    }
 
     useEffect(() => {
         if(userInfo?.user_id !== ''){

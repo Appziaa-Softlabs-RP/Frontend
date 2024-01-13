@@ -10,7 +10,23 @@ import { useNavigate } from "react-router-dom";
 export const ProductListCard = ({Product}) => {
     const appData = useApp();
     const navigate = useNavigate();
-    const userInfo = JSON.parse(appData.appData.user);
+    
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);
+    }else{
+        userInfo = appData?.appData?.user;
+    }
+    
     let discountOff = '';
     if(Product?.mrp > Product?.selling_price){
         discountOff = ((Product?.mrp - Product?.selling_price) * 100) / Product?.mrp;
@@ -34,7 +50,7 @@ export const ProductListCard = ({Product}) => {
             AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
         }
     }
-    
+
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column px-3">

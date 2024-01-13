@@ -13,12 +13,11 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import ApiService from "../../services/ApiService";
 import { CartAside } from "../CartAside/CartAside";
 
-export const Header = ({setAsideOpen, asideOpen}) => {
+export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
     const [cartPop, setCartPop] = useState(false);
-    const [shopNavList, setShopNavList] = useState([]);
     const [menuList, setMenuList] = useState([]);
     const navigate = useNavigate();  
     const appData = useApp();
@@ -35,7 +34,7 @@ export const Header = ({setAsideOpen, asideOpen}) => {
     }
 
     if(isJSON(appData)){
-        userInfo = JSON.parse(appData?.appData?.user);    
+        userInfo = JSON.parse(appData?.appData?.user);
     }else{
         userInfo = appData?.appData?.user;
     }
@@ -56,17 +55,6 @@ export const Header = ({setAsideOpen, asideOpen}) => {
         navigate('/');
     }
 
-    useEffect(() => {
-        const payload = {
-            store_id: enviroment.STORE_ID
-        }
-        ApiService.StoreCategory(payload).then((res) => {
-            setShopNavList(res?.payload_verticalList?.vertical);
-        }).catch((err) => {
-            
-        });
-    }, []);
-
     const showCategroryProd = (id,name) => {
         const payload = {
             store_id: enviroment.STORE_ID,
@@ -81,39 +69,26 @@ export const Header = ({setAsideOpen, asideOpen}) => {
             
         });
     }
-    
-    let MainNavArr = [];
-    const readAllNav = (id) => {
-        let navObj = {};
-        navObj.navName = shopNavList[id].name;
-        navObj.navId = shopNavList[id].vertical_id;
+
+    useEffect(() => {
         const payload = {
-            store_id: enviroment.STORE_ID,
-            vertical_id: shopNavList[id].vertical_id
+            store_id: enviroment.STORE_ID
         }
-        ApiService.StoreSubCategory(payload).then((res) => {
-            if(res.message === "Fetch successfully."){
-                navObj.subNav = res.payload_verticalByCategory;
-                MainNavArr.push(navObj);
-                let loopCount = shopNavList.length;
-                id = id + 1;
-                if(id !== loopCount){
-                    readAllNav(id);
-                }else{
-                    setMenuList(MainNavArr);
+        ApiService.AllCategory(payload).then((res) => {
+            let allCatList = [];
+            res?.payload_verticalWithCatList?.vertical.map((item) => {
+                if(item?.catList?.length > 0){
+                    item.catList.map((item) => {
+                        allCatList.push(item);
+                    })
                 }
-            }
+            });
+            setAllSubCat(allCatList);
+            setMenuList(res?.payload_verticalWithCatList?.vertical);
         }).catch((err) => {
             
         });
-    }
-
-    useEffect(() => {
-        let loopCount = shopNavList.length;
-        if(loopCount > 0){
-            readAllNav(0);
-        }
-    }, [shopNavList]);
+    }, []);
 
     return (
         <React.Fragment>
@@ -205,10 +180,10 @@ export const Header = ({setAsideOpen, asideOpen}) => {
                                 {menuList.length > 0 && menuList.map((item, index) => {
                                     return (
                                         <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
-                                            <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.navName} <BackArrowIcon color="#000"  role="button" /></span>
-                                            {item.subNav?.length > 0 &&
+                                            <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000"  role="button" /></span>
+                                            {item.catList?.length > 0 &&
                                                 <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
-                                                    {item.subNav.map((subNme, subIdx) => {
+                                                    {item.catList.map((subNme, subIdx) => {
                                                         return(
                                                             <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
                                                         )

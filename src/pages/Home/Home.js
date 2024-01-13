@@ -16,6 +16,7 @@ export const Home = () => {
     const [asideOpen, setAsideOpen] = useState(false);
     const [allBanner, setAllBanner] = useState([]);
     const [allPromoBanner, setAllPromoBanner] = useState([]);
+    const [allSubCat, setAllSubCat] = useState([]);
     const appData = useApp();
 
     const fetchBanner = (payload) => {
@@ -39,13 +40,13 @@ export const Home = () => {
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column">
-                <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
+                <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setAllSubCat={setAllSubCat}/>
                 <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen}/>
                 {allBanner.length > 0 &&
                     <HeroBanner allBanner={allBanner}/>
                 }
-                {appData.appData.windowWidth === 'desktop' &&
-                    <LookingFor />
+                {appData.appData.windowWidth === 'desktop' && allSubCat.length > 0 &&
+                    <LookingFor allSubCat={allSubCat} />
                 }
                 {appData.appData.windowWidth === 'mobile' &&
                     <CategoryShop />

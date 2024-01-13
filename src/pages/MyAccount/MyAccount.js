@@ -9,7 +9,23 @@ import { Footer } from "../../Components/Footer/Footer";
 
 export const MyAccount = () => {
     const appData = useApp();
-    const userInfo = JSON.parse(appData?.appData?.user);
+    
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if(isJSON(appData)){
+        userInfo = JSON.parse(appData?.appData?.user);
+    }else{
+        userInfo = appData?.appData?.user;
+    }
+
     const navigate = useNavigate();
 
     useEffect(() => {
