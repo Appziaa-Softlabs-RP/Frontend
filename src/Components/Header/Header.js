@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from './Header.module.css';
-import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon } from "../siteIcons";
+import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon, DownArrowIcon } from "../siteIcons";
 import siteLogo from '../../assets/images/site_logo.png';
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
@@ -24,21 +24,23 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
-    let userInfo = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
+  let userInfo = '';
+  const isJSON = (str) => {
+    try {
+      JSON.stringify(JSON.parse(str));
+      return true;
+    } catch (e) {
+      return false;
     }
+  }
 
-    if(isJSON(appData)){
-        userInfo = JSON.parse(appData?.appData?.user);
-    }else{
-        userInfo = appData?.appData?.user;
-    }
+  if (isJSON(appData)) {
+    userInfo = appData?.appData?.user;
+    // userInfo = JSON.parse(appData?.appData?.user);
+  } else {
+    userInfo = JSON.parse(appData?.appData?.user);
+    // userInfo = appData?.appData?.user;
+  }
 
     const openAsideMenu = () => {
         if(asideOpen === true){
@@ -124,7 +126,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                             <span className={`d-inline-block text-decoration-none ${styles.dealsLink}`} title="Superdeals">Shipping Across India.</span>
                         </div>
                     </ReactOwlCarousel>
-                    <div className={`${styles.headerRow} ${styles.cartDrawer} col-12 d-inline-flex align-items-center`}>
+                    <div className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}>
                         <div className="container h-100 d-flex align-items-stretch">
                             <div className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}>
                                 <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`} role="button" onClick={() => routeHome()}>
@@ -165,9 +167,9 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                                             <span className={`${styles.supportText} d-inline-flex`}>Account</span>
                                             {accountOptn === true &&
                                                 <div className={`${styles.userAccountDrop} position-absolute col-12`} onClick={(e) => e.preventDefault()}>
-                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Account</span>
-                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Orders</span>
-                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Address</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-account')}>My Account</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-orders')}>My Orders</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-address')}>My Address</span>
                                                     <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>Logged Out</span>
                                                 </div>
                                             }
@@ -190,20 +192,20 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                         <div className="container">
                             <div className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}>
                                 {menuList.length > 0 && menuList.map((item, index) => {
-                                    return (
-                                        <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
-                                            <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000"  role="button" /></span>
-                                            {item.catList?.length > 0 &&
-                                                <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
-                                                    {item.catList.map((subNme, subIdx) => {
-                                                        return(
-                                                            <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
-                                                        )
-                                                    })}
-                                                </div>
-                                            }
+                                return (
+                                    <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
+                                    <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000" role="button" /></span>
+                                    {item.catList?.length > 0 &&
+                                        <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
+                                        {item.catList.map((subNme, subIdx) => {
+                                            return (
+                                            <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
+                                            )
+                                        })}
                                         </div>
-                                    )
+                                    }
+                                    </div>
+                                )
                                 })}
                             </div>
                         </div>
@@ -215,7 +217,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                         <CartAside setCartPop={setCartPop} />
                     }
                 </div>
-            ) : ( <></>)}
-        </React.Fragment>
-    )
+      ) : (<></>)}
+    </React.Fragment>
+  )
 }

@@ -1,10 +1,10 @@
 .loginBox{
-    background: #FFF;
-    border-radius: 6px;
+  background: #FFF;
+  border-radius: 6px;
 }
 .loginImage{
-    height: 60px;
-    width: 60px;
+  height: 60px;
+  width: 60px;
 }
 .loginImage svg{
     height: 40px;

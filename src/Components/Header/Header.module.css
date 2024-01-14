@@ -53,6 +53,7 @@
 .supportDrop svg{
 	height: 20px;
 	width: 20px;
+  color: #FFF;
 }
 .supportDrop .supportText{
 	font-size: 16px;
@@ -203,4 +204,29 @@
 .subMenuName:hover{
     font-weight: 500;
     background: var(--MENU_HOVER_COLOR);
+}
+
+/* loggedIn user menu */
+.userAccountDrop{
+  background: #FFF;
+  z-index: 5;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
+  top: 74px;
+  border-radius: 5px;
+  padding: 12px;
+  min-width: 240px;
+  left: 0px;
+  opacity: 1;
+  visibility: visible;
+}
+.accountOption{
+    border-bottom: 1px solid #EDEDED;
+    height: 45px;
+    font-size: 15px;
+    color: #000;
+    font-weight: 500;
+    padding: 0 10px;
+}
+.accountOption:last-child{
+    border-bottom: none;
 }
