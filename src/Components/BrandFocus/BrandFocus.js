@@ -5,12 +5,23 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
+import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 
 export const BrandFocus = () => {
     const appData = useApp();
+    const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
     const [brandData, setBrandData] = useState([]);
+
+    const showBrandProd = (id, name) => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            brand_id: id
+        }
+        let category = name?.replaceAll("[^A-Za-z0-9]","-");
+        navigate(`/store-product/${category}`, {state: {payload: payload}});
+    }
 
     useEffect(() => {
         const payload = {
@@ -32,7 +43,7 @@ export const BrandFocus = () => {
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 1 : 4 }`} loop={false} nav={true}>
                                 {brandData?.map((item, index) => {
                                     return (
-                                        <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden`}>
+                                        <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden`} onClick={() => showBrandProd(item.brand_id, item.brand_offer)}>
                                             <span className={`${styles.brandItemPhotoBox} position-relative col-12 d-inline-block`}>
                                                 <img src={item.offer_image} alt="" className="object-contain p-0 col-12 d-inline-block position-absolute h-100 start-0 top-0"/>
                                             </span>

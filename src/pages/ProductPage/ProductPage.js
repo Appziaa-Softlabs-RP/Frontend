@@ -15,18 +15,19 @@ import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
 let otherInfo = false;
 export const ProductPage = () => {
     const locationState = useLocation();
-    const [prodMainImg, setProdMainImg] = useState('');
+    const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
     const [activeImg, setActiveImg] = useState(0);
     const [prodDiscount, setProdDiscount] = useState(0);
-    const [descActive, setDescActive] = useState(false);
+    const [descActive, setDescActive] = useState(true);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
     console.log(ProductData);
 
-    const setMainImage = (image) => {
+    const setMainImage = (image, count) => {
         setProdMainImg(image);
+        setActiveImg(count);
     }
 
     const openProductColpse = () => {
@@ -150,7 +151,8 @@ export const ProductPage = () => {
                                     <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={6}>
                                         {ProductData?.gallery?.map((item, index) => {
                                             return(
-                                                <div className={`${styles.galleryBox} ${activeImg === item.image_url && styles.activeGallery} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url)} key={index}>
+                                                <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
+                                                    {console.log(activeImg, index)}
                                                     <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
                                                 </div>
                                             )

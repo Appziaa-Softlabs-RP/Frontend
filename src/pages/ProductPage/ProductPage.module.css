@@ -99,6 +99,10 @@
     border: 1px solid #EEE;
     height: 100%;
 }
+.productGalleryRow .galleryBox.activeGallery{
+    border: 1px solid var(--PRIMARY_COLOR);
+    height: 100%;
+}
 .continueShop {
     background: var(--ADD_BUTTON_COLOR);
     padding: 0px 10px;
