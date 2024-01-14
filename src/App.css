@@ -83,3 +83,7 @@ left: -25px;
 .brandSilder .owl-nav button.disabled{
   display: none !important;
 }
+input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
+  -webkit-appearance: none;
+  display: none;
+}

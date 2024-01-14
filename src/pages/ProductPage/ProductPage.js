@@ -142,10 +142,10 @@ export const ProductPage = () => {
                     <Header/>
                     <div className="col-12 d-inline-flex mt-5">
                         <div className="container">
-                            <div className={`col-12 d-inline-flex align-items-stretch p-3 mb-4`}>
-                                <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-7 p-3`}>
-                                    <div className={`${styles.productMainImage} col-12 d-inline-block`}>
-                                        <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain col-12 d-inline-block" />
+                            <div className={`col-12 d-inline-flex align-items-start position-relative p-3 mb-4`}>
+                                <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-7 p-3 position-sticky top-0`}>
+                                    <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
+                                        <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
                                     </div>
                                     <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={6}>
                                         {ProductData?.gallery?.map((item, index) => {
@@ -166,7 +166,7 @@ export const ProductPage = () => {
                                             <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
                                         ) : (
                                             <div className="col-12 d-inline-flex align-items-center gap-3">
-                                                <span className={`${styles.offerPrice}`}><b>₹{ProductData.selling_price}</b> <del>₹{ProductData.mrp}</del></span>
+                                                <span className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}><b>₹{ProductData.selling_price}</b><del>₹{ProductData.mrp}</del></span>
                                                 {prodDiscount !== '' &&
                                                 <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span> }
                                             </div>

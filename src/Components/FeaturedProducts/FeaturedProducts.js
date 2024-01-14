@@ -2,6 +2,7 @@ import React from "react";
 import styles from './FeaturedProducts.module.css';
 import { useApp } from "../../context/AppContextProvider";
 import { ProductCard } from "../ProductCard/ProductCard";
+import ReactOwlCarousel from "react-owl-carousel";
 
 export const FeaturedProducts = ({product}) => {
     const appData = useApp();
@@ -15,15 +16,13 @@ export const FeaturedProducts = ({product}) => {
 					{windowWidth === "mobile" &&
 						<span className={`${styles.smallTitle} col-12 mb-3 mt-0 d-inline-block float-left px-4`}>Hurry Up ! Steal  your deals now</span>
 					}
-					<div className={`${styles.allFeaturedProduct} ${windowWidth === "mobile" && 'px-4'} col-12 mb-3 d-inline-flex gap-3`}>
+					<ReactOwlCarousel className={`${styles.allFeaturedProduct} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}>
 						{product?.map((item, index) => {
 							return (
-								<div className={`${windowWidth === "mobile" ? 'col-5' : 'col-2'} flex-shrink-0`} key={index}>
-									<ProductCard item={item} index={index} />
-								</div>
+								<ProductCard item={item} index={index} />
 							)
 						})}
-					</div>
+					</ReactOwlCarousel>
 				</div>
 			</div>
         </React.Fragment>

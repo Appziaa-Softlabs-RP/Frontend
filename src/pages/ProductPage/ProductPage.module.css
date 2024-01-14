@@ -33,9 +33,9 @@
     color: #FFF;
 	font-weight: 600;
 	border-radius: 4px;
-	font-size: 10px;
+	font-size: 14px;
 	line-height: 10px;
-	padding: 4px 8px;
+	padding: 6px 10px;
 	margin-left: 10px;
 }
 .inclusivTax{
@@ -93,6 +93,7 @@
 }
 .productMainImage{
     margin-bottom: 10px;
+    padding-top: 100%;
 }
 .productGalleryRow .galleryBox{
     border: 1px solid #EEE;
@@ -158,6 +159,9 @@
     box-shadow: none;
     padding: 10px 80px 10px 40px;
     background: transparent;
+}
+.deliveryInput:focus{
+    outline: none;
 }
 .deliveryBtn{
     box-shadow: none;
