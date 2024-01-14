@@ -152,7 +152,6 @@ export const ProductPage = () => {
                                         {ProductData?.gallery?.map((item, index) => {
                                             return(
                                                 <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
-                                                    {console.log(activeImg, index)}
                                                     <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
                                                 </div>
                                             )
