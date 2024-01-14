@@ -23,25 +23,25 @@ export const MyAccountMenu = () => {
   return (
     <div className={`${styles.loginBox} d-inline-flex flex-column gap-2 py-4 p-3 w-25`}>
       <h5 className="">My Account</h5>
-      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-account')}>
+      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-account')} role="button">
         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
           <UserIcon color="#454545" />
         </span>
         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Profile Details</h6>
       </div>
-      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-orders')}>
+      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-orders')} role="button">
         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
           <OrderIcon color="#454545" />
         </span>
         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Orders</h6>
       </div>
-      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-address')}>
+      <div className={`${styles.accountRow} col-12 d-inline-flex align-items-center gap-2`} onClick={() => navigate('/my-address')} role="button">
         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
           <LocationIcon color="#454545" />
         </span>
         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Address</h6>
       </div>
-      <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`} role="button" onClick={() => userLoggedOut()}>
+      <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`} role="button" onClick={() => userLoggedOut()} role="button">
         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
           <LogoutIcon color="var(--PRIMARY_COLOR)" />
         </span>
@@ -50,12 +50,6 @@ export const MyAccountMenu = () => {
     </div>
   );
 }
-
-// const MyAccountContent = () => {
-//   return(
-
-//   );
-// }
 
 export const MyAccount = () => {
   const appData = useApp();

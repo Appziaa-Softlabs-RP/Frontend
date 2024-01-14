@@ -71,25 +71,27 @@ export const MyAddress = () => {
   }, []);
   return (
     <React.Fragment>
-      {
-        windowWidth === "mobile"
-          ? <>
+      {windowWidth === "mobile" ? (
+          <React.Fragment>
             <PageHeader title="My Address" />
             <UserAddressTab allAddress={allAddress} />
-          </>
-          : <>
-              <Header />
+          </React.Fragment>
+      ) : (
+        <React.Fragment>
+            <Header />
+            <div className="col-12 d-inline-flex mt-4">
               <div className="container">
-                <div className="d-flex gap-3 mt-4">
+                <div className="d-flex gap-3 col-12 align-items-start">
                   <MyAccountMenu />
                   <div className="w-full flex-grow-1">
                     <UserAddressTab allAddress={allAddress} />
                   </div>
                 </div>
               </div>
-              <Footer />
-            </>
-      }
+            </div>
+            <Footer />
+          </React.Fragment>
+      )}
     </React.Fragment>
   )
 }
