@@ -17,6 +17,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
     const [cartCount, setCartCount] = useState(0);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
+    const [accountOptn, setAccountOptn] = useState(false);
     const [cartPop, setCartPop] = useState(false);
     const [menuList, setMenuList] = useState([]);
     const navigate = useNavigate();
@@ -53,6 +54,14 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
 
     const routeHome = () => {
         navigate('/');
+    }
+
+    const openAccountDetail = () => {
+        if(accountOptn === true){
+            setAccountOptn(false);
+        }else{
+            setAccountOptn(true);
+        }
     }
 
     const showCategroryProd = (id,name) => {
@@ -151,9 +160,17 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                                         </div>
                                     </div>
                                     {userInfo && userInfo?.customer_id !== '' ? (
-                                        <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
+                                        <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => openAccountDetail()}>
                                             <UserIcon color="#FFF"/>
                                             <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                                            {accountOptn === true &&
+                                                <div className={`${styles.userAccountDrop} position-absolute col-12`} onClick={(e) => e.preventDefault()}>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Account</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Orders</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>My Address</span>
+                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>Logged Out</span>
+                                                </div>
+                                            }
                                         </div>
                                     ) : (
                                         <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)} role="button">
