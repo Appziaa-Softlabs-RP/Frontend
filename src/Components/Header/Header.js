@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './Header.module.css';
-import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon, DownArrowIcon } from "../siteIcons";
+import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon } from "../siteIcons";
 import siteLogo from '../../assets/images/site_logo.png';
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";

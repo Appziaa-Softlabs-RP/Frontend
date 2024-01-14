@@ -29,13 +29,13 @@
     color: #16253B;
 }
 .offerPercentage{
-    color: #389956;
-	border: 1px solid #389956;
+    background: #389956;
+    color: #FFF;
 	font-weight: 600;
-	border-radius: 2px;
+	border-radius: 4px;
 	font-size: 10px;
 	line-height: 10px;
-	padding: 2px 3px;
+	padding: 4px 8px;
 	margin-left: 10px;
 }
 .inclusivTax{
@@ -100,10 +100,10 @@
 }
 .continueShop {
     background: var(--ADD_BUTTON_COLOR);
-    padding: 0px 37px;
+    padding: 0px 10px;
     color: #FFF;
-    border-radius: 25px;
-    height: 40px;
+    border-radius: 10px;
+    height: 50px;
     font-size: 16px;
     line-height: 16px;
     font-weight: 500;
@@ -113,9 +113,85 @@
     color: #808080;
     font-weight: 500;
 }
+.productDescHeader{
+    padding: 15px;
+    background: #F3F3F3;
+}
+.productDescTitle{
+    color: #151515;
+    font-size: 16px;
+}
+.headerArrow{
+    height: 15px;
+    width: 15px;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+}
+.headerArrow.arrowActive{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+}
+.prodDescAnswer{
+    padding: 24px;
+    color: #151515;
+    font-size: 16px;
+}
+.deliveryHeading{
+    font-size: 20px;
+    color: #000;
+    font-weight: 700;
+}
+.deliveryInputBox svg{
+    height: 20px;
+    width: 20px;
+    top: 15px;
+    left: 5px;
+    z-index: 5;
+    position: absolute;
+}
+.deliveryInput{
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+    padding: 10px 80px 10px 40px;
+    background: transparent;
+}
+.deliveryBtn{
+    box-shadow: none;
+    border: none;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 10px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+}
+.checkZiperror{
+    color: #FF0000;
+    font-size: 12px;
+}
+.checkDeliveryResponse{
+    background: #74d1bb;
+    border-radius: 4px;
+    padding: 30px;
+}
+.checkDeliveryDateOuter, .checkDeliveryLabel, .checkDeliveryDate{
+    font-size: 14px;
+    color: #000;
+}
+.checkDeliveryDate{
+    font-weight: 700;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
         font-size: 20px;
         line-height: 24px;
+    }
+    .continueShop{
+        width: 100%;
     }
 }

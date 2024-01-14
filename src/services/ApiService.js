@@ -258,4 +258,12 @@ ApiService.brandInFocus = function (data) {
   })
 }
 
+ApiService.brandProduct = function (data) {
+  return fetch({
+    url: 'store/BrandByProduct',
+    method: 'post',
+    data: data
+  })
+}
+
 export default ApiService;

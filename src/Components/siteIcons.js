@@ -170,11 +170,10 @@ export const SpecialOfferIcon = () => {
   )
 }
 
-// todo: change this icon
-export const DownArrowIcon = () => {
+export const DownArrowIcon = ({color}) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    <svg width="15" height="6" viewBox="0 0 15 6">
+      <path d="M7.78101 0L15 5.25L0.56203 5.25L7.78101 0Z" fill={color}></path>
     </svg>
   )
 }

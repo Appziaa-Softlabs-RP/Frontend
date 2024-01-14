@@ -1,39 +1,65 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './ProductPage.module.css';
 import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
+import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
 
+let otherInfo = false;
 export const ProductPage = () => {
     const locationState = useLocation();
+    const [prodMainImg, setProdMainImg] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [activeImg, setActiveImg] = useState(0);
+    const [prodDiscount, setProdDiscount] = useState(0);
+    const [descActive, setDescActive] = useState(false);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
-    let discountOff = '';
-    if(ProductData?.mrp > ProductData?.selling_price){
-        discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
-        discountOff = Math.ceil(discountOff);
+    console.log(ProductData);
+
+    const setMainImage = (image) => {
+        setProdMainImg(image);
     }
-    let otherInfo = false;
-    {Object.values(ProductData?.other).map((item) => {
-        if(item !== '' && item !== null && item !== undefined){
-            otherInfo = true;  
-        }
-    })}
 
     const openProductColpse = () => {
 
     }
 
+    const getDeliveyInfo = () => {
+
+    }
+
+    const openDescription = () => {
+        if(descActive === false){
+            setDescActive(true);
+        }else{
+            setDescActive(false);
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
+        let discountOff = '';
+        if(ProductData?.mrp > ProductData?.selling_price){
+            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+            discountOff = Math.ceil(discountOff);
+            setProdDiscount(discountOff);
+        }
+        setProdMainImg(ProductData.image);
+        setActiveImg(ProductData.image);
+        {Object.values(ProductData?.other).map((item) => {
+            if(item !== '' && item !== null && item !== undefined){
+                otherInfo = true;  
+            }
+        })}
     },[locationState]);
     return (
         <React.Fragment>
@@ -66,7 +92,8 @@ export const ProductPage = () => {
                             ) : (
                                 <React.Fragment>
                                     <span className={`${styles.offerPrice}`}><b>₹{ProductData.selling_price}</b> <del>₹{ProductData.mrp}</del></span>
-                                    <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff} &nbsp;OFF</span>
+                                    {prodDiscount !== '' &&
+                                    <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span> }
                                 </React.Fragment>
                             )}
                         </div>
@@ -101,12 +128,10 @@ export const ProductPage = () => {
                         </div>
                         }
                     </div>
-                    
                     <div className={`col-12 d-inline-block mb-5`}>
                         <FeaturedProducts product={ProductData.featured} />
                         <SimilarProduct product={ProductData.similar} />
                     </div>
-
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Go to Cart</span>
                         <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Add to Cart</span>
@@ -117,22 +142,22 @@ export const ProductPage = () => {
                     <Header/>
                     <div className="col-12 d-inline-flex mt-5">
                         <div className="container">
-                            <div className={`${styles.productContainer} col-12 d-inline-flex align-items-stretch p-3 mb-4`}>
-                                <div className={`d-inline-flex flex-column gap-3 col-5 p-3`}>
+                            <div className={`col-12 d-inline-flex align-items-stretch p-3 mb-4`}>
+                                <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-7 p-3`}>
                                     <div className={`${styles.productMainImage} col-12 d-inline-block`}>
-                                        <img src={ProductData?.image} alt={ProductData.name} className="object-fit-contain col-12 d-inline-block" />
+                                        <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain col-12 d-inline-block" />
                                     </div>
-                                    <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={4}>
+                                    <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={6}>
                                         {ProductData?.gallery?.map((item, index) => {
                                             return(
-                                                <div className={`${styles.galleryBox} col-12 d-inline-flex align-items-center justify-content-center`} key={index}>
+                                                <div className={`${styles.galleryBox} ${activeImg === item.image_url && styles.activeGallery} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url)} key={index}>
                                                     <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
                                                 </div>
                                             )
                                         })}
                                     </ReactOwlCarousel>
                                 </div>
-                                <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-7 align-items-start justify-content-start p-3`}>
+                                <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-5 align-items-start justify-content-start px-4`}>
                                     <h2 className={`${styles.productDetailName} col-12 mb-1`}>{ProductData.name}</h2>
                                     <span className='ml-3 mb-1'>Item Code: {ProductData?.barcode} </span>
                                     <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
@@ -140,13 +165,43 @@ export const ProductPage = () => {
                                         {ProductData.selling_price === ProductData.mrp ? (
                                             <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
                                         ) : (
-                                            <React.Fragment>
+                                            <div className="col-12 d-inline-flex align-items-center gap-3">
                                                 <span className={`${styles.offerPrice}`}><b>₹{ProductData.selling_price}</b> <del>₹{ProductData.mrp}</del></span>
-                                                <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff} &nbsp;OFF</span>
-                                            </React.Fragment>
+                                                {prodDiscount !== '' &&
+                                                <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span> }
+                                            </div>
                                         )}
                                     </div>
-                                    <span role="button" className={`${styles.continueShop} d-inline-flex align-items-center justify-content-center text-uppercase`}>Add to cart</span>
+                                    {ProductData?.description !== '' && ProductData?.description !== null && ProductData?.description !== "Not available" &&
+                                    <div className={`col-12 d-inline-flex flex-column my-3`}>
+                                        <div className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`} onClick={() => openDescription()} role="button">
+                                            <h3 className={`${styles.productDescTitle} d-inline-flex m-0`}>Product Description</h3>
+                                            <span className={`${styles.headerArrow} ${descActive === true && styles.arrowActive} d-inline-flex`}>
+                                            <DownArrowIcon /></span>
+                                        </div>
+                                        {descActive === true &&
+                                            <div className={`${styles.prodDescAnswer} d-inline-flex col-12`}>{ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}</div>
+                                        }
+                                    </div>
+                                    }
+                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}>Add to cart</span>
+                                    <div className="col-12 d-inline-block mt-3 mb-3">
+                                        <h3 className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}>Delivery &amp; Services</h3>
+                                        <div className={`col-12 d-inline-block`}>
+                                            <div className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}>
+                                                <LocationIcon color="#151515" />
+                                                <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => setPincode(e.target.value)} value={pincode} />
+                                                <button onClick={() => getDeliveyInfo()} type="button" className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}>Check</button>
+                                            </div>
+                                            <span className={`${styles.checkZiperror} col-12 d-inline-block`}></span>
+                                            <div className={`${styles.checkDeliveryResponse} d-none flex-column col-12 mt-3 p-3`}>
+                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span className={`${styles.checkDeliveryLabel} d-inline-flex`}>Expected Delivery Date: </span><strong className={`${styles.checkDeliveryDate} d-inline-flex`} id="expectedDelivery"></strong></p>
+                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>32, Chhattarpur Main Road, Chandan Hola, New Delhi 110074</strong></p>
+                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link href="tel:+919911163300" id="storeTel">+91-9911163300</Link></span></p>
+                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><a href="https://goo.gl/maps/kZkVQaE2PuH39BWz9" target="_blank">Google Map</a></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

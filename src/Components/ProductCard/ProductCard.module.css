@@ -10,11 +10,12 @@
     color: #FFF;
 	font-weight: 600;
 	border-radius: 2px;
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 10px;
-	padding: 2px 3px;
+	padding: 4px 3px;
     right: 10px;
     top: 10px;
+    z-index: 5;
 }
 .featuredImageBox{
     padding-top: 100%;
