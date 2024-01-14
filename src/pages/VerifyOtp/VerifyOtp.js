@@ -9,13 +9,14 @@ import ApiService from '../../services/ApiService';
 import { AppNotification } from '../../utils/helper';
 
 
-let mobileOTP = '';
-let mobileOTPId = '';
+let mobileOTP = '',
+mobileOTPId = '',
+mobileNum = '';
 
 export const VerifyOtp = () => {
     const [optInput, setOptInput] = useState({otpInput1: '', otpInput2: '', otpInput3: '', otpInput4: ''});
+    const [mobileLast, setMobileLast] = useState('');
     const appData = useApp();
-
 
     const optInput1 = useRef();
     const optInput2 = useRef();
@@ -29,10 +30,29 @@ export const VerifyOtp = () => {
         if(locationState?.state?.opt && locationState?.state?.optID){
             mobileOTP = locationState.state.opt;
             mobileOTPId = locationState.state.optID;
+            mobileNum = locationState.state.mobile;
+            mobileNum = mobileNum?.substr(mobileNum.length - 5);
+            setMobileLast(mobileNum);
         }else{
             navigate('/');
         }
     }, []);
+
+    const resendOTP = () => {
+        const payload = {
+            otp_type:'mobile',
+            username:locationState.state.mobile
+        }
+        ApiService.sendOTP(payload).then((res) => {
+            if(res.message === 'Otp send successfully.'){
+                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                mobileOTP = res.payload.otp;
+                mobileOTPId = res.payload.otp_id;
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+        });
+    }
 
     const changeOptInput1 = (e) => {
         setOptInput({...optInput, otpInput1: e.target.value})
@@ -128,10 +148,10 @@ export const VerifyOtp = () => {
                         <input type="tel" className={`${styles.otpInput} d-inline-block`} maxLength="1" minLength="1" ref={optInput4} value={optInput.otpInput4}  onChange={(e) => changeOptInput4(e)} />
                     </div>
                     <div className="col-12 p-0 d-inline-block">
-                        <span className={`${styles.otpInfo}`}>Please enter 4 Digit Verification Code sent to <span>+91- xxxxx 4253</span></span>
+                        {mobileLast !== '' && <span className={`${styles.otpInfo}`}>Please enter 4 Digit Verification Code sent to <span>+91- XXXXX {mobileLast}</span></span>}
                     </div>
                     <div className="col-12 p-0 d-inline-block">
-                        <span className={`${styles.resendInfo}`}>Didn't recieve the OTP?</span>&nbsp;<span className={`${styles.resendOtp}`}>Resend Code</span>
+                        <span className={`${styles.resendInfo}`}>Didn't recieve the OTP?</span>&nbsp;<span onClick={() => resendOTP()} className={`${styles.resendOtp}`}>Resend Code</span>
                     </div>
                     <div className="col-12 p-0 d-inline-block">
                         <span role="button" className={`${styles.verifyBtn}  d-inline-flex align-items-center justify-content-center col-12`} onClick={() => proceedVerify()}>Verify &amp; Proceed</span>

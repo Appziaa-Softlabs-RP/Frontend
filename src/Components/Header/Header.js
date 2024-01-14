@@ -12,6 +12,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import ApiService from "../../services/ApiService";
 import { CartAside } from "../CartAside/CartAside";
+import { AppNotification } from "../../utils/helper";
 
 export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
     const [cartCount, setCartCount] = useState(0);
@@ -24,23 +25,21 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
-  let userInfo = '';
-  const isJSON = (str) => {
-    try {
-      JSON.stringify(JSON.parse(str));
-      return true;
-    } catch (e) {
-      return false;
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
-  }
 
-  if (isJSON(appData)) {
-    userInfo = appData?.appData?.user;
-    // userInfo = JSON.parse(appData?.appData?.user);
-  } else {
-    userInfo = JSON.parse(appData?.appData?.user);
-    // userInfo = appData?.appData?.user;
-  }
+    if (isJSON(appData)) {
+        userInfo = appData?.appData?.user;
+    } else {
+        userInfo = appData?.appData?.user;
+    }
 
     const openAsideMenu = () => {
         if(asideOpen === true){
@@ -74,6 +73,14 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
         let category = name?.replaceAll("[^A-Za-z0-9]","-");
         navigate(`/store-product/${category}`, {state: {payload: payload}});
     }
+
+    const userLoggedOut = () => {
+        appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
+        localStorage.removeItem('user');
+        localStorage.removeItem('loggedIn');
+        AppNotification('Logged Out', 'You have been successfully logged out.', 'success');
+        navigate('/');
+      };
 
     useEffect(() => {
         const payload = {
@@ -170,7 +177,7 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
                                                     <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-account')}>My Account</span>
                                                     <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-orders')}>My Orders</span>
                                                     <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-address')}>My Address</span>
-                                                    <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>Logged Out</span>
+                                                    <span role="button" onClick={() => userLoggedOut()} className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>Logged Out</span>
                                                 </div>
                                             }
                                         </div>

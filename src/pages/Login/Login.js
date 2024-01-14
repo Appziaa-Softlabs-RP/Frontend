@@ -18,12 +18,11 @@ export const Login = () => {
         ApiService.sendOTP(payload).then((res) => {
             if(res.message === 'Otp send successfully.'){
                 AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                navigate('/verify', {state: {opt: res.payload.otp, optID: res.payload.otp_id}})
+                navigate('/verify', {state: {opt: res.payload.otp, optID: res.payload.otp_id, mobile: mobileVal}})
             }
         }).catch((err) => {
-            console.log(err);
             AppNotification('Error', 'Unable to send OTP to your number', 'danger');
-        })
+        });
     }
 
     const routeHome = () => {

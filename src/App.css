@@ -39,7 +39,7 @@ img{
   font-size: 30px;
 }
 
-.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button{
+.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button, .brandSilder .owl-nav button{
   position: absolute;
   background: var(--SECONDARY_COLOR) !important;
   border-radius: 50% !important;
@@ -50,21 +50,21 @@ img{
   justify-content: center;
   transition: .2s;
 }
-.carousel-looking-for .owl-nav button.owl-prev {
-  left: -25px;
+.carousel-looking-for .owl-nav button.owl-prev, .brandSilder .owl-nav button.owl-prev {
+left: -25px;
 }
-.carousel-looking-for .owl-nav button.owl-next {
+.carousel-looking-for .owl-nav button.owl-next, .brandSilder .owl-nav button.owl-next {
   right: -25px;
 }
-.carousel-looking-for .owl-nav button span{
+.carousel-looking-for .owl-nav button span, .brandSilder .owl-nav button span{
   color: var(--PRIMARY_COLOR);
   position: relative;
   top: -2px;
 }
-.carousel-looking-for .owl-nav button:hover{
+.carousel-looking-for .owl-nav button:hover, .brandSilder .owl-nav button:hover{
   background: var(--PRIMARY_COLOR) !important;
 }
-.carousel-looking-for .owl-nav button:hover span{
+.carousel-looking-for .owl-nav button:hover span, .brandSilder .owl-nav button:hover span{
   color: var(--SECONDARY_COLOR);
 }
 .heroBanner .owl-nav button{
@@ -79,4 +79,7 @@ img{
 .heroBanner .owl-nav button span{
   font-size: 80px;
   color: #FFF;
+}
+.brandSilder .owl-nav button.disabled{
+  display: none !important;
 }

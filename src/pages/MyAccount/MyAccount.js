@@ -12,6 +12,7 @@ import { AppNotification } from "../../utils/helper";
 export const MyAccountMenu = () => {
   const appData = useApp();
   const navigate = useNavigate();
+  
   const userLoggedOut = () => {
     appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
     localStorage.removeItem('user');
@@ -41,7 +42,7 @@ export const MyAccountMenu = () => {
         </span>
         <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>Address</h6>
       </div>
-      <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`} role="button" onClick={() => userLoggedOut()} role="button">
+      <div className={`${styles.accountRow} ${styles.LoggedOutRow} col-12 d-inline-flex align-items-center gap-2`} role="button" onClick={() => userLoggedOut()}>
         <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
           <LogoutIcon color="var(--PRIMARY_COLOR)" />
         </span>

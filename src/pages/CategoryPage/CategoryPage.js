@@ -45,7 +45,7 @@ export const CategoryPage = () => {
 
             <div className="col-12 d-inline-flex mt-5">
                 <div className="container">
-                    {locationState?.state?.banner !== '' &&
+                    {locationState?.state?.banner !== '' && locationState?.state?.banner !== null && locationState?.state?.banner !== undefined &&
                         <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
                             <img src={locationState.state.banner[0].image} alt="Banner" className="col-12 d-inline-block" />
                         </div>
