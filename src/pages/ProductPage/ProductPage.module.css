@@ -100,12 +100,13 @@
 }
 .continueShop {
     background: var(--ADD_BUTTON_COLOR);
-    border: none;
-    padding: 5px 37px;
-    color: #fff;
+    padding: 0px 37px;
+    color: #FFF;
     border-radius: 25px;
     height: 40px;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
 }
 .specialTitle{
     font-size: 16px;

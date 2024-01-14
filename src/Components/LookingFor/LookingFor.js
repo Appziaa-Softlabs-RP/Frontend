@@ -1,16 +1,22 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import ReactOwlCarousel from "react-owl-carousel";
+import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
-import ApiService from "../../services/ApiService";
 import styles from './LookingFor.module.css';
 
 export const LookingFor = ({allSubCat}) => {
     const appData = useApp();
+    const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
 
-    const subCatProduts = (id) => {
-
+    const subCatProduts = (id, name) => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            category_id: id
+        }
+        let category = name?.replaceAll("[^A-Za-z0-9]","-");
+        navigate(`/store-product/${category}`, {state: {payload: payload}});
     }
 
     return (
@@ -23,7 +29,7 @@ export const LookingFor = ({allSubCat}) => {
                         <ReactOwlCarousel className={`carousel-looking-for col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={8} stagePadding={0} nav={true}>
                             {allSubCat?.map((item, idx) => {
                                 return(
-                                    <div className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2 mouse-cursor`} key={idx} onClick={() => subCatProduts(item.category_id)}>
+                                    <div className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2 mouse-cursor`} key={idx} onClick={() => subCatProduts(item.category_id, item.name)}>
                                         <img src={item?.image} alt={item?.name} className="object-fit-cover col-12 d-inline-block" />
                                         <p className={`${styles.thumbName} text-truncate col-12 text-center mb-0`}>{item?.name}</p>
                                     </div>

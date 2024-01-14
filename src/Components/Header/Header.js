@@ -60,14 +60,8 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
             store_id: enviroment.STORE_ID,
             category_id: id
         }
-        ApiService.CategoryByProd(payload).then((res) => {
-            if(res.message === "Fetch successfully."){
-                let category = name?.replaceAll("[^A-Za-z0-9]","-");
-                navigate(`/store-product/${category}`, {state: {product: res.payload_CategoryByProduct}});
-            }
-        }).catch((err) => {
-            
-        });
+        let category = name?.replaceAll("[^A-Za-z0-9]","-");
+        navigate(`/store-product/${category}`, {state: {payload: payload}});
     }
 
     useEffect(() => {
@@ -76,14 +70,15 @@ export const Header = ({setAsideOpen, asideOpen, setAllSubCat}) => {
         }
         ApiService.AllCategory(payload).then((res) => {
             let allCatList = [];
-            res?.payload_verticalWithCatList?.vertical.map((item) => {
+            let allSubCategory = res?.payload_verticalWithCatList?.vertical;
+            allSubCategory.map((item) => {
                 if(item?.catList?.length > 0){
                     item.catList.map((item) => {
                         allCatList.push(item);
                     })
                 }
             });
-            setMenuList(res?.payload_verticalWithCatList?.vertical);
+            setMenuList(allSubCategory);
             setAllSubCat(allCatList);
         }).catch((err) => {
             

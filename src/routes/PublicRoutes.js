@@ -28,7 +28,7 @@ export const PublicRoutes = () => {
       <Route path="/offers" element={<ShopOffers />} />
       <Route path="/store/:category" element={<SubCategoryPage />} />
       <Route path="/store-product/:category" element={<CategoryPage />} />
-      <Route path="/brands/:category" element={<CategoryPage />} />
+      <Route path="/store/age/:category" element={<CategoryPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route
         path="/my-account"

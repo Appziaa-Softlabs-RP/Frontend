@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
@@ -6,11 +7,18 @@ import styles from './ShopAge.module.css';
 
 export const ShopAge = () => {
     const [categAge, setCategAge] = useState([]);
+    const navigate = useNavigate();
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
-    const openAgeProd = (ageId, banner) => {
-
+    const openAgeProd = (ageId, banner, name) => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            age_group_id: ageId
+        }
+        console.log(ageId, banner, name);
+        let category = name?.replaceAll("[^A-Za-z0-9]","-");
+        navigate(`/store/age/${category}`, {state: {payload: payload, banner: banner, category: 'SHOP'}});
     }
 
     useEffect(() => {
@@ -40,7 +48,7 @@ export const ShopAge = () => {
                         <div className={`${styles.scrollAgeBox} col-12 flex-wrap d-inline-flex justify-content-center px-4 pb-0`}>
                             {categAge.map((item, index) => {
                                 return (
-                                    <div className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0`} key={index} onClick={() => openAgeProd(item.age_group_id, item.age_group_banner)}>
+                                    <div className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0`} key={index} onClick={() => openAgeProd(item.age_group_id, item.age_group_banner, item.name)}>
                                         <div className="col-12 pl-1 pr-1 d-inline-flex flex-column justify-content-center align-items-center position-relative text-decoration-none">
                                             <div className={`${styles.ageBlockIcon} overflow-hidden d-inline-block col-12 position-relative`}>
                                                 <img src={item.image} alt={item.name} className="position-absolute col-12 h-100 d-inline-block p-0"/>

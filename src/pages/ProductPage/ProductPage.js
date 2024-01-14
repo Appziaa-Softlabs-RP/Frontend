@@ -22,9 +22,9 @@ export const ProductPage = () => {
         discountOff = Math.ceil(discountOff);
     }
     let otherInfo = false;
-    {Object.values(ProductData?.other).map((item, idx) => {
+    {Object.values(ProductData?.other).map((item) => {
         if(item !== '' && item !== null && item !== undefined){
-            otherInfo = true   
+            otherInfo = true;  
         }
     })}
 
@@ -146,7 +146,7 @@ export const ProductPage = () => {
                                             </React.Fragment>
                                         )}
                                     </div>
-                                    <span role="button" className={`${styles.continueShop} d-inline-flex align-items-center justify-content-center`}>Add to cart</span>
+                                    <span role="button" className={`${styles.continueShop} d-inline-flex align-items-center justify-content-center text-uppercase`}>Add to cart</span>
                                 </div>
                             </div>
                         </div>
