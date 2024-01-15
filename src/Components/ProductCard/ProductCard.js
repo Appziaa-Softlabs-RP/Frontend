@@ -49,8 +49,9 @@ export const ProductCard = ({item, index}) => {
                     <span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
                 </div>
                 )}
-                {/* add to cart button */}
-                <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}>Add to cart</span>
+                {item.stock !== 0 &&
+                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}>Add to cart</span>
+                }
                 <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
                     
                     {/* <React.Fragment>
