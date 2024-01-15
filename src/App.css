@@ -87,3 +87,10 @@ input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   -webkit-appearance: none;
   display: none;
 }
+
+/* user profile nav menu */
+.user-menu-active {
+  background-color: var(--MENU_HOVER_COLOR);
+  font-weight: bold;
+  border-right: 4px solid var(--PRIMARY_COLOR);
+}
