@@ -1,0 +1,23 @@
+.loaderContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 200px;
+  column-count: 4;
+}
+.loaderItem {
+  display: flex;
+  border-radius: 10px;
+  width: 25%;
+  height: 250px;
+  margin: 10px;
+}
+
+.productCardLoaderWrapper{
+  border: 1px solid #DDD;
+  padding: 10px;
+  background: #FFF;
+  border-radius: 10px;
+  width: calc(25% - 20px);
+  margin: 10px;
+}
