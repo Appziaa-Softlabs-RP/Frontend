@@ -23,11 +23,11 @@ export const ProductPage = () => {
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
-    console.log(ProductData);
 
     const setMainImage = (image, count) => {
-        setProdMainImg(image);
+        console.log('setMainImage ',image, count);
         setActiveImg(count);
+        setProdMainImg(image);
     }
 
     const openProductColpse = () => {
@@ -55,13 +55,16 @@ export const ProductPage = () => {
             setProdDiscount(discountOff);
         }
         setProdMainImg(ProductData.image);
-        setActiveImg(ProductData.image);
         {Object.values(ProductData?.other).map((item) => {
             if(item !== '' && item !== null && item !== undefined){
                 otherInfo = true;  
             }
         })}
     },[locationState]);
+
+    useEffect(() => {
+        console.log('useEffect ',activeImg);
+    }, [activeImg]);
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (
@@ -148,7 +151,7 @@ export const ProductPage = () => {
                                     <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
                                         <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
                                     </div>
-                                    <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={6}>
+                                    <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={false} items={6}>
                                         {ProductData?.gallery?.map((item, index) => {
                                             return(
                                                 <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
