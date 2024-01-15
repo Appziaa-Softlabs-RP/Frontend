@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { AppNotification } from "../../utils/helper";
+import { AddToCart, AppNotification } from "../../utils/helper";
 import styles from './ProductCard.module.css';
 
 export const ProductCard = ({item, index}) => {
@@ -23,6 +23,24 @@ export const ProductCard = ({item, index}) => {
         }).catch((err) => {
             AppNotification('Error', 'Sorry, Product detail not found.', 'danger'); 
         });
+    }
+
+    const addToCart = (e,productId) => {
+        if(userInfo?.customer_id !== ''){
+            let ProdId = productId;
+            let prodName = item?.name;
+            let Mrp = item?.mrp;
+            let sellingPrice = item?.selling_price;
+            let Quantity = 1;
+            let noQty = item?.no_of_q_a;
+            let dealType = item?.deal_type;
+            let dealId = item?.deal_type_id;
+            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+            console.log(res);
+            e.stopPropagation();
+        }else{
+            AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
+        }
     }
 
     return (
@@ -50,7 +68,7 @@ export const ProductCard = ({item, index}) => {
                 </div>
                 )}
                 {item.stock !== 0 &&
-                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}>Add to cart</span>
+                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item?.product_id)}>Add to cart</span>
                 }
                 <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
                     
