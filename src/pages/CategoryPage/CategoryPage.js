@@ -16,32 +16,41 @@ export const CategoryPage = () => {
 
     useEffect(() => {
         const payload = locationState.state.payload;
-        if(locationState.state.category === 'SHOP'){
+        if (locationState.state.category === 'SHOP') {
             ApiService.ageGroupProduct(payload).then((res) => {
-                if(res.message === "Fetch successfully."){
+                if (res.message === "Fetch successfully.") {
                     seProductData(res.payload_ageGroupByProduct);
                 }
             }).catch((err) => {
-                
+
             });
-        }else{
+        } else if (locationState.state.category === 'Brand') {
+            ApiService.brandProduct(payload).then((res) => {
+                if (res.message === "Fetch successfully.") {
+                    console.log(res)
+                    seProductData(res.payload_BrandByProduct);
+                }
+            }).catch((err) => {
+
+            });
+        } else {
             ApiService.CategoryByProd(payload).then((res) => {
-                if(res.message === "Fetch successfully."){
+                if (res.message === "Fetch successfully.") {
                     seProductData(res.payload_CategoryByProduct);
                 }
             }).catch((err) => {
-                
+
             });
         }
     }, [locationState]);
 
     return (
         <React.Fragment>
-            {windowWidth === "mobile" ? 
+            {windowWidth === "mobile" ?
                 <PageHeader title="Explore Category" />
-            : windowWidth === "desktop" ?
-                <Header />
-            : ''}
+                : windowWidth === "desktop" ?
+                    <Header />
+                    : ''}
 
             <div className="col-12 d-inline-flex mt-5">
                 <div className="container">
@@ -52,9 +61,9 @@ export const CategoryPage = () => {
                     }
                     <div className={`d-inline-flex flex-wrap col-12 mb-3`}>
                         {ProductData?.length > 0 && ProductData?.map((item, index) => {
-                            return (    
+                            return (
                                 <React.Fragment key={index}>
-                                    {item.name !== '' && 
+                                    {item.name !== '' &&
                                         <div className={`${windowWidth === "mobile" ? 'col-6' : 'col-3'} px-2 flex-shrink-0 mb-3`} key={index} role="button">
                                             <ProductCard item={item} index={index} />
                                         </div>
