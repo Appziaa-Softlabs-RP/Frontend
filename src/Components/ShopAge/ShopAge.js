@@ -48,7 +48,7 @@ export const ShopAge = () => {
                         <div className={`${styles.scrollAgeBox} col-12 flex-wrap d-inline-flex justify-content-center px-4 pb-0`}>
                             {categAge.map((item, index) => {
                                 return (
-                                    <div className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0`} key={index} onClick={() => openAgeProd(item.age_group_id, item.age_group_banner, item.name)}>
+                                    <div className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0 mouse-cursor`} key={index} onClick={() => openAgeProd(item.age_group_id, item.age_group_banner, item.name)}>
                                         <div className="col-12 pl-1 pr-1 d-inline-flex flex-column justify-content-center align-items-center position-relative text-decoration-none">
                                             <div className={`${styles.ageBlockIcon} overflow-hidden d-inline-block col-12 position-relative`}>
                                                 <img src={item.image} alt={item.name} className="position-absolute col-12 h-100 d-inline-block p-0"/>
