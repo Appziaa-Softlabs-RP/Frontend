@@ -43,7 +43,7 @@ export const BrandFocus = () => {
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 1 : 4}`} loop={false} nav={true}>
                                 {brandData?.map((item, index) => {
                                     return (
-                                        <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden`} onClick={() => showBrandProd(item.brand_id, item.brand_offer)}>
+                                        <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`} onClick={() => showBrandProd(item.brand_id, item.brand_offer)}>
                                             <span className={`${styles.brandItemPhotoBox} position-relative col-12 d-inline-block`}>
                                                 <img src={item.offer_image} alt="" className="object-contain p-0 col-12 d-inline-block position-absolute h-100 start-0 top-0" />
                                             </span>
