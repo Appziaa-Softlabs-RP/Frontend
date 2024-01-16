@@ -18,6 +18,7 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     const payload = locationState.state.payload;
+    console.log(payload)
     if (locationState.state.category === 'SHOP') {
       ApiService.ageGroupProduct(payload).then((res) => {
         if (res.message === "Fetch successfully.") {

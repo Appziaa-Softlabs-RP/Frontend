@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AddToCart, AppNotification } from "../../utils/helper";
@@ -7,6 +8,23 @@ import styles from './ProductCard.module.css';
 
 export const ProductCard = ({item, index}) => {
     const navigate = useNavigate();
+    const appData = useApp();
+
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if (isJSON(appData)) {
+        userInfo = appData?.appData?.user;
+    } else {
+        userInfo = appData?.appData?.user;
+    }
 
     const showProductDetail = (id) => {
         const payload = {
@@ -26,6 +44,7 @@ export const ProductCard = ({item, index}) => {
     }
 
     const addToCart = (e,productId) => {
+        e.preventDefault();
         if(userInfo?.customer_id !== ''){
             let ProdId = productId;
             let prodName = item?.name;

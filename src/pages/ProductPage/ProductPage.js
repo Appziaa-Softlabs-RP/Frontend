@@ -11,6 +11,7 @@ import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
 import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
+import { AddToCart, AppNotification } from "../../utils/helper";
 
 let otherInfo = false;
 export const ProductPage = () => {
@@ -24,8 +25,23 @@ export const ProductPage = () => {
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
 
+    let userInfo = '';
+    const isJSON = (str) => {
+        try {
+            JSON.stringify(JSON.parse(str));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if (isJSON(appData)) {
+        userInfo = appData?.appData?.user;
+    } else {
+        userInfo = appData?.appData?.user;
+    }
+
     const setMainImage = (image, count) => {
-        console.log('setMainImage ',image, count);
         setActiveImg(count);
         setProdMainImg(image);
     }
@@ -46,6 +62,25 @@ export const ProductPage = () => {
         }
     }
 
+    const addToCart = (e,productId) => {
+        e.preventDefault();
+        if(userInfo?.customer_id !== ''){
+            let ProdId = productId;
+            let prodName = ProductData?.name;
+            let Mrp = ProductData?.mrp;
+            let sellingPrice = ProductData?.selling_price;
+            let Quantity = 1;
+            let noQty = ProductData?.no_of_q_a;
+            let dealType = ProductData?.deal_type;
+            let dealId = ProductData?.deal_type_id;
+            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+            console.log(res);
+            e.stopPropagation();
+        }else{
+            AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         let discountOff = '';
@@ -61,10 +96,6 @@ export const ProductPage = () => {
             }
         })}
     },[locationState]);
-
-    useEffect(() => {
-        console.log('useEffect ',activeImg);
-    }, [activeImg]);
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (
@@ -138,7 +169,7 @@ export const ProductPage = () => {
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Add to Cart</span>
+                        <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e,ProductData)}>Add to Cart</span>
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -188,7 +219,7 @@ export const ProductPage = () => {
                                         }
                                     </div>
                                     }
-                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}>Add to cart</span>
+                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}  onClick={(e) => addToCart(e,ProductData)}>Add to cart</span>
                                     <div className="col-12 d-inline-block mt-3 mb-3">
                                         <h3 className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}>Delivery &amp; Services</h3>
                                         <div className={`col-12 d-inline-block`}>
