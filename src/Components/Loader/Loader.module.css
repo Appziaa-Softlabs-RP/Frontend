@@ -64,3 +64,12 @@
   border-radius: 10px;
   margin: 10px;
 }
+
+.headerNavWrapper {
+  position: relative;
+  display: flex;
+  height: 50px;
+  justify-content: space-around;
+  align-items: center;
+  /* padding-top: 10px; */
+}
