@@ -65,7 +65,7 @@ export const ProductPage = () => {
     const addToCart = (e,productId) => {
         e.preventDefault();
         if(userInfo?.customer_id !== ''){
-            let ProdId = productId;
+            let ProdId = productId.id;
             let prodName = ProductData?.name;
             let Mrp = ProductData?.mrp;
             let sellingPrice = ProductData?.selling_price;
