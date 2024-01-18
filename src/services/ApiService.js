@@ -100,15 +100,31 @@ ApiService.CategoryBySubProd = function (data) {
 
 ApiService.addToCart = function (data) {
   return fetch({
-    url: "store/addToCart",
+    url: "store/addTocart",
     method: "post",
     data: data
   })
 }
 
-ApiService.addToCart = function (data) {
+ApiService.getCartList = function (data) {
   return fetch({
-    url: "store/addToCart",
+    url: "store/cartList",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateCart = function (data) {
+  return fetch({
+    url: "store/updateTocart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.removeCart = function (data) {
+  return fetch({
+    url: "store/removeTocart",
     method: "post",
     data: data
   })

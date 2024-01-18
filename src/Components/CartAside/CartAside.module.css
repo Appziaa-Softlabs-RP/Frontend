@@ -140,3 +140,49 @@
     height: 40px;
     font-size: 14px;
 }
+.drawerContents{
+	background: #F3F3F3;
+    flex: 1;
+    overflow-y: auto;
+}
+.drawerCartItemsWrapper{
+	background: #FFF;
+    padding: 10px 10px 10px 120px;
+}
+.cartItemLink{
+	left: 10px;
+    top: 10px;
+    height: 100px;
+    width: 100px;
+}
+.cartItemLink img{
+	height: 100px;
+    width: 100px;
+}
+.productCartDetails{
+	min-height: 120px;
+	padding: 0 15px;
+}
+.cartItemName, .productOption, .priceEnd{
+	font-size: 14px;
+    color: #000;
+}
+.priceEnd{
+	font-weight: 700;
+}
+.quantityButton{
+	width: 35px;
+	height: 35px;
+    color: #e88219;
+    border: 1px solid #e88219;
+    border-radius: 100%;
+}
+.quantityInput{
+	width: 35px;
+    height: 35px;
+    font-size: 14px;
+    color: #000;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}

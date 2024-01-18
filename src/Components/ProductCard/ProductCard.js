@@ -23,7 +23,7 @@ export const ProductCard = ({item, index}) => {
     if (isJSON(appData)) {
         userInfo = appData?.appData?.user;
     } else {
-        userInfo = appData?.appData?.user;
+        userInfo = JSON.parse(appData?.appData?.user);
     }
 
     const showProductDetail = (id) => {
@@ -43,16 +43,16 @@ export const ProductCard = ({item, index}) => {
         });
     }
 
-    const addToCart = (e,productId) => {
+    const addToCart = (e,item) => {
         e.preventDefault();
-        if(userInfo?.customer_id !== ''){
-            let ProdId = productId;
+        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
+            let ProdId = item.product_id;
             let prodName = item?.name;
             let Mrp = item?.mrp;
             let sellingPrice = item?.selling_price;
             let Quantity = 1;
             let noQty = item?.no_of_q_a;
-            let dealType = item?.deal_type;
+            let dealType = item?.deal_type ? item?.deal_type : 0;
             let dealId = item?.deal_type_id;
             const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
             console.log(res);
@@ -87,7 +87,7 @@ export const ProductCard = ({item, index}) => {
                 </div>
                 )}
                 {item.stock !== 0 &&
-                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item?.product_id)}>Add to cart</span>
+                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item)}>Add to cart</span>
                 }
                 <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
                     

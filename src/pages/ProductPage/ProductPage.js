@@ -38,7 +38,7 @@ export const ProductPage = () => {
     if (isJSON(appData)) {
         userInfo = appData?.appData?.user;
     } else {
-        userInfo = appData?.appData?.user;
+        userInfo = JSON.parse(appData?.appData?.user);
     }
 
     const setMainImage = (image, count) => {
@@ -64,8 +64,9 @@ export const ProductPage = () => {
 
     const addToCart = (e,productId) => {
         e.preventDefault();
-        if(userInfo?.customer_id !== ''){
-            let ProdId = productId.id;
+        console.log(ProductData);
+        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
+            let ProdId = ProductData.product_id;
             let prodName = ProductData?.name;
             let Mrp = ProductData?.mrp;
             let sellingPrice = ProductData?.selling_price;
