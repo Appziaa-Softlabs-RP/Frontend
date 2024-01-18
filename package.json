@@ -16,7 +16,8 @@
     "react-router-dom": "^6.19.0",
     "react-scripts": "5.0.1",
     "swiper": "^11.0.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.4.7"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",

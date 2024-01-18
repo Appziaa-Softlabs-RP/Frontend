@@ -4,6 +4,17 @@ import styles from './Loader.module.css';
 
 // const Wrapper = ({ child }) => <div className='flex w-16'>{child}</div>
 
+export const HeaderNavLoader = () => {
+  return (
+    <div className={styles.headerNavWrapper}>
+      <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+      <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+      <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+      <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+    </div>
+  )
+}
+
 export const ProductCardLoader = () => {
   return (
     <div className={styles.productCardLoaderWrapper}>
@@ -107,7 +118,6 @@ export const PromoBannerLoader = () => {
     </div>
   );
 }
-
 
 export const BrandFocusLoader = () => {
   return (
