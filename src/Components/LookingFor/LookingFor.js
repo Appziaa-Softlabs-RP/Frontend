@@ -27,7 +27,7 @@ export const LookingFor = () => {
   }
 
   useEffect(() => {
-    if (categories) {
+    if (categories.length > 0) {
       setLoading(false)
     } else {
       setCategories();
