@@ -10,6 +10,7 @@ import { PromoBannerLoader } from "../Loader/Loader";
 
 export const PromoBanner = ({ type }) => {
   const [loading, setLoading] = useState(true);
+  // const banners = useAppStore(state => state.banners);
   const promoBanners = useAppStore(state => state.promoBanners);
   const offerBanners = useAppStore(state => state.offerBanners);
   const [allBanner, setAllBanner] = useState([]);
@@ -19,12 +20,14 @@ export const PromoBanner = ({ type }) => {
   useEffect(() => {
     if (type === 'Promo Banner') {
       setAllBanner(promoBanners);
-      setLoading(false);
     } else if (type === 'Offers') {
       setAllBanner(offerBanners);
+    }
+    
+    if(allBanner.length > 0) {
       setLoading(false);
     }
-  }, [promoBanners, offerBanners]);
+  }, [promoBanners, offerBanners, allBanner]);
 
   return (
     <React.Fragment>

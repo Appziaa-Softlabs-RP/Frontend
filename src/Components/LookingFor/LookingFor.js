@@ -11,6 +11,7 @@ import { LookingForBannerLoader } from "../Loader/Loader";
 
 export const LookingFor = () => {
   const categories = useAppStore(state => state.categories);
+  const setCategories = useAppStore(state => state.setCategories);
   const [loading, setLoading] = useState(true);
   const appData = useApp();
   const navigate = useNavigate();
@@ -26,10 +27,12 @@ export const LookingFor = () => {
   }
 
   useEffect(() => {
-    if (categories.length > 0) {
-      setLoading(false);
+    if (categories) {
+      setLoading(false)
+    } else {
+      setCategories();
     }
-  }, [categories])
+  }, [])
 
   return (
     <React.Fragment>
