@@ -6,9 +6,9 @@ export const setBannersSelector = state => state.setBanners;
 export const bannersSelector = state => state.setBanners;
 
 const log = config => (set, get, api) => config(args => {
-  console.log("  applying", args)
+  // console.log("  applying", args)
   set(args)
-  console.log("  new state", get())
+  // console.log("  new state", get())
 }, get, api);
 
 export const useAppStore = create(log((set, get) => ({
