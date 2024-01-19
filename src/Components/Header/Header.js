@@ -18,18 +18,27 @@ import { HeaderNavLoader } from "../Loader/Loader";
 import { useAppStore } from "../../store";
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
+    const appData = useApp();
+    
+    const [cartCount, setCartCount] = useState(appData.appData.cartCount);
+    const [searchProd, setSearchProd] = useState('');
+    const [loginPop, setLoginPop] = useState(false);
+    const [accountOptn, setAccountOptn] = useState(false);
+    const [cartPop, setCartPop] = useState(false);
+    const navigate = useNavigate();
+    let windowWidth = appData.appData.windowWidth;
   const [loading, setLoading] = useState(true);
   const navItems = useAppStore(state => state.navItems);
   const categories = useAppStore(state => state.categories);
   const setCategories = useAppStore(state => state.setCategories);
 
-  const [cartCount, setCartCount] = useState(0);
-  const [searchProd, setSearchProd] = useState('');
-  const [loginPop, setLoginPop] = useState(false);
-  const [accountOptn, setAccountOptn] = useState(false);
-  const [cartPop, setCartPop] = useState(false);
-  const navigate = useNavigate();
-  const appData = useApp();
+  // const [cartCount, setCartCount] = useState(0);
+  // const [searchProd, setSearchProd] = useState('');
+  // const [loginPop, setLoginPop] = useState(false);
+  // const [accountOptn, setAccountOptn] = useState(false);
+  // const [cartPop, setCartPop] = useState(false);
+  // const navigate = useNavigate();
+  // const appData = useApp();
 
   const setBanners = useAppStore(state => state.setBanners);
 
@@ -37,7 +46,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   const promoBanners = useAppStore(state => state.promoBanners);
   const offerBanners = useAppStore(state => state.offerBanners);
 
-  let windowWidth = appData.appData.windowWidth;
+  // let windowWidth = appData.appData.windowWidth;
 
   let userInfo = '';
   const isJSON = (str) => {

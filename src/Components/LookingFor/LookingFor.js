@@ -32,7 +32,7 @@ export const LookingFor = () => {
     } else {
       setCategories();
     }
-  }, [categories])
+  }, [])
 
   return (
     <React.Fragment>
