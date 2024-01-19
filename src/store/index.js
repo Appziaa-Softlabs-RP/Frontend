@@ -84,7 +84,7 @@ export const useAppStore = create(log((set, get) => ({
 
   // category list
   categories: [],
-  setCategories: async (list) => {
+  setCategories: async () => {
     const payload = {
       store_id: enviroment.STORE_ID
     };
@@ -106,7 +106,7 @@ export const useAppStore = create(log((set, get) => ({
     } catch (err) {
       return new Error("error on AllCategory", err);
     }
-
+    // console.log("setCategories", allSubCategory);
     set((state) => ({
       categories: allCatList,
       navItems: allSubCategory

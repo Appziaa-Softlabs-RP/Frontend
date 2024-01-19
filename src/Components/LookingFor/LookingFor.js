@@ -28,11 +28,11 @@ export const LookingFor = () => {
 
   useEffect(() => {
     if (categories.length > 0) {
-      setLoading(false)
+      setLoading(false);
     } else {
       setCategories();
     }
-  }, [])
+  }, [categories])
 
   return (
     <React.Fragment>
