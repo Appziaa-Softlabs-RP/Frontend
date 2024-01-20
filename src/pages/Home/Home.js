@@ -9,6 +9,8 @@ import { BrandFocus } from "../../Components/BrandFocus/BrandFocus";
 import { Footer } from "../../Components/Footer/Footer";
 import { useApp } from "../../context/AppContextProvider";
 import { LookingFor } from "../../Components/LookingFor/LookingFor";
+import { DealShop } from "../../Components/DealShop/DealShop";
+import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
 // import { useAppStore } from "../../store";
 
 export const Home = () => {
@@ -27,8 +29,11 @@ export const Home = () => {
         {!isMobile && <LookingFor />}
         {isMobile && <CategoryShop />}
 
+        <DealShop />
+
         <PromoBanner type="Promo Banner" />
         <ShopAge />
+        <LimitedOffers/>
 
         <PromoBanner type="Offers" />
         <BrandFocus />

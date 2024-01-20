@@ -25,15 +25,13 @@ export const HeroBanner = ({ allBanner }) => {
     const payload = {
       store_id: enviroment.STORE_ID
     };
-
+    
     ApiService.banner(payload).then((res) => {
       if (res.message === "Fetch successfully.") {
         // hero banner
         setHeroBanners(res?.payload_banner?.banner);
-
         // promo banner
         setPromoBanners(res?.payload_banner?.promobanner);
-
         // offers
         setOfferBanners(res?.payload_banner?.sectionbanner);
         

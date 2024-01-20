@@ -39,7 +39,7 @@ img{
   font-size: 30px;
 }
 
-.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button, .brandSilder .owl-nav button{
+.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button, .brandSilder .owl-nav button, .limitedOfferSlider .owl-nav button{
   position: absolute;
   background: var(--SECONDARY_COLOR) !important;
   border-radius: 50% !important;
@@ -67,7 +67,7 @@ left: -25px;
 .carousel-looking-for .owl-nav button:hover span, .brandSilder .owl-nav button:hover span{
   color: var(--SECONDARY_COLOR);
 }
-.heroBanner .owl-nav button{
+.heroBanner .owl-nav button, .limitedOfferSlider .owl-nav button{
   background: transparent !important;
 }
 .heroBanner .owl-nav button.owl-prev {
@@ -78,14 +78,43 @@ left: -25px;
 }
 .heroBanner .owl-nav button span{
   font-size: 80px;
-  color: #FFF;
+  color: var(--SECONDARY_COLOR);
 }
-.brandSilder .owl-nav button.disabled{
+.brandSilder .owl-nav button.disabled, .limitedOfferSlider .owl-nav button.disabled{
   display: none !important;
 }
 input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   -webkit-appearance: none;
   display: none;
+}
+.dealsShop.owl-carousel .owl-stage{
+  display: flex;
+  align-items: stretch;
+}
+.limitedOfferSlider .owl-stage-outer{
+  padding-top: 30px;
+}
+.limitedOfferSlider.owl-theme .owl-nav{
+  width: 100px;
+  top: 0px;
+  right: 0px;
+  height: 30px;
+  margin-top: -5px;
+}
+.limitedOfferSlider .owl-nav button.owl-next{
+  right: 0px;
+}
+.limitedOfferSlider .owl-nav button.owl-prev{
+  right: 30px;
+}
+.limitedOfferSlider .owl-nav button span{
+  font-size: 20px;
+  color: var(--SECONDARY_COLOR);
+}
+.limitedOfferSlider.owl-theme .owl-nav button{
+  height: 30px;
+  width: 30px;
+  margin: 0px;
 }
 
 /* user profile nav menu */

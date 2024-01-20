@@ -16,7 +16,6 @@ export const ShopAge = () => {
             store_id: enviroment.STORE_ID,
             age_group_id: ageId
         }
-        console.log(ageId, banner, name);
         let category = name?.replaceAll("[^A-Za-z0-9]","-");
         navigate(`/store/age/${category}`, {state: {payload: payload, banner: banner, category: 'SHOP'}});
     }
@@ -39,7 +38,7 @@ export const ShopAge = () => {
             <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}>
                 <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
                     {windowWidth === 'desktop' && 
-                    <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ Shop By Age ✨</h5>
+                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ Shop By Age ✨</h5>
                     }
                     <div className={`${styles.shopAgeContainer} col-12 pt-4 pb-4 pl-0 pr-0`}>
                         {windowWidth === "mobile" &&

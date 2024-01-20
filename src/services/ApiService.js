@@ -98,6 +98,22 @@ ApiService.CategoryBySubProd = function (data) {
   })
 }
 
+ApiService.DealsOfProduct = function (data) {
+  return fetch({
+    url: "store/normalDeals",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.HotDealsProduct = function (data) {
+  return fetch({
+    url: "store/hotDeals",
+    method: "post",
+    data: data
+  })
+}
+
 ApiService.addToCart = function (data) {
   return fetch({
     url: "store/addTocart",
