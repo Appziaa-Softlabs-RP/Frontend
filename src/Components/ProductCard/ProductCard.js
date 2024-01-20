@@ -55,7 +55,6 @@ export const ProductCard = ({item, index}) => {
             let dealType = item?.deal_type ? item?.deal_type : 0;
             let dealId = item?.deal_type_id;
             const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
-            console.log(res);
             e.stopPropagation();
         }else{
             AppNotification('Error', 'You need to login in first to start shopping.', 'danger');

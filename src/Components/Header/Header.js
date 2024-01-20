@@ -19,19 +19,18 @@ import { HeaderNavLoader } from "../Loader/Loader";
 
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
-  const [loading, setLoading] = useState(true);
-  const navItems = useAppStore(state => state.navItems);
-  const setNavItems = useAppStore(state => state.setNavItems);
-  const setCategories = useAppStore(state => state.setCategories);
-
-  const [cartCount, setCartCount] = useState(0);
-  const [searchProd, setSearchProd] = useState('');
-  const [loginPop, setLoginPop] = useState(false);
-  const [accountOptn, setAccountOptn] = useState(false);
-  const [cartPop, setCartPop] = useState(false);
-  const navigate = useNavigate();
-  const appData = useApp();
-  let windowWidth = appData.appData.windowWidth;
+    const appData = useApp();
+    const [loading, setLoading] = useState(true);
+    const navItems = useAppStore(state => state.navItems);
+    const setNavItems = useAppStore(state => state.setNavItems);
+    const setCategories = useAppStore(state => state.setCategories);
+    const [cartCount, setCartCount] = useState(appData.appData.cartCount);
+    const [searchProd, setSearchProd] = useState('');
+    const [loginPop, setLoginPop] = useState(false);
+    const [accountOptn, setAccountOptn] = useState(false);
+    const [cartPop, setCartPop] = useState(false);
+    const navigate = useNavigate();
+    let windowWidth = appData.appData.windowWidth;
 
   let userInfo = '';
   const isJSON = (str) => {
@@ -109,9 +108,12 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
       setLoading(false);
     }).catch((err) => {
       setLoading(false);
-      console.error(err);
     });
   }, []);
+
+  useEffect(() => {
+    setCartCount(appData.appData.cartCount);
+  }, [appData.appData.cartCount]);
 
   return (
     <React.Fragment>
@@ -198,7 +200,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     </div>
                   )}
                   <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => setCartPop(true)}>
-                    <CartIcon color="#FFF" />
+                    <span className="position-relative d-inline-flex">
+                        <CartIcon color="#FFF" />
+                        <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{cartCount}</span>
+                    </span>
                     <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                   </div>
                 </div>
@@ -209,7 +214,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             <div className="container">
               {loading
                 ? <HeaderNavLoader />
-                // ? <div className="header-loader">Loading</div>
                 :
                 <div className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}>
                   {navItems.length > 0 && navItems.map((item, index) => {

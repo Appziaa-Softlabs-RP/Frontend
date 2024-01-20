@@ -41,10 +41,11 @@ export const CartAside = ({setCartPop}) => {
             ApiService.updateCart(payload).then((res) => {
                 if(res.message === "Cart update successfully"){
                     setCartData(res.payload_updateTocart);
+                    appData.setAppData({ ...appData.appData, cartCount: res.payload_updateTocart?.length });
                 }
             }).catch((err) => {
 
-            })
+            });
         }
     }
 
@@ -56,6 +57,7 @@ export const CartAside = ({setCartPop}) => {
         ApiService.getCartList(payload).then((res) => {
             if(res.message === "Cart list successfully"){
                 setCartData(res.payload_cartList);
+                appData.setAppData({ ...appData.appData, cartCount: res.payload_cartList?.length });
             }
         }).catch((err) => {
 
@@ -93,13 +95,13 @@ export const CartAside = ({setCartPop}) => {
                                                     <div className={`d-inline-flex align-items-center`}>
                                                         <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="minus" role="button">
                                                             <svg className="icon iconMinus" fill="none" viewBox="0 0 10 2">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor"></path>
+                                                                <path  d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor"></path>
                                                             </svg>
                                                         </span>
                                                         <input className={`${styles.quantityInput} flex-shrink-0 d-inline-block text-center`} type="number" value={item.quantity} minLength="1" maxLength="5"/>
                                                         <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="plus" role="button" onClick={() => updateQuantity(item.cart_id, item.no_of_quantity_allowed, item.quantity)}>
                                                             <svg className="icon iconPlus" fill="none" viewBox="0 0 10 10">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor"></path>
+                                                                <path  d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor"></path>
                                                             </svg>
                                                         </span>
                                                     </div>

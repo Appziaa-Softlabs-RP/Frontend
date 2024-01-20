@@ -35,14 +35,14 @@ export const HeroBanner = ({ allBanner }) => {
         setPromoBanners(res?.payload_banner?.promobanner);
 
         // offers
-        setOfferBanners(res?.payload_banner?.offeroftheday);
+        setOfferBanners(res?.payload_banner?.sectionbanner);
         
         setLoading(false);
       }
     }).catch((err) => {
 
     });
-  }, [])
+  }, []);
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
