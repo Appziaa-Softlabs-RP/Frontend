@@ -54,26 +54,30 @@ export const PromoBanner = ({ type }) => {
       ) : windowWidth === 'desktop' ? (
         <React.Fragment>
           { loading  ? <PromoBannerLoader />
-            : <div className={`col-12 d-inline-flex flex-column mt-3`}>
-                <div className="container">
-                  <div className={`col-12 d-inline-flex flex-column py-3`}>
-                    {type === 'Promo Banner' &&
-                      <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3`}>
-                        ✨ Promos for you ✨
-                      </h5>
-                    }
-                    <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : ''}`} stagePadding={0}>
-                      {allBanner.map((item, index) => {
-                        return (
-                          <div className={styles.item} key={index}>
-                            <img src={item?.image} alt={item?.name} className="object-fit-cover col-12 d-inline-block" />
-                          </div>
-                        )
-                      })}
-                    </ReactOwlCarousel>
+            : <React.Fragment>
+              {allBanner?.length > 0 && 
+                <div className={`col-12 d-inline-flex flex-column mt-3`}>
+                  <div className="container">
+                    <div className={`col-12 d-inline-flex flex-column py-3`}>
+                      {type === 'Promo Banner' &&
+                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3`}>
+                          ✨ Promos for you ✨
+                        </h5>
+                      }
+                      <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : ''}`} stagePadding={0}>
+                        {allBanner.map((item, index) => {
+                          return (
+                            <div className={styles.item} key={index}>
+                              <img src={item?.image} alt={item?.name} className="object-fit-cover col-12 d-inline-block" />
+                            </div>
+                          )
+                        })}
+                      </ReactOwlCarousel>
+                    </div>
                   </div>
-                </div>
-            </div>
+              </div>
+              }
+            </React.Fragment>
           }
         </React.Fragment>
       ) : ('')}

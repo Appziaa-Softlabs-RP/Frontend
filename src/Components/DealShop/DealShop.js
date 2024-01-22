@@ -38,7 +38,7 @@ export const DealShop = () => {
                         <ReactOwlCarousel className={`dealsShop col-12 d-inline-block owl-theme`} margin={10} loop={false} dots={false} items={`${windowWidth === 'desktop' ? 4 : windowWidth === 'mobile' ? 2 : ''}`} stagePadding={`${windowWidth === 'desktop' ? 0 : windowWidth === 'mobile' ? 20 : ''}`}>
                             {dealsProd?.map((item, indx) => {
                                 return (
-                                    <ProductCard item={item} index={indx} />
+                                    <ProductCard item={item} index={indx} key={indx} />
                                 )
                             })}
                         </ReactOwlCarousel>

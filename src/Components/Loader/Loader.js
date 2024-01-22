@@ -7,7 +7,7 @@ import styles from './Loader.module.css';
 export const HeaderNavLoader = () => {
   return (
     <div className={styles.headerNavWrapper}>
-      <div className='container'>
+      <div className='container d-flex justify-content-around'>
         <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
         <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
         <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />

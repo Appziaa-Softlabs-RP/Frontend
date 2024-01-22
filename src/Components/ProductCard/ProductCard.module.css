@@ -131,6 +131,20 @@
     right: 10px;
     left: 10px;
 }
+.itemQuantityBtnBox{
+    bottom: 10px;
+    right: 10px;
+}
+.decrease_btn, .increase_btn{
+    height: 30px;
+    width: 30px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    color: var(--ADD_BUTTON_COLOR);
+    background: #FFF;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
 /* Desktop CSS */
 @media screen and (min-width:568px) {
     .offerItemName{
@@ -143,5 +157,8 @@
     }
     .singleFeaturedProduct{
         padding-bottom: 60px;
+    }
+    .countValue{
+        width: 40px;
     }
 }

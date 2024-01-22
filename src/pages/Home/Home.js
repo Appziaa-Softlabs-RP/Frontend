@@ -27,16 +27,21 @@ export const Home = () => {
         <HeroBanner />
         {/* what are you looking for ? */}
         {!isMobile && <LookingFor />}
+        
         {isMobile && <CategoryShop />}
 
         <DealShop />
 
         <PromoBanner type="Promo Banner" />
+
         <ShopAge />
-        <LimitedOffers/>
 
         <PromoBanner type="Offers" />
+
+        <LimitedOffers/>
+
         <BrandFocus />
+
         <Footer />
       </div>
     </React.Fragment>

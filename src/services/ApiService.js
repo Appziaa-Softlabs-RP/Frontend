@@ -146,6 +146,22 @@ ApiService.removeCart = function (data) {
   })
 }
 
+ApiService.addMultipleCart = function (data) {
+  return fetch({
+    url: "store/addTocartMultiple",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateMultipleCart = function (data) {
+  return fetch({
+    url: "store/updateTocartMultiple",
+    method: "post",
+    data: data
+  })
+}
+
 ApiService.similarProd = function (data) {
   return fetch({
     url: "store/cartSimilarProduct",

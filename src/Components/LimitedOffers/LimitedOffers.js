@@ -57,7 +57,7 @@ export const LimitedOffers = () => {
                                         <ReactOwlCarousel className={`limitedOfferSlider col-12 d-inline-block owl-theme`} margin={10} loop={false} dots={false} nav={true} items={`${windowWidth === 'desktop' ? 3 : windowWidth === 'mobile' ? 1 : ''}`} stagePadding={`${windowWidth === 'desktop' ? 20 : windowWidth === 'mobile' ? 10 : ''}`}>
                                             {offerProd?.map((item, indx) => {
                                                 return (
-                                                    <ProductCard item={item} index={indx} />
+                                                    <ProductCard item={item} key={indx} index={indx} />
                                                 )
                                             })}
                                         </ReactOwlCarousel>

@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { AddToCart, AppNotification } from "../../utils/helper";
+import { AddToCart, AppNotification, LoggedOutCart } from "../../utils/helper";
 import styles from './ProductCard.module.css';
 
 export const ProductCard = ({item, index}) => {
+    const [prodAdded, setProdAdded] = useState(false);
+    const [prodUpdate, setProdUpdate] = useState(false);
+    const [prodAddedQty, setProdAddedQty] = useState(0);
     const navigate = useNavigate();
     const appData = useApp();
 
-    let userInfo = '';
+    let userInfo = '',
+    addedProd = '';
     const isJSON = (str) => {
         try {
             JSON.stringify(JSON.parse(str));
@@ -22,8 +26,14 @@ export const ProductCard = ({item, index}) => {
 
     if (isJSON(appData)) {
         userInfo = appData?.appData?.user;
+        addedProd = appData?.appData?.cartData;
     } else {
         userInfo = JSON.parse(appData?.appData?.user);
+        if(typeof(appData?.appData?.cartData) === 'object'){
+            addedProd = appData?.appData?.cartData;
+        }else{
+            addedProd = JSON.parse(appData?.appData?.cartData);
+        }
     }
 
     const showProductDetail = (id) => {
@@ -44,22 +54,103 @@ export const ProductCard = ({item, index}) => {
     }
 
     const addToCart = (e,item) => {
+        let cartInfo = localStorage.getItem("cartData");
         e.preventDefault();
-        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
-            let ProdId = item.product_id;
-            let prodName = item?.name;
-            let Mrp = item?.mrp;
-            let sellingPrice = item?.selling_price;
-            let Quantity = 1;
-            let noQty = item?.no_of_q_a;
-            let dealType = item?.deal_type ? item?.deal_type : 0;
-            let dealId = item?.deal_type_id;
-            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
-            e.stopPropagation();
-        }else{
-            AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
+        let ProdId = item.product_id;
+        let prodName = item?.name;
+        let Mrp = item?.mrp;
+        let sellingPrice = item?.selling_price;
+        let Quantity = 1;
+        let noQty = item?.no_of_q_a;
+        let dealType = item?.deal_type ? item?.deal_type : 0;
+        let dealId = item?.deal_type_id;
+
+        let cardObj = {
+            company_id:enviroment.COMPANY_ID,
+            store_id: enviroment.STORE_ID,
+            product_id: ProdId,
+            image: item?.image,
+            product_name: prodName,
+            no_of_quantity_allowed: item?.no_of_quantity_allowed,
+            is_hot_deals: dealType,
+            mrp: Mrp,
+            selling_price: sellingPrice,
+            quantity: 1,
+            deal_type_id: dealId
         }
+        if(cartInfo === null){
+            cartInfo = [cardObj];
+        }else{
+            cartInfo = JSON.parse(cartInfo);
+            let cartID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+            if(cartID === null || cartID === undefined || cartID === -1){
+                cartInfo.push(cardObj);
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+
+        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
+            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+        }
+        setProdUpdate(true);
+        e.stopPropagation();
     }
+
+    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+        e.preventDefault();
+        let cartInfo = localStorage.getItem("cartData");
+        cartInfo = JSON.parse(cartInfo);
+        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        if(type === 'plus'){
+            if(currQty === allowQty){
+                AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+            }else{
+                let newQty = currQty + 1;
+                cartInfo[cartID].quantity = newQty;
+            }
+        }else{
+            let newQty = currQty - 1;
+            if(newQty === 0){
+                let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
+                cartInfo = newCartInfo;
+            }else{
+                cartInfo[cartID].quantity = newQty;
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length  });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        setProdUpdate(true);
+        e.stopPropagation();
+    }
+
+    useEffect(() => {
+        if(addedProd?.length > 0){
+            addedProd?.map((additem) => {
+                if(additem.product_id === item?.product_id){
+                    setProdAdded(true);
+                    setProdAddedQty(additem?.quantity);
+                }
+            })
+        }
+    }, []);
+
+    useEffect(() => {
+        if(addedProd?.length > 0 && prodUpdate === true){
+            addedProd?.map((additem) => {
+                if(additem.product_id === item?.product_id){
+                    setProdAdded(true);
+                    setProdAddedQty(additem?.quantity);
+                }
+            });
+            setProdUpdate(false);
+        }
+        if(addedProd?.length === 0 || addedProd === null){
+            setProdAdded(false);
+            setProdAddedQty(0);
+            setProdUpdate(false);
+        }
+    }, [prodUpdate]);
 
     return (
         <React.Fragment>
@@ -86,19 +177,20 @@ export const ProductCard = ({item, index}) => {
                 </div>
                 )}
                 {item.stock !== 0 &&
-                    <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item)}>Add to cart</span>
+                    <React.Fragment>
+                        {prodAdded === false ? (
+                            <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item)}>Add to cart</span>
+                        ) : prodAdded === true ? (
+                            <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
+                                <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                <span className="d-inline-flex flex-shrink-0">
+                                    <input type="text" readOnly  value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`}/>
+                                </span>
+                                <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                            </div>
+                        ) : ('')}
+                    </React.Fragment>
                 }
-                <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-                    
-                    {/* <React.Fragment>
-                    <span className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex`}>-</span>
-                    <span className="d-inline-flex flex-shrink-0">
-                        <input type="text" readOnly  value="" className={`${styles.countValue} d-inline-block`}/>
-                    </span>
-                    <span className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex`}>+</span>
-                    </React.Fragment> */}
-
-                </div>
             </div>
         </React.Fragment>
     )

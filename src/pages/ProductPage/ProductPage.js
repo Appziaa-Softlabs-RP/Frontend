@@ -21,6 +21,7 @@ export const ProductPage = () => {
     const [activeImg, setActiveImg] = useState(0);
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
+    const [allProdAdded, setAllProdAdded] = useState(null);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
