@@ -6,41 +6,25 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useApp } from "../../context/AppContextProvider";
 
 import { useAppStore } from "../../store";
-import ApiService from '../../services/ApiService';
-import { enviroment } from "../../enviroment";
 import { HeroBannerLoader } from "../Loader/Loader";
 
 export const HeroBanner = ({ allBanner }) => {
   const [loading, setLoading] = useState(true);
   const heroBanners = useAppStore(state => state.heroBanners);
-  const setHeroBanners = useAppStore(state => state.setHeroBanners);
-  const setPromoBanners = useAppStore(state => state.setPromoBanners);
-  const setOfferBanners = useAppStore(state => state.setOfferBanners);
+  const setBanners = useAppStore(state => state.setBanners);
 
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
 
   // load banners for first time
   useEffect(() => {
-    const payload = {
-      store_id: enviroment.STORE_ID
-    };
-    
-    ApiService.banner(payload).then((res) => {
-      if (res.message === "Fetch successfully.") {
-        // hero banner
-        setHeroBanners(res?.payload_banner?.banner);
-        // promo banner
-        setPromoBanners(res?.payload_banner?.promobanner);
-        // offers
-        setOfferBanners(res?.payload_banner?.sectionbanner);
-        
-        setLoading(false);
-      }
-    }).catch((err) => {
-
-    });
+    if(heroBanners) {
+      setLoading(false)
+    } else {
+      setBanners();
+    }
   }, []);
+
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (

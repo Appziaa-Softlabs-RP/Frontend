@@ -10,20 +10,16 @@ import { LoginPopup } from "../LoginPopup/LoginPopup";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import ApiService from "../../services/ApiService";
 import { CartAside } from "../CartAside/CartAside";
 import { AppNotification } from "../../utils/helper";
 
-import { useAppStore } from "../../store";
 import { HeaderNavLoader } from "../Loader/Loader";
 
+import { useAppStore } from "../../store";
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
     const appData = useApp();
-    const [loading, setLoading] = useState(true);
-    const navItems = useAppStore(state => state.navItems);
-    const setNavItems = useAppStore(state => state.setNavItems);
-    const setCategories = useAppStore(state => state.setCategories);
+    
     const [cartCount, setCartCount] = useState(appData.appData.cartCount);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
@@ -31,6 +27,26 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const [cartPop, setCartPop] = useState(false);
     const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
+  const [loading, setLoading] = useState(true);
+  const navItems = useAppStore(state => state.navItems);
+  const categories = useAppStore(state => state.categories);
+  const setCategories = useAppStore(state => state.setCategories);
+
+  // const [cartCount, setCartCount] = useState(0);
+  // const [searchProd, setSearchProd] = useState('');
+  // const [loginPop, setLoginPop] = useState(false);
+  // const [accountOptn, setAccountOptn] = useState(false);
+  // const [cartPop, setCartPop] = useState(false);
+  // const navigate = useNavigate();
+  // const appData = useApp();
+
+  const setBanners = useAppStore(state => state.setBanners);
+
+  const heroBanners = useAppStore(state => state.heroBanners);
+  const promoBanners = useAppStore(state => state.promoBanners);
+  const offerBanners = useAppStore(state => state.offerBanners);
+
+  // let windowWidth = appData.appData.windowWidth;
 
   let userInfo = '';
   const isJSON = (str) => {
@@ -89,27 +105,27 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     navigate('/');
   };
 
-  useEffect(() => {
-    const payload = {
-      store_id: enviroment.STORE_ID
+  const fetchInitial = async () => {
+    // fetch all banners
+    if (!heroBanners.length > 0 || !promoBanners.length > 0 || !offerBanners.length > 0) {
+      await setBanners();
     }
-    ApiService.AllCategory(payload).then((res) => {
-      let allCatList = [];
-      let allSubCategory = res?.payload_verticalWithCatList?.vertical;
-      allSubCategory.map((item) => {
-        if (item?.catList?.length > 0) {
-          item.catList.map((item) => {
-            allCatList.push(item);
-          })
-        }
-      });
-      setNavItems(allSubCategory);
-      setCategories(allCatList);
+
+    // get category list
+    if (!categories.length > 0 && !navItems.length > 0) {
+      console.log("categories is empty")
+      await setCategories();
+    }
+
+    if(navItems.length > 0) {
       setLoading(false);
-    }).catch((err) => {
-      setLoading(false);
-    });
-  }, []);
+    }
+  }
+
+
+  useEffect(() => {
+    fetchInitial();
+  }, [navItems]);
 
   useEffect(() => {
     setCartCount(appData.appData.cartCount);
@@ -221,7 +237,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
                         <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000" role="button" /></span>
                         {item.catList?.length > 0 &&
-                          <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
+                          <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`} key={item.vertical_id}>
                             {item.catList.map((subNme, subIdx) => {
                               return (
                                 <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
