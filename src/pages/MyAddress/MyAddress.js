@@ -36,23 +36,7 @@ const UserAddressTab = ({ allAddress }) => {
 export const MyAddress = () => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
-
-  let userInfo = '';
-  const isJSON = (str) => {
-    try {
-      JSON.stringify(JSON.parse(str));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  if (isJSON(appData)) {
-    userInfo = JSON.parse(appData?.appData?.user);
-  } else {
-    userInfo = appData?.appData?.user;
-    userInfo = JSON.parse(userInfo);
-  }
+  const userInfo = appData?.appData?.user;
 
   const [allAddress, setAllAddress] = useState([]);
 

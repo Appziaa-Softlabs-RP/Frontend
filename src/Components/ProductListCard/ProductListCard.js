@@ -10,22 +10,7 @@ import { useNavigate } from "react-router-dom";
 export const ProductListCard = ({Product}) => {
     const appData = useApp();
     const navigate = useNavigate();
-    
-    let userInfo = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    if(isJSON(appData)){
-        userInfo = JSON.parse(appData?.appData?.user);
-    }else{
-        userInfo = appData?.appData?.user;
-    }
+    const userInfo = appData?.appData?.user;
     
     let discountOff = '';
     if(Product?.mrp > Product?.selling_price){

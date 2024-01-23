@@ -12,6 +12,7 @@ import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
 import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
 import { AddToCart, AppNotification } from "../../utils/helper";
+import { enviroment } from "../../enviroment";
 
 let otherInfo = false;
 export const ProductPage = () => {
@@ -22,7 +23,8 @@ export const ProductPage = () => {
     const [activeImg, setActiveImg] = useState(0);
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
-    const [allProdAdded, setAllProdAdded] = useState(null);
+    const [prodAdded, setProdAdded] = useState(false);
+    const [prodAddedQty, setProdAddedQty] = useState(0);
     const userInfo = appData?.appData?.user;
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
@@ -48,25 +50,94 @@ export const ProductPage = () => {
         }
     }
 
-    const addToCart = (e,productId) => {
+    const addToCart = (e,item) => {
+        let cartInfo = localStorage.getItem("cartData");
         e.preventDefault();
-        console.log(ProductData);
-        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
-            let ProdId = ProductData.product_id;
-            let prodName = ProductData?.name;
-            let Mrp = ProductData?.mrp;
-            let sellingPrice = ProductData?.selling_price;
-            let Quantity = 1;
-            let noQty = ProductData?.no_of_q_a;
-            let dealType = ProductData?.deal_type;
-            let dealId = ProductData?.deal_type_id;
-            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
-            console.log(res);
-            e.stopPropagation();
+        let ProdId = item.product_id;
+        let prodName = item?.name;
+        let Mrp = item?.mrp;
+        let sellingPrice = item?.selling_price;
+        let Quantity = 1;
+        let noQty = item?.no_of_q_a;
+        let dealType = item?.deal_type ? item?.deal_type : 0;
+        let dealId = item?.deal_type_id;
+
+        let cardObj = {
+            company_id:enviroment.COMPANY_ID,
+            store_id: enviroment.STORE_ID,
+            product_id: ProdId,
+            image: item?.image,
+            product_name: prodName,
+            no_of_quantity_allowed: item?.no_of_quantity_allowed,
+            is_hot_deals: dealType,
+            mrp: Mrp,
+            selling_price: sellingPrice,
+            quantity: 1,
+            deal_type_id: dealId
+        }
+        if(cartInfo === null){
+            cartInfo = [cardObj];
         }else{
-            AppNotification('Error', 'You need to login in first to start shopping.', 'danger');
+            cartInfo = JSON.parse(cartInfo);
+            let cartID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+            if(cartID === null || cartID === undefined || cartID === -1){
+                cartInfo.push(cardObj);
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+
+        if(appData.appData?.user?.customer_id){
+            const res = AddToCart(appData.appData?.user?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+        }
+        e.stopPropagation();
+    }
+
+    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+        e.preventDefault();
+        let cartInfo = localStorage.getItem("cartData");
+        cartInfo = JSON.parse(cartInfo);
+        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        if(type === 'plus'){
+            if(currQty === allowQty){
+                AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+            }else{
+                let newQty = currQty + 1;
+                cartInfo[cartID].quantity = newQty;
+            }
+        }else{
+            let newQty = currQty - 1;
+            if(newQty === 0){
+                let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
+                cartInfo = newCartInfo;
+            }else{
+                cartInfo[cartID].quantity = newQty;
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length  });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        e.stopPropagation();
+    }
+
+    const checkProdAdded = () => {
+        if(appData.appData.cartData?.length){
+            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === ProductData?.product_id);
+            if(cartID !== -1){
+                setProdAdded(true);
+                setProdAddedQty(appData.appData.cartData[cartID].quantity);
+            }else{
+                setProdAdded(false);
+                setProdAddedQty(0);
+            }
+        }else{
+            setProdAdded(false);
+            setProdAddedQty(0);
         }
     }
+
+    useEffect(() => {
+        checkProdAdded();
+    }, [appData.appData.cartData]);
 
     useEffect(() => {
         window.scrollTo(0, 0);

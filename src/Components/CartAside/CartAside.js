@@ -1,68 +1,65 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
-import { enviroment } from "../../enviroment";
-import ApiService from "../../services/ApiService";
+import { AppNotification } from "../../utils/helper";
 import styles from './CartAside.module.css';
 
 export const CartAside = ({setCartPop}) => {
     const [cartData, setCartData] = useState([]);
+    const [checkoutTotal, setCheckoutTotal] = useState(0);
     const appData = useApp();
-
-    let userInfo = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    if (isJSON(appData)) {
-        userInfo = appData?.appData?.user;
-    } else {
-        userInfo = JSON.parse(appData?.appData?.user);
-    }
+    const userInfo = appData?.appData?.user;
 
     const closeDrawer = () => {
         setCartPop(false);
     }
 
-    const updateQuantity = (cartID, maxQty, qty) => {
-        let newQty = qty + 1;
-        if(maxQty > newQty){
-            const payload = { 	
-                store_id: enviroment.STORE_ID,
-                customer_id: userInfo?.customer_id,
-                cart_id: cartID,
-                quantity: newQty
+    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+        e.preventDefault();
+        let cartInfo = localStorage.getItem("cartData");
+        cartInfo = JSON.parse(cartInfo);
+        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        if(type === 'plus'){
+            if(currQty === allowQty){
+                AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+            }else{
+                let newQty = currQty + 1;
+                cartInfo[cartID].quantity = newQty;
             }
-            ApiService.updateCart(payload).then((res) => {
-                if(res.message === "Cart update successfully"){
-                    setCartData(res.payload_updateTocart);
-                    appData.setAppData({ ...appData.appData, cartCount: res.payload_updateTocart?.length });
-                }
-            }).catch((err) => {
+        }else{
+            let newQty = currQty - 1;
+            if(newQty === 0){
+                let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
+                cartInfo = newCartInfo;
+            }else{
+                cartInfo[cartID].quantity = newQty;
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length  });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        e.stopPropagation();
+    }
 
+    const setCartTotal = (cartData) => {
+        let allTotal = 0;
+        if(cartData?.length){
+            cartData?.map((item) => {
+                let qtyTotal = item?.quantity * item?.selling_price;
+                allTotal = allTotal + qtyTotal;
             });
+            setCheckoutTotal(allTotal);
         }
     }
 
     useEffect(() => {
-        const payload = { 	
-            store_id: enviroment.STORE_ID,
-            customer_id: userInfo?.customer_id
-        }
-        ApiService.getCartList(payload).then((res) => {
-            if(res.message === "Cart list successfully"){
-                setCartData(res.payload_cartList);
-                appData.setAppData({ ...appData.appData, cartCount: res.payload_cartList?.length });
-            }
-        }).catch((err) => {
-
-        });
+        setCartData(appData?.appData?.cartData);
+        setCartTotal(appData?.appData?.cartData);
     }, []);
+
+    useEffect(() => {
+        setCartData(appData?.appData?.cartData);
+        setCartTotal(appData?.appData?.cartData);
+    }, [appData.appData.cartData]);
     return (
         <React.Fragment>
             <div className={`${styles.cartDrawer} start-0 top-0 position-fixed h-100 col-12 d-inline-block overflow-hidden`}>
@@ -86,20 +83,20 @@ export const CartAside = ({setCartPop}) => {
                                             <div className={`${styles.productCartDetails} col-12 d-inline-block`}>
                                                 <div className={`${styles.cartItemPrice} col-12 p-0 d-inline-flex align-items-start justify-content-between gap-4`}>
                                                     <div className={`flex-grow-1 flex-column d-inline-flex`}>
-                                                        <Link className={`${styles.cartItemName} d-inline-block col-12 p-0`}>{item?.product_name}</Link>
+                                                        <Link className={`${styles.cartItemName} d-inline-block col-12 p-0 text-decoration-none`}>{item?.product_name}</Link>
                                                         <span className={`${styles.productOption} d-inline-block`}> Qty({item?.quantity})</span>
                                                     </div>
                                                     <span className={`${styles.priceEnd} d-inline-block`}>₹{item?.selling_price}</span>
                                                 </div>
                                                 <div className={`col-12 p-0 d-inline-flex align-items-center justify-content-between position-relative mt-2`}>
                                                     <div className={`d-inline-flex align-items-center`}>
-                                                        <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="minus" role="button">
+                                                        <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="minus" role="button" onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, item?.quantity, 'minus')}>
                                                             <svg className="icon iconMinus" fill="none" viewBox="0 0 10 2">
                                                                 <path  d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor"></path>
                                                             </svg>
                                                         </span>
-                                                        <input className={`${styles.quantityInput} flex-shrink-0 d-inline-block text-center`} type="number" value={item.quantity} minLength="1" maxLength="5"/>
-                                                        <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="plus" role="button" onClick={() => updateQuantity(item.cart_id, item.no_of_quantity_allowed, item.quantity)}>
+                                                        <input className={`${styles.quantityInput} flex-shrink-0 d-inline-block text-center`} type="number" value={item.quantity || ''} minLength="1" maxLength="5"/>
+                                                        <span className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} name="plus" role="button"  onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, item?.quantity, 'plus')}>
                                                             <svg className="icon iconPlus" fill="none" viewBox="0 0 10 10">
                                                                 <path  d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor"></path>
                                                             </svg>
@@ -120,7 +117,7 @@ export const CartAside = ({setCartPop}) => {
                                 <div className={`${styles.drawerFooter} p-3 col-12 d-inline-block`}>
                                     <div className={`${styles.totals} col-12 d-inline-flex align-items-center justify-content-between p-0`}>
                                         <h2 className={`${styles.totalsSubtotal} m-0 d-inline-block`}>Subtotal</h2>
-                                        <p className={`${styles.totalsSubtotalValue} m-0 d-inline-block`}>₹0.00</p>
+                                        <p className={`${styles.totalsSubtotalValue} m-0 d-inline-block`}>₹{checkoutTotal}</p>
                                     </div>
                                     <small className={`${styles.taxNote} col-12 p-0 mt-2 mb-2 d-inline-block`}>Tax included and shipping calculated at checkout
                                     </small>

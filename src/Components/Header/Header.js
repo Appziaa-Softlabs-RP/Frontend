@@ -30,22 +30,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const [cartPop, setCartPop] = useState(false);
     const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
+    const userInfo = appData?.appData?.user;
 
-  let userInfo = '';
-  const isJSON = (str) => {
-    try {
-      JSON.stringify(JSON.parse(str));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  if (isJSON(appData)) {
-    userInfo = appData?.appData?.user;
-  } else {
-    userInfo = appData?.appData?.user;
-  }
+  
 
   const openAsideMenu = () => {
     if (asideOpen === true) {
