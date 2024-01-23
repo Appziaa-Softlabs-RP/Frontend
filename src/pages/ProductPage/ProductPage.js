@@ -15,6 +15,7 @@ import { AddToCart, AppNotification } from "../../utils/helper";
 
 let otherInfo = false;
 export const ProductPage = () => {
+    const appData = useApp();
     const locationState = useLocation();
     const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
@@ -22,25 +23,9 @@ export const ProductPage = () => {
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
     const [allProdAdded, setAllProdAdded] = useState(null);
-    const appData = useApp();
+    const userInfo = appData?.appData?.user;
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
-
-    let userInfo = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    if (isJSON(appData)) {
-        userInfo = appData?.appData?.user;
-    } else {
-        userInfo = JSON.parse(appData?.appData?.user);
-    }
 
     const setMainImage = (image, count) => {
         setActiveImg(count);

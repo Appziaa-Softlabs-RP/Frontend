@@ -24,7 +24,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const navItems = useAppStore(state => state.navItems);
     const setNavItems = useAppStore(state => state.setNavItems);
     const setCategories = useAppStore(state => state.setCategories);
-    const [cartCount, setCartCount] = useState(appData.appData.cartCount);
     const [searchProd, setSearchProd] = useState('');
     const [loginPop, setLoginPop] = useState(false);
     const [accountOptn, setAccountOptn] = useState(false);
@@ -111,10 +110,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     });
   }, []);
 
-  useEffect(() => {
-    setCartCount(appData.appData.cartCount);
-  }, [appData.appData.cartCount]);
-
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
@@ -127,7 +122,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <img src={siteLogo} alt="Logo" className="object-fit-contain" />
             </span>
             <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`} onClick={() => openCart()}>
-              <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{cartCount}</span>
+              <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
               <CartIcon color={enviroment.SECONDARY_COLOR} />
             </span>
           </div>
@@ -202,7 +197,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => setCartPop(true)}>
                     <span className="position-relative d-inline-flex">
                         <CartIcon color="#FFF" />
-                        <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{cartCount}</span>
+                        <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
                     </span>
                     <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                   </div>

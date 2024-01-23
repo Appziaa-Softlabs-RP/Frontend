@@ -11,7 +11,6 @@ import { useApp } from "../../context/AppContextProvider";
 import { LookingFor } from "../../Components/LookingFor/LookingFor";
 import { DealShop } from "../../Components/DealShop/DealShop";
 import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
-// import { useAppStore } from "../../store";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);

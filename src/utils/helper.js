@@ -44,8 +44,7 @@ export const LoggedOutCart = (customerId, ProductId, Name, mrp, sellingPrice, qu
   const payload = {
     company_id: enviroment.COMPANY_ID,
     store_id: enviroment.STORE_ID,
-    customer_id: customerId,
-    cartJson:[]
+    customer_id: customerId
   }
   
   ApiService.addMultipleCart(payload).then((res) => {

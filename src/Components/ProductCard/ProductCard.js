@@ -1,10 +1,9 @@
-import e from "express";
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { AddToCart, AppNotification, LoggedOutCart } from "../../utils/helper";
+import { AddToCart, AppNotification } from "../../utils/helper";
 import styles from './ProductCard.module.css';
 
 export const ProductCard = ({item, index}) => {
@@ -12,29 +11,6 @@ export const ProductCard = ({item, index}) => {
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const navigate = useNavigate();
     const appData = useApp();
-
-    let userInfo = '',
-    addedProd = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    if (isJSON(appData)) {
-        userInfo = appData?.appData?.user;
-        addedProd = appData?.appData?.cartData;
-    } else {
-        userInfo = JSON.parse(appData?.appData?.user);
-        if(typeof(appData?.appData?.cartData) === 'object'){
-            addedProd = appData?.appData?.cartData;
-        }else{
-            addedProd = JSON.parse(appData?.appData?.cartData);
-        }
-    }
 
     const showProductDetail = (id) => {
         const payload = {
@@ -90,8 +66,8 @@ export const ProductCard = ({item, index}) => {
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
 
-        if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
-            const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+        if(appData.appData?.user?.customer_id){
+            const res = AddToCart(appData.appData?.user?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
         }
         e.stopPropagation();
     }
@@ -122,29 +98,24 @@ export const ProductCard = ({item, index}) => {
         e.stopPropagation();
     }
 
-    useEffect(() => {
-        if(addedProd?.length > 0){
-            addedProd?.map((additem) => {
-                if(additem.product_id === item?.product_id){
-                    setProdAdded(true);
-                    setProdAddedQty(additem?.quantity);
-                }
-            })
-        }
-    }, []);
-
-    useEffect(() => {
-        if(addedProd?.length > 0){
-            addedProd?.map((additem) => {
-                if(additem.product_id === item?.product_id){
-                    setProdAdded(true);
-                    setProdAddedQty(additem?.quantity);
-                }
-            });
-        }else if(addedProd?.length === 0 || addedProd === null){
+    const checkProdAdded = () => {
+        if(appData.appData.cartData?.length){
+            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === item?.product_id);
+            if(cartID !== -1){
+                setProdAdded(true);
+                setProdAddedQty(appData.appData.cartData[cartID].quantity);
+            }else{
+                setProdAdded(false);
+                setProdAddedQty(0);
+            }
+        }else{
             setProdAdded(false);
             setProdAddedQty(0);
         }
+    }
+
+    useEffect(() => {
+        checkProdAdded();
     }, [appData.appData.cartData]);
 
     return (
@@ -173,9 +144,9 @@ export const ProductCard = ({item, index}) => {
                 )}
                 {item.stock !== 0 &&
                     <React.Fragment>
-                        {prodAdded === false ? (
+                        {!prodAdded ? (
                             <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item)}>Add to cart</span>
-                        ) : prodAdded === true ? (
+                        ) : (
                             <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
                                 <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
                                 <span className="d-inline-flex flex-shrink-0">
@@ -183,7 +154,7 @@ export const ProductCard = ({item, index}) => {
                                 </span>
                                 <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                             </div>
-                        ) : ('')}
+                        )}
                     </React.Fragment>
                 }
             </div>
