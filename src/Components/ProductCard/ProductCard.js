@@ -1,3 +1,4 @@
+import e from "express";
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
@@ -8,7 +9,6 @@ import styles from './ProductCard.module.css';
 
 export const ProductCard = ({item, index}) => {
     const [prodAdded, setProdAdded] = useState(false);
-    const [prodUpdate, setProdUpdate] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const navigate = useNavigate();
     const appData = useApp();
@@ -93,7 +93,6 @@ export const ProductCard = ({item, index}) => {
         if(userInfo?.customer_id !== '' && userInfo?.customer_id !== null && userInfo?.customer_id !== undefined){
             const res = AddToCart(userInfo?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
         }
-        setProdUpdate(true);
         e.stopPropagation();
     }
 
@@ -120,7 +119,6 @@ export const ProductCard = ({item, index}) => {
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length  });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
-        setProdUpdate(true);
         e.stopPropagation();
     }
 
@@ -136,21 +134,18 @@ export const ProductCard = ({item, index}) => {
     }, []);
 
     useEffect(() => {
-        if(addedProd?.length > 0 && prodUpdate === true){
+        if(addedProd?.length > 0){
             addedProd?.map((additem) => {
                 if(additem.product_id === item?.product_id){
                     setProdAdded(true);
                     setProdAddedQty(additem?.quantity);
                 }
             });
-            setProdUpdate(false);
-        }
-        if(addedProd?.length === 0 || addedProd === null){
+        }else if(addedProd?.length === 0 || addedProd === null){
             setProdAdded(false);
             setProdAddedQty(0);
-            setProdUpdate(false);
         }
-    }, [prodUpdate]);
+    }, [appData.appData.cartData]);
 
     return (
         <React.Fragment>
