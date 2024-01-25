@@ -18,7 +18,7 @@ export const ShoppingCart = () => {
     const setCartTotal = (cartData) => {
         let allTotal = 0;
         let allSaving = 0;
-        if(cartData?.length){
+        if (cartData?.length) {
             cartData?.map((item) => {
                 let qtyTotal = item?.quantity * item?.selling_price;
                 allTotal = allTotal + qtyTotal;
@@ -42,7 +42,7 @@ export const ShoppingCart = () => {
         <React.Fragment>
             {windowWidth === "mobile" ? (
                 <React.Fragment>
-                    <PageHeader title="Personal Cart" hide={true}/>
+                    <PageHeader title="Personal Cart" hide={true} />
                     <Footer />
                 </React.Fragment>
             ) : (
@@ -56,7 +56,7 @@ export const ShoppingCart = () => {
                                         <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} />
                                     ) : orderStatus === 'Place Order' ? (
                                         <DeliveryAddress checkoutTotal={checkoutTotal} />
-                                    ): null }
+                                    ) : null}
                                 </div>
                                 <div className="col-3 flex-shrink-0">
                                     <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} />
