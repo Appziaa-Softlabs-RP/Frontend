@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { AppNotification } from "../../utils/helper";
 import styles from './CartAside.module.css';
@@ -8,6 +8,7 @@ export const CartAside = ({setCartPop}) => {
     const [cartData, setCartData] = useState([]);
     const [checkoutTotal, setCheckoutTotal] = useState(0);
     const appData = useApp();
+    const navigate = useNavigate();
     const userInfo = appData?.appData?.user;
 
     const closeDrawer = () => {
@@ -51,15 +52,15 @@ export const CartAside = ({setCartPop}) => {
         }
     }
 
+    const showCheckoutPage = () => {
+        navigate('/checkout');
+    }
+
     useEffect(() => {
         setCartData(appData?.appData?.cartData);
         setCartTotal(appData?.appData?.cartData);
     }, []);
 
-    useEffect(() => {
-        setCartData(appData?.appData?.cartData);
-        setCartTotal(appData?.appData?.cartData);
-    }, [appData.appData.cartData]);
     return (
         <React.Fragment>
             <div className={`${styles.cartDrawer} start-0 top-0 position-fixed h-100 col-12 d-inline-block overflow-hidden`}>
@@ -122,7 +123,7 @@ export const CartAside = ({setCartPop}) => {
                                     <small className={`${styles.taxNote} col-12 p-0 mt-2 mb-2 d-inline-block`}>Tax included and shipping calculated at checkout
                                     </small>
                                     <div className={`${styles.cartCtas} col-12 p-0 d-inline-block`}>
-                                        <button className={`${styles.cartCheckoutButton} col-12 p-0 d-inline-flex align-items-center justify-content-center`}>CHECKOUT</button>
+                                        <button className={`${styles.cartCheckoutButton} col-12 p-0 d-inline-flex align-items-center justify-content-center`} onClick={() => showCheckoutPage()}>CHECKOUT</button>
                                     </div>
                                 </div>
                             </React.Fragment>
