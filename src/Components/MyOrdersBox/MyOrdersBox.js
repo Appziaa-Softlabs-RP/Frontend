@@ -9,23 +9,7 @@ export const MyOrdersBox = () => {
     const [orders, allOrder] = useState([]);
     const appData = useApp();
     const navigate = useNavigate();
-
-    let userInfo = '';
-    const isJSON = (str) => {
-        try {
-            JSON.stringify(JSON.parse(str));
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    if(isJSON(appData)){
-        userInfo = JSON.parse(appData?.appData?.user);
-    }else{
-        userInfo = appData?.appData?.user;
-        userInfo = JSON.parse(userInfo);
-    }
+    const userInfo = appData?.appData?.user;
 
     const openOrderDetail = (id) => {
         const payload = {

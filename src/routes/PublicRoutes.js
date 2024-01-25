@@ -25,18 +25,15 @@ export const PublicRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product" element={<ProductPage />} />
-      <Route path="/offers" element={<ShopOffers />} />
+      <Route path="/shop-offers" element={<ShopOffers />} />
       <Route path="/store/:category" element={<SubCategoryPage />} />
       <Route path="/store-product/:category" element={<CategoryPage />} />
       <Route path="/store/age/:category" element={<CategoryPage />} />
       <Route path="/offers" element={<Offers />} />
+      <Route path="/checkout" element={<ShoppingCart />} />
       <Route
         path="/my-account"
         element={<ProtectedRoutes element={<MyAccount />} />}
-      />
-      <Route
-        path="/checkout"
-        element={<ProtectedRoutes element={<ShoppingCart />} />}
       />
       <Route
         path="/my-orders"

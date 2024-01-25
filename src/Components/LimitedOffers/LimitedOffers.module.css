@@ -1,0 +1,16 @@
+.exploreByCategoryHeader{
+	color: #000;
+	font-size: 16px;
+	font-weight: 700;
+}
+/* Desktop CSS */
+.categoryHeaderTitle{
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--SECONDARY_COLOR);
+    top: 15px;
+}
+.limitedOfferBox{
+    background: var(--PRIMARY_COLOR);
+    border-radius: 10px;
+}

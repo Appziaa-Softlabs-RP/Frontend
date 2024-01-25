@@ -1,0 +1,72 @@
+.loaderContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 200px;
+  column-count: 4;
+}
+.loaderItem {
+  display: flex;
+  border-radius: 10px;
+  width: 25%;
+  height: 250px;
+  margin: 10px;
+}
+
+.productCardLoaderWrapper{
+  border: 1px solid #DDD;
+  padding: 10px;
+  background: #FFF;
+  border-radius: 10px;
+  width: calc(25% - 20px);
+  margin: 10px;
+}
+
+.heroBannerLoader {
+  display: flex;
+  padding: 10px;
+  background-color: #FFF;
+}
+
+.bannerLoader {
+  display: flex;
+  flex-direction: column;
+}
+
+.bannerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.bannerBody {
+  display: flex;
+}
+
+.smallBox {
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.promoBox {
+  height: 400px;
+  width: calc(1/3*100%);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.focusBox {
+  height: 400px;
+  width: calc(1/4*100%);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.headerNavWrapper {
+  position: relative;
+  height: 50px;
+  margin-top: 20px;
+}

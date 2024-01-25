@@ -1,0 +1,115 @@
+.decrease_btn, .increase_btn {
+    height: 20px;
+    width: 20px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    color: var(--ADD_BUTTON_COLOR);
+    background: #FFF;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.countValue {
+    width: 20px;
+    text-align: center;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: default;
+    font-weight: 500;
+}
+
+.cartSummryBox {
+    background: #FFF;
+}
+
+.cartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.cartDataBox {
+    border-bottom: 1px solid #EEE;
+}
+
+.cartDataBox:last-child {
+    border-bottom: none;
+}
+
+.detailTitle, .productMrpPrice {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.itemImage img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.productName {
+    font-size: 14px;
+    color: #000;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+}
+
+.productPrice {
+    font-size: 16px;
+    color: #000;
+}
+
+.savingPrice {
+    font-size: 15px;
+    color: #75BF3A;
+}
+
+.removeProd svg {
+    height: 30px;
+    width: 30px;
+}
+
+.emtpyCartText {
+    font-size: 18px;
+    color: #666;
+}
+
+.placeOrderBtnBox {
+    border-top: 1px solid #EEE;
+}
+
+.continueShop, .placeOrderBtn {
+    height: 45px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    color: var(--ADD_BUTTON_COLOR);
+    font-size: 16px;
+    font-weight: 500;
+    background: #FFF;
+    border-radius: 2px;
+}
+
+.placeOrderBtn {
+    background: var(--ADD_BUTTON_COLOR);
+    color: #FFF;
+}
+
+/* Desktop CSS */
+@media screen and (min-width:568px) {
+    .countValue {
+        width: 40px;
+    }
+
+    .decrease_btn, .increase_btn {
+        height: 30px;
+        width: 30px;
+    }
+}

@@ -4,11 +4,12 @@ export const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
   const initialValues = {
-    user: localStorage.getItem("user"),
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     loggedIn: localStorage.getItem("loggedIn") ? true : false,
     fetchWallet : localStorage.getItem("bettoken") ? true : false,
     windowWidth: window.innerWidth > 560 ? "desktop" : "mobile",
-    cartCount: 0,
+    cartCount: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")).length : 0,
+    cartData: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [],
   };
   const [appData, setAppData] = useState(initialValues);
   return (

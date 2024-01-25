@@ -98,9 +98,17 @@ ApiService.CategoryBySubProd = function (data) {
   })
 }
 
-ApiService.addToCart = function (data) {
+ApiService.DealsOfProduct = function (data) {
   return fetch({
-    url: "store/addToCart",
+    url: "store/normalDeals",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.HotDealsProduct = function (data) {
+  return fetch({
+    url: "store/hotDeals",
     method: "post",
     data: data
   })
@@ -108,7 +116,47 @@ ApiService.addToCart = function (data) {
 
 ApiService.addToCart = function (data) {
   return fetch({
-    url: "store/addToCart",
+    url: "store/addTocart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.getCartList = function (data) {
+  return fetch({
+    url: "store/cartList",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateCart = function (data) {
+  return fetch({
+    url: "store/updateTocart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.removeCart = function (data) {
+  return fetch({
+    url: "store/removeTocart",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.addMultipleCart = function (data) {
+  return fetch({
+    url: "store/addTocartMultiple",
+    method: "post",
+    data: data
+  })
+}
+
+ApiService.updateMultipleCart = function (data) {
+  return fetch({
+    url: "store/updateTocartMultiple",
     method: "post",
     data: data
   })

@@ -11,23 +11,27 @@ import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
 import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
+import { AddToCart, AppNotification } from "../../utils/helper";
+import { enviroment } from "../../enviroment";
 
 let otherInfo = false;
 export const ProductPage = () => {
+    const appData = useApp();
     const locationState = useLocation();
     const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
     const [activeImg, setActiveImg] = useState(0);
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
-    const appData = useApp();
+    const [prodAdded, setProdAdded] = useState(false);
+    const [prodAddedQty, setProdAddedQty] = useState(0);
+    const userInfo = appData?.appData?.user;
     let windowWidth = appData.appData.windowWidth;
     const ProductData = locationState?.state?.product;
-    console.log(ProductData);
 
     const setMainImage = (image, count) => {
-        setProdMainImg(image);
         setActiveImg(count);
+        setProdMainImg(image);
     }
 
     const openProductColpse = () => {
@@ -46,6 +50,93 @@ export const ProductPage = () => {
         }
     }
 
+    const addToCart = (e,item) => {
+        let cartInfo = appData?.appData?.cartData;
+        e.preventDefault();
+        let ProdId = item.product_id;
+        let prodName = item?.name;
+        let Mrp = item?.mrp;
+        let sellingPrice = item?.selling_price;
+        let Quantity = 1;
+        let noQty = item?.no_of_q_a;
+        let dealType = item?.deal_type ? item?.deal_type : 0;
+        let dealId = item?.deal_type_id;
+
+        let cardObj = {
+            company_id:enviroment.COMPANY_ID,
+            store_id: enviroment.STORE_ID,
+            product_id: ProdId,
+            image: item?.image,
+            product_name: prodName,
+            no_of_quantity_allowed: item?.no_of_quantity_allowed,
+            is_hot_deals: dealType,
+            mrp: Mrp,
+            selling_price: sellingPrice,
+            quantity: 1,
+            deal_type_id: dealId
+        }
+        if(cartInfo === null){
+            cartInfo = [cardObj];
+        }else{
+            let cartID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+            if(cartID === null || cartID === undefined || cartID === -1){
+                cartInfo.push(cardObj);
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+
+        if(appData.appData?.user?.customer_id){
+            const res = AddToCart(appData.appData?.user?.customer_id,ProdId,prodName,Mrp,sellingPrice,Quantity,noQty,dealType,dealId);
+        }
+        e.stopPropagation();
+    }
+
+    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+        e.preventDefault();
+        let cartInfo = appData?.appData?.cartData;
+        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        if(type === 'plus'){
+            if(currQty === allowQty){
+                AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+            }else{
+                let newQty = currQty + 1;
+                cartInfo[cartID].quantity = newQty;
+            }
+        }else{
+            let newQty = currQty - 1;
+            if(newQty === 0){
+                let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
+                cartInfo = newCartInfo;
+            }else{
+                cartInfo[cartID].quantity = newQty;
+            }
+        }
+        appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length  });
+        localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        e.stopPropagation();
+    }
+
+    const checkProdAdded = () => {
+        if(appData.appData.cartData?.length){
+            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === ProductData?.product_id);
+            if(cartID !== -1){
+                setProdAdded(true);
+                setProdAddedQty(appData.appData.cartData[cartID].quantity);
+            }else{
+                setProdAdded(false);
+                setProdAddedQty(0);
+            }
+        }else{
+            setProdAdded(false);
+            setProdAddedQty(0);
+        }
+    }
+
+    useEffect(() => {
+        checkProdAdded();
+    }, [appData.appData.cartData]);
+
     useEffect(() => {
         window.scrollTo(0, 0);
         let discountOff = '';
@@ -55,7 +146,6 @@ export const ProductPage = () => {
             setProdDiscount(discountOff);
         }
         setProdMainImg(ProductData.image);
-        setActiveImg(ProductData.image);
         {Object.values(ProductData?.other).map((item) => {
             if(item !== '' && item !== null && item !== undefined){
                 otherInfo = true;  
@@ -135,7 +225,7 @@ export const ProductPage = () => {
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Add to Cart</span>
+                        <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e,ProductData)}>Add to Cart</span>
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -148,7 +238,7 @@ export const ProductPage = () => {
                                     <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
                                         <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
                                     </div>
-                                    <ReactOwlCarousel className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={true} items={6}>
+                                    <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={false} items={6}>
                                         {ProductData?.gallery?.map((item, index) => {
                                             return(
                                                 <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
@@ -185,7 +275,7 @@ export const ProductPage = () => {
                                         }
                                     </div>
                                     }
-                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}>Add to cart</span>
+                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}  onClick={(e) => addToCart(e,ProductData)}>Add to cart</span>
                                     <div className="col-12 d-inline-block mt-3 mb-3">
                                         <h3 className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}>Delivery &amp; Services</h3>
                                         <div className={`col-12 d-inline-block`}>

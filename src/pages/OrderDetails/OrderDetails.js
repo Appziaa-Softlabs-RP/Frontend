@@ -3,7 +3,6 @@ import { MyOrdersDetail } from "../../Components/MyOrdersDetail/MyOrdersDetail";
 import { OrderAddress } from "../../Components/OrderAddress/OrderAddress";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import ApiService from "../../services/ApiService";
-import { enviroment } from "../../enviroment";
 import { useLocation } from "react-router-dom";
 
 export const OrderDetails = () => {
@@ -12,9 +11,7 @@ export const OrderDetails = () => {
 
     useEffect(() => {
         let orderDetail = location.state.payload;
-        console.log('orderDetail ',orderDetail);
         ApiService.getOrderDetail(orderDetail).then((res) => {
-            console.log(res.payload_orderDetails);
             setOrderDetail(res.payload_orderDetails);
         }).catch((err) => {
 

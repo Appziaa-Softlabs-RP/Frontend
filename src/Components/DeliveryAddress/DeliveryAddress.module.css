@@ -1,0 +1,66 @@
+.cartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.cartTitle svg {
+    height: 20px;
+    width: 20px;
+}
+
+.placeOrderBtnBox {
+    border-top: 1px solid #EEE;
+}
+
+.placeOrderBtn, .payOrderBtn, .addAddressBtn {
+    height: 45px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    background: var(--ADD_BUTTON_COLOR);
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+.addAddressBtn {
+    background: #FFF;
+    color: var(--ADD_BUTTON_COLOR);
+}
+
+.addedAdres, .deliveryBox {
+    background: #FFF;
+}
+
+.addressName {
+    color: #14273E;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.addressTag {
+    color: #676E8A;
+    font-size: 12px;
+    border-radius: 2px;
+    background-color: #E4E9F2;
+}
+
+.addressdetail {
+    color: #000;
+    font-size: 14px;
+}
+
+.deleteBtn, .editBtn {
+    height: 30px;
+    color: #DD5E5E;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.editBtn {
+    border: 1px solid var(--PRIMARY_COLOR);
+    color: var(--PRIMARY_COLOR);
+}

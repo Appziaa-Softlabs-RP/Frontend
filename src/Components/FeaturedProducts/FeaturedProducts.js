@@ -19,7 +19,7 @@ export const FeaturedProducts = ({product}) => {
 					<ReactOwlCarousel className={`${styles.allFeaturedProduct} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}>
 						{product?.map((item, index) => {
 							return (
-								<ProductCard item={item} index={index} />
+								<ProductCard key={index} item={item} index={index} />
 							)
 						})}
 					</ReactOwlCarousel>
