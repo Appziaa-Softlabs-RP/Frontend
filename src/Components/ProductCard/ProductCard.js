@@ -148,11 +148,11 @@ export const ProductCard = ({item, index}) => {
                             <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}  onClick={(e) => addToCart(e,item)}>Add to cart</span>
                         ) : (
                             <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-                                <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                <span role="button" onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
                                 <span className="d-inline-flex flex-shrink-0">
                                     <input type="text" readOnly  value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`}/>
                                 </span>
-                                <span onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                <span role="button" onClick={(e) => updateProdQty(e,item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                             </div>
                         )}
                     </React.Fragment>

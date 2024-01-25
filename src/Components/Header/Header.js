@@ -32,8 +32,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     let windowWidth = appData.appData.windowWidth;
     const userInfo = appData?.appData?.user;
 
-  
-
   const openAsideMenu = () => {
     if (asideOpen === true) {
       setAsideOpen(false);

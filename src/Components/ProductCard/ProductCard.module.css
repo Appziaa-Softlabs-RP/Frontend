@@ -110,14 +110,6 @@
 	cursor: default;
 	font-weight: 500;
 }
-.increaseBtn, .decreaseBtn{
-	cursor: pointer;
-	color: var(--ADD_BUTTON_COLOR);
-	width: 20px;
-	border-radius: 50%;
-	height: 20px;
-	border: 1px solid var(--ADD_BUTTON_COLOR);
-}
 .addCartBtn {
     background: var(--ADD_BUTTON_COLOR);
     padding: 0 15px;
@@ -136,8 +128,8 @@
     right: 10px;
 }
 .decrease_btn, .increase_btn{
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
     border: 1px solid var(--ADD_BUTTON_COLOR);
     color: var(--ADD_BUTTON_COLOR);
     background: #FFF;
@@ -160,5 +152,9 @@
     }
     .countValue{
         width: 40px;
+    }
+    .decrease_btn, .increase_btn{
+        height: 30px;
+        width: 30px;
     }
 }

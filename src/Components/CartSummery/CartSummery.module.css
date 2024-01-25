@@ -1,0 +1,33 @@
+.decrease_btn, .increase_btn{
+    height: 20px;
+    width: 20px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    color: var(--ADD_BUTTON_COLOR);
+    background: #FFF;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+.countValue{
+	width: 20px;
+	text-align: center;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: default;
+	font-weight: 500;
+}
+.cartSummryBox{
+    background: #FFF;
+}
+/* Desktop CSS */
+@media screen and (min-width:568px) {
+    .countValue{
+        width: 40px;
+    }
+    .decrease_btn, .increase_btn{
+        height: 30px;
+        width: 30px;
+    }
+}
