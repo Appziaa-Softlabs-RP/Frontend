@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { AddToCart, AppNotification } from "../../utils/helper";
+import { AppNotification } from "../../utils/helper";
 import styles from './ProductCard.module.css';
 
 export const ProductCard = ({ item, index }) => {
@@ -11,6 +11,7 @@ export const ProductCard = ({ item, index }) => {
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const navigate = useNavigate();
     const appData = useApp();
+    const userInfo = appData.appData.user;
 
     const showProductDetail = (id) => {
         const payload = {
@@ -37,7 +38,7 @@ export const ProductCard = ({ item, index }) => {
         let Mrp = item?.mrp;
         let sellingPrice = item?.selling_price;
         let Quantity = 1;
-        let noQty = item?.no_of_q_a;
+        let noQty = item?.no_of_quantity_allowed;
         let dealType = item?.deal_type ? item?.deal_type : 0;
         let dealId = item?.deal_type_id;
 
@@ -47,7 +48,7 @@ export const ProductCard = ({ item, index }) => {
             product_id: ProdId,
             image: item?.image,
             product_name: prodName,
-            no_of_quantity_allowed: item?.no_of_quantity_allowed,
+            no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
             mrp: Mrp,
             selling_price: sellingPrice,
@@ -66,7 +67,28 @@ export const ProductCard = ({ item, index }) => {
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
 
         if (appData.appData?.user?.customer_id) {
-            const res = AddToCart(appData.appData?.user?.customer_id, ProdId, prodName, Mrp, sellingPrice, Quantity, noQty, dealType, dealId);
+            const payload = {
+                company_id: enviroment.COMPANY_ID,
+                store_id: enviroment.STORE_ID,
+                customer_id: userInfo.customer_id,
+                product_id: ProdId,
+                product_name: prodName,
+                mrp: Mrp,
+                selling_price:sellingPrice,
+                quantity: Quantity,
+                no_of_quantity_allowed: noQty,
+                is_hot_deals: dealType,
+                deal_type_id: dealId
+            }
+              
+            ApiService.addToCart(payload).then((res) => {
+                if(res?.message === 'Add successfully.'){
+                    appData.setAppData({ ...appData.appData, cartSaved: true });
+                    localStorage.setItem('cartSaved', true);
+                }
+            }).catch((err) => {
+                return err;
+            });
         }
         e.stopPropagation();
     }
@@ -114,7 +136,7 @@ export const ProductCard = ({ item, index }) => {
 
     useEffect(() => {
         checkProdAdded();
-    }, [appData.appData.cartData]);
+    }, [appData.appData]);
 
     return (
         <React.Fragment>

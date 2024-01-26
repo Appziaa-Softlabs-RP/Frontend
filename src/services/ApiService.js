@@ -23,7 +23,7 @@ ApiService.sendOTP = function (data) {
     url: "user/sendotp",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.VerifyOTP = function (data) {
@@ -31,7 +31,7 @@ ApiService.VerifyOTP = function (data) {
     url: "user/verifyotp",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.AllCategory = function (data) {
@@ -39,7 +39,7 @@ ApiService.AllCategory = function (data) {
     url: "store/verticalWithCatList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.NewCategory = function (data) {
@@ -47,7 +47,7 @@ ApiService.NewCategory = function (data) {
     url: "store/verticaldesign",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.StoreCategory = function (data) {
@@ -55,7 +55,7 @@ ApiService.StoreCategory = function (data) {
     url: "store/verticalList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.StoreSubCategory = function (data) {
@@ -63,7 +63,7 @@ ApiService.StoreSubCategory = function (data) {
     url: "store/verticalByCategory",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.StoreSubChildCategory = function (data) {
@@ -71,7 +71,7 @@ ApiService.StoreSubChildCategory = function (data) {
     url: "store/categoryBySubCategory",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.StoreCategoryProd = function (data) {
@@ -79,7 +79,7 @@ ApiService.StoreCategoryProd = function (data) {
     url: "store/VerticalByProduct",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.CategoryByProd = function (data) {
@@ -87,7 +87,7 @@ ApiService.CategoryByProd = function (data) {
     url: "store/CategoryByProduct",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.CategoryBySubProd = function (data) {
@@ -95,7 +95,7 @@ ApiService.CategoryBySubProd = function (data) {
     url: "store/SubCategoryByProduct",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.DealsOfProduct = function (data) {
@@ -103,7 +103,7 @@ ApiService.DealsOfProduct = function (data) {
     url: "store/normalDeals",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.HotDealsProduct = function (data) {
@@ -111,7 +111,7 @@ ApiService.HotDealsProduct = function (data) {
     url: "store/hotDeals",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.addToCart = function (data) {
@@ -119,7 +119,7 @@ ApiService.addToCart = function (data) {
     url: "store/addTocart",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.getCartList = function (data) {
@@ -127,7 +127,7 @@ ApiService.getCartList = function (data) {
     url: "store/cartList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.updateCart = function (data) {
@@ -135,7 +135,7 @@ ApiService.updateCart = function (data) {
     url: "store/updateTocart",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.removeCart = function (data) {
@@ -143,7 +143,7 @@ ApiService.removeCart = function (data) {
     url: "store/removeTocart",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.addMultipleCart = function (data) {
@@ -151,7 +151,7 @@ ApiService.addMultipleCart = function (data) {
     url: "store/addTocartMultiple",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.updateMultipleCart = function (data) {
@@ -159,7 +159,7 @@ ApiService.updateMultipleCart = function (data) {
     url: "store/updateTocartMultiple",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.similarProd = function (data) {
@@ -167,7 +167,7 @@ ApiService.similarProd = function (data) {
     url: "store/cartSimilarProduct",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.showCart = function (data) {
@@ -175,7 +175,7 @@ ApiService.showCart = function (data) {
     url: "store/cartList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.updateCart = function (data) {
@@ -183,7 +183,7 @@ ApiService.updateCart = function (data) {
     url: "store/updateTocart",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.removeCart = function (data) {
@@ -191,7 +191,7 @@ ApiService.removeCart = function (data) {
     url: "store/removeTocart",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.productDetails = function (data) {
@@ -199,7 +199,7 @@ ApiService.productDetails = function (data) {
     url: "store/productDetail",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.orderList = function (data) {
@@ -207,7 +207,7 @@ ApiService.orderList = function (data) {
     url: "store/orderList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.getOrderDetail = function (data) {
@@ -215,7 +215,7 @@ ApiService.getOrderDetail = function (data) {
     url: "store/orderDetails",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.orderCancel = function (data) {
@@ -223,7 +223,7 @@ ApiService.orderCancel = function (data) {
     url: "store/orderCancelled",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.orderReschdule = function (data) {
@@ -231,7 +231,7 @@ ApiService.orderReschdule = function (data) {
     url: "store/orderReschedule",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.orderItemCancel = function (data) {
@@ -239,7 +239,7 @@ ApiService.orderItemCancel = function (data) {
     url: "store/orderItemCancel",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.addressList = function (data) {
@@ -247,7 +247,7 @@ ApiService.addressList = function (data) {
     url: "store/addressList",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.addNewAddress = function (data) {
@@ -255,7 +255,7 @@ ApiService.addNewAddress = function (data) {
     url: "store/addToaddress",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.updateAddress = function (data) {
@@ -263,7 +263,7 @@ ApiService.updateAddress = function (data) {
     url: "store/updateToaddress",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.removeAddress = function (data) {
@@ -271,7 +271,7 @@ ApiService.removeAddress = function (data) {
     url: "store/removeToaddress",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.getAddressDetail = function (data) {
@@ -279,7 +279,7 @@ ApiService.getAddressDetail = function (data) {
     url: "store/addressDetail",
     method: "post",
     data: data
-  })
+  });
 }
 
 ApiService.ageGroupBox = function (data) {
@@ -287,7 +287,7 @@ ApiService.ageGroupBox = function (data) {
     url: 'store/ageGroupList',
     method: 'post',
     data: data
-  })
+  });
 }
 
 ApiService.ageGroupProduct = function (data) {
@@ -295,7 +295,7 @@ ApiService.ageGroupProduct = function (data) {
     url: 'store/ageGroupByProduct',
     method: 'post',
     data: data
-  })
+  });
 }
 
 ApiService.brandInFocus = function (data) {
@@ -303,7 +303,7 @@ ApiService.brandInFocus = function (data) {
     url: 'store/brandOffer',
     method: 'post',
     data: data
-  })
+  });
 }
 
 ApiService.brandProduct = function (data) {
@@ -311,7 +311,15 @@ ApiService.brandProduct = function (data) {
     url: 'store/BrandByProduct',
     method: 'post',
     data: data
-  })
+  });
+}
+
+ApiService.getDeliveryCost = function (data) {
+  return fetch({
+    url: 'store/deliveryCharge',
+    method: 'post',
+    data: data
+  });
 }
 
 export default ApiService;

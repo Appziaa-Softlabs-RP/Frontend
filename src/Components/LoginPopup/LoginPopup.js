@@ -5,6 +5,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from '../../utils/helper';
 import { useApp } from '../../context/AppContextProvider';
 import { useNavigate } from 'react-router-dom';
+import { enviroment } from "../../enviroment";
 
 const LoginPassword = ({setLoginType}) => {
     return(
@@ -111,6 +112,7 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
                         localStorage.setItem('loggedIn', true);
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
                         setLoginPop(false);
+                        getAddCartList(res.payload);
                         navigate('/');
                     }
                 }).catch((err) => {
@@ -122,6 +124,38 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
         }else{
             AppNotification('Error', 'Please enter OTP', 'danger');
         }
+    }
+
+    const getAddCartList = (userData) => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            customer_id: userData.customer_id
+        }
+        ApiService.showCart(payload).then((res) => {
+            if(res.message === "Add successfully."){
+                let addProducts = res.payload_addTocart;
+                let addedCart = appData.appData.cartData;
+                let nonAddedProd = [];
+                if(addProducts?.length > 0 && addedCart?.length > 0){
+                    addProducts.map((prodCart) => {
+                        addedCart.map((item) => {
+                            if(prodCart.product_id !== item?.product_id){
+                                nonAddedProd.push(item);
+                            }
+                        });
+                    });
+                }
+                console.log(nonAddedProd);
+                if(addedCart?.length === 0){
+                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length });
+                    localStorage.setItem('cartData', JSON.stringify(addProducts));
+                }else{
+
+                }
+            }
+        }).catch((err) => {
+
+        });
     }
 
     return(

@@ -37,19 +37,5 @@ export const AddToCart = (customerId, ProductId, Name, mrp, sellingPrice, quanti
     return res;
   }).catch((err) => {
     return err;
-  })
-}
-
-export const LoggedOutCart = (customerId, ProductId, Name, mrp, sellingPrice, quantity, noOfQty, hotDeals, dealId) => {
-  const payload = {
-    company_id: enviroment.COMPANY_ID,
-    store_id: enviroment.STORE_ID,
-    customer_id: customerId
-  }
-  
-  ApiService.addMultipleCart(payload).then((res) => {
-    return res;
-  }).catch((err) => {
-    return err;
-  })
+  });
 }

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import { DeleteIcon } from "../siteIcons";
 import styles from './CartSummery.module.css';
@@ -41,6 +44,29 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
 
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
+    }
+
+    const placeOrder = () => {
+        let cartType = appData.appData.cartSaved;
+        if(cartType === false){
+            const payload = {
+                company_id: enviroment.COMPANY_ID,
+                store_id: enviroment.STORE_ID,
+                customer_id: userInfo?.customer_id,
+                cartJson: appData?.appData?.cartData
+            }
+            ApiService.addMultipleCart(payload).then((res) => {
+                if(res.message === "Add successfully."){
+                    setOrderStatus('Place Order');
+                    appData.setAppData({ ...appData.appData, cartSaved: true });
+                    localStorage.setItem('cartSaved', true);
+                }
+            }).catch((err) => {
+
+            });
+        }else{
+            
+        }
     }
 
     useEffect(() => {
@@ -103,8 +129,8 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
                     }
                     {cartSummryData?.length > 0 &&
                         <div className={`${styles.placeOrderBtnBox} col-12 p-3 d-inline-flex align-items-center justify-content-end gap-3`}>
-                            <span role="button" className={`${styles.continueShop} d-inline-flex align-items-center px-3 text-uppercase`}>Continue Shopping</span>
-                            <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setOrderStatus('Place Order')}>Place Order</span>
+                            <Link to="/" role="button" className={`${styles.continueShop} d-inline-flex align-items-center px-3 text-uppercase text-decoration-none`}>Continue Shopping</Link>
+                            <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => placeOrder()}>Place Order</span>
                         </div>
                     }
                 </div>

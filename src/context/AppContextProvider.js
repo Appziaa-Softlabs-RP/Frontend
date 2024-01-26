@@ -6,10 +6,11 @@ export const AppProvider = ({ children }) => {
   const initialValues = {
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     loggedIn: localStorage.getItem("loggedIn") ? true : false,
-    fetchWallet : localStorage.getItem("bettoken") ? true : false,
+    fetchWallet: localStorage.getItem("bettoken") ? true : false,
     windowWidth: window.innerWidth > 560 ? "desktop" : "mobile",
     cartCount: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")).length : 0,
     cartData: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [],
+    cartSaved: localStorage.getItem("cartSaved") ? true : false,
   };
   const [appData, setAppData] = useState(initialValues);
   return (

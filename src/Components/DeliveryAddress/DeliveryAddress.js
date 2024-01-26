@@ -86,10 +86,20 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType}) => {
 }
 
 const PaymentMode = ({checkoutType, checkoutTotal}) => {
+    const [paymentType, setPaymentType] = useState(null);
 
     const selectPaymentMode = (type) => {
-        
+        setPaymentType(type);       
     }
+
+    const proceedPayment = (amt) => {
+        if(paymentType === ''){
+            AppNotification('Error', "Please select payment type", 'danger');
+        }else{
+            
+        }
+    }
+
     return (
         <div className={`${styles.deliveryBox} col-12 d-inline-flex flex-column`}>
             <h2 className={`${styles.cartTitle} col-12 p-3 d-inline-flex align-items-center gap-2 mb-0`}>
@@ -112,7 +122,7 @@ const PaymentMode = ({checkoutType, checkoutTotal}) => {
                         </div>
                     </div>
                     <div className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}>
-                        <span role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PAY ₹{checkoutTotal}</span>
+                        <span onClick={() => proceedPayment(checkoutTotal)} role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PAY ₹{checkoutTotal}</span>
                     </div>
                 </div>
             }
@@ -122,8 +132,8 @@ const PaymentMode = ({checkoutType, checkoutTotal}) => {
 
 export const DeliveryAddress = ({checkoutTotal}) => {
     const [allAddress, setAllAddress] = useState([]);
-    const appData = useApp();
     const [checkoutType, setCheckoutType] = useState('Address');
+    const appData = useApp();
     const userInfo = appData?.appData?.user;
 
     useEffect(() => {
@@ -137,7 +147,7 @@ export const DeliveryAddress = ({checkoutTotal}) => {
             }
         }).catch((err) => {
 
-        })
+        });
     }, []);
     return (
         <React.Fragment>

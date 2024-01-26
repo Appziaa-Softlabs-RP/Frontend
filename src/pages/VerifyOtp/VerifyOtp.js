@@ -86,6 +86,7 @@ export const VerifyOtp = () => {
                         localStorage.setItem('user', JSON.stringify(res.payload));
                         localStorage.setItem('loggedIn', true);
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
+                        getAddCartList();
                         navigate('/');
                     }
                 }).catch((err) => {
@@ -97,6 +98,18 @@ export const VerifyOtp = () => {
         }else{
             AppNotification('Error', 'Please enter OTP', 'danger');
         }
+    }
+
+    const getAddCartList = () => {
+        const payload = {
+            store_id: enviroment.STORE_ID,
+            customer_id: appData.appData?.user?.customer_id
+        }
+        ApiService.showCart(payload).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+
+        });
     }
     
     useEffect(() => {

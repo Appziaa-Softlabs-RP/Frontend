@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from './OrderSummery.module.css';
 
-export const OrderSummery = ({ checkoutTotal, checkoutSaving }) => {
+export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) => {
     const [finalTotal, setFinalTotal] = useState(0);
     const [discount, setDiscount] = useState('');
 
     useEffect(() => {
-        setFinalTotal(checkoutTotal + 0);
-    }, [checkoutTotal]);
+        setFinalTotal(checkoutTotal + deliveryCost);
+    }, [checkoutTotal, deliveryCost]);
     return (
         <React.Fragment>
             <div className={`${styles.orderSummryBox} col-12 d-inline-flex flex-column`}>
@@ -36,7 +36,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving }) => {
                                 Delivery
                             </h6>
                             <div className={`${styles.subTotalSaving} d-inline-flex`}>
-                                ₹0
+                                ₹{deliveryCost}
                             </div>
                         </div>
                     </div>

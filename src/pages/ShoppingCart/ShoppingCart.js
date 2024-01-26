@@ -6,13 +6,17 @@ import { OrderSummery } from "../../Components/OrderSummery/OrderSummery";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { DeliveryAddress } from "../../Components/DeliveryAddress/DeliveryAddress";
+import ApiService from "../../services/ApiService";
+import { enviroment } from "../../enviroment";
 
 export const ShoppingCart = () => {
     const appData = useApp();
-    let windowWidth = appData.appData.windowWidth;
+    const windowWidth = appData.appData.windowWidth;
+    const userInfo = appData?.appData?.user;
     const [cartData, setCartData] = useState([]);
     const [checkoutTotal, setCheckoutTotal] = useState(0);
     const [checkoutSaving, setCheckoutSaving] = useState(0);
+    const [deliveryCost, setDelivryCost] = useState(0);
     const [orderStatus, setOrderStatus] = useState('Cart');
 
     const setCartTotal = (cartData) => {
@@ -27,6 +31,20 @@ export const ShoppingCart = () => {
             });
             setCheckoutTotal(allTotal);
             setCheckoutSaving(allSaving);
+
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userInfo?.customer_id,
+                sub_total: allTotal
+            }
+            ApiService.getDeliveryCost(payload).then((res) => {
+                if (res.message === "Delivery Details.") {
+                    setDelivryCost(res?.payload_deliveryCharge?.delivery_charge);
+                }
+            }).catch((err) => {
+    
+            });
         }
     }
 
@@ -59,7 +77,7 @@ export const ShoppingCart = () => {
                                     ) : null}
                                 </div>
                                 <div className="col-3 flex-shrink-0">
-                                    <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} />
+                                    <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} />
                                 </div>
                             </div>
                         </div>
