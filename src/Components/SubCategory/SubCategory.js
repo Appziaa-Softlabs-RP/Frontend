@@ -6,6 +6,7 @@ import styles from './SubCategory.module.css';
 import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { ProductCard } from "../ProductCard/ProductCard";
+import { useApp } from "../../context/AppContextProvider";
 
 let currentCat = '';
 export const SubCategory = ({categoryID}) => {
@@ -15,6 +16,8 @@ export const SubCategory = ({categoryID}) => {
     const [categoryProd, setShopCategoryProd] = useState([]);
     const [subCatActive, setSubCatActive] = useState('');
     const [catActive, setCatActive] = useState('');
+    const appData = useApp();
+    let windowWidth = appData.appData.windowWidth;
 
     const getSubCategory = (id) => {
         const payload = {
@@ -97,7 +100,7 @@ export const SubCategory = ({categoryID}) => {
     }, [shopCategory]);
     return (
         <React.Fragment>
-            {shopCategory?.length > 0 && 
+            {shopCategory?.length && windowWidth === 'mobile' &&
                 <React.Fragment>
                     <div className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}>
                         <ReactReactOwlCarousel className={`col-12 d-inline-block owl-theme`} margin={20} loop={false} dots={false} stagePadding={20} items={4}>
@@ -125,18 +128,22 @@ export const SubCategory = ({categoryID}) => {
                 </React.Fragment>
             }
 
-            <div className="col-12 d-inline-flex flex-wrap">
-                {categoryProd.map((item, index) => {
-                    return (
-                        <React.Fragment key={index}>
-                            {item.name !== '' && 
-                                <div className="col-6 px-2 flex-shrink-0 mb-2" key={index}>
-                                    <ProductCard item={item} index={index} />
-                                </div>
-                            }
-                        </React.Fragment>
-                    )
-                })}
+            <div className={`col-12 d-inline-flex ${windowWidth === 'desktop' && 'mt-5'}`}>
+                <div className={`${windowWidth === 'mobile' && 'p-0'} container`}>
+                    <div className="col-12 d-inline-flex flex-wrap">
+                        {categoryProd.map((item, index) => {
+                            return (
+                                <React.Fragment key={index}>
+                                    {item.name !== '' && 
+                                        <div className={`${windowWidth === 'mobile' ? 'col-6' : 'col-3'} px-2 flex-shrink-0 mb-2`} key={index}>
+                                            <ProductCard item={item} index={index} />
+                                        </div>
+                                    }
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     )

@@ -9,8 +9,11 @@ import { useAppStore } from "../../store";
 import ApiService from '../../services/ApiService';
 import { enviroment } from "../../enviroment";
 import { HeroBannerLoader } from "../Loader/Loader";
+import { useNavigate } from "react-router";
+import { AppNotification } from "../../utils/helper";
 
 export const HeroBanner = ({ allBanner }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const heroBanners = useAppStore(state => state.heroBanners);
   const setHeroBanners = useAppStore(state => state.setHeroBanners);
@@ -19,6 +22,40 @@ export const HeroBanner = ({ allBanner }) => {
 
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
+
+  const openBannerProd = (verticalId, subCatId, prodId, categoryId) => {
+    let category = 'Banner';
+    if(verticalId !== null) {
+      navigate(`/store/${category}`, {state: {cat: verticalId}})
+    } else if(subCatId !== null) {
+      const payload = {
+        store_id: enviroment.STORE_ID,
+        category_id: subCatId
+      }
+      navigate(`/store-product/${category}`, { state: { payload: payload } });
+    } else if(prodId !== null) {
+      const payload = {
+          product_id: prodId,
+          company_id: enviroment.COMPANY_ID,
+          store_id: enviroment.STORE_ID
+      }
+      ApiService.productDetails(payload).then((res) => {
+          if (res.message === "Product Detail") {
+              navigate('/product', { state: { product: res.payload } })
+          } else {
+              AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+          }
+      }).catch((err) => {
+          AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+      });
+    } else if(categoryId !== null) {
+      const payload = {
+        store_id: enviroment.STORE_ID,
+        category_id: categoryId
+      }
+      navigate(`/store-product/${category}`, { state: { payload: payload } });
+    }
+  }
 
   // load banners for first time
   useEffect(() => {
@@ -81,7 +118,7 @@ export const HeroBanner = ({ allBanner }) => {
                   return (
                     <React.Fragment key={index}>
                       {item?.image !== '' &&
-                        <div className={styles.item}>
+                        <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id)}>
                           <img src={item?.image}
                             alt={item?.name}
                             className="object-fit-cover col-12 d-inline-block"

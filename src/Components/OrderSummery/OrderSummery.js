@@ -3,6 +3,7 @@ import styles from './OrderSummery.module.css';
 
 export const OrderSummery = ({ checkoutTotal, checkoutSaving }) => {
     const [finalTotal, setFinalTotal] = useState(0);
+    const [discount, setDiscount] = useState('');
 
     useEffect(() => {
         setFinalTotal(checkoutTotal + 0);
@@ -15,7 +16,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving }) => {
                     <div className={`col-12 position-relative d-inline-flex flex-column`}>
                         <label className={`${styles.couponLabel} d-inline-flex`}>Have Coupon?</label>
                         <div className={`${styles.couponInputBox} overflow-hidden col-12 d-inline-flex align-items-stretch`}>
-                            <input type="text" className={`${styles.couponinput} d-inline-flex col-10 flex-shrink-1`} placeholder="Coupon code" />
+                            <input type="text" className={`${styles.couponinput} d-inline-flex col-10 flex-shrink-1`} value={discount || ''} onChange={(e) => setDiscount(e.target.value)} placeholder="Coupon code" />
                             <span className={`${styles.couponApplyBtn} flex-shrink-0 d-inline-flex align-items-center px-4`}>Apply</span>
                         </div>
                     </div>

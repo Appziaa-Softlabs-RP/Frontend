@@ -223,10 +223,14 @@
 }
 
 .removeButton {
-	height: 50px;
-	width: 50px;
+	height: 35px;
+	width: 35px;
 	background: #DDD;
 	border-radius: 4px;
-	bottom: 10px;
-	right: 10px;
+	bottom: 0px;
+	right: 0px;
+}
+.removeButton svg{
+	height: 20px;
+	width: 20px;
 }

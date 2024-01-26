@@ -22,7 +22,7 @@ export const MyOrdersBox = () => {
     }
 
     useEffect(() => {
-        if(userInfo?.customer_id !== ''){
+        if(userInfo?.customer_id){
             const payload = {
                 company_id:enviroment.COMPANY_ID,
                 store_id: enviroment.STORE_ID,

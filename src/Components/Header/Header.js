@@ -160,7 +160,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       </div>
                     </div>
                   </div>
-                  {userInfo && userInfo?.customer_id !== '' ? (
+                  {userInfo && userInfo?.customer_id ? (
                     <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => openAccountDetail()}>
                       <UserIcon color="#FFF" />
                       <span className={`${styles.supportText} d-inline-flex`}>Account</span>

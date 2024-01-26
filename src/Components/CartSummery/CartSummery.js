@@ -103,8 +103,8 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
                     }
                     {cartSummryData?.length > 0 &&
                         <div className={`${styles.placeOrderBtnBox} col-12 p-3 d-inline-flex align-items-center justify-content-end gap-3`}>
-                            <span className={`${styles.continueShop} d-inline-flex align-items-center px-3 text-uppercase`}>Continue Shopping</span>
-                            <span className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setOrderStatus('Place Order')}>Place Order</span>
+                            <span role="button" className={`${styles.continueShop} d-inline-flex align-items-center px-3 text-uppercase`}>Continue Shopping</span>
+                            <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setOrderStatus('Place Order')}>Place Order</span>
                         </div>
                     }
                 </div>

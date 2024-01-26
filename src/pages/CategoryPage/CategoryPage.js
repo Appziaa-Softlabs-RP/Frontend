@@ -18,7 +18,6 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     const payload = locationState.state.payload;
-    console.log(payload)
     if (locationState.state.category === 'SHOP') {
       ApiService.ageGroupProduct(payload).then((res) => {
         if (res.message === "Fetch successfully.") {
@@ -31,7 +30,6 @@ export const CategoryPage = () => {
     } else if (locationState.state.category === 'Brand') {
       ApiService.brandProduct(payload).then((res) => {
         if (res.message === "Fetch successfully.") {
-          console.log(res)
           seProductData(res.payload_BrandByProduct);
           setLoading(false);
         }
