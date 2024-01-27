@@ -4,6 +4,8 @@ import { useApp } from "../../context/AppContextProvider";
 import { AppNotification } from "../../utils/helper";
 import styles from './CartAside.module.css';
 import { DeleteIcon } from "../siteIcons";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
 
 export const CartAside = ({ setCartPop }) => {
     const [cartData, setCartData] = useState([]);
@@ -19,18 +21,18 @@ export const CartAside = ({ setCartPop }) => {
     const updateProdQty = (e, prodID, allowQty, currQty, type) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
             if (currQty === allowQty) {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
-                if(appData.appData.cartSaved === true){
+                if (appData.appData.cartSaved === true) {
                     let cartID = cartInfo[cartProdID].cart_id;
                     const payload = {
                         store_id: enviroment.STORE_ID,
@@ -46,7 +48,7 @@ export const CartAside = ({ setCartPop }) => {
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
             } else {
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
@@ -90,9 +92,9 @@ export const CartAside = ({ setCartPop }) => {
                 <div className={`${styles.drawerInner} position-absolute h-100 d-inline-flex flex-column`}>
                     <div className={`${styles.drawerHeader} col-12 d-inline-flex justify-content-center position-relative p-0`}>
                         <h2 className={`${styles.drawerHeading} m-0 d-inline-block pt-3 pb-3`}>SHOPPING BAG</h2>
-                        <a className={`${styles.drawerClose} position-absolute h-100 d-inline-flex align-items-center p-2 ml-2`} type="button" onClick={() => closeDrawer()}>
+                        <span className={`${styles.drawerClose} position-absolute h-100 d-inline-flex align-items-center p-2 ml-2`} type="button" onClick={() => closeDrawer()}>
                             <svg viewBox="0 0 512 512" height="15"><path d="M25 512a25 25 0 0 1-17.68-42.68l462-462a25 25 0 0 1 35.36 35.36l-462 462A24.93 24.93 0 0 1 25 512z" fill="#000000"></path><path d="M487 512a24.93 24.93 0 0 1-17.68-7.32l-462-462A25 25 0 0 1 42.68 7.32l462 462A25 25 0 0 1 487 512z" fill="#000000"></path></svg>
-                        </a>
+                        </span>
                     </div>
                     {cartData.length > 0 &&
                         <React.Fragment>
@@ -100,9 +102,9 @@ export const CartAside = ({ setCartPop }) => {
                                 {cartData.map((item, indx) => {
                                     return (
                                         <div className={`${styles.drawerCartItemsWrapper} mb-2 col-12 position-relative d-inline-flex`} key={indx}>
-                                            <a className={`${styles.cartItemLink} position-absolute d-inline-block`}>
+                                            <span className={`${styles.cartItemLink} position-absolute d-inline-block`}>
                                                 <img src={item?.image} alt={item?.product_name} className="col-12 d-inline-block object-fit-contain" />
-                                            </a>
+                                            </span>
                                             <div className={`${styles.productCartDetails} col-12 d-inline-block`}>
                                                 <div className={`${styles.cartItemPrice} col-12 p-0 d-inline-flex align-items-start justify-content-between gap-4`}>
                                                     <div className={`flex-grow-1 flex-column d-inline-flex`}>
