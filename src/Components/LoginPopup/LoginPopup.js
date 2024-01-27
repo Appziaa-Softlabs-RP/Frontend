@@ -145,12 +145,14 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
                         });
                     });
                 }
-                console.log(nonAddedProd);
                 if(addedCart?.length === 0){
                     appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                 }else{
-
+                    const mergedArray = [...nonAddedProd, ...addProducts];
+                    const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
+                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length });
+                    localStorage.setItem('cartData', JSON.stringify(uniqueData));
                 }
             }
         }).catch((err) => {

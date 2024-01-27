@@ -65,6 +65,7 @@ export const ProductCard = ({ item, index }) => {
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        AppNotification('Success', 'Product added into the cart successfully.', 'success');
 
         if (appData.appData?.user?.customer_id) {
             const payload = {
@@ -96,21 +97,35 @@ export const ProductCard = ({ item, index }) => {
     const updateProdQty = (e, prodID, allowQty, currQty, type) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
             if (currQty === allowQty) {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
+                if(appData.appData.cartSaved === true){
+                    let cartID = cartInfo[cartProdID].cart_id;
+                    const payload = {
+                        store_id: enviroment.STORE_ID,
+                        customer_id: userInfo.customer_id,
+                        cart_id: cartID
+                    }
+                    ApiService.removeCart(payload).then((res) => {
+
+                    }).catch((err) => {
+
+                    });
+                }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
+                AppNotification('Error', 'Product removed from cart successfully', 'danger');
             } else {
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });

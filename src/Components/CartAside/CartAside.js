@@ -30,6 +30,19 @@ export const CartAside = ({ setCartPop }) => {
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
+                if(appData.appData.cartSaved === true){
+                    let cartID = cartInfo[cartProdID].cart_id;
+                    const payload = {
+                        store_id: enviroment.STORE_ID,
+                        customer_id: userInfo.customer_id,
+                        cart_id: cartID
+                    }
+                    ApiService.removeCart(payload).then((res) => {
+
+                    }).catch((err) => {
+
+                    });
+                }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
             } else {
