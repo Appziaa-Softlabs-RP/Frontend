@@ -82,8 +82,8 @@ export const VerifyOtp = () => {
                 }
                 ApiService.VerifyOTP(payload).then((res) => {
                     if(res.message === "Registration successfully."){
-                        appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
                         localStorage.setItem('user', JSON.stringify(res.payload));
+                        appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
                         localStorage.setItem('loggedIn', true);
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
                         getAddCartList(res.payload);
@@ -120,13 +120,13 @@ export const VerifyOtp = () => {
                     });
                 }
                 if(addedCart?.length === 0){
-                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true });
+                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                     localStorage.setItem('cartSaved', true);
                 }else{
                     const mergedArray = [...nonAddedProd, ...addProducts];
                     const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
-                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true });
+                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(uniqueData));
                     localStorage.setItem('cartSaved', true);
                 }

@@ -12,8 +12,8 @@ import { enviroment } from "../../enviroment";
 export const ShoppingCart = () => {
     const appData = useApp();
     const windowWidth = appData.appData.windowWidth;
-    const userInfo = appData?.appData?.user;
     const [cartData, setCartData] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
     const [checkoutTotal, setCheckoutTotal] = useState(0);
     const [checkoutSaving, setCheckoutSaving] = useState(0);
     const [deliveryCost, setDelivryCost] = useState(0);
@@ -32,19 +32,21 @@ export const ShoppingCart = () => {
             setCheckoutTotal(allTotal);
             setCheckoutSaving(allSaving);
 
-            const payload = {
-                company_id: parseInt(enviroment.COMPANY_ID),
-                store_id: parseInt(enviroment.STORE_ID),
-                customer_id: userInfo?.customer_id,
-                sub_total: allTotal
-            }
-            ApiService.getDeliveryCost(payload).then((res) => {
-                if (res.message === "Delivery Details.") {
-                    setDelivryCost(res?.payload_deliveryCharge?.delivery_charge);
+            if(userInfo?.customer_id !== undefined && userInfo?.customer_id !== null){
+                const payload = {
+                    company_id: parseInt(enviroment.COMPANY_ID),
+                    store_id: parseInt(enviroment.STORE_ID),
+                    customer_id: userInfo?.customer_id,
+                    sub_total: allTotal
                 }
-            }).catch((err) => {
-    
-            });
+                ApiService.getDeliveryCost(payload).then((res) => {
+                    if (res.message === "Delivery Details.") {
+                        setDelivryCost(res?.payload_deliveryCharge?.delivery_charge);
+                    }
+                }).catch((err) => {
+        
+                });
+            }
         }
     }
 
@@ -55,7 +57,8 @@ export const ShoppingCart = () => {
 
     useEffect(() => {
         setCartTotal(appData?.appData?.cartData);
-    }, [appData?.appData?.cartData]);
+        setUserInfo(appData.appData.user);
+    }, [appData?.appData]);
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (

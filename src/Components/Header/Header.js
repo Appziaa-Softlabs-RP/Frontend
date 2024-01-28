@@ -28,9 +28,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const [loginPop, setLoginPop] = useState(false);
     const [accountOptn, setAccountOptn] = useState(false);
     const [cartPop, setCartPop] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
-    const userInfo = appData?.appData?.user;
 
   const openAsideMenu = () => {
     if (asideOpen === true) {
@@ -66,8 +66,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   }
 
   const userLoggedOut = () => {
-    appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
+    appData.setAppData({ ...appData.appData, user: '', loggedIn: false, cartSaved: false });
     localStorage.removeItem('user');
+    localStorage.removeItem('cartSaved');
     localStorage.removeItem('loggedIn');
     AppNotification('Logged Out', 'You have been successfully logged out.', 'success');
     navigate('/');
@@ -94,6 +95,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    setUserInfo(appData.appData.user);
+  }, [appData?.appData]);
 
   return (
     <React.Fragment>

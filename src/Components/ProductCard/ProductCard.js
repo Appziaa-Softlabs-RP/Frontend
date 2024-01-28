@@ -9,9 +9,9 @@ import styles from './ProductCard.module.css';
 export const ProductCard = ({ item, index }) => {
     const [prodAdded, setProdAdded] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
     const appData = useApp();
-    const userInfo = appData.appData.user;
 
     const showProductDetail = (id) => {
         const payload = {
@@ -31,8 +31,8 @@ export const ProductCard = ({ item, index }) => {
     }
 
     const addToCart = (e, item) => {
-        let cartInfo = appData?.appData?.cartData;
         e.preventDefault();
+        let cartInfo = appData?.appData?.cartData;
         let ProdId = item.product_id;
         let prodName = item?.name;
         let Mrp = item?.mrp;
@@ -115,8 +115,8 @@ export const ProductCard = ({ item, index }) => {
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
-                if(appData.appData.cartSaved === true){
-                    let cartID = cartInfo[cartProdID].cart_id;
+                let cartID = cartInfo[cartProdID].cart_id;
+                if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
                         store_id: enviroment.STORE_ID,
                         customer_id: userInfo.customer_id,
@@ -158,6 +158,8 @@ export const ProductCard = ({ item, index }) => {
 
     useEffect(() => {
         checkProdAdded();
+        console.log(appData.appData.user);
+        setUserInfo(appData.appData.user);
     }, [appData.appData]);
 
     return (

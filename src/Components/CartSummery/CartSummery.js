@@ -5,12 +5,14 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import { DeleteIcon } from "../siteIcons";
+import { LoginPopup } from "../LoginPopup/LoginPopup";
 import styles from './CartSummery.module.css';
 
 export const CartSummery = ({ cartData, setOrderStatus }) => {
     const appData = useApp();
+    const [loginPop, setLoginPop] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
     const [cartSummryData, setCartSummyData] = useState(cartData);
-    const userInfo = appData?.appData?.user;
 
     const updateProdQty = (e, prodID, allowQty, currQty, type) => {
         e.preventDefault();
@@ -26,8 +28,8 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
-                if(appData.appData.cartSaved === true){
-                    let cartID = cartInfo[cartProdID].cart_id;
+                let cartID = cartInfo[cartProdID].cart_id;
+                if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
                         store_id: enviroment.STORE_ID,
                         customer_id: userInfo.customer_id,
@@ -56,16 +58,18 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
         if(appData.appData.cartSaved === true){
             let cartProdID = cartInfo.findIndex((obj) => obj.product_id === id);
             let cartID = cartInfo[cartProdID].cart_id;
-            const payload = {
-                store_id: enviroment.STORE_ID,
-                customer_id: userInfo.customer_id,
-                cart_id: cartID
+            if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
+                const payload = {
+                    store_id: enviroment.STORE_ID,
+                    customer_id: userInfo.customer_id,
+                    cart_id: cartID
+                }
+                ApiService.removeCart(payload).then((res) => {
+
+                }).catch((err) => {
+
+                });
             }
-            ApiService.removeCart(payload).then((res) => {
-
-            }).catch((err) => {
-
-            });
         }
         let newCartInfo = cartInfo.filter((obj) => obj.product_id !== id);
         cartInfo = newCartInfo;
@@ -76,7 +80,7 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
 
     const placeOrder = () => {
         let cartType = appData.appData.cartSaved;
-        if(cartType === false){
+        if(cartType !== false && userInfo?.customer_id !== undefined && userInfo?.customer_id !== null){
             const payload = {
                 company_id: enviroment.COMPANY_ID,
                 store_id: enviroment.STORE_ID,
@@ -93,13 +97,14 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
 
             });
         }else{
-            
+            setLoginPop(true);   
         }
     }
 
     useEffect(() => {
         setCartSummyData(appData?.appData?.cartData);
-    }, [appData?.appData?.cartData]);
+        setUserInfo(appData.appData.user);
+    }, [appData?.appData]);
 
     return (
         <React.Fragment>
@@ -163,6 +168,9 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
                     }
                 </div>
             </div>
+            {loginPop === true &&
+                <LoginPopup setLoginPop={setLoginPop} />
+            }
         </React.Fragment>
     );
 }
