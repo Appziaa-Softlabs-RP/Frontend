@@ -221,12 +221,16 @@
     border-bottom: 1px solid #EDEDED;
     height: 45px;
     font-size: 15px;
-    color: #000;
     font-weight: 500;
+    color: #000;
     padding: 0 10px;
+    transition: .1s;
 }
 .accountOption:last-child{
     border-bottom: none;
+}
+.accountOption:hover{
+    background: var(--MENU_HOVER_COLOR);
 }
 .userName{
     font-size: 12px;

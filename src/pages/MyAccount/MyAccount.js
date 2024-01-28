@@ -68,10 +68,8 @@ export const MyAccount = () => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
   const userInfo = appData?.appData?.user;
-  
-
   const navigate = useNavigate();
-
+  
   const userLoggedOut = () => {
     appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
     localStorage.removeItem('user');

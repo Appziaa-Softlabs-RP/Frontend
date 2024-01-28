@@ -192,7 +192,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => setCartPop(true)}>
                     <span className="position-relative d-inline-flex">
                         <CartIcon color="#FFF" />
-                        <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
+                        {appData?.appData?.cartCount > 0 &&
+                          <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
+                        }
                     </span>
                     <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
                   </div>

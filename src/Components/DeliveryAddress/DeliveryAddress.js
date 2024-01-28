@@ -89,6 +89,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
 const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, deliveryCost, addressId, shopcartID}) => {
     const [paymentType, setPaymentType] = useState(null);
     const navigate = useNavigate();
+    const appData = useApp();
 
     const selectPaymentMode = (type) => {
         setPaymentType(type);       
@@ -115,6 +116,9 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
             }
             ApiService.cashOnDelivery(payload).then((res) => {
                 if(res.message === 'Cash on delivery successfully.'){
+                    AppNotification('Success', 'Your order has been placed successfully', 'success');
+                    appData.setAppData({ ...appData.appData, cartData: {}, cartCount: 0 });
+                    localStorage.removeItem('cartData');
                     navigate('/my-orders');
                 }
             }).catch((err) => {

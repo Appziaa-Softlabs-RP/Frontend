@@ -22,7 +22,8 @@
     line-height: 16px;
 }
 .accountRow{
-  min-height: 45px;
+    min-height: 45px;
+    transition: .2s;
 }
 .accountIcon{
     height: 40px;
