@@ -81,11 +81,18 @@ export const ProductCard = ({ item, index }) => {
                 is_hot_deals: dealType,
                 deal_type_id: dealId
             }
-              
             ApiService.addToCart(payload).then((res) => {
                 if(res?.message === 'Add successfully.'){
                     appData.setAppData({ ...appData.appData, cartSaved: true });
                     localStorage.setItem('cartSaved', true);
+                    let resCart = res.payload_addTocart;
+                    let resProdId = resCart.findIndex((obj) => obj.product_id === ProdId);
+                    let cartID = resCart[resProdId].cart_id;
+                    let cartProdID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+                    cartInfo[cartProdID].cart_id = cartID;
+                    
+                    appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
+                    localStorage.setItem('cartData', JSON.stringify(cartInfo));
                 }
             }).catch((err) => {
                 return err;
@@ -123,7 +130,7 @@ export const ProductCard = ({ item, index }) => {
                 }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
-                AppNotification('Error', 'Product removed from cart successfully', 'danger');
+                AppNotification('Success', 'Product removed from cart successfully', 'success');
             } else {
                 cartInfo[cartProdID].quantity = newQty;
             }

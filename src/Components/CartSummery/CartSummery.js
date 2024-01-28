@@ -15,21 +15,35 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
     const updateProdQty = (e, prodID, allowQty, currQty, type) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
             if (currQty === allowQty) {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
+                if(appData.appData.cartSaved === true){
+                    let cartID = cartInfo[cartProdID].cart_id;
+                    const payload = {
+                        store_id: enviroment.STORE_ID,
+                        customer_id: userInfo.customer_id,
+                        cart_id: cartID
+                    }
+                    ApiService.removeCart(payload).then((res) => {
+
+                    }).catch((err) => {
+
+                    });
+                }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
+                AppNotification('Success', 'Product removed from cart successfully', 'success');
             } else {
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
@@ -39,9 +53,23 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
 
     const removeThisProd = (id) => {
         let cartInfo = appData?.appData?.cartData;
+        if(appData.appData.cartSaved === true){
+            let cartProdID = cartInfo.findIndex((obj) => obj.product_id === id);
+            let cartID = cartInfo[cartProdID].cart_id;
+            const payload = {
+                store_id: enviroment.STORE_ID,
+                customer_id: userInfo.customer_id,
+                cart_id: cartID
+            }
+            ApiService.removeCart(payload).then((res) => {
+
+            }).catch((err) => {
+
+            });
+        }
         let newCartInfo = cartInfo.filter((obj) => obj.product_id !== id);
         cartInfo = newCartInfo;
-
+        AppNotification('Success', 'Product removed from cart successfully', 'success');
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
     }

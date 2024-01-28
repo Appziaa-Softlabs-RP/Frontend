@@ -127,13 +127,14 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
     }
 
     const getAddCartList = (userData) => {
+        console.log('userData ',userData);
         const payload = {
             store_id: enviroment.STORE_ID,
             customer_id: userData.customer_id
         }
         ApiService.showCart(payload).then((res) => {
-            if(res.message === "Add successfully."){
-                let addProducts = res.payload_addTocart;
+            if(res.message === "Cart list successfully"){
+                let addProducts = res.payload_cartList;
                 let addedCart = appData.appData.cartData;
                 let nonAddedProd = [];
                 if(addProducts?.length > 0 && addedCart?.length > 0){
@@ -146,13 +147,15 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
                     });
                 }
                 if(addedCart?.length === 0){
-                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length });
+                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
+                    localStorage.setItem('cartSaved', true);
                 }else{
                     const mergedArray = [...nonAddedProd, ...addProducts];
                     const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
-                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length });
+                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true });
                     localStorage.setItem('cartData', JSON.stringify(uniqueData));
+                    localStorage.setItem('cartSaved', true);
                 }
             }
         }).catch((err) => {

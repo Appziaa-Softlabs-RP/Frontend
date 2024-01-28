@@ -87,7 +87,7 @@ export const ProductPage = () => {
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
 
         if (appData.appData?.user?.customer_id) {
-            const res = AddToCart(appData.appData?.user?.customer_id, ProdId, prodName, Mrp, sellingPrice, Quantity, noQty, dealType, dealId);
+            
         }
         e.stopPropagation();
     }

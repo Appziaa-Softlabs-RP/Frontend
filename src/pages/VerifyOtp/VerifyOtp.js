@@ -86,7 +86,7 @@ export const VerifyOtp = () => {
                         localStorage.setItem('user', JSON.stringify(res.payload));
                         localStorage.setItem('loggedIn', true);
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
-                        getAddCartList();
+                        getAddCartList(res.payload);
                         navigate('/');
                     }
                 }).catch((err) => {
@@ -100,13 +100,37 @@ export const VerifyOtp = () => {
         }
     }
 
-    const getAddCartList = () => {
+    const getAddCartList = (userData) => {
         const payload = {
             store_id: enviroment.STORE_ID,
-            customer_id: appData.appData?.user?.customer_id
+            customer_id: userData?.customer_id
         }
         ApiService.showCart(payload).then((res) => {
-            console.log(res);
+            if(res.message === "Cart list successfully"){
+                let addProducts = res.payload_cartList;
+                let addedCart = appData.appData.cartData;
+                let nonAddedProd = [];
+                if(addProducts?.length > 0 && addedCart?.length > 0){
+                    addProducts.map((prodCart) => {
+                        addedCart.map((item) => {
+                            if(prodCart.product_id !== item?.product_id){
+                                nonAddedProd.push(item);
+                            }
+                        });
+                    });
+                }
+                if(addedCart?.length === 0){
+                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true });
+                    localStorage.setItem('cartData', JSON.stringify(addProducts));
+                    localStorage.setItem('cartSaved', true);
+                }else{
+                    const mergedArray = [...nonAddedProd, ...addProducts];
+                    const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
+                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true });
+                    localStorage.setItem('cartData', JSON.stringify(uniqueData));
+                    localStorage.setItem('cartSaved', true);
+                }
+            }
         }).catch((err) => {
 
         });
