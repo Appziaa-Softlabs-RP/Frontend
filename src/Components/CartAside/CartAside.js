@@ -11,8 +11,8 @@ export const CartAside = ({ setCartPop }) => {
     const [cartData, setCartData] = useState([]);
     const [checkoutTotal, setCheckoutTotal] = useState(0);
     const appData = useApp();
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
-    const userInfo = appData?.appData?.user;
 
     const closeDrawer = () => {
         setCartPop(false);
@@ -35,7 +35,7 @@ export const CartAside = ({ setCartPop }) => {
                 let cartID = cartInfo[cartProdID].cart_id;
                 if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
-                        store_id: enviroment.STORE_ID,
+                        store_id: parseInt(enviroment.STORE_ID),
                         customer_id: userInfo.customer_id,
                         cart_id: cartID
                     }
@@ -64,7 +64,7 @@ export const CartAside = ({ setCartPop }) => {
             let cartID = cartInfo[cartProdID].cart_id;
             if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                 const payload = {
-                    store_id: enviroment.STORE_ID,
+                    store_id: parseInt(enviroment.STORE_ID),
                     customer_id: userInfo.customer_id,
                     cart_id: cartID
                 }
@@ -105,6 +105,7 @@ export const CartAside = ({ setCartPop }) => {
     useEffect(() => {
         setCartData(appData?.appData?.cartData);
         setCartTotal(appData?.appData?.cartData);
+        setUserInfo(appData.appData.user);
     }, [appData?.appData]);
 
     return (

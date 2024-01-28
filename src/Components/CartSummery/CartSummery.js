@@ -8,7 +8,7 @@ import { DeleteIcon } from "../siteIcons";
 import { LoginPopup } from "../LoginPopup/LoginPopup";
 import styles from './CartSummery.module.css';
 
-export const CartSummery = ({ cartData, setOrderStatus }) => {
+export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
     const appData = useApp();
     const [loginPop, setLoginPop] = useState(false);
     const [userInfo, setUserInfo] = useState({});
@@ -31,7 +31,7 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
                 let cartID = cartInfo[cartProdID].cart_id;
                 if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
-                        store_id: enviroment.STORE_ID,
+                        store_id: parseInt(enviroment.STORE_ID),
                         customer_id: userInfo.customer_id,
                         cart_id: cartID
                     }
@@ -60,7 +60,7 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
             let cartID = cartInfo[cartProdID].cart_id;
             if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                 const payload = {
-                    store_id: enviroment.STORE_ID,
+                    store_id: parseInt(enviroment.STORE_ID),
                     customer_id: userInfo.customer_id,
                     cart_id: cartID
                 }
@@ -80,21 +80,25 @@ export const CartSummery = ({ cartData, setOrderStatus }) => {
 
     const placeOrder = () => {
         let cartType = appData.appData.cartSaved;
-        if(cartType !== false && userInfo?.customer_id !== undefined && userInfo?.customer_id !== null){
+        if(cartType !== false || userInfo?.customer_id !== undefined && userInfo?.customer_id !== null){
             const payload = {
-                company_id: enviroment.COMPANY_ID,
-                store_id: enviroment.STORE_ID,
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo?.customer_id,
-                cartJson: appData?.appData?.cartData
+                cartJson: JSON.stringify(appData?.appData?.cartData)
             }
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res.message === "Add successfully."){
                     setOrderStatus('Place Order');
-                    appData.setAppData({ ...appData.appData, cartSaved: true });
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList, cartCount: res.payload_cartList?.length  });
                     localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList));
+                    setShopCartId(res.payload_cartList[0].cart_id);
+                }else{
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
                 }
             }).catch((err) => {
-
+                AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
             });
         }else{
             setLoginPop(true);   

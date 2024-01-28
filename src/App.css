@@ -17,11 +17,9 @@ img{
   display: flex;
   align-items: stretch;
 }
-
 .mouse-cursor {
   cursor: pointer;
 }
-
 /* owl  carousel left & right arrow */
 .owl-nav {
   position: absolute;
@@ -31,14 +29,12 @@ img{
   display: flex;
   justify-content: space-between;
 }
-
 .owl-nav button {
   min-width: 40px;
 }
 .owl-nav span {
   font-size: 30px;
 }
-
 .carousel-looking-for .owl-nav button, .heroBanner .owl-nav button, .brandSilder .owl-nav button, .limitedOfferSlider .owl-nav button{
   position: absolute;
   background: var(--SECONDARY_COLOR) !important;
@@ -115,11 +111,4 @@ input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   height: 30px;
   width: 30px;
   margin: 0px;
-}
-
-/* user profile nav menu */
-.user-menu-active {
-  background-color: var(--MENU_HOVER_COLOR);
-  font-weight: bold;
-  border-right: 4px solid var(--PRIMARY_COLOR);
 }

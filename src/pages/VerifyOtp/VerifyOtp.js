@@ -102,7 +102,7 @@ export const VerifyOtp = () => {
 
     const getAddCartList = (userData) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             customer_id: userData?.customer_id
         }
         ApiService.showCart(payload).then((res) => {
@@ -123,12 +123,15 @@ export const VerifyOtp = () => {
                     appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                     localStorage.setItem('cartSaved', true);
-                }else{
+                }else if(nonAddedProd?.length > 0 || addProducts?.length > 0){
                     const mergedArray = [...nonAddedProd, ...addProducts];
                     const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
                     appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(uniqueData));
                     localStorage.setItem('cartSaved', true);
+                }else{
+                    appData.setAppData({ ...appData.appData, cartData: addedCart, cartCount: addedCart?.length, user: userData, loggedIn: true });
+                    localStorage.setItem('cartData', JSON.stringify(addedCart));
                 }
             }
         }).catch((err) => {

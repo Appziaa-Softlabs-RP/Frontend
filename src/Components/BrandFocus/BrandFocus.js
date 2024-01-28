@@ -16,7 +16,7 @@ export const BrandFocus = () => {
 
     const showBrandProd = (id, name) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             brand_id: id
         }
         let category = name?.replaceAll("[^A-Za-z0-9]", "-");
@@ -25,7 +25,7 @@ export const BrandFocus = () => {
 
     useEffect(() => {
         const payload = {
-            company_id: enviroment.COMPANY_ID
+            company_id: parseInt(enviroment.COMPANY_ID)
         }
         ApiService.brandInFocus(payload).then((res) => {
             setBrandData(res.payload_brandOffer.brand_offer);

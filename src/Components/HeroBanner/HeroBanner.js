@@ -29,15 +29,15 @@ export const HeroBanner = ({ allBanner }) => {
       navigate(`/store/${category}`, {state: {cat: verticalId}})
     } else if(subCatId !== null) {
       const payload = {
-        store_id: enviroment.STORE_ID,
+        store_id: parseInt(enviroment.STORE_ID),
         category_id: subCatId
       }
       navigate(`/store-product/${category}`, { state: { payload: payload } });
     } else if(prodId !== null) {
       const payload = {
           product_id: prodId,
-          company_id: enviroment.COMPANY_ID,
-          store_id: enviroment.STORE_ID
+          company_id: parseInt(enviroment.COMPANY_ID),
+          store_id: parseInt(enviroment.STORE_ID)
       }
       ApiService.productDetails(payload).then((res) => {
           if (res.message === "Product Detail") {
@@ -50,7 +50,7 @@ export const HeroBanner = ({ allBanner }) => {
       });
     } else if(categoryId !== null) {
       const payload = {
-        store_id: enviroment.STORE_ID,
+        store_id: parseInt(enviroment.STORE_ID),
         category_id: categoryId
       }
       navigate(`/store-product/${category}`, { state: { payload: payload } });
@@ -60,7 +60,7 @@ export const HeroBanner = ({ allBanner }) => {
   // load banners for first time
   useEffect(() => {
     const payload = {
-      store_id: enviroment.STORE_ID
+      store_id: parseInt(enviroment.STORE_ID)
     };
     
     ApiService.banner(payload).then((res) => {

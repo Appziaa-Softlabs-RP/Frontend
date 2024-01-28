@@ -50,7 +50,7 @@ export const MyAccountMenu = () => {
       <ul className="m-0 p-0">
         {userMenu.map(item => {
           return (
-            <div className={`${styles.accountRow} ${isActive(item.path) ? 'user-menu-active' : ''} col-12 d-inline-flex align-items-center gap-2 px-4`}
+            <div className={`${styles.accountRow} ${isActive(item.path) ? styles.activeMenu : ''} col-12 d-inline-flex align-items-center gap-2 px-4`}
               onClick={() => item.path ? navigate(item.path) : logdOut} role="button">
               <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                 {item.icon}

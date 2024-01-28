@@ -18,6 +18,7 @@ export const ShoppingCart = () => {
     const [checkoutSaving, setCheckoutSaving] = useState(0);
     const [deliveryCost, setDelivryCost] = useState(0);
     const [orderStatus, setOrderStatus] = useState('Cart');
+    const [shopcartID, setShopCartId] = useState('');
 
     const setCartTotal = (cartData) => {
         let allTotal = 0;
@@ -74,9 +75,9 @@ export const ShoppingCart = () => {
                             <div className="col-12 d-inline-flex gap-5 align-items-start">
                                 <div className="col-9 flex-shrink-1">
                                     {orderStatus === 'Cart' ? (
-                                        <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} />
+                                        <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} setShopCartId={setShopCartId} />
                                     ) : orderStatus === 'Place Order' ? (
-                                        <DeliveryAddress checkoutTotal={checkoutTotal} />
+                                        <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} />
                                     ) : null}
                                 </div>
                                 <div className="col-3 flex-shrink-0">

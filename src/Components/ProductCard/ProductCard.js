@@ -16,8 +16,8 @@ export const ProductCard = ({ item, index }) => {
     const showProductDetail = (id) => {
         const payload = {
             product_id: id,
-            company_id: enviroment.COMPANY_ID,
-            store_id: enviroment.STORE_ID
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
         }
         ApiService.productDetails(payload).then((res) => {
             if (res.message === "Product Detail") {
@@ -43,8 +43,8 @@ export const ProductCard = ({ item, index }) => {
         let dealId = item?.deal_type_id;
 
         let cardObj = {
-            company_id: enviroment.COMPANY_ID,
-            store_id: enviroment.STORE_ID,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID),
             product_id: ProdId,
             image: item?.image,
             product_name: prodName,
@@ -69,8 +69,8 @@ export const ProductCard = ({ item, index }) => {
 
         if (appData.appData?.user?.customer_id) {
             const payload = {
-                company_id: enviroment.COMPANY_ID,
-                store_id: enviroment.STORE_ID,
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
                 product_id: ProdId,
                 product_name: prodName,
@@ -118,7 +118,7 @@ export const ProductCard = ({ item, index }) => {
                 let cartID = cartInfo[cartProdID].cart_id;
                 if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
-                        store_id: enviroment.STORE_ID,
+                        store_id: parseInt(enviroment.STORE_ID),
                         customer_id: userInfo.customer_id,
                         cart_id: cartID
                     }
@@ -158,7 +158,6 @@ export const ProductCard = ({ item, index }) => {
 
     useEffect(() => {
         checkProdAdded();
-        console.log(appData.appData.user);
         setUserInfo(appData.appData.user);
     }, [appData.appData]);
 

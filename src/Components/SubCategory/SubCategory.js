@@ -21,7 +21,7 @@ export const SubCategory = ({categoryID}) => {
 
     const getSubCategory = (id) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             category_id: id
         }
         currentCat = id;
@@ -41,7 +41,7 @@ export const SubCategory = ({categoryID}) => {
 
     const getSubCategoryProd = (subId) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             subcategory_id: subId
         }
         setSubCatActive(subId);
@@ -54,7 +54,7 @@ export const SubCategory = ({categoryID}) => {
 
     const getCategoryProd = (currentCat) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             vertical_id: currentCat
         }
         setSubCatActive('');
@@ -67,7 +67,7 @@ export const SubCategory = ({categoryID}) => {
 
     useEffect(() => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             vertical_id: categoryID
         }
         ApiService.StoreSubCategory(payload).then((res) => {
@@ -87,7 +87,7 @@ export const SubCategory = ({categoryID}) => {
         shopCategory?.map((item, index) => {
             if (index === 0) {
                 const payload = {
-                    store_id: enviroment.STORE_ID,
+                    store_id: parseInt(enviroment.STORE_ID),
                     category_id: item?.category_id
                 }
                 ApiService.StoreSubChildCategory(payload).then((res) => {

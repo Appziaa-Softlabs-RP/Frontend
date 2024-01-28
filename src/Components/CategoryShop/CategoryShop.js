@@ -15,7 +15,7 @@ export const CategoryShop = () => {
 
     useEffect(() => {
         const payload = {
-            store_id: enviroment.STORE_ID
+            store_id: parseInt(enviroment.STORE_ID)
         }
         ApiService.StoreCategory(payload).then((res) => {
             setShopCategory(res?.payload_verticalList?.vertical);

@@ -13,7 +13,7 @@ export const DealShop = () => {
 
     useEffect(() => {
         const payload = {
-            store_id: enviroment.STORE_ID
+            store_id: parseInt(enviroment.STORE_ID)
         }
         ApiService.DealsOfProduct(payload).then((res) => {
             if(res.message === "Fetch successfully."){

@@ -13,8 +13,8 @@ export const MyOrdersBox = () => {
 
     const openOrderDetail = (id) => {
         const payload = {
-            company_id:enviroment.COMPANY_ID,
-            store_id: enviroment.STORE_ID,
+            company_id:parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID),
             customer_id:userInfo?.customer_id,
             order_id: id
         }
@@ -24,8 +24,8 @@ export const MyOrdersBox = () => {
     useEffect(() => {
         if(userInfo?.customer_id){
             const payload = {
-                company_id:enviroment.COMPANY_ID,
-                store_id: enviroment.STORE_ID,
+                company_id:parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
                 customer_id:userInfo?.customer_id
             }
             ApiService.orderList(payload).then((res) => {

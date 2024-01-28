@@ -18,7 +18,7 @@ export const LookingFor = () => {
 
   const subCatProduts = (id, name) => {
     const payload = {
-      store_id: enviroment.STORE_ID,
+      store_id: parseInt(enviroment.STORE_ID),
       category_id: id
     }
     let category = name?.replaceAll("[^A-Za-z0-9]", "-");

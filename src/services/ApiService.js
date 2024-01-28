@@ -322,4 +322,12 @@ ApiService.getDeliveryCost = function (data) {
   });
 }
 
+ApiService.cashOnDelivery = function (data) {
+  return fetch({
+    url: 'store/cashOnDelivery',
+    method: 'post',
+    data: data
+  });
+}
+
 export default ApiService;

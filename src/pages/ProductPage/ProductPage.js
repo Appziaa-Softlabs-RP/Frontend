@@ -63,8 +63,8 @@ export const ProductPage = () => {
         let dealId = item?.deal_type_id;
 
         let cardObj = {
-            company_id: enviroment.COMPANY_ID,
-            store_id: enviroment.STORE_ID,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID),
             product_id: ProdId,
             image: item?.image,
             product_name: prodName,

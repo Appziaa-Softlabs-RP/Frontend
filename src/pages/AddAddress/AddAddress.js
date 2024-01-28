@@ -15,7 +15,7 @@ export const AddAddress = () => {
     const userInfo = appData?.appData?.user;
     
     const [addressObj, setAddressObj] = useState({
-        store_id: enviroment.STORE_ID,
+        store_id: parseInt(enviroment.STORE_ID),
         customer_id:userInfo?.customer_id,
         pincode: '',
         name: '',
@@ -81,7 +81,7 @@ export const AddAddress = () => {
     useEffect(() => {
         if(addresState.addressEdit === true){
             const payload = {
-                store_id: enviroment.STORE_ID,
+                store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
                 address_id:addresState.addressId
             }

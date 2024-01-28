@@ -228,6 +228,11 @@
 .accountOption:last-child{
     border-bottom: none;
 }
+.userName{
+    font-size: 12px;
+    line-height: 12px;
+    color: var(--SECONDARY_COLOR);
+}
 @media screen and (min-width:568px) {
     .cartCount{
         top: -8px;

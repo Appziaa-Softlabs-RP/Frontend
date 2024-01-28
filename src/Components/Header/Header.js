@@ -58,7 +58,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
 
   const showCategroryProd = (id, name) => {
     const payload = {
-      store_id: enviroment.STORE_ID,
+      store_id: parseInt(enviroment.STORE_ID),
       category_id: id
     }
     let category = name?.replaceAll("[^A-Za-z0-9]", "-");
@@ -76,7 +76,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
 
   useEffect(() => {
     const payload = {
-      store_id: enviroment.STORE_ID
+      store_id: parseInt(enviroment.STORE_ID)
     }
     ApiService.AllCategory(payload).then((res) => {
       let allCatList = [];
@@ -166,9 +166,14 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     </div>
                   </div>
                   {userInfo && userInfo?.customer_id ? (
-                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => openAccountDetail()}>
-                      <UserIcon color="#FFF" />
-                      <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                    <div className={`${styles.supportDrop} d-inline-flex flex-column align-items-center gap-1 position-relative justify-content-center`} role="button" onClick={() => openAccountDetail()}>
+                      <div className="d-inline-flex align-items-center gap-2">
+                        <UserIcon color="#FFF" />
+                        <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                      </div>
+                      {userInfo?.name !== '' && 
+                        <span className={`${styles.userName} d-inline-flex`}>{userInfo.name}</span>
+                      }
                       {accountOptn === true &&
                         <div className={`${styles.userAccountDrop} position-absolute col-12`} onClick={(e) => e.preventDefault()}>
                           <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-account')}>My Account</span>

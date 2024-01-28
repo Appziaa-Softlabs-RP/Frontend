@@ -20,8 +20,8 @@ export const AppNotification = (title, message, type) => {
 
 export const AddToCart = (customerId, ProductId, Name, mrp, sellingPrice, quantity, noOfQty, hotDeals, dealId) => {
   const payload = {
-    company_id: enviroment.COMPANY_ID,
-    store_id: enviroment.STORE_ID,
+    company_id: parseInt(enviroment.COMPANY_ID),
+    store_id: parseInt(enviroment.STORE_ID),
     customer_id: customerId,
     product_id: ProductId,
     product_name:Name,

@@ -7,7 +7,7 @@ import ApiService from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { AppNotification } from '../../utils/helper';
 
-const AddressDelivery = ({allAddress, setCheckoutType, checkoutType}) => {
+const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressId}) => {
     const navigate = useNavigate();
     const [selectAddress, setSelectAddress] = useState({});
 
@@ -23,8 +23,9 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType}) => {
         }
     }
 
-    const seletThisAddress = (e, item) => {
+    const seletThisAddress = (e, item,addrId) => {
         setSelectAddress(item);
+        setAddressId(addrId);
     }
 
     return (
@@ -44,7 +45,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType}) => {
                                 {allAddress?.map((item, idx) => {
                                     return (
                                         <div className="col-6 p-3" key={idx}>
-                                            <div className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`} role="button" onClick={(e) => seletThisAddress(e, item)}>
+                                            <div className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`} role="button" onClick={(e) => seletThisAddress(e, item, item.address_id)}>
                                                 <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} id={`delivery${idx}`} type="radio" name="delivery"/>
                                                 <label className={`col-10 d-inline-flex flex-column`} htmlFor={`delivery${idx}`} role="button">
                                                     <h6 className={`${styles.addressName} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}>{item.name}<span className={`${styles.addressTag} d-inline-flex align-items-center px-1`}>{item.address_type}</span></h6>
@@ -85,8 +86,9 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType}) => {
     )
 }
 
-const PaymentMode = ({checkoutType, checkoutTotal}) => {
+const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, deliveryCost, addressId, shopcartID}) => {
     const [paymentType, setPaymentType] = useState(null);
+    const navigate = useNavigate();
 
     const selectPaymentMode = (type) => {
         setPaymentType(type);       
@@ -96,7 +98,28 @@ const PaymentMode = ({checkoutType, checkoutTotal}) => {
         if(paymentType === ''){
             AppNotification('Error', "Please select payment type", 'danger');
         }else{
-            
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userInfo.customer_id,
+                address_id: addressId,
+                total_paid_amount: amt,
+                total_saving: checkoutSaving,
+                deliveryCharge: deliveryCost,
+                paymentmode:'cash',
+                cart_id: shopcartID,
+                slot_id: 1,
+                couponValue: 0,
+                couponcode: '',
+                slot_date: new Date(),
+            }
+            ApiService.cashOnDelivery(payload).then((res) => {
+                if(res.message === 'Cash on delivery successfully.'){
+                    navigate('/my-orders');
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
         }
     }
 
@@ -130,13 +153,15 @@ const PaymentMode = ({checkoutType, checkoutTotal}) => {
     )
 }
 
-export const DeliveryAddress = ({checkoutTotal}) => {
+export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, shopcartID}) => {
+    const appData = useApp();
     const [allAddress, setAllAddress] = useState([]);
     const [checkoutType, setCheckoutType] = useState('Address');
-    const appData = useApp();
-    const userInfo = appData?.appData?.user;
+    const userInfo = appData.appData.user;
+    const [addressId, setAddressId] = useState('');
 
-    useEffect(() => {
+    const getAllAdress = () => {
+        console.log(userInfo);
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
             customer_id: userInfo?.customer_id
@@ -148,11 +173,16 @@ export const DeliveryAddress = ({checkoutTotal}) => {
         }).catch((err) => {
 
         });
+    }
+
+    useEffect(() => {
+        getAllAdress();
     }, []);
+
     return (
         <React.Fragment>
-            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} />
-            <PaymentMode checkoutType={checkoutType} checkoutTotal={checkoutTotal} />
+            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} />
+            <PaymentMode checkoutType={checkoutType} checkoutTotal={checkoutTotal} userInfo={userInfo}checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} addressId={addressId} shopcartID={shopcartID} />
         </React.Fragment>
     );
 }

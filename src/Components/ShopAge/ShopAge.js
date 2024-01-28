@@ -13,7 +13,7 @@ export const ShopAge = () => {
 
     const openAgeProd = (ageId, banner, name) => {
         const payload = {
-            store_id: enviroment.STORE_ID,
+            store_id: parseInt(enviroment.STORE_ID),
             age_group_id: ageId
         }
         let category = name?.replaceAll("[^A-Za-z0-9]","-");
@@ -22,7 +22,7 @@ export const ShopAge = () => {
 
     useEffect(() => {
         const payload = {
-            store_id: enviroment.STORE_ID
+            store_id: parseInt(enviroment.STORE_ID)
         }
         ApiService.ageGroupBox(payload).then((res) => {
             if(res.message === "Fetch successfully."){
