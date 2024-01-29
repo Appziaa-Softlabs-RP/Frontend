@@ -149,12 +149,14 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
                     appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                     localStorage.setItem('cartSaved', true);
+                    window.location.reload();
                 }else if(nonAddedProd?.length > 0 && addProducts?.length > 0){
                     const mergedArray = [...nonAddedProd, ...addProducts];
                     const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
                     appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(uniqueData));
                     localStorage.setItem('cartSaved', true);
+                    window.location.reload();
                 }else{
                     appData.setAppData({ ...appData.appData, cartData: addedCart, cartCount: addedCart?.length, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addedCart));
