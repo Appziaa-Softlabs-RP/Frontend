@@ -237,6 +237,21 @@
     line-height: 12px;
     color: var(--SECONDARY_COLOR);
 }
+.showSearchList{
+    top: 55px;
+    max-height: 200px;
+    background: #FFF;
+    z-index: 5;
+}
+.searchRow{
+    font-size: 16px;
+    color: #000;
+    border-bottom: 1px solid #EEE;
+    transition: .2s;
+}
+.searchRow:hover{
+    background: var(--MENU_HOVER_COLOR);
+}
 @media screen and (min-width:568px) {
     .cartCount{
         top: -8px;

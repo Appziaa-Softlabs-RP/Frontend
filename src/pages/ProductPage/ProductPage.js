@@ -11,8 +11,9 @@ import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
 import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
-import { AddToCart, AppNotification } from "../../utils/helper";
+import { AppNotification } from "../../utils/helper";
 import { enviroment } from "../../enviroment";
+import axios from "axios";
 
 let otherInfo = false;
 export const ProductPage = () => {
@@ -20,6 +21,7 @@ export const ProductPage = () => {
     const locationState = useLocation();
     const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
+    const [deliveryDetail, setDeliveryDetail] = useState({});
     const [activeImg, setActiveImg] = useState(0);
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
@@ -35,10 +37,6 @@ export const ProductPage = () => {
     }
 
     const openProductColpse = () => {
-
-    }
-
-    const getDeliveyInfo = () => {
 
     }
 
@@ -130,6 +128,31 @@ export const ProductPage = () => {
         } else {
             setProdAdded(false);
             setProdAddedQty(0);
+        }
+    }
+
+    const getDeliveyPincode = (val) => {
+        setPincode(val);
+        if(val.length < 6){
+            setDeliveryDetail({});
+        }
+    }
+
+    const getDeliveyInfo = (val) => {
+        if(val.length > 5){
+            axios.post(`${enviroment.DELIVERY_URL}/pincode-status`, {
+                store_email: 'knickk8@gmail.com',
+                pincode:val
+            }).then(function (res) {
+                if(res.data.message === "Delivery found"){
+                    AppNotification('Success', 'Product Delivery Found', 'success');
+                    setDeliveryDetail(res.data.data);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }else{
+            setDeliveryDetail({});
         }
     }
 
@@ -283,16 +306,28 @@ export const ProductPage = () => {
                                         <div className={`col-12 d-inline-block`}>
                                             <div className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}>
                                                 <LocationIcon color="#151515" />
-                                                <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => setPincode(e.target.value)} value={pincode} />
-                                                <button onClick={() => getDeliveyInfo()} type="button" className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}>Check</button>
+                                                <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => getDeliveyPincode(e.target.value)} value={pincode} />
+                                                <button onClick={() => getDeliveyInfo(pincode)} type="button" className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}>Check</button>
                                             </div>
                                             <span className={`${styles.checkZiperror} col-12 d-inline-block`}></span>
-                                            <div className={`${styles.checkDeliveryResponse} d-none flex-column col-12 mt-3 p-3`}>
-                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span className={`${styles.checkDeliveryLabel} d-inline-flex`}>Expected Delivery Date: </span><strong className={`${styles.checkDeliveryDate} d-inline-flex`} id="expectedDelivery"></strong></p>
-                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>32, Chhattarpur Main Road, Chandan Hola, New Delhi 110074</strong></p>
-                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link href="tel:+919911163300" id="storeTel">+91-9911163300</Link></span></p>
-                                                <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><a href="https://goo.gl/maps/kZkVQaE2PuH39BWz9" target="_blank">Google Map</a></span></p>
-                                            </div>
+                                            {Object.keys(deliveryDetail)?.length > 0 &&
+                                                <div className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}>
+                                                    {deliveryDetail.max_days !== '' || deliveryDetail.min_days !== '' ? (
+                                                        <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}>
+                                                            <span className={`${styles.checkDeliveryLabel} d-inline-flex`}>Expected Delivery - &nbsp;</span>
+                                                            {deliveryDetail.min_days !== '' ? (<span>Min:&nbsp;<strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.min_days} Days</strong></span>) : null}
+                                                            {deliveryDetail.max_days !== '' && deliveryDetail.min_days !== '' && 
+                                                                <span>&nbsp;and&nbsp;</span>
+                                                            }
+                                                            {deliveryDetail.max_days !== '' ? (<span>Max:&nbsp;<strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.max_days} Days</strong></span>) : null}
+                                                        </p>
+                                                    ): null}
+
+                                                    {/* <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>32, Chhattarpur Main Road, Chandan Hola, New Delhi 110074</strong></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link href="tel:+919911163300" id="storeTel">+91-9911163300</Link></span></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><a href="https://goo.gl/maps/kZkVQaE2PuH39BWz9" target="_blank">Google Map</a></span></p> */}
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

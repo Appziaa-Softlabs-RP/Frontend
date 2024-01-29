@@ -330,4 +330,12 @@ ApiService.cashOnDelivery = function (data) {
   });
 }
 
+ApiService.storeSearch = function(data) {
+  return fetch({
+    url: 'store/searchProduct',
+    method: 'post',
+    data: data
+  });
+}
+
 export default ApiService;

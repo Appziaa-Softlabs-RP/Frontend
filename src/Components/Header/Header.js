@@ -25,6 +25,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const setNavItems = useAppStore(state => state.setNavItems);
     const setCategories = useAppStore(state => state.setCategories);
     const [searchProd, setSearchProd] = useState('');
+    const [searchProdList, setSearchProdList] = useState([]);
     const [loginPop, setLoginPop] = useState(false);
     const [accountOptn, setAccountOptn] = useState(false);
     const [cartPop, setCartPop] = useState(false);
@@ -74,6 +75,46 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     navigate('/');
   };
 
+  let prodTime = ''
+  const searchShopProd = (val) => {
+    setSearchProd(val);
+    clearTimeout(prodTime);
+    if(val.length > 2){
+      prodTime = setTimeout(function(){
+        const payload = {
+          store_id: parseInt(enviroment.STORE_ID),
+          keyword: val
+        }
+        ApiService.storeSearch(payload).then((res) => {
+          if(res.message === "Fetch successfully."){
+            setSearchProdList(res.payload_searchProduct);
+          }
+        }).catch((err) => {
+          console.log(err);
+        })
+      }, 500);
+    }
+  }
+
+  const openProductId = (prodId, name) => {
+    setSearchProdList([]);
+    setSearchProd(name);
+    const payload = {
+      product_id: prodId,
+      company_id: parseInt(enviroment.COMPANY_ID),
+      store_id: parseInt(enviroment.STORE_ID)
+    }
+    ApiService.productDetails(payload).then((res) => {
+        if (res.message === "Product Detail") {
+            navigate('/product', { state: { product: res.payload } })
+        } else {
+            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+        }
+    }).catch((err) => {
+        AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+    });
+  }
+
   useEffect(() => {
     const payload = {
       store_id: parseInt(enviroment.STORE_ID)
@@ -117,7 +158,16 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </span>
           </div>
           <div className="col-12 d-inline-flex position-relative px-3">
-            <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => setSearchProd(e.target.value)} />
+            <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e.target.value)} />
+            {searchProdList?.length > 0 &&
+              <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
+                {searchProdList.map((item, idx) => {
+                  return (
+                    <span className={`${styles.searchRow} p-3 d-inline-flex col-12`} role="button" key={idx} onClick={() => openProductId(item.product_id, item.name)}>{item.name}</span>
+                  )
+                })}
+              </div>
+            }
           </div>
         </div>
       ) : windowWidth === "desktop" ? (
@@ -138,7 +188,16 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 </span>
                 <div className={`d-inline-flex col-6 position-relative align-items-center`}>
                   <span className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}><SearchIcon color="#000" /></span>
-                  <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`} />
+                  <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}  value={searchProd} onChange={(e) => searchShopProd(e.target.value)} placeholder="Search Products" />
+                  {searchProdList?.length > 0 &&
+                    <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
+                      {searchProdList.map((item, idx) => {
+                        return (
+                          <span className={`${styles.searchRow} p-3 text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.product_id, item.name)}>{item.name}</span>
+                        )
+                      })}
+                    </div>
+                  }
                 </div>
                 <div className="d-inline-flex align-items-stretch justify-content-end gap-5">
                   <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">

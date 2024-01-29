@@ -48,10 +48,9 @@ export const MyAccountMenu = () => {
       <h5 className="px-4">My Account</h5>
       {/* user list */}
       <ul className="m-0 p-0">
-        {userMenu.map(item => {
+        {userMenu.map((item, idx) => {
           return (
-            <div className={`${styles.accountRow} ${isActive(item.path) ? styles.activeMenu : ''} col-12 d-inline-flex align-items-center gap-2 px-4`}
-              onClick={() => item.path ? navigate(item.path) : logdOut} role="button">
+            <div className={`${styles.accountRow} ${isActive(item.path) ? styles.activeMenu : ''} col-12 d-inline-flex align-items-center gap-2 px-4`} onClick={() => item.path ? navigate(item.path) : logdOut} role="button" key={idx}>
               <span className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}>
                 {item.icon}
               </span>
@@ -69,7 +68,7 @@ export const MyAccount = () => {
   let windowWidth = appData.appData.windowWidth;
   const userInfo = appData?.appData?.user;
   const navigate = useNavigate();
-  
+
   const userLoggedOut = () => {
     appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
     localStorage.removeItem('user');
