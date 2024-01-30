@@ -122,7 +122,6 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
                     navigate('/my-orders');
                 }
             }).catch((err) => {
-                console.log(err);
             })
         }
     }
@@ -165,7 +164,6 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
     const [addressId, setAddressId] = useState('');
 
     const getAllAdress = () => {
-        console.log(userInfo);
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
             customer_id: userInfo?.customer_id

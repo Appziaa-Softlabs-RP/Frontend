@@ -90,7 +90,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             setSearchProdList(res.payload_searchProduct);
           }
         }).catch((err) => {
-          console.log(err);
         })
       }, 500);
     }

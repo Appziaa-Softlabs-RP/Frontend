@@ -149,7 +149,6 @@ export const ProductPage = () => {
                     setDeliveryDetail(res.data.data);
                 }
             }).catch(function (error) {
-                console.log(error);
             });
         }else{
             setDeliveryDetail({});
