@@ -46,9 +46,11 @@ export const ProductListLoader = () => {
   return (
     <div className='d-flex flex-wrap'>
       <div className='container'>
-        {Array.apply(null, { length: 10 }).map((e, i) => (
-          <ProductCardLoader key={i}/>
-        ))}
+        <div className='d-flex flex-wrap'>
+          {Array.apply(null, { length: 10 }).map((e, i) => (
+            <ProductCardLoader key={i}/>
+          ))}
+        </div>
       </div>
     </div>
   );

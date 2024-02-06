@@ -76,7 +76,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   };
 
   let prodTime = ''
-  const searchShopProd = (val) => {
+  const searchShopProd = (event, val) => {
     setSearchProd(val);
     clearTimeout(prodTime);
     if(val.length > 2){
@@ -113,6 +113,13 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
     });
   }
+
+  const handleKeyDown = event => {
+    if(searchProd.length > 2){
+      let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
+      navigate(`/search-product/${category}`, { state: { keyword: searchProd } });
+    }
+  };
 
   useEffect(() => {
     const payload = {
@@ -157,7 +164,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </span>
           </div>
           <div className="col-12 d-inline-flex position-relative px-3">
-            <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e.target.value)} />
+            <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} />
             {searchProdList?.length > 0 &&
               <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
                 {searchProdList.map((item, idx) => {
@@ -187,7 +194,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 </span>
                 <div className={`d-inline-flex col-6 position-relative align-items-center`}>
                   <span className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}><SearchIcon color="#000" /></span>
-                  <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}  value={searchProd} onChange={(e) => searchShopProd(e.target.value)} placeholder="Search Products" />
+                  <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}  value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} placeholder={enviroment.SEARCH_PLACEHOLDER} onKeyDown={handleKeyDown} />
                   {searchProdList?.length > 0 &&
                     <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
                       {searchProdList.map((item, idx) => {

@@ -33,7 +33,7 @@ export const ProductCard = ({ item, index }) => {
     const addToCart = (e, item) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let ProdId = item.product_id;
+        let ProdId = item.product_id ? item.product_id : item?.id;
         let prodName = item?.name;
         let Mrp = item?.mrp;
         let sellingPrice = item?.selling_price;
@@ -46,7 +46,7 @@ export const ProductCard = ({ item, index }) => {
             company_id: parseInt(enviroment.COMPANY_ID),
             store_id: parseInt(enviroment.STORE_ID),
             product_id: ProdId,
-            image: item?.image,
+            image: item?.image ? item.image : item?.image_url,
             product_name: prodName,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
@@ -142,7 +142,8 @@ export const ProductCard = ({ item, index }) => {
 
     const checkProdAdded = () => {
         if (appData.appData.cartData?.length) {
-            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === item?.product_id);
+            let productID = item?.product_id ? item.product_id : item.id
+            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === productID);
             if (cartID !== -1) {
                 setProdAdded(true);
                 setProdAddedQty(appData.appData.cartData[cartID].quantity);
@@ -163,7 +164,7 @@ export const ProductCard = ({ item, index }) => {
 
     return (
         <React.Fragment>
-            <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} role="button" key={index} onClick={() => showProductDetail(item.product_id)}>
+            <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} role="button" key={index} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
                 {item.mrp > item.selling_price &&
                     <span className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}%  OFF</span>
                 }
@@ -171,7 +172,7 @@ export const ProductCard = ({ item, index }) => {
                 <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`}>
                     {item.stock === 0 &&
                         <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
-                    <img src={item?.image} className="position-absolute h-100 col-12 p-0" />
+                        <img src={item?.image? item.image : item?.image_url } className="position-absolute h-100 col-12 p-0" />
                 </div>
 
                 <span className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
@@ -191,11 +192,11 @@ export const ProductCard = ({ item, index }) => {
                             <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`} onClick={(e) => addToCart(e, item)}>Add to cart</span>
                         ) : (
                             <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-                                <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
                                 <span className="d-inline-flex flex-shrink-0">
                                     <input type="text" readOnly value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`} />
                                 </span>
-                                <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                             </div>
                         )}
                     </React.Fragment>

@@ -16,6 +16,7 @@ import { OrderDetails } from "../pages/OrderDetails/OrderDetails";
 import { MyAddress } from "../pages/MyAddress/MyAddress";
 import { AddAddress } from "../pages/AddAddress/AddAddress";
 import { CategoryPage } from "../pages/CategoryPage/CategoryPage";
+import { SearchPage } from "../pages/SearchPage/SearchPage";
 
 export const PublicRoutes = () => {
   return (
@@ -29,6 +30,7 @@ export const PublicRoutes = () => {
       <Route path="/store/:category" element={<SubCategoryPage />} />
       <Route path="/store-product/:category" element={<CategoryPage />} />
       <Route path="/store/age/:category" element={<CategoryPage />} />
+      <Route path="/search-product/:category" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route path="/checkout" element={<ShoppingCart />} />
       <Route
