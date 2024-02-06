@@ -332,7 +332,7 @@ ApiService.cashOnDelivery = function (data) {
 
 ApiService.storeSearch = function(data) {
   return fetch({
-    url: 'store/searchProduct',
+    url: 'store/searchAI',
     method: 'post',
     data: data
   });
