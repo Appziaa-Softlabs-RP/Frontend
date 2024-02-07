@@ -114,9 +114,11 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     });
   }
 
-  const handleKeyDown = event => {
-    if(searchProd.length > 2){
+  const handleKeyDown = (event) => {
+    console.log(event.code)
+    if(searchProd.length > 2 && event.code === "Enter"){
       let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
+      setSearchProdList([]);
       navigate(`/search-product/${category}`, { state: { keyword: searchProd } });
     }
   };
