@@ -115,11 +115,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   }
 
   const handleKeyDown = (event) => {
-    console.log(event.code)
     if(searchProd.length > 2 && event.code === "Enter"){
       let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
       setSearchProdList([]);
-      navigate(`/search-product/${category}`, { state: { keyword: searchProd } });
+      navigate(`/search-product/${category}`, { state: { keyword: searchProd }});
     }
   };
 
@@ -166,9 +165,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </span>
           </div>
           <div className="col-12 d-inline-flex position-relative px-3">
-            <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} />
+            <input type="search" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} onKeyDown={handleKeyDown} />
             {searchProdList?.length > 0 &&
-              <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
+              <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
                 {searchProdList.map((item, idx) => {
                   return (
                     <span className={`${styles.searchRow} p-3 d-inline-flex col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>

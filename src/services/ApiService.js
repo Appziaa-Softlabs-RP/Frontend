@@ -338,4 +338,12 @@ ApiService.storeSearch = function(data) {
   });
 }
 
+ApiService.storeFilter = function(data) {
+  return fetch({
+    url: 'store/FilterByProduct',
+    method: 'post',
+    data: data
+  });
+}
+
 export default ApiService;
