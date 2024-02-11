@@ -13,7 +13,7 @@
 }
 .cartQtyCount{
     color: #FFF;
-    z-index: 9;
+    z-index: 2;
     top: 10px;
     right: 2px;
     width: 18px;
@@ -28,4 +28,50 @@
     color: #FFF;
     font-size: 16px;
     font-weight: 600;
+}
+.searchPopup {
+    background: var(--PRIMARY_COLOR);
+    z-index: 4;
+    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
+}
+.searchProdInput{
+    height: 40px;
+    border-radius: 35px;
+    color: #000;
+    font-size: 15px;
+    box-shadow: none;
+    border: none;
+    padding: 15px;
+}
+.searchProdInput:focus{
+    outline: none;
+}
+.showSearchList{
+    top: 55px;
+    max-height: 200px;
+    background: #FFF;
+    z-index: 5;
+}
+.searchRow{
+    font-size: 16px;
+    color: #000;
+    border-bottom: 1px solid #EEE;
+    transition: .2s;
+}
+.searchRow:hover{
+    background: var(--MENU_HOVER_COLOR);
+}
+.showSearchListMobile.showSearchList{
+    top: 60px;
+    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
+    border-radius: 10px;
+}
+.closePopupBox {
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+}
+.closePopupBox svg {
+    height: 100%;
+    width: 100%;
 }

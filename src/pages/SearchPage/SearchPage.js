@@ -19,19 +19,21 @@ export const SearchPage = () => {
     let windowWidth = appData.appData.windowWidth;
 
     useEffect(() => {
-        const keyword = locationState.state.keyword;
-        const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            keyword: keyword
-        }
-        ApiService.storeSearch(payload).then((res) => {
-            if(res.message === "Fetch successfully."){
-                setProductData(res.payload_searchAI);
-                setProductDataLen(res.payload_searchAI.length);
+        const keyword = locationState?.state?.keyword;
+        if(keyword){
+            const payload = {
+                store_id: parseInt(enviroment.STORE_ID),
+                keyword: keyword
             }
-        }).catch((err) => {
-        });
-        setLoading(false);
+            ApiService.storeSearch(payload).then((res) => {
+                if(res.message === "Fetch successfully."){
+                    setProductData(res.payload_searchAI);
+                    setProductDataLen(res.payload_searchAI.length);
+                }
+            }).catch((err) => {
+            });
+            setLoading(false);
+        }
     }, [locationState]);
 
     return (
@@ -43,7 +45,7 @@ export const SearchPage = () => {
                 : ''
             }
 
-            <div className="col-12 d-inline-flex mt-5">
+            <div className={`col-12 d-inline-flex ${windowWidth === "mobile" ? 'mt-3' : 'mt-5'}`}>
                 <div className="container">
                     <div className={`d-inline-flex flex-wrap col-12`}>
                         {ProductDataLen > 0 && 
