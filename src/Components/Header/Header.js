@@ -57,13 +57,13 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     }
   }
 
-  const showCategroryProd = (id, name) => {
+  const showCategroryProd = (id, name, verticalId) => {
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       category_id: id
     }
     let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store-product/${category}`, { state: { payload: payload } });
+    navigate(`/store-product/${category}`, { state: { payload: payload, verticalId: verticalId } });
   }
 
   const userLoggedOut = () => {
@@ -131,8 +131,12 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
       let allSubCategory = res?.payload_verticalWithCatList?.vertical;
       allSubCategory.map((item) => {
         if (item?.catList?.length > 0) {
-          item.catList.map((item) => {
-            allCatList.push(item);
+          item.catList.map((catItem) => {
+            let catObj = {
+              verticalId : item.vertical_id,
+              category: catItem
+            }
+            allCatList.push(catObj);
           })
         }
       });
@@ -282,7 +286,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
                             {item.catList.map((subNme, subIdx) => {
                               return (
-                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name)}>{subNme.name}</span>
+                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
                               )
                             })}
                           </div>

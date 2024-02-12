@@ -1,3 +1,6 @@
 .ageBannerRow img{
     border-radius: 10px;
 }
+.filterSticky {
+    top: 40px;
+}

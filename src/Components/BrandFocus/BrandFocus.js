@@ -38,7 +38,7 @@ export const BrandFocus = () => {
             {brandData?.length > 0 &&
                 <div className={`col-12 ${windowWidth === "desktop" && 'p-3 mt-2'} d-inline-flex`}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
-                        <div className={`col-12 ${windowWidth === 'mobile' ? 'p-3' : 'mt-3'} d-inline-flex flex-column`}>
+                        <div className={`col-12 ${windowWidth === 'mobile' ? 'p-3' : 'mt-3'} d-inline-flex flex-column overflow-hidden`}>
                             <h6 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4' : 'mb-3'} mt-0`}>{windowWidth === 'mobile' ? 'Brands in Focus' : '✨ Brands in Focus ✨'}</h6>
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 1 : 4}`} loop={false} nav={true}>
                                 {brandData?.map((item, index) => {
