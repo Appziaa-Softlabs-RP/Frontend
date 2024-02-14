@@ -15,7 +15,7 @@ const UserAddressTab = ({ allAddress }) => {
   const navigate = useNavigate();
   return (
     <div className="col-12 d-inline-flex flex-column gap-3 p-3">
-      <div className={`${styles.addressTab} col-12 d-inline-flex align-items-center justify-content-between ps-3`} onClick={() => navigate('/add-new-address', { state: { addressEdit: true } })}>
+      <div className={`${styles.addressTab} col-12 d-inline-flex align-items-center justify-content-between ps-3`} onClick={() => navigate('/add-new-address', { state: { addressEdit: false } })}>
         <span className={`${styles.addAressTxt} d-inline-flex`}>Add New Address</span>
         <span className={`${styles.addAressIcon} d-inline-flex mb-2`}>+</span>
       </div>

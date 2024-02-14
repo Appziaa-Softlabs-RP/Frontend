@@ -15,17 +15,19 @@ export const CategoryPage = () => {
     const [ProductData, seProductData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filterVert, setFilterVert] = useState(null);
+    const [filterCatg, setFilterCatg] = useState(null);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
     useEffect(() => {
         const payload = locationState.state.payload;
-        setFilterVert(locationState.state.verticalId);
+        setFilterVert(locationState?.state?.verticalId);
+        setFilterCatg(locationState?.state?.categoryId);
         if (locationState.state.category === 'SHOP') {
             ApiService.ageGroupProduct(payload).then((res) => {
                 if (res.message === "Fetch successfully.") {
-                seProductData(res.payload_ageGroupByProduct);
-                setLoading(false);
+                    seProductData(res.payload_ageGroupByProduct);
+                    setLoading(false);
                 }
             }).catch((err) => {
 
@@ -33,8 +35,8 @@ export const CategoryPage = () => {
         } else if (locationState.state.category === 'Brand') {
             ApiService.brandProduct(payload).then((res) => {
                 if (res.message === "Fetch successfully.") {
-                seProductData(res.payload_BrandByProduct);
-                setLoading(false);
+                    seProductData(res.payload_BrandByProduct);
+                    setLoading(false);
                 }
             }).catch((err) => {
 
@@ -42,8 +44,8 @@ export const CategoryPage = () => {
         } else {
             ApiService.CategoryByProd(payload).then((res) => {
                 if (res.message === "Fetch successfully.") {
-                seProductData(res.payload_CategoryByProduct);
-                setLoading(false);
+                    seProductData(res.payload_CategoryByProduct);
+                    setLoading(false);
                 }
             }).catch((err) => {
 
@@ -69,10 +71,9 @@ export const CategoryPage = () => {
                     }
                     {loading && <ProductListLoader />}
                     <div className={`d-inline-flex align-items-start col-12 mb-3 gap-2`}>
-                        {console.log(filterVert)}
                         {windowWidth === "desktop" && filterVert !== null &&  filterVert !== undefined &&
                             <div className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex`}>
-                                <Filter filterVert={filterVert} seProductData={seProductData} />
+                                <Filter filterVert={filterVert} filterCatg={filterCatg} seProductData={seProductData} />
                             </div>
                         }
                         <div className={`${windowWidth === "mobile" ? 'col-12' : filterVert !== null && filterVert !== undefined ? 'col-9' : 'col-12'} flex-shrink-1 d-inline-flex flex-wrap`}>

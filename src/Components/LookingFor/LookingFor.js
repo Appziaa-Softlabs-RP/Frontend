@@ -22,7 +22,7 @@ export const LookingFor = () => {
             category_id: id
         }
         let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-        navigate(`/store-product/${category}`, { state: { payload: payload, verticalId: verticalId } });
+        navigate(`/store-product/${category}`, { state: { payload: payload, verticalId: verticalId, categoryId: id } });
     }
 
     useEffect(() => {

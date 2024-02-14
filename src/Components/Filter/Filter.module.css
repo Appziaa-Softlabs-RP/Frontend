@@ -31,3 +31,26 @@
 .filterRow .address_option{
     display: none;
 }
+.brandScroll{
+    max-height: 260px;
+}
+.brandScroll::-webkit-scrollbar{
+    width: 5px;
+}
+.brandScroll::-webkit-scrollbar-thumb {
+    background: #DDD;
+    border-radius: 5px;
+    width: 5px;
+}
+.filterSearchInput {
+    border: 1px solid #EDEDED;
+    border-radius: 4px;
+    height: 50px;
+    background: #FFF;
+}
+.filterSearchInput:focus {
+    outline: none;
+}
+.filterSearch{
+    z-index: 5;
+}
