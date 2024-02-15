@@ -354,4 +354,12 @@ ApiService.storeFilterBrand = function(data) {
   });
 }
 
+ApiService.storeFilterOption = function(data) {
+  return fetch({
+    url: 'store/filterOption',
+    method: 'post',
+    data: data
+  });
+}
+
 export default ApiService;

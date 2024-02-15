@@ -2,5 +2,28 @@
     border-radius: 10px;
 }
 .filterSticky {
-    top: 40px;
+    top: 20px;
+    height: calc(100vh - 30px);
+}
+.filterSticky::-webkit-scrollbar {
+    width: 5px;
+}
+.clearAllBtn {
+    color: #009CDE;
+    font-size: 14px;
+}
+.sortBy, .priceLow {
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+.priceLow {
+    font-weight: 400;
+}
+.productContainer {
+    border-radius: 8px;
+    background: #FFF;
+}
+.sortContainer {
+    border-bottom: 1px solid #EDEDED;
 }
