@@ -54,3 +54,8 @@
 .filterSearch{
     z-index: 5;
 }
+@media only screen and (max-width:568px) {    
+    .brandScroll{
+        max-height: auto;
+    }
+}

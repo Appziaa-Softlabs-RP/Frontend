@@ -3,7 +3,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from './Filter.module.css';
 
-export const Filter = ({filterVert, setProductData, filterCatg, setProductActualData}) => {
+export const Filter = ({filterVert, setProductData, filterCatg, setProductActualData, setFilterPopup}) => {
     const [allBrands, setAllBrands] = useState('');
     const [allBrandLen, setAllBrandLen] = useState({
         length: 0,
