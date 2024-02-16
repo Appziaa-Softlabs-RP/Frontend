@@ -20,7 +20,7 @@ export const Filter = ({filterVert, setProductData, filterCatg, setProductActual
         ageGroup: ''
     });
 
-    const getAgeBrandOption = () => {
+    const getAgeBrandOption = (brands) => {
         const payload = {
             store_id: enviroment.STORE_ID,
             vertical_id: filterVert
@@ -28,8 +28,7 @@ export const Filter = ({filterVert, setProductData, filterCatg, setProductActual
         ApiService.storeFilterOption(payload).then((res) => {
             let genderFilter = res?.payload_filterOption?.gender,
             ageFilter = res?.payload_filterOption?.age_group;
-            console.log(allBrands);
-            setAllBrandLen({...allBrandLen, gender: genderFilter, age: ageFilter, allBrands: allBrands, length: allBrands.length });
+            setAllBrandLen((allBrandLen) => ({...allBrandLen, gender: genderFilter, age: ageFilter, allBrands: brands, length: brands.length }));
         }).catch((err) => {});
     }
     useEffect(() => {
@@ -113,7 +112,6 @@ export const Filter = ({filterVert, setProductData, filterCatg, setProductActual
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column gap-3">
-                {console.log(allBrandLen.length)}
                 {allBrandLen?.length > 0 &&
                     <div className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}>
                         <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>Brand</h5>

@@ -27,3 +27,10 @@
 .sortContainer {
     border-bottom: 1px solid #EDEDED;
 }
+.emptyProduct svg{
+    height: 150px;
+    width: 150px;
+}
+.emptyProductText {
+    font-size: 30px;
+}
