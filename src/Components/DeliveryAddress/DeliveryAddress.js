@@ -10,6 +10,8 @@ import { AppNotification } from '../../utils/helper';
 const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressId}) => {
     const navigate = useNavigate();
     const [selectAddress, setSelectAddress] = useState({});
+    const appData = useApp();
+    let windowWidth = appData.appData.windowWidth;
 
     const editAddress = (id) => {
         navigate('/add-new-address', {state: {addressEdit: true, addressId: id}});
@@ -44,7 +46,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                             <div className="col-12 d-inline-flex flex-wrap p-3">
                                 {allAddress?.map((item, idx) => {
                                     return (
-                                        <div className="col-6 p-3" key={idx}>
+                                        <div className={`${windowWidth === 'mobile' ? 'col-12' : 'col-6'} p-3`} key={idx}>
                                             <div className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`} role="button" onClick={(e) => seletThisAddress(e, item, item.address_id)}>
                                                 <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} id={`delivery${idx}`} type="radio" name="delivery"/>
                                                 <label className={`col-10 d-inline-flex flex-column`} htmlFor={`delivery${idx}`} role="button">
@@ -69,7 +71,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                 </div>
             }
             {checkoutType === 'Payment' && 
-                <div className="col-12 d-inline-flex flex-column p-4">
+                <div className={`col-12 d-inline-flex flex-column ${windowWidth === 'mobile' ? 'p-2': 'p-4'}`}>
                     <div className={`col-12 p-3 rounded d-inline-flex flex-column position-relative`} role="button">
                         <label className={`col-10 d-inline-flex flex-column`} role="button">
                             <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}>Name:&nbsp;<b>{selectAddress.name}</b></label>

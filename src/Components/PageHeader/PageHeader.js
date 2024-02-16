@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { enviroment } from "../../enviroment";
 import { AppNotification } from "../../utils/helper";
 import ApiService from "../../services/ApiService";
+import { useApp } from "../../context/AppContextProvider";
 
 export const PageHeader = ({title, hide}) => {
     const navigate = useNavigate();
     const [searchPop, setSeacrhPop] = useState(false);
     const [searchProd, setSearchProd] = useState('');
     const [searchProdList, setSearchProdList] = useState([]);
+    const appData = useApp();
 
     const openCart = () => {
         navigate('/checkout')
@@ -85,7 +87,7 @@ export const PageHeader = ({title, hide}) => {
                     </div>
                     <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`} onClick={() => openCart()}>
                         <CartIcon color="#FFF" />
-                        <span className={`${styles.cartQtyCount} d-inline-flex align-items-center justify-content-center text-center position-absolute align-top`}>0</span>
+                        <span className={`${styles.cartQtyCount} d-inline-flex align-items-center justify-content-center text-center position-absolute align-top`}>{appData?.appData?.cartCount}</span>
                     </div>
                 </div>
                 <div className={`${styles.searchPopup} col-12 position-absolute align-items-center start-0 p-3 top-0 ${searchPop === true ? 'd-inline-flex gap-1' : 'd-none'}`}>
