@@ -22,3 +22,20 @@
     font-size: 16px;
     font-weight: 500;
 }
+.cancelPolicyBox{
+    background: #FFF;
+}
+.policyHeader {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+}
+.cancelPolicydesc svg{
+    height: 25px;
+    width: 25px;
+    flex-shrink: 0;
+}
+.cancelPolicydesc {
+    font-size: 14px;
+    color: #757575;
+}

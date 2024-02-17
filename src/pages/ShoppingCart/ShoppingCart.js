@@ -12,6 +12,7 @@ import { enviroment } from "../../enviroment";
 import { ProductListCard } from "../../Components/ProductListCard/ProductListCard";
 import { AppNotification } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
+import { BuildingIcon, TimeIcon } from "../../Components/siteIcons";
 
 export const ShoppingCart = () => {
     const appData = useApp();
@@ -126,6 +127,19 @@ export const ShoppingCart = () => {
                             </div>
                             <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} />
                             <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} />
+                            <div className={`${styles.cancelPolicyBox} col-12 mt-3 p-3`}>
+                                <h5 className={`${styles.policyHeader} col-12 d-inline-flex mb-3`}>Cancelation Policy</h5>
+                                <div className="col-12 d-inline-flex flex-column mt-2 gap-3">
+                                    <div className={`${styles.cancelPolicydesc} col-12 d-inline-flex align-items-start p-0 gap-2`}>
+                                        <TimeIcon color="#007BFF" />
+                                        <p className="d-inline-block mb-0">Orders cannot be canceled and are non refundable once out for delivery.</p>
+                                    </div>
+                                    <div className={`${styles.cancelPolicydesc} col-12 d-inline-flex align-items-start p-0 gap-2`}>
+                                        <BuildingIcon color="#007BFF" />
+                                        <p className="d-inline-block mb-0">In case of unavailability of products or service related issues, a full refund will be provided.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </React.Fragment>
                     )}
                     <Footer />

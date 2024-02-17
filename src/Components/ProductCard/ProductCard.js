@@ -55,10 +55,11 @@ export const ProductCard = ({ item, index }) => {
             quantity: 1,
             deal_type_id: dealId
         }
+        console.log(cartInfo);
         if (cartInfo === null) {
             cartInfo = [cardObj];
         } else {
-            let cartID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+            let cartID = cartInfo?.findIndex((obj) => obj.product_id === ProdId);
             if (cartID === null || cartID === undefined || cartID === -1) {
                 cartInfo.push(cardObj);
             }
