@@ -123,6 +123,12 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   };
 
   useEffect(() => {
+      if(searchProd === ''){
+        setSearchProdList([]);
+      }
+  }, [searchProd]);
+
+  useEffect(() => {
     const payload = {
       store_id: parseInt(enviroment.STORE_ID)
     }
@@ -160,7 +166,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             <span className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`} onClick={openAsideMenu}>
               <MenuIcons color={enviroment.SECONDARY_COLOR} />
             </span>
-            <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}>
+            <span onClick={() => routeHome()} className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}>
               <img src={siteLogo} alt="Logo" className="object-fit-contain" />
             </span>
             <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`} onClick={() => openCart()}>
@@ -219,12 +225,12 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         <SupportIcon color="#000" />
                         <div className="d-inline-flex flex-column">
                           <label className={`${styles.supportTimings} d-inline-block col-12 p-0 text-center`}>7 days, 9AM to 9PM</label>
-                          <Link href="tel:+919999756468" className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}>{enviroment.PHONE_NUMBER}</Link>
+                          <Link to={`tel:${enviroment.PHONE_NUMBER}`} className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}>{enviroment.PHONE_NUMBER}</Link>
                         </div>
                       </div>
                       <div className={`${styles.mailtoBox} text-decoration-none d-inline-flex align-items-center gap-3 col-12`}>
                         <MailIcon color="#000" />
-                        <Link href={`mailto:${enviroment.EMAIL_ADDRESS}`} className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}>{enviroment.EMAIL_ADDRESS}</Link>
+                        <Link to={`mailto:${enviroment.EMAIL_ADDRESS}`} className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}>{enviroment.EMAIL_ADDRESS}</Link>
                       </div>
                       <div className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}>
                         <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Chat With Us</Link>
