@@ -127,7 +127,7 @@ export const CategoryPage = () => {
                                         })}
                                     </React.Fragment>
                                 :   <React.Fragment>
-                                        <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4`}>
+                                        <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}>
                                             <OrderIcon color="#888" />
                                             <label className={`${styles.emptyProductText} col-12 text-center`}>No Products Found</label>
                                         </div>

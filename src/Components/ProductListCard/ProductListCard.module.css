@@ -37,8 +37,8 @@
     font-weight: 500;
 }
 .itemQuantityBtnBox{
-	bottom: 10px;
-	right: 15px;
+	bottom: 8px;
+	right: 10px;
     z-index: 9;
 }
 .itemQuantityBtnBox button{
@@ -46,16 +46,8 @@
 	box-shadow: none;
 	border: none;
 }
-.itemQuantityBtn .decreaseBtn{
+.itemQuantityBtnBox .decreaseBtn{
 	width: 20px;
-}
-.itemQuantityBtn{
-	padding-right: 0;
-    padding-left: 0;
-    margin-top: auto;
-    margin-bottom: 0px;
-	position: relative;
-	z-index: 9;
 }
 .countValue{
 	width: 20px;
@@ -78,4 +70,14 @@
 	line-height: 15px;
 	height: 20px;
 	border: 1px solid var(--ADD_BUTTON_COLOR);
+}
+.offerPercentage{
+    background: #389956;
+    color: #FFF;
+	font-weight: 600;
+	border-radius: 4px;
+	font-size: 9px;
+	line-height: 10px;
+	padding: 2px 4px;
+	margin-left: 10px;
 }

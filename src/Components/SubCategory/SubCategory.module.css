@@ -5,7 +5,7 @@
     border-radius: 5px;
     border: 2px solid #F9F01F;
     transition: .2s;
-    padding-top: 100%;
+    padding-top: calc(100% - 4px);
     border-radius: 100%;
 }
 .active .imgBox{

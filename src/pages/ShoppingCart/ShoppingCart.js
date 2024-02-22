@@ -12,7 +12,7 @@ import { enviroment } from "../../enviroment";
 import { ProductListCard } from "../../Components/ProductListCard/ProductListCard";
 import { AppNotification } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
-import { BuildingIcon, TimeIcon } from "../../Components/siteIcons";
+import { BuildingIcon, CartIcon, TimeIcon } from "../../Components/siteIcons";
 
 export const ShoppingCart = () => {
     const appData = useApp();
@@ -90,6 +90,11 @@ export const ShoppingCart = () => {
     }, []);
 
     useEffect(() => {
+        setCartData(appData?.appData?.cartData);
+        setCartTotal(appData?.appData?.cartData);
+    }, [appData?.appData.cartData]);
+
+    useEffect(() => {
         setCartTotal(appData?.appData?.cartData);
         setUserInfo(appData.appData.user);
     }, [appData?.appData]);
@@ -101,20 +106,29 @@ export const ShoppingCart = () => {
                     <h1 className={`${styles.cartTitle} col-12 px-3 mt-3 d-inline-flex`}>My Cart ({appData?.appData?.cartCount})</h1>
                     {orderStatus === 'Cart' ? (
                         <React.Fragment>
-                            <div className="d-inline-flex col-12 flex-column py-3">
-                                {cartData.length && cartData.map((item, index) => {
-                                    return (
-                                        <ProductListCard Product={item} key={index} index={index} />
-                                    )
-                                })}
-                            </div>
-                            <div className={`${styles.checkoutBox} col-12 justify-content-between p-3 d-inline-flex align-items-center`}>
-                                <div className={`col-5 d-inline-flex flex-column align-items-start gap-2`}>
-                                    <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Total ₹{checkoutTotal}</span>
-                                    <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Saved ₹{checkoutSaving}</span>
+                            {cartData?.length ?
+                                <React.Fragment>
+                                    <div className="d-inline-flex col-12 flex-column py-3">
+                                        {cartData?.map((item, index) => {
+                                            return (
+                                                <ProductListCard Product={item} key={index} index={index} />
+                                            )
+                                        })}
+                                    </div>
+                                    <div className={`${styles.checkoutBox} col-12 justify-content-between p-3 d-inline-flex align-items-center`}>
+                                        <div className={`col-5 d-inline-flex flex-column align-items-start gap-2`}>
+                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Total ₹{checkoutTotal}</span>
+                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Saved ₹{checkoutSaving}</span>
+                                        </div>
+                                        <button className={`${styles.checkoutBtn} d-inline-flex align-items-center justify-content-center col-6 text-uppercase`} onClick={() => placeOrder()}>Place Order</button>
+                                    </div>
+                                </React.Fragment>
+                            :
+                                <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 col-12 p-4`}>
+                                    <CartIcon color="#888" />
+                                    <label className={`${styles.emptyProductText} col-12 text-center`}>No Products added</label>
                                 </div>
-                                <button className={`${styles.checkoutBtn} d-inline-flex align-items-center justify-content-center col-6 text-uppercase`} onClick={() => placeOrder()}>Place Order</button>
-                            </div>
+                            }
                         </React.Fragment>
                     ) : (
                         <React.Fragment>

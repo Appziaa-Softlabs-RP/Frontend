@@ -18,6 +18,23 @@ export const CartAside = ({ setCartPop }) => {
         setCartPop(false);
     }
 
+    const showProductDetail = (id) => {
+        const payload = {
+            product_id: id,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
+        }
+        ApiService.productDetails(payload).then((res) => {
+            if (res.message === "Product Detail") {
+                navigate('/product', { state: { product: res.payload } })
+            } else {
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+        });
+    }
+
     const updateProdQty = (e, prodID, allowQty, currQty, type) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
@@ -125,13 +142,13 @@ export const CartAside = ({ setCartPop }) => {
                                 {cartData.map((item, indx) => {
                                     return (
                                         <div className={`${styles.drawerCartItemsWrapper} mb-2 col-12 position-relative d-inline-flex`} key={indx}>
-                                            <span className={`${styles.cartItemLink} position-absolute d-inline-block`}>
+                                            <span className={`${styles.cartItemLink} position-absolute d-inline-block`} onClick={() => showProductDetail(item.product_id)}>
                                                 <img src={item?.image} alt={item?.product_name} className="col-12 d-inline-block object-fit-contain" />
                                             </span>
                                             <div className={`${styles.productCartDetails} col-12 d-inline-block`}>
-                                                <div className={`${styles.cartItemPrice} col-12 p-0 d-inline-flex align-items-start justify-content-between gap-4`}>
+                                                <div onClick={() => showProductDetail(item.product_id)} className={`${styles.cartItemPrice} col-12 p-0 d-inline-flex align-items-start justify-content-between gap-4`}>
                                                     <div className={`flex-grow-1 flex-column d-inline-flex`}>
-                                                        <Link className={`${styles.cartItemName} d-inline-block col-12 p-0 text-decoration-none`}>{item?.product_name}</Link>
+                                                        <span className={`${styles.cartItemName} d-inline-block col-12 p-0 text-decoration-none`}>{item?.product_name}</span>
                                                         <span className={`${styles.productOption} d-inline-block`}> Qty({item?.quantity})</span>
                                                     </div>
                                                     <span className={`${styles.priceEnd} d-inline-block`}>₹{item?.selling_price}</span>

@@ -194,6 +194,11 @@
 .checkDeliveryDate{
     font-weight: 700;
 }
+.AddCartBtn.disableCartBtn, .disableCartBtn.continueShop {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
         font-size: 20px;

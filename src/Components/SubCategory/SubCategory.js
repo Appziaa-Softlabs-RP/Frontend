@@ -100,7 +100,7 @@ export const SubCategory = ({categoryID}) => {
     }, [shopCategory]);
     return (
         <React.Fragment>
-            {shopCategory?.length && windowWidth === 'mobile' &&
+            {shopCategory?.length && windowWidth === 'mobile' ?
                 <React.Fragment>
                     <div className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}>
                         <ReactReactOwlCarousel className={`col-12 d-inline-block owl-theme`} margin={20} loop={false} dots={false} stagePadding={20} items={4}>
@@ -126,7 +126,7 @@ export const SubCategory = ({categoryID}) => {
                         })}
                     </div>
                 </React.Fragment>
-            }
+            : null}
 
             <div className={`col-12 d-inline-flex ${windowWidth === 'desktop' && 'mt-5'}`}>
                 <div className={`${windowWidth === 'mobile' && 'p-0'} container`}>

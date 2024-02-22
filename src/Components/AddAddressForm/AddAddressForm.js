@@ -6,11 +6,11 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from './AddAddressForm.module.css';
 
-export const AddAddressForm = () => {
+export const AddAddressForm = ({stopNavigate, setOpenAdressPop, setAddressSaved}) => {
     const appData = useApp();
     const navigate = useNavigate();
     const location = useLocation();
-    const addresState = location.state;
+    const addresState = location?.state;
     const userInfo = appData?.appData?.user;
     const [addressObj, setAddressObj] = useState({
         store_id: parseInt(enviroment.STORE_ID),
@@ -49,12 +49,17 @@ export const AddAddressForm = () => {
         }else if(addressObj.address_type === ''){
             AppNotification('Error', 'Please choose your address type.', 'danger');
         }else{
-            if(addresState.addressEdit === true){
-                setAddressObj({...addressObj, address_id: addresState.addressId})
+            if(addresState?.addressEdit === true){
+                setAddressObj({...addressObj, address_id: addresState?.addressId})
                 ApiService.updateAddress(addressObj).then((res) => {
                     if(res.message === 'Add successfully.'){
                         AppNotification('Address Added', 'Your address has been saved successfully', 'success');
-                        navigate('/my-address');
+                        if(stopNavigate && stopNavigate === true){
+                            setOpenAdressPop(false);
+                            setAddressSaved(true);
+                        }else{
+                            navigate('/my-address');
+                        }
                     }else{
                         AppNotification('Error', 'We got an error while saving your address.', 'danger');
                     }
@@ -65,7 +70,12 @@ export const AddAddressForm = () => {
                 ApiService.addNewAddress(addressObj).then((res) => {
                     if(res.message === 'Add successfully.'){
                         AppNotification('Address Added', 'Your address has been saved successfully', 'success');
-                        navigate('/my-address');
+                        if(stopNavigate && stopNavigate === true){
+                            setOpenAdressPop(false);
+                            setAddressSaved(true);
+                        }else{
+                            navigate('/my-address');
+                        }
                     }else{
                         AppNotification('Error', 'We got an error while saving your address.', 'danger');
                     }
@@ -77,11 +87,11 @@ export const AddAddressForm = () => {
     }
 
     useEffect(() => {
-        if(addresState.addressEdit === true){
+        if(addresState?.addressEdit === true){
             const payload = {
                 store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
-                address_id:addresState.addressId
+                address_id:addresState?.addressId
             }
             ApiService.getAddressDetail(payload).then((res) => {
                 let editAddressObj = res.payload_addressDetail;
@@ -106,44 +116,44 @@ export const AddAddressForm = () => {
     return (
         <React.Fragment>
             <div className={`${styles.addressFrom} col-12 d-inline-flex flex-column p-3`}>
-                <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2 mb-3`}>{addresState.addressEdit === true ? 'Edit this Address' : 'Add new address'}</h2>
+                <h2 className={`${styles.savedAddress} col-12 d-inline-flex gap-2 mb-3`}>{addresState?.addressEdit === true ? 'Edit this Address' : 'Add new address'}</h2>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="name" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="name" value={addressObj.name} onChange={(e) => setAddressObj({...addressObj, name: e.target.value})}/>
+                        <input placeholder="name" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="name" value={addressObj.name} onChange={(e) => setAddressObj({...addressObj, name: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> Enter Name</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="name" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="tel" name="phone" value={addressObj.contact} onChange={(e) => setAddressObj({...addressObj, contact: e.target.value})}/>
+                        <input placeholder="name" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="tel" name="phone" value={addressObj.contact} onChange={(e) => setAddressObj({...addressObj, contact: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> Enter Contact Number</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="name" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="email" name="email" value={addressObj.email} onChange={(e) => setAddressObj({...addressObj, email: e.target.value})}/>
+                        <input placeholder="name" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="email" name="email" value={addressObj.email} onChange={(e) => setAddressObj({...addressObj, email: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> Enter Your Email</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="house no" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="house_no" value={addressObj.house_no} onChange={(e) => setAddressObj({...addressObj, house_no: e.target.value})}/>
+                        <input placeholder="house no" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="house_no" value={addressObj.house_no} onChange={(e) => setAddressObj({...addressObj, house_no: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> House No/Apartment No</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="locality" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="locality" value={addressObj.street} onChange={(e) => setAddressObj({...addressObj, street: e.target.value})}/>
+                        <input placeholder="locality" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="locality" value={addressObj.street} onChange={(e) => setAddressObj({...addressObj, street: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> Locality / Area / Street</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-flex gap-3`}>
                         <div className={`col-6 position-relative d-inline-flex gap-3 flex-shrink-1`}>
-                            <input placeholder="City" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="city" value={addressObj.city} onChange={(e) => setAddressObj({...addressObj, city: e.target.value})}/>
+                            <input placeholder="City" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="city" value={addressObj.city} onChange={(e) => setAddressObj({...addressObj, city: e.target.value})}/>
                             <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> City</label>
                         </div>
                         <div className={`col-6 position-relative d-inline-flex gap-3 flex-shrink-1`}>
-                            <input placeholder="State" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="state" value={addressObj.state} onChange={(e) => setAddressObj({...addressObj, state: e.target.value})}/>
+                            <input placeholder="State" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="state" value={addressObj.state} onChange={(e) => setAddressObj({...addressObj, state: e.target.value})}/>
                             <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> State</label>
                         </div>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="Landmark" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="landmark" value={addressObj.landmark} onChange={(e) => setAddressObj({...addressObj, landmark: e.target.value})}/>
+                        <input placeholder="Landmark" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="landmark" value={addressObj.landmark} onChange={(e) => setAddressObj({...addressObj, landmark: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}>Landmark</label>
                     </div>
                     <div className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}>
-                        <input placeholder="Pincode" autocomplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="pincode" value={addressObj.pincode} onChange={(e) => setAddressObj({...addressObj, pincode: e.target.value})}/>
+                        <input placeholder="Pincode" autoComplete="off" className={`${styles.formInput} d-inline-block col-12`} type="text" name="pincode" value={addressObj.pincode} onChange={(e) => setAddressObj({...addressObj, pincode: e.target.value})}/>
                         <label className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}><span className="login_required">*</span> Pincode</label>
                     </div>
                 </div>

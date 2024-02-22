@@ -48,9 +48,10 @@
 }
 .showSearchList{
     top: 55px;
-    max-height: 200px;
+    max-height: 230px;
     background: #FFF;
     z-index: 5;
+    box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.30);
 }
 .searchRow{
     font-size: 16px;
@@ -70,6 +71,7 @@
     height: 25px;
     width: 25px;
     padding: 5px;
+    margin: 8px;
 }
 .closePopupBox svg {
     height: 100%;

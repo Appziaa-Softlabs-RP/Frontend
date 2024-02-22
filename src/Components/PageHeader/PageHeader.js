@@ -91,15 +91,17 @@ export const PageHeader = ({title, hide}) => {
                     </div>
                 </div>
                 <div className={`${styles.searchPopup} col-12 position-absolute align-items-center start-0 p-3 top-0 ${searchPop === true ? 'd-inline-flex gap-1' : 'd-none'}`}>
-                    <input type="search" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 flex-shrink-1 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} onKeyDown={handleKeyDown} />
-                    <span className={`${styles.closePopupBox} flex-shrink-0 d-inline-flex align-items-center justify-content-center`} onClick={() => closeSearchBox()}>
-                        <CrossIcon color="#FFF" />
-                    </span>
+                    <div className="col-12 d-inline-flex align-items-center position-relative">
+                        <input type="text" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 flex-shrink-1 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} onKeyDown={handleKeyDown} />
+                        <span className={`${styles.closePopupBox} flex-shrink-0 d-inline-flex align-items-center justify-content-center top-0 end-0 position-absolute`} onClick={() => closeSearchBox()}>
+                            <CrossIcon color="#000" />
+                        </span>
+                    </div>
                     {searchProdList?.length > 0 &&
                         <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
                             {searchProdList.map((item, idx) => {
                             return (
-                                <span className={`${styles.searchRow} p-3 d-inline-flex col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
+                                <span className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
                             )
                             })}
                         </div>

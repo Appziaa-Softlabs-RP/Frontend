@@ -180,7 +180,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
                 {searchProdList.map((item, idx) => {
                   return (
-                    <span className={`${styles.searchRow} p-3 d-inline-flex col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
+                    <span className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
                   )
                 })}
               </div>

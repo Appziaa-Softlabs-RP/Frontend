@@ -4,7 +4,7 @@ import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import { useApp } from "../../context/AppContextProvider";
@@ -18,6 +18,7 @@ import axios from "axios";
 let otherInfo = false;
 export const ProductPage = () => {
     const appData = useApp();
+    const navigate = useNavigate();
     const locationState = useLocation();
     const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
@@ -155,6 +156,10 @@ export const ProductPage = () => {
         }
     }
 
+    const showCheckoutPage = () => {
+        navigate('/checkout');
+    }
+
     useEffect(() => {
         checkProdAdded();
     }, [appData.appData.cartData]);
@@ -175,7 +180,7 @@ export const ProductPage = () => {
                 }
             })
         }
-    }, [locationState]);
+    }, [locationState?.state?.product]);
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (
@@ -248,8 +253,8 @@ export const ProductPage = () => {
                         <SimilarProduct product={ProductData.similar} />
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
-                        <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
+                        <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={() => showCheckoutPage()}>Go to Cart</span>
+                        <span className={`${styles.AddCartBtn} ${ProductData.stock === 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -299,7 +304,7 @@ export const ProductPage = () => {
                                             }
                                         </div>
                                     }
-                                    <span role="button" className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                    <span role="button" className={`${styles.continueShop} ${ProductData.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
                                     <div className="col-12 d-inline-block mt-3 mb-3">
                                         <h3 className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}>Delivery &amp; Services</h3>
                                         <div className={`col-12 d-inline-block`}>

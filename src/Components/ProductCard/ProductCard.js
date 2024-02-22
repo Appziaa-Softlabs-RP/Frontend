@@ -5,6 +5,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from './ProductCard.module.css';
+import noImage from '../../assets/images/image-not-available.jpg';
 
 export const ProductCard = ({ item, index }) => {
     const [prodAdded, setProdAdded] = useState(false);
@@ -12,6 +13,12 @@ export const ProductCard = ({ item, index }) => {
     const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
     const appData = useApp();
+
+    const setNoImage = (e) => {
+        if(e.target){
+            e.target.src =noImage;
+        }
+    }
 
     const showProductDetail = (id) => {
         const payload = {
@@ -165,18 +172,18 @@ export const ProductCard = ({ item, index }) => {
 
     return (
         <React.Fragment>
-            <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} role="button" key={index} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
+            <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} role="button" key={index}>
                 {item.mrp > item.selling_price &&
                     <span className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}%  OFF</span>
                 }
 
-                <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`}>
+                <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
                     {item.stock === 0 &&
                         <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
-                        <img src={item?.image? item.image : item?.image_url } className="position-absolute h-100 col-12 p-0" />
+                        <img onError={(e) => setNoImage(e)} src={item?.image? item.image : item?.image_url } className="position-absolute h-100 col-12 p-0" />
                 </div>
 
-                <span className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
+                <span onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)} className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
                 {item.mrp > item.selling_price ? (
                     <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
                         <span className={`${styles.offerPrice} d-inline-flex`}><b>₹{item.selling_price}</b></span>

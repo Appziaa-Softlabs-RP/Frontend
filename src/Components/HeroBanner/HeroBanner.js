@@ -24,9 +24,16 @@ export const HeroBanner = ({ allBanner }) => {
   let windowWidth = appData.appData.windowWidth;
 
   const openBannerProd = (verticalId, subCatId, prodId, categoryId) => {
+    console.log(verticalId, subCatId, prodId, categoryId)
     let category = 'Banner';
     if(verticalId !== null) {
       navigate(`/store/${category}`, {state: {cat: verticalId}})
+    } else if(categoryId !== null) {
+      const payload = {
+        store_id: parseInt(enviroment.STORE_ID),
+        category_id: categoryId
+      }
+      navigate(`/store-product/${category}`, { state: { payload: payload } });
     } else if(subCatId !== null) {
       const payload = {
         store_id: parseInt(enviroment.STORE_ID),
@@ -48,12 +55,6 @@ export const HeroBanner = ({ allBanner }) => {
       }).catch((err) => {
           AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
       });
-    } else if(categoryId !== null) {
-      const payload = {
-        store_id: parseInt(enviroment.STORE_ID),
-        category_id: categoryId
-      }
-      navigate(`/store-product/${category}`, { state: { payload: payload } });
     }
   }
 
@@ -83,11 +84,11 @@ export const HeroBanner = ({ allBanner }) => {
       {windowWidth === "mobile" ? (
         <div className={`${styles.heroBannerContainer} col-12 d-inline-flex p-3`}>
           <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={5} loop={true} dots={true} stagePadding={10} items={1}>
-            {allBanner?.length > 0 && allBanner.map((item, index) => {
+            {heroBanners?.length > 0 && heroBanners.map((item, index) => {
               return (
                 <React.Fragment key={index}>
                   {item?.mobile_image !== '' &&
-                    <div className={styles.item}>
+                    <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id)}>
                       <img
                         src={item?.mobile_image}
                         alt={item?.name}

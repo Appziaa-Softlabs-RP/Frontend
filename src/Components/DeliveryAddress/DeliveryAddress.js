@@ -6,10 +6,13 @@ import { useApp } from '../../context/AppContextProvider';
 import ApiService from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { AppNotification } from '../../utils/helper';
+import { AddAddressPopup } from '../AddAddressPopup/AddAddressPopup';
 
-const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressId}) => {
+
+const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressId, setAddressSaved}) => {
     const navigate = useNavigate();
     const [selectAddress, setSelectAddress] = useState({});
+    const [openAdressPop, setOpenAdressPop] = useState(false);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
@@ -30,6 +33,10 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
         setAddressId(addrId);
     }
 
+    const addNewAddress = () => {
+        setOpenAdressPop(true);
+    }
+
     return (
         <div className={`${styles.deliveryBox} col-12 d-inline-flex flex-column mb-2`}>
             <h2 className={`${styles.cartTitle} col-12 p-3 d-inline-flex align-items-center gap-2`}>
@@ -39,7 +46,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
             {checkoutType === 'Address' &&
                 <div className='col-12 d-inline-flex flex-column'>
                     <div className='col-12 d-inline-flex justify-content-end p-3'>
-                        <span role="button" className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4`}>Add New Address</span>
+                        <span onClick={() => addNewAddress()} role="button" className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4`}>Add New Address</span>
                     </div>
                     {allAddress?.length > 0 && 
                         <React.Fragment>
@@ -83,6 +90,9 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                         <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setCheckoutType('Address')}>Change</span>
                     </div>
                 </div>
+            }
+            {openAdressPop === true &&
+                <AddAddressPopup setOpenAdressPop={setOpenAdressPop} setAddressSaved={setAddressSaved} />
             }
         </div>
     )
@@ -162,6 +172,7 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
 export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, shopcartID}) => {
     const appData = useApp();
     const [allAddress, setAllAddress] = useState([]);
+    const [addressSaved, setAddressSaved] = useState(false);
     const [checkoutType, setCheckoutType] = useState('Address');
     const userInfo = appData.appData.user;
     const [addressId, setAddressId] = useState('');
@@ -174,6 +185,7 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
         ApiService.addressList(payload).then((res) => {
             if (res.message === "Address list successfully") {
                 setAllAddress(res?.payload_addressList);
+                setAddressSaved(false);
             }
         }).catch((err) => {
 
@@ -184,9 +196,15 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
         getAllAdress();
     }, []);
 
+    useEffect(() => {
+        if(addressSaved === true){
+            getAllAdress();
+        }
+    }, [addressSaved]);
+
     return (
         <React.Fragment>
-            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} />
+            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} setAddressSaved={setAddressSaved} />
             <PaymentMode checkoutType={checkoutType} checkoutTotal={checkoutTotal} userInfo={userInfo}checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} addressId={addressId} shopcartID={shopcartID} />
         </React.Fragment>
     );

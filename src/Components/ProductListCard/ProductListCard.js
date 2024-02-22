@@ -195,7 +195,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                                     ) : (
                                         <React.Fragment>
                                             <span className={`${styles.offerPrice}`}><b>₹ {Product.selling_price}</b> <del>₹ {Product.mrp}</del></span>
-                                            <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff} &nbsp;OFF</span>
+                                            <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff}% &nbsp;OFF</span>
                                             <span className={`${styles.savePrice} col-12 d-inline-block p-0 float-left`}>Save ₹ {Product?.mrp - Product?.selling_price}</span>
                                         </React.Fragment>
                                     )}
@@ -203,7 +203,6 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                         </div>
                     </div>
                     <div className={`${styles.itemQuantityBtnBox} position-absolute ${hideQty === true ? 'd-none' : 'd-inline-block'}`}>
-                        <div className={`${styles.itemQuantityBtn} col-2`}>
                         {Product.stock !== 0 &&
                             <div className="col-12 p-0">
                                 {!prodAdded ? (
@@ -229,7 +228,6 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                                 )}
                             </div>
                         }
-                        </div>
                     </div>
                 </div>
             </div>
