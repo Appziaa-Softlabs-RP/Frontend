@@ -70,8 +70,9 @@ export const MyAccount = () => {
   const navigate = useNavigate();
 
   const userLoggedOut = () => {
-    appData.setAppData({ ...appData.appData, user: '', loggedIn: false });
+    appData.setAppData({ ...appData.appData, user: '', loggedIn: false, cartSaved: false });
     localStorage.removeItem('user');
+    localStorage.removeItem('cartSaved');
     localStorage.removeItem('loggedIn');
     AppNotification('Logged Out', 'You have been successfully logged out.', 'success');
     navigate('/');

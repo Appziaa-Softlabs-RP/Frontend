@@ -17,7 +17,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
     let windowWidth = appData.appData.windowWidth;
 
     const editAddress = (id) => {
-        navigate('/add-new-address', {state: {addressEdit: true, addressId: id}});
+        navigate('/add-new-address', {state: {addressEdit: true, addressId: id, routePopup: true}});
     }
 
     const chooseSelectAddr = () => {

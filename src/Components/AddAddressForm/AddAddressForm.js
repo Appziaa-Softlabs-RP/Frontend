@@ -48,11 +48,11 @@ export const AddAddressForm = ({stopNavigate, setOpenAdressPop, setAddressSaved}
             AppNotification('Error', 'Enter your Pincode.', 'danger');
         }else if(addressObj.address_type === ''){
             AppNotification('Error', 'Please choose your address type.', 'danger');
-        }else{
+        }else{           
             if(addresState?.addressEdit === true){
-                setAddressObj({...addressObj, address_id: addresState?.addressId})
+                setAddressObj({...addressObj, address_id: addresState?.addressId});
                 ApiService.updateAddress(addressObj).then((res) => {
-                    if(res.message === 'Add successfully.'){
+                    if(res.message === "Update successfully."){
                         AppNotification('Address Added', 'Your address has been saved successfully', 'success');
                         if(stopNavigate && stopNavigate === true){
                             setOpenAdressPop(false);
@@ -183,7 +183,7 @@ export const AddAddressForm = ({stopNavigate, setOpenAdressPop, setAddressSaved}
                 </div>
             </div>
             <div className="col-12 d-inline-flex">
-                <span className={`${styles.saveAddrsBtn} d-inline-flex align-items-center justify-content-center col-12`} onClick={() => saveNewAddress()}>Save Address</span>
+                <span role="button" className={`${styles.saveAddrsBtn} d-inline-flex align-items-center justify-content-center col-12`} onClick={() => saveNewAddress()}>{addresState?.addressEdit === true ? 'Update Address' : 'Save Address'}</span>
             </div>
         </React.Fragment>
     );
