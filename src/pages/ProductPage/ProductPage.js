@@ -140,6 +140,10 @@ export const ProductPage = () => {
     }
 
     const getDeliveyInfo = (val) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var day = new Date();
+
         if(val.length > 5){
             axios.post(`${enviroment.DELIVERY_URL}/pincode-status`, {
                 store_email: 'knickk8@gmail.com',
@@ -147,7 +151,39 @@ export const ProductPage = () => {
             }).then(function (res) {
                 if(res.data.message === "Delivery found"){
                     AppNotification('Success', 'Product Delivery Found', 'success');
-                    setDeliveryDetail(res.data.data);
+                    if(res?.data?.data?.max_days && res?.data?.data?.min_days){
+                        var fromDay = new Date(day);
+                        fromDay.setDate(day.getDate() + res.data.data.min_days);
+                        let fromMonth = weekNames[fromDay.getDay()];
+                        let fromWeek = monthNames[fromDay.getMonth()];
+                        let fromDate = fromDay.getDate();
+                        fromDay = fromMonth+', '+fromDate+' '+fromWeek;
+                        var nextDay = new Date(day);
+                        nextDay.setDate(day.getDate() + res.data.data.max_days);
+                        let nextMonth = weekNames[nextDay.getDay()];
+                        let nextWeek = monthNames[nextDay.getMonth()];
+                        let nextDate = nextDay.getDate();
+                        nextDay = nextMonth+', '+nextDate+' '+nextWeek;
+                        setDeliveryDetail({minDays: fromDay, maxDays: nextDay});
+                    }else if(res?.data?.data?.max_days){
+                        var nextDay = new Date(day);
+                        nextDay.setDate(day.getDate() + res.data.data.max_days);
+                        let nextMonth = weekNames[nextDay.getDay()];
+                        let nextWeek = monthNames[nextDay.getMonth()];
+                        let nextDate = nextDay.getDate();
+                        nextDay = nextMonth+', '+nextDate+' '+nextWeek;
+                        setDeliveryDetail({maxDays: nextDay});
+                    }else if(res?.data?.data?.min_days){
+                        var fromDay = new Date(day);
+                        fromDay.setDate(day.getDate() + res.data.data.min_days);
+                        let fromMonth = weekNames[fromDay.getDay()];
+                        let fromWeek = monthNames[fromDay.getMonth()];
+                        let fromDate = fromDay.getDate();
+                        fromDay = fromMonth+', '+fromDate+' '+fromWeek;
+                        setDeliveryDetail({minDays: fromDay});
+                    }else{
+                        setDeliveryDetail({});
+                    }
                 }
             }).catch(function (error) {
             });
@@ -167,7 +203,7 @@ export const ProductPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         setProdMainImg(ProductData.image);
-        
+
         let discountOff = '',
         ProductMrp = parseFloat(ProductData?.mrp),
         ProdutSellPrice = parseFloat(ProductData?.selling_price);
@@ -337,16 +373,16 @@ export const ProductPage = () => {
                                             <span className={`${styles.checkZiperror} col-12 d-inline-block`}></span>
                                             {Object.keys(deliveryDetail)?.length > 0 &&
                                                 <div className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}>
-                                                    {deliveryDetail.max_days !== '' || deliveryDetail.min_days !== '' ? (
-                                                        <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}>
-                                                            <span className={`${styles.checkDeliveryLabel} d-inline-flex`}>Expected Delivery - &nbsp;</span>
-                                                            {deliveryDetail.min_days !== '' ? (<span>Min:&nbsp;<strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.min_days} Days</strong></span>) : null}
-                                                            {deliveryDetail.max_days !== '' && deliveryDetail.min_days !== '' && 
-                                                                <span>&nbsp;and&nbsp;</span>
-                                                            }
-                                                            {deliveryDetail.max_days !== '' ? (<span>Max:&nbsp;<strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.max_days} Days</strong></span>) : null}
-                                                        </p>
-                                                    ): null}
+                                                    {deliveryDetail.maxDays !== '' || deliveryDetail.minDays !== '' ? (
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}>
+                                                        <span className={`${styles.checkDeliveryLabel} d-inline-flex`}>Expected Delivery Date - &nbsp;</span>
+                                                        {deliveryDetail.minDays !== '' ? (<span><strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.minDays}</strong></span>) : null}
+                                                        {deliveryDetail.maxDays !== '' && deliveryDetail.min_days !== '' && 
+                                                            <span>&nbsp;-&nbsp;</span>
+                                                        }
+                                                        {deliveryDetail.maxDays !== '' ? (<span><strong className={`${styles.checkDeliveryDate} d-inline-flex`}>{deliveryDetail.maxDays}</strong></span>) : null}
+                                                    </p>
+                                                    ): ''}
 
                                                     {/* <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>32, Chhattarpur Main Road, Chandan Hola, New Delhi 110074</strong></p>
                                                     <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link href="tel:+919911163300" id="storeTel">+91-9911163300</Link></span></p>
