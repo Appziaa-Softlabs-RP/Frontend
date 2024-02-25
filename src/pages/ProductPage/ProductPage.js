@@ -166,21 +166,42 @@ export const ProductPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        let discountOff = '';
-        if (ProductData?.mrp > ProductData?.selling_price) {
+        setProdMainImg(ProductData.image);
+        
+        let discountOff = '',
+        ProductMrp = parseFloat(ProductData?.mrp),
+        ProdutSellPrice = parseFloat(ProductData?.selling_price);
+
+        if (ProductMrp > ProdutSellPrice) {
             discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
             discountOff = Math.ceil(discountOff);
             setProdDiscount(discountOff);
         }
-        setProdMainImg(ProductData.image);
-        {
-            Object.values(ProductData?.other).map((item) => {
-                if (item !== '' && item !== null && item !== undefined) {
-                    otherInfo = true;
-                }
-            })
-        }
+        
+        Object.values(ProductData?.other).map((item) => {
+            if (item !== '' && item !== null && item !== undefined) {
+                otherInfo = true;
+            }
+        });
     }, [locationState?.state?.product]);
+
+    useEffect(() => {
+        let discountOff = '',
+        ProductMrp = parseFloat(ProductData?.mrp),
+        ProdutSellPrice = parseFloat(ProductData?.selling_price);
+
+        if (ProductMrp > ProdutSellPrice) {
+            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+            discountOff = Math.ceil(discountOff);
+            setProdDiscount(discountOff);
+        }
+        
+        Object.values(ProductData?.other).map((item) => {
+            if (item !== '' && item !== null && item !== undefined) {
+                otherInfo = true;
+            }
+        });
+    }, []);
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (
