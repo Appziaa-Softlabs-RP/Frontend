@@ -183,7 +183,7 @@
     font-size: 12px;
 }
 .checkDeliveryResponse{
-    background: #74d1bb;
+    background: var(--MENU_HOVER_COLOR);
     border-radius: 4px;
     padding: 30px;
 }

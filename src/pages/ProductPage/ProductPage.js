@@ -4,7 +4,7 @@ import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import { useApp } from "../../context/AppContextProvider";
@@ -384,9 +384,9 @@ export const ProductPage = () => {
                                                     </p>
                                                     ): ''}
 
-                                                    {/* <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>32, Chhattarpur Main Road, Chandan Hola, New Delhi 110074</strong></p>
-                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link href="tel:+919911163300" id="storeTel">+91-9911163300</Link></span></p>
-                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><a href="https://goo.gl/maps/kZkVQaE2PuH39BWz9" target="_blank">Google Map</a></span></p> */}
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>Shop No-42, Cycle Market, Block E 4, Jhandewalan Extension, Jhandewalan, New Delhi, Delhi 110055</strong></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`} to={`tel:${enviroment.PHONE_NUMBER}`} id="storeTel">{enviroment.PHONE_NUMBER}</Link></span></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link to="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6" target="_blank" className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}>Google Map</Link></span></p>
                                                 </div>
                                             }
                                         </div>
