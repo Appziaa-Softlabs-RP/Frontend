@@ -180,7 +180,7 @@ export const ProductCard = ({ item, index }) => {
                 <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
                     {item.stock === 0 &&
                         <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
-                        <img onError={(e) => setNoImage(e)} src={item?.image? item.image : item?.image_url } className="position-absolute h-100 col-12 p-0" />
+                        <img onError={(e) => setNoImage(e)} src={item?.image ? item.image?.replace('https://rewardsplus.in/uploads/app/public/cogendermpany', 'https://merchant.rewardsplus.in/uploads/app/public/company') : item?.image_url } className="position-absolute h-100 col-12 p-0" />
                 </div>
 
                 <span onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)} className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>

@@ -26,21 +26,7 @@ export const HeroBanner = ({ allBanner }) => {
   const openBannerProd = (verticalId, subCatId, prodId, categoryId) => {
     console.log(verticalId, subCatId, prodId, categoryId)
     let category = 'Banner';
-    if(verticalId !== null) {
-      navigate(`/store/${category}`, {state: {cat: verticalId}})
-    } else if(categoryId !== null) {
-      const payload = {
-        store_id: parseInt(enviroment.STORE_ID),
-        category_id: categoryId
-      }
-      navigate(`/store-product/${category}`, { state: { payload: payload } });
-    } else if(subCatId !== null) {
-      const payload = {
-        store_id: parseInt(enviroment.STORE_ID),
-        category_id: subCatId
-      }
-      navigate(`/store-product/${category}`, { state: { payload: payload } });
-    } else if(prodId !== null) {
+    if(prodId !== null) {
       const payload = {
           product_id: prodId,
           company_id: parseInt(enviroment.COMPANY_ID),
@@ -55,6 +41,20 @@ export const HeroBanner = ({ allBanner }) => {
       }).catch((err) => {
           AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
       });
+    } else if(subCatId !== null) {
+      const payload = {
+        store_id: parseInt(enviroment.STORE_ID),
+        category_id: subCatId
+      }
+      navigate(`/store-product/${category}`, { state: { payload: payload } });
+    } else if(categoryId !== null) {
+      const payload = {
+        store_id: parseInt(enviroment.STORE_ID),
+        category_id: categoryId
+      }
+      navigate(`/store-product/${category}`, { state: { payload: payload } });
+    } else  if(verticalId !== null) {
+      navigate(`/store/${category}`, {state: {cat: verticalId}})
     }
   }
 
