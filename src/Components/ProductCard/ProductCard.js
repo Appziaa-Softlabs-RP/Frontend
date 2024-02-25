@@ -74,21 +74,25 @@ export const ProductCard = ({ item, index }) => {
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
         AppNotification('Success', 'Product added into the cart successfully.', 'success');
 
+        let cartData = {
+            product_id: ProdId,
+            product_name: prodName,
+            mrp: Mrp,
+            selling_price:sellingPrice,
+            quantity: Quantity,
+            no_of_quantity_allowed: noQty,
+            is_hot_deals: dealType,
+            deal_type_id: dealId
+        }
+
         if (appData.appData?.user?.customer_id) {
             const payload = {
                 company_id: parseInt(enviroment.COMPANY_ID),
                 store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
-                product_id: ProdId,
-                product_name: prodName,
-                mrp: Mrp,
-                selling_price:sellingPrice,
-                quantity: Quantity,
-                no_of_quantity_allowed: noQty,
-                is_hot_deals: dealType,
-                deal_type_id: dealId
+                cartJson: JSON.stringify(cartData)
             }
-            ApiService.addToCart(payload).then((res) => {
+            ApiService.addMultipleCart(payload).then((res) => {
                 if(res?.message === 'Add successfully.'){
                     appData.setAppData({ ...appData.appData, cartSaved: true });
                     localStorage.setItem('cartSaved', true);

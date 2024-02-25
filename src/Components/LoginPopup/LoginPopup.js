@@ -127,44 +127,42 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
     }
 
     const getAddCartList = (userData) => {
-        const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            customer_id: userData.customer_id
-        }
-        ApiService.showCart(payload).then((res) => {
-            if(res.message === "Cart list successfully"){
-                let addProducts = res.payload_cartList;
-                let addedCart = appData.appData.cartData;
-                let nonAddedProd = [];
-                if(addProducts?.length > 0 && addedCart?.length > 0){
-                    addProducts.map((prodCart) => {
-                        addedCart.map((item) => {
-                            if(prodCart.product_id !== item?.product_id){
-                                nonAddedProd.push(item);
-                            }
-                        });
-                    });
+        let addedCart = appData.appData.cartData;
+        if(addedCart?.length > 0){
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id,
+                cartJson: JSON.stringify(appData?.appData?.cartData)
+            }
+            ApiService.addMultipleCart(payload).then((res) => {
+                if(res.message === "Add successfully."){
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList, cartCount: res.payload_cartList?.length  });
+                    localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList));
+                }else{
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
                 }
-                if(addedCart?.length === 0){
+            }).catch((err) => {
+                AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
+            });
+        }else{
+            const payload = {
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id
+            }
+            ApiService.showCart(payload).then((res) => {
+                if(res.message === "Cart list successfully"){
+                    let addProducts = res.payload_cartList;
                     appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                     localStorage.setItem('cartSaved', true);
                     window.location.reload();
-                }else if(nonAddedProd?.length > 0 && addProducts?.length > 0){
-                    const mergedArray = [...nonAddedProd, ...addProducts];
-                    const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
-                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true, user: userData, loggedIn: true });
-                    localStorage.setItem('cartData', JSON.stringify(uniqueData));
-                    localStorage.setItem('cartSaved', true);
-                    window.location.reload();
-                }else{
-                    appData.setAppData({ ...appData.appData, cartData: addedCart, cartCount: addedCart?.length, user: userData, loggedIn: true });
-                    localStorage.setItem('cartData', JSON.stringify(addedCart));
                 }
-            }
-        }).catch((err) => {
+            }).catch((err) => {
 
-        });
+            });
+        }
     }
 
     return(
@@ -299,6 +297,7 @@ const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpO
                     otp_id:otpObj.otpID,
                     otp:matchOTP,
                     otp_type:registerType,
+                    company_id: parseInt(enviroment.COMPANY_ID),
                     email: registrationVal.email,
                     password: registrationVal.password,
                     name: registrationVal.name,
