@@ -9,8 +9,7 @@ import ApiService from '../../services/ApiService';
 import { AppNotification } from '../../utils/helper';
 
 
-let mobileOTP = '',
-mobileOTPId = '',
+let mobileOTPId = '',
 mobileNum = '';
 
 export const VerifyOtp = () => {
@@ -28,7 +27,6 @@ export const VerifyOtp = () => {
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - User Verify';
         if(locationState?.state?.opt && locationState?.state?.optID){
-            mobileOTP = locationState.state.opt;
             mobileOTPId = locationState.state.optID;
             mobileNum = locationState.state.mobile;
             mobileNum = mobileNum?.substr(mobileNum.length - 5);
@@ -46,7 +44,6 @@ export const VerifyOtp = () => {
         ApiService.sendOTP(payload).then((res) => {
             if(res.message === 'Otp send successfully.'){
                 AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                mobileOTP = res.payload.otp;
                 mobileOTPId = res.payload.otp_id;
             }
         }).catch((err) => {
@@ -74,7 +71,7 @@ export const VerifyOtp = () => {
         if(optInput.otpInput1 !== '' && optInput.otpInput2 !== '' && optInput.otpInput3 !== '' && optInput.otpInput4 !== ''){
             let matchOTP = optInput.otpInput1+optInput.otpInput2+optInput.otpInput3+optInput.otpInput4;
             matchOTP = parseInt(matchOTP);
-            if(mobileOTP === matchOTP){
+            if(matchOTP.length === 4){
                 const payload = {
                     otp_id:mobileOTPId,
                     otp:matchOTP,

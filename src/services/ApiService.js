@@ -42,6 +42,14 @@ ApiService.VerifyOTP = function (data) {
   });
 }
 
+ApiService.VerifyOTPReg = function (data) {
+  return fetch({
+    url: "user/verifyOtpReg",
+    method: "post",
+    data: data
+  });
+}
+
 ApiService.AllCategory = function (data) {
   return fetch({
     url: "store/verticalWithCatList",

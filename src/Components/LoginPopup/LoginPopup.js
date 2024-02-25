@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import styles from './LoginPopup.module.css';
 import ApiService from "../../services/ApiService";
@@ -44,7 +44,7 @@ const LoginOTP = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
         ApiService.sendOTP(payload).then((res) => {
             if(res.message === 'Otp send successfully.'){
                 AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
+                setOTPObj({otpID: res.payload.otp_id});
                 setLoginType('VerifyOTP');
             }
         }).catch((err) => {
@@ -99,7 +99,7 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
         if(mobileOTP !== ''){
             let matchOTP = mobileOTP;
             matchOTP = parseInt(matchOTP);
-            if(otpObj.otp === matchOTP){
+            if(mobileOTP.length === 4){
                 const payload = {
                     otp_id:otpObj.otpID,
                     otp:matchOTP,
@@ -194,23 +194,40 @@ const LoginVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj,
     );
 }
 
-const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
-
+const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj, setRegisterType}) => {
     const sendMobileOtp = () => {
-        const payload = {
-            otp_type:'mobile',
-            username:mobileVal
-        }
-        ApiService.signupOTP(payload).then((res) => {
-            if(res.message === 'Otp send successfully.'){
-                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
-                setLoginType('RegVerifyOTP');
+        const mobileNumberPattern = /^[0-9]{10}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(mobileVal === ''){
+            AppNotification('Error', 'Please enter mobile number or E-mail ID.', 'danger');
+        }else if(mobileNumberPattern.test(mobileVal) === false && emailPattern.test(mobileVal) === false){
+            AppNotification('Error', 'Enter mobile number and email Address is not valid.', 'danger');
+        }else if(mobileNumberPattern.test(mobileVal) === true || emailPattern.test(mobileVal) === true){
+            let registrationType = '';
+            if(mobileNumberPattern.test(mobileVal) === true){
+                registrationType = 'mobile';
+            }else if(emailPattern.test(mobileVal) === true){
+                registrationType = 'email';
             }
-        }).catch((err) => {
-            
-            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
-        })
+            setRegisterType(registrationType);
+            const payload = {
+                otp_type:registrationType,
+                username:mobileVal
+            }
+            ApiService.signupOTP(payload).then((res) => {
+                if(res.message === 'Otp send successfully.'){
+                    if(registrationType === 'mobile'){
+                        AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                    }else if(registrationType === 'mobile'){
+                        AppNotification('Sucess', 'OTP sent to your Email Address.', 'success');
+                    }
+                    setOTPObj({otpID: res.payload.otp_id});
+                    setLoginType('RegVerifyOTP');
+                }
+            }).catch((err) => {       
+                AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+            });
+        }
     }
     return(
         <React.Fragment>
@@ -219,7 +236,7 @@ const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
                 <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex">
-                        <input type="tel" value={mobileVal} minLength="10" maxLength="10" placeholder="9XXXXXXXXX" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value.replace(/\D/g, ""))} />
+                        <input type="text" value={mobileVal} placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value)} />
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
@@ -234,19 +251,26 @@ const Register = ({setLoginType, mobileVal, setMobileVal, setOTPObj}) => {
     );
 }
 
-const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj, setOTPObj, setLoginPop}) => {
+const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpObj, setOTPObj, setLoginPop, registerType}) => {
     const appData = useApp();
     const navigate = useNavigate();
+    const [registrationVal, setRegistrationVal] = useState({name: '', email: '', mobile: '', password: ''});
+    const mobileNumberPattern = /^[0-9]{10}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const sendMobileOtp = () => {
         const payload = {
-            otp_type:'mobile',
+            otp_type:registerType,
             username:mobileVal
         }
-        ApiService.sendOTP(payload).then((res) => {
+        ApiService.signupOTP(payload).then((res) => {
             if(res.message === 'Otp send successfully.'){
-                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                setOTPObj({otp: res.payload.otp, otpID: res.payload.otp_id});
+                if(registerType === 'mobile'){
+                    AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                }else if(registerType === 'mobile'){
+                    AppNotification('Sucess', 'OTP sent to your Email Address.', 'success');
+                }
+                setOTPObj({otpID: res.payload.otp_id});
             }
         }).catch((err) => {
             
@@ -255,16 +279,32 @@ const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpO
     }
 
     const proceedVerify = () => {
-        if(mobileOTP !== ''){
+        if(mobileOTP === '' || mobileOTP.length < 3){
+            AppNotification('Error', 'Please enter the OTP.', 'danger');
+        }else if(registrationVal.mobile === '' || mobileNumberPattern.test(registrationVal.mobile) === false){
+            AppNotification('Error', 'Mobile number is not valid. Enter valid mobile number.', 'danger');
+        }else if(registrationVal.email === '' || emailPattern.test(registrationVal.email) === false){
+            AppNotification('Error', 'Email address is not valid. Enter valid email address.', 'danger');
+        }else if(registrationVal.name === ''){
+            AppNotification('Error', 'Please enter your full name.', 'danger');
+        }else if(registrationVal.password === ''){
+            AppNotification('Error', 'Please enter your password.', 'danger');
+        }else if(registrationVal.password.length < 7){
+            AppNotification('Error', 'Entered password characters is less than 8 characters.', 'danger');
+        }else if(mobileOTP !== ''){
             let matchOTP = mobileOTP;
             matchOTP = parseInt(matchOTP);
-            if(otpObj.otp === matchOTP){
+            if(mobileOTP.length === 4){
                 const payload = {
                     otp_id:otpObj.otpID,
                     otp:matchOTP,
-                    otp_type:"mobile"
+                    otp_type:registerType,
+                    email: registrationVal.email,
+                    password: registrationVal.password,
+                    name: registrationVal.name,
+                    phone: registrationVal.phone
                 }
-                ApiService.VerifyOTP(payload).then((res) => {
+                ApiService.VerifyOTPReg(payload).then((res) => {
                     if(res.message === "Registration successfully."){
                         localStorage.setItem('user', JSON.stringify(res.payload));
                         appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
@@ -280,8 +320,6 @@ const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpO
             }else{
                 AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
             }
-        }else{
-            AppNotification('Error', 'Please enter OTP', 'danger');
         }
     }
 
@@ -326,6 +364,14 @@ const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpO
         });
     }
 
+    useEffect(() => {
+        if(registerType === 'mobile'){
+            setRegistrationVal((prev) => ({...prev, mobile: mobileVal}));
+        }else if(registerType === 'email'){
+            setRegistrationVal((prev) => ({...prev, email: mobileVal}));
+        }
+    }, [registerType]);
+
     return(
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
@@ -334,11 +380,26 @@ const RegisterVerifyOTP = ({setLoginType,mobileVal,mobileOTP, setMobileOTP, otpO
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex position-relative">
                         <input type="text" value={mobileVal} readOnly placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
-                        <span className={`${styles.changeNumber} top-0 bottom-0 d-inline-flex align-items-center end-0 px-3 position-absolute text-uppercase`} onClick={() => setLoginType('LoginOTP')} role="button">Change</span>
+                        <span className={`${styles.changeNumber} top-0 bottom-0 d-inline-flex align-items-center end-0 px-3 position-absolute text-uppercase`} onClick={() => setLoginType('Register')} role="button">Change</span>
                     </div>
                     <div className="col-12 d-inline-flex position-relative">
                         <input type="tel" placeholder="Enter Mobile OTP" className={`${styles.inputField} col-12 d-inline-flex px-3`} minLength="4" maxLength="4" value={mobileOTP} onChange={(e) => setMobileOTP(e.target.value.replace(/\D/g, ""))} />
                         <span className={`${styles.resendOTp} top-0 bottom-0 d-inline-flex align-items-center end-0 px-3 position-absolute text-uppercase`}  role="button" onClick={() => sendMobileOtp()}>Resend</span>
+                    </div>
+                    {registerType !== 'mobile' ?
+                        <div className="col-12 d-inline-flex position-relative">
+                            <input type="tel" placeholder="Enter Mobile number" className={`${styles.inputField} col-12 d-inline-flex px-3`} value={registrationVal.mobile} onChange={(e) => setRegistrationVal((prev) => ({...prev, mobile: e.target.value.replace(/\D/g, "")}))} />
+                        </div>
+                    : registerType !== 'email' ? 
+                        <div className="col-12 d-inline-flex position-relative">
+                            <input type="email" placeholder="Enter your email address" className={`${styles.inputField} col-12 d-inline-flex px-3`} value={registrationVal.email} onChange={(e) => setRegistrationVal((prev) => ({...prev, email: e.target.value}))} />
+                        </div>
+                    : '' }
+                    <div className="col-12 d-inline-flex position-relative">
+                        <input type="text" placeholder="Enter your name" className={`${styles.inputField} col-12 d-inline-flex px-3`} value={registrationVal.name} onChange={(e) => setRegistrationVal((prev) => ({...prev, name: e.target.value}))} />
+                    </div>
+                    <div className="col-12 d-inline-flex position-relative">
+                        <input type="password" placeholder="Please create your password" className={`${styles.inputField} col-12 d-inline-flex px-3`} value={registrationVal.password} onChange={(e) => setRegistrationVal((prev) => ({...prev, password: e.target.value}))} />
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 mb-4">
@@ -357,6 +418,7 @@ export const LoginPopup = ({setLoginPop}) => {
     const [loginType, setLoginType] = useState('Login');
     const [mobileVal, setMobileVal] = useState('');
     const [mobileOTP, setMobileOTP] = useState('');
+    const [registerType, setRegisterType] = useState('');
     const [otpObj, setOTPObj] = useState({});
 
     const hideLoginPop = () => {
@@ -393,11 +455,11 @@ export const LoginPopup = ({setLoginPop}) => {
                         : loginType === 'LoginOTP' ? 
                             <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
                         : loginType === 'Register' ? 
-                            <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
+                            <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
                         : loginType === 'VerifyOTP' ? 
                             <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
                         : loginType === 'RegVerifyOTP' ? 
-                            <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
+                            <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
                         : ''}
                     </div>
                 </div>

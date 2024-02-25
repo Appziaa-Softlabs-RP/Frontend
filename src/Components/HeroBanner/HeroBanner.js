@@ -24,7 +24,6 @@ export const HeroBanner = ({ allBanner }) => {
   let windowWidth = appData.appData.windowWidth;
 
   const openBannerProd = (verticalId, subCatId, prodId, categoryId) => {
-    console.log(verticalId, subCatId, prodId, categoryId)
     let category = 'Banner';
     if(prodId !== null) {
       const payload = {

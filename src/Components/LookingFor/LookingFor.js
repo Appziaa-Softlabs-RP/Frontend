@@ -27,8 +27,7 @@ export const LookingFor = () => {
 
     useEffect(() => {
         if (categories.length > 0) {
-            console.log('verticalId ',categories);
-        setLoading(false);
+            setLoading(false);
         }
     }, [categories]);
 

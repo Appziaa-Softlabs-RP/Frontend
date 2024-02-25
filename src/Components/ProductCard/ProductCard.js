@@ -62,7 +62,6 @@ export const ProductCard = ({ item, index }) => {
             quantity: 1,
             deal_type_id: dealId
         }
-        console.log(cartInfo);
         if (cartInfo === null) {
             cartInfo = [cardObj];
         } else {
@@ -173,7 +172,7 @@ export const ProductCard = ({ item, index }) => {
     return (
         <React.Fragment>
             <div className={`${styles.singleFeaturedProduct} flex-shrink-0 d-inline-block position-relative overflow-hidden col-12 h-100`} role="button" key={index}>
-                {item.mrp > item.selling_price &&
+                {parseFloat(item.mrp) > parseFloat(item.selling_price) &&
                     <span className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}>{Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}%  OFF</span>
                 }
 
