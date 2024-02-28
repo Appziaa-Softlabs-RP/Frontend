@@ -17,6 +17,14 @@ import { MyAddress } from "../pages/MyAddress/MyAddress";
 import { AddAddress } from "../pages/AddAddress/AddAddress";
 import { CategoryPage } from "../pages/CategoryPage/CategoryPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
+import { Privacy } from "../pages/Privacy/Privacy";
+import { Terms } from "../pages/Terms/Terms";
+import { Return } from "../pages/Return/Return";
+import { Payments } from "../pages/Payments/Payments";
+import { AboutUs } from "../pages/AboutUs/AboutUs";
+import { Faq } from "../pages/Faq/Faq";
+import { Cancellation } from "../pages/Cancellation/Cancellation";
+import { Press } from "../pages/Press/Press";
 
 export const PublicRoutes = () => {
   return (
@@ -53,6 +61,14 @@ export const PublicRoutes = () => {
         path="/add-new-address"
         element={<ProtectedRoutes element={<AddAddress />} />}
       />
+      <Route path="/privacy-policy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/return-policy" element={<Return />} />
+      <Route path="/payments" element={<Payments />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/faq" element={<Faq />} />
+      <Route path="/cancelation" element={<Cancellation />} />
+      <Route path="/press" element={<Press />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

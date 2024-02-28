@@ -22,7 +22,7 @@ export const Footer = () => {
                         <div className={`${styles.footerBlock}`} data-type="menu">
                             <div className={`${styles.footerTitle}`}>About Us</div>
                             <ul className={`${styles.footerMenu} list-unstyled`}>
-                                <li><Link className="text-decoration-none d-inline-flex">About Us</Link></li>
+                                <li><Link to="/about-us" className="text-decoration-none d-inline-flex">About Us</Link></li>
                                 <li><Link className="text-decoration-none d-inline-flex">Our Team</Link></li>
                                 <li><Link className="text-decoration-none d-inline-flex">Press</Link></li>
                                 <li><Link className="text-decoration-none d-inline-flex">Our Stores</Link></li>
@@ -32,16 +32,16 @@ export const Footer = () => {
                             <div className={`${styles.footerTitle}`}>Get Help</div>
                             <ul className={`${styles.footerMenu} list-unstyled`}>
                                 <li><Link className="text-decoration-none d-inline-flex">Cancellation</Link></li>
-                                <li><Link className="text-decoration-none d-inline-flex">Payments</Link></li>
+                                <li><Link to="/payments" className="text-decoration-none d-inline-flex">Payments</Link></li>
                                 <li><Link className="text-decoration-none d-inline-flex">FAQ</Link></li>
                             </ul>
                         </div>
                         <div className={`${styles.footerBlock}`} data-type="menu">
                             <div className={`${styles.footerTitle}`}>Policies</div>
                             <ul className={`${styles.footerMenu} list-unstyled`}>
-                                <li><Link className="text-decoration-none d-inline-flex">Privacy</Link></li>
-                                <li><Link className="text-decoration-none d-inline-flex">Terms &amp; Conditions</Link></li>
-                                <li><Link className="text-decoration-none d-inline-flex">Return Policies</Link></li>
+                                <li><Link to="/privacy-policy" className="text-decoration-none d-inline-flex">Privacy</Link></li>
+                                <li><Link to="/terms" className="text-decoration-none d-inline-flex">Terms &amp; Conditions</Link></li>
+                                <li><Link to="/return-policy" className="text-decoration-none d-inline-flex">Return Policies</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -65,24 +65,24 @@ export const Footer = () => {
                             <div className={`${styles.footerTitle}`}>Follow us</div>
                             <ul className={`${styles.footerMenu} d-inline-flex flex-column gap-2 list-unstyled`}>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="https://www.instagram.com/knickknacktoys42/" title={`${enviroment.BUSINESS_NAME} on Instagram`}>
+                                    <Link to={enviroment.INSTAGRAM_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Instagram`}>
                                     <InstagramIcon />
                                     <span className="icon__fallback-text">Instagram</span></Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="https://www.facebook.com/knickknacktoys42" title={`${enviroment.BUSINESS_NAME} on Facebook`}>
+                                    <Link to={enviroment.FACEBOOK_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Facebook`}>
                                         <FacebookIcon />
                                         <span className="icon__fallback-text">Facebook</span>
                                     </Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="" title={`${enviroment.BUSINESS_NAME}  on Twitter`}>
+                                    <Link to={enviroment.TWITTER_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME}  on Twitter`}>
                                         <TwitterIcon/>
                                         <span className="icon__fallback-text">Twitter</span>
                                     </Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" to="" title={`${enviroment.BUSINESS_NAME} on LinkedIn`}>
+                                    <Link to={enviroment.LINKEDIN_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on LinkedIn`}>
                                         <LinkedInIcon />
                                         <span className="icon__fallback-text">LinkedIn</span>
                                     </Link>
@@ -133,7 +133,7 @@ export const Footer = () => {
                                 <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>About Us</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link className="text-decoration-none" to="">About Us</Link></li>
+                                        <li><Link to="/about-us" className="text-decoration-none">About Us</Link></li>
                                         <li><Link className="text-decoration-none" to="">Our Team</Link></li>
                                         <li><Link className="text-decoration-none" to="">Press</Link></li>
                                         <li><Link className="text-decoration-none" to="">Our Stores</Link></li>
@@ -143,16 +143,16 @@ export const Footer = () => {
                                     <h5>Get Help</h5>
                                     <ul className="list-unstyled">
                                         <li><Link className="text-decoration-none" to="">Cancellation</Link></li>
-                                        <li><Link className="text-decoration-none" to="">Payments</Link></li>
+                                        <li><Link className="text-decoration-none" to="/payments">Payments</Link></li>
                                         <li><Link className="text-decoration-none" to="">FAQ</Link></li>
                                     </ul>
                                 </div>
                                 <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Policies</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link className="text-decoration-none" to="">Privacy</Link></li>
-                                        <li><Link className="text-decoration-none" to="">Terms & Conditions</Link></li>
-                                        <li><Link className="text-decoration-none" to="">Return Policies</Link></li>
+                                        <li><Link className="text-decoration-none" to="/privacy-policy">Privacy</Link></li>
+                                        <li><Link className="text-decoration-none" to="/terms">Terms & Conditions</Link></li>
+                                        <li><Link className="text-decoration-none" to="/return-policy">Return Policies</Link></li>
                                     </ul>
                                 </div>
                                 <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
