@@ -14,6 +14,9 @@ import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
 import { AppNotification } from "../../utils/helper";
 import { enviroment } from "../../enviroment";
 import axios from "axios";
+import delivery from '../../assets/images/free-delivery.png';
+import orignal from '../../assets/images/original.png';
+import replacement from '../../assets/images/7-days-money-back-guarantee-icon.png';
 
 let otherInfo = false;
 export const ProductPage = () => {
@@ -317,37 +320,23 @@ export const ProductPage = () => {
             ) : windowWidth === 'desktop' ? (
                 <React.Fragment>
                     <Header />
-                    <div className="col-12 d-inline-flex mt-5">
+                    <div className="col-12 d-inline-flex">
                         <div className="container">
-                            <div className={`col-12 d-inline-flex align-items-start position-relative p-3 mb-4`}>
-                                <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-7 p-3 position-sticky top-0`}>
-                                    <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
-                                        <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
-                                    </div>
-                                    <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={false} items={6}>
-                                        {ProductData?.gallery?.map((item, index) => {
-                                            return (
-                                                <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
-                                                    <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
-                                                </div>
-                                            )
-                                        })}
-                                    </ReactOwlCarousel>
-                                </div>
-                                <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-5 align-items-start justify-content-start px-4`}>
-                                    <h2 className={`${styles.productDetailName} col-12 mb-1`}>{ProductData.name}</h2>
-                                    <span className='ml-3 mb-1'>Item Code: {ProductData?.barcode} </span>
-                                    <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
-                                        <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>Special Price</h2>
-                                        {ProductData.selling_price === ProductData.mrp ? (
-                                            <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
-                                        ) : (
-                                            <div className="col-12 d-inline-flex align-items-center gap-3">
-                                                <span className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}><b>₹{ProductData.selling_price}</b><del>₹{ProductData.mrp}</del></span>
-                                                {prodDiscount !== '' &&
-                                                    <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span>}
-                                            </div>
-                                        )}
+                            <div className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}>
+                                <div className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}>
+                                    <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 p-3`}>
+                                        <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
+                                            <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
+                                        </div>
+                                        <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={false} items={6}>
+                                            {ProductData?.gallery?.map((item, index) => {
+                                                return (
+                                                    <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
+                                                        <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
+                                                    </div>
+                                                )
+                                            })}
+                                        </ReactOwlCarousel>
                                     </div>
                                     {ProductData?.description !== '' && ProductData?.description !== null && ProductData?.description !== "Not available" &&
                                         <div className={`col-12 d-inline-flex flex-column my-3`}>
@@ -361,12 +350,46 @@ export const ProductPage = () => {
                                             }
                                         </div>
                                     }
+                                </div>
+                                <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}>
+                                    <h2 className={`${styles.productDetailName} col-12 mb-1 mt-4`}>{ProductData.name}</h2>
+                                    <span className='ml-3 mb-1'>Item Code: {ProductData?.barcode} </span>
+                                    <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
+                                        <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>Special Price</h2>
+                                        {ProductData.selling_price === ProductData.mrp ? (
+                                            <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
+                                        ) : (
+                                            <div className="col-12 d-inline-flex align-items-center gap-3">
+                                                <span className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}><b>₹{ProductData.selling_price}</b><del>₹{ProductData.mrp}</del></span>
+                                                {prodDiscount !== '' &&
+                                                    <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span>}
+                                            </div>
+                                        )}
+                                    </div>
+                                    
                                     <span role="button" className={`${styles.continueShop} ${ProductData.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                    <div className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}>
+                                        <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
+                                            <img src={delivery} alt="delivery" className="object-fit-contain"/>
+                                            <h6 className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}>Free Home Delivery</h6>
+                                            <p className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}>More than 19,000 pincodes, seamlessly connected.</p>
+                                        </div>
+                                        <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
+                                            <img src={orignal} alt="orignal" className="object-fit-contain"/>
+                                            <h6 className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}>100% Original</h6>
+                                            <p className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}>Backed by manufacturer warranty.</p>
+                                        </div>
+                                        <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
+                                            <img src={replacement} alt="replacement" className="object-fit-contain"/>
+                                            <h6 className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}>7 Days Replacement</h6>
+                                            <p className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}>Shop risk-free with our 7-day return policy.</p>
+                                        </div>
+                                    </div>
                                     <div className="col-12 d-inline-block mt-3 mb-3">
                                         <h3 className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}>Delivery &amp; Services</h3>
                                         <div className={`col-12 d-inline-block`}>
                                             <div className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}>
-                                                <LocationIcon color="#151515" />
+                                                <LocationIcon color={enviroment.PRIMARY_COLOR} />
                                                 <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => getDeliveyPincode(e.target.value)} value={pincode} />
                                                 <button onClick={() => getDeliveyInfo(pincode)} type="button" className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}>Check</button>
                                             </div>

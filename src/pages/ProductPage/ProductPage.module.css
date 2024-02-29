@@ -149,9 +149,9 @@
     font-weight: 700;
 }
 .deliveryInputBox svg{
-    height: 20px;
-    width: 20px;
-    top: 15px;
+    height: 30px;
+    width: 30px;
+    top: 10px;
     left: 5px;
     z-index: 5;
     position: absolute;
@@ -199,12 +199,39 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+.assuredBox img {
+    height: 50px;
+    width: 50px;
+}
+.assuredTitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #151515;
+}
+.assuredDesc {
+    font-size: 12px;
+    color: #151515;
+}
+.qualityAssured {
+    border: 1px solid #686868;
+    border-radius: 4px;
+    background: #FFF;
+}
+.productDetailBox {
+    background: #FFF;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: 600;
     }
     .continueShop{
         width: 100%;
+    }
+    .offerPrice{
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: 500;
     }
 }
