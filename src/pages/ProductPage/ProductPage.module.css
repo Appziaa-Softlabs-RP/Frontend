@@ -220,6 +220,62 @@
 .productDetailBox {
     background: #FFF;
 }
+.shareIcon {
+    z-index: 1055;
+}
+.shareIcon svg{
+    height: 20px;
+    width: 20px;
+}
+.productShare {
+    z-index: 2000;
+    background: rgba(0,0,0,0.90);
+}
+.closeIcon {
+    height: 35px;
+    width: 35px;
+}
+.closeIcon svg {
+    height: 18px;
+    width: 18px;
+}
+.productShareContainer {
+	background: #fff;
+	border-radius: 10px;
+}
+.shareProdTitle {
+	font-size: 30px;
+	line-height: 50px;
+	color: #000;
+}
+.prodCustomUrl .customUrl {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.prodCustomUrl {
+	background: #ddd;
+	border-radius: 5px;
+	color: #000;
+	font-size: 15px;
+	height: 40px;
+}
+.copyLink {
+	background: #aaa;
+	height: 40px;
+	width: 40px;
+	right: 0px;
+	top: 0;
+	cursor: pointer;
+}
+.copyLink svg {
+    height: 20px;
+    width: 20px;
+}
+.socialShare .shareicon svg {
+    height: 40px;
+    width: 40px;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
         font-size: 28px;

@@ -33,7 +33,7 @@ export const HeroBanner = ({ allBanner }) => {
       }
       ApiService.productDetails(payload).then((res) => {
           if (res.message === "Product Detail") {
-              navigate('/product', { state: { product: res.payload } })
+              navigate(`/product?id=${prodId}`, { state: { product: res.payload } })
           } else {
               AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
           }

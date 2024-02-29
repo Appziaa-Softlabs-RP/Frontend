@@ -4,24 +4,26 @@ import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
-import { DownArrowIcon, LocationIcon } from "../../Components/siteIcons";
+import { CrossIcon, DownArrowIcon, FacebookIcon, LocationIcon, ShareIcon, TwitterIcon, WhatsAppIcon, PinterestIcon, CopyIcon } from "../../Components/siteIcons";
 import { AppNotification } from "../../utils/helper";
 import { enviroment } from "../../enviroment";
 import axios from "axios";
 import delivery from '../../assets/images/free-delivery.png';
 import orignal from '../../assets/images/original.png';
 import replacement from '../../assets/images/7-days-money-back-guarantee-icon.png';
+import ApiService from "../../services/ApiService";
 
 let otherInfo = false;
 export const ProductPage = () => {
     const appData = useApp();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const locationState = useLocation();
     const [prodMainImg, setProdMainImg] = useState(0);
     const [pincode, setPincode] = useState('');
@@ -31,9 +33,12 @@ export const ProductPage = () => {
     const [descActive, setDescActive] = useState(true);
     const [prodAdded, setProdAdded] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
+    const [prodSharePop, setProdSharePop] = useState(false);
+    const [ProductData, setProductData] = useState(locationState?.state?.product);
+    const [shareProdName, setShareProdName] = useState(encodeURIComponent(ProductData?.name));
     const userInfo = appData?.appData?.user;
     let windowWidth = appData.appData.windowWidth;
-    const ProductData = locationState?.state?.product;
+    const pageCurrentURL = encodeURIComponent(window.location.href);
 
     const setMainImage = (image, count) => {
         setActiveImg(count);
@@ -199,47 +204,91 @@ export const ProductPage = () => {
         navigate('/checkout');
     }
 
+    const copylinkUrl = () => {
+        var copyText = document.getElementById("myUrlInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        AppNotification('Copied', 'URL Copied to clipboard.', 'success');
+    }
+
     useEffect(() => {
         checkProdAdded();
     }, [appData.appData.cartData]);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        setProdMainImg(ProductData.image);
-
-        let discountOff = '',
-        ProductMrp = parseFloat(ProductData?.mrp),
-        ProdutSellPrice = parseFloat(ProductData?.selling_price);
-
-        if (ProductMrp > ProdutSellPrice) {
-            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
-            discountOff = Math.ceil(discountOff);
-            setProdDiscount(discountOff);
-        }
-        
-        Object.values(ProductData?.other).map((item) => {
-            if (item !== '' && item !== null && item !== undefined) {
-                otherInfo = true;
+        if(ProductData === undefined){
+            let prodId = searchParams.get('id');
+            const payload = {
+                product_id: prodId,
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID)
             }
-        });
+            ApiService.productDetails(payload).then((res) => {
+                if (res.message === "Product Detail") {
+                    setProductData(res.payload);
+                } else {
+                    AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+            });
+        }else{
+            window.scrollTo(0, 0);
+            setProdMainImg(ProductData?.image);
+
+            let discountOff = '',
+            ProductMrp = parseFloat(ProductData?.mrp),
+            ProdutSellPrice = parseFloat(ProductData?.selling_price);
+
+            if (ProductMrp > ProdutSellPrice) {
+                discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+                discountOff = Math.ceil(discountOff);
+                setProdDiscount(discountOff);
+            }
+            
+            Object.values(ProductData?.other).map((item) => {
+                if (item !== '' && item !== null && item !== undefined) {
+                    otherInfo = true;
+                }
+            });
+        }
     }, [locationState?.state?.product]);
 
     useEffect(() => {
-        let discountOff = '',
-        ProductMrp = parseFloat(ProductData?.mrp),
-        ProdutSellPrice = parseFloat(ProductData?.selling_price);
-
-        if (ProductMrp > ProdutSellPrice) {
-            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
-            discountOff = Math.ceil(discountOff);
-            setProdDiscount(discountOff);
-        }
-        
-        Object.values(ProductData?.other).map((item) => {
-            if (item !== '' && item !== null && item !== undefined) {
-                otherInfo = true;
+        if(ProductData === undefined){
+            let prodId = searchParams.get('id');
+            const payload = {
+                product_id: prodId,
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID)
             }
-        });
+            ApiService.productDetails(payload).then((res) => {
+                if (res.message === "Product Detail") {
+                    setProductData(res.payload);
+                } else {
+                    AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+            });
+        }else{
+            let discountOff = '',
+            ProductMrp = parseFloat(ProductData?.mrp),
+            ProdutSellPrice = parseFloat(ProductData?.selling_price);
+
+            if (ProductMrp > ProdutSellPrice) {
+                discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+                discountOff = Math.ceil(discountOff);
+                setProdDiscount(discountOff);
+            }
+            
+            Object.values(ProductData?.other).map((item) => {
+                if (item !== '' && item !== null && item !== undefined) {
+                    otherInfo = true;
+                }
+            });
+        }
     }, []);
     return (
         <React.Fragment>
@@ -247,7 +296,7 @@ export const ProductPage = () => {
                 <React.Fragment>
                     <PageHeader title={ProductData?.name} />
                     <div className="col-12 d-inline-block position-relative">
-                        {ProductData.stock === 0 &&
+                        {ProductData?.stock === 0 &&
                             <div className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}>
                                 <span className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}>Sold Out</span>
                             </div>
@@ -256,7 +305,7 @@ export const ProductPage = () => {
                             {ProductData?.gallery?.map((item, index) => {
                                 return (
                                     <div className={`col-12 d-inline-block`} key={index}>
-                                        <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
+                                        <img src={item.image_url} alt={ProductData?.name} className="object-fit-cover col-12 d-inline-block" />
                                     </div>
                                 )
                             })}
@@ -264,14 +313,14 @@ export const ProductPage = () => {
                     </div>
 
                     <div className={`${styles.productAllDetail} col-12 d-inline-block p-4`}>
-                        <h2 className={`${styles.productDetailName} col-12 mb-1`}>{ProductData.name}</h2>
+                        <h2 className={`${styles.productDetailName} col-12 mb-1`}>{ProductData?.name}</h2>
                         <span className='ml-3 mb-2'>Item Code: {ProductData?.barcode} </span>
                         <div className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}>
-                            {ProductData.selling_price === ProductData.mrp ? (
-                                <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
+                            {ProductData?.selling_price === ProductData?.mrp ? (
+                                <span className={`${styles.offerPrice}`}><b>₹{ProductData?.mrp}</b></span>
                             ) : (
                                 <React.Fragment>
-                                    <span className={`${styles.offerPrice}`}><b>₹{ProductData.selling_price}</b> <del>₹{ProductData.mrp}</del></span>
+                                    <span className={`${styles.offerPrice}`}><b>₹{ProductData?.selling_price}</b> <del>₹{ProductData?.mrp}</del></span>
                                     {prodDiscount !== '' &&
                                         <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span>}
                                 </React.Fragment>
@@ -309,12 +358,12 @@ export const ProductPage = () => {
                         }
                     </div>
                     <div className={`col-12 d-inline-block mb-5`}>
-                        <FeaturedProducts product={ProductData.featured} />
-                        <SimilarProduct product={ProductData.similar} />
+                        <FeaturedProducts product={ProductData?.featured} />
+                        <SimilarProduct product={ProductData?.similar} />
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={() => showCheckoutPage()}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} ${ProductData.stock === 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
+                        <span className={`${styles.AddCartBtn} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -324,15 +373,18 @@ export const ProductPage = () => {
                         <div className="container">
                             <div className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}>
                                 <div className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}>
-                                    <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 p-3`}>
+                                    <div className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}>
                                         <div className={`${styles.productMainImage} col-12 d-inline-block position-relative`}>
-                                            <img src={prodMainImg} alt={ProductData.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
+                                            <span className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`} role="button" onClick={() => setProdSharePop(true)}>
+                                                <ShareIcon color="#CF112D" />
+                                            </span>
+                                            <img src={prodMainImg} alt={ProductData?.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
                                         </div>
-                                        <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox`} margin={10} loop={false} dots={false} items={6}>
+                                        <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`} margin={10} loop={false} dots={false} items={6}>
                                             {ProductData?.gallery?.map((item, index) => {
                                                 return (
                                                     <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
-                                                        <img src={item.image_url} alt={ProductData.name} className="object-fit-cover col-12 d-inline-block" />
+                                                        <img src={item.image_url} alt={ProductData?.name} className="object-fit-cover col-12 d-inline-block" />
                                                     </div>
                                                 )
                                             })}
@@ -352,22 +404,22 @@ export const ProductPage = () => {
                                     }
                                 </div>
                                 <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}>
-                                    <h2 className={`${styles.productDetailName} col-12 mb-1 mt-4`}>{ProductData.name}</h2>
+                                    <h2 className={`${styles.productDetailName} col-12 mb-1 mt-4`}>{ProductData?.name}</h2>
                                     <span className='ml-3 mb-1'>Item Code: {ProductData?.barcode} </span>
                                     <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
                                         <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>Special Price</h2>
-                                        {ProductData.selling_price === ProductData.mrp ? (
-                                            <span className={`${styles.offerPrice}`}><b>₹{ProductData.mrp}</b></span>
+                                        {ProductData?.selling_price === ProductData?.mrp ? (
+                                            <span className={`${styles.offerPrice}`}><b>₹{ProductData?.mrp}</b></span>
                                         ) : (
                                             <div className="col-12 d-inline-flex align-items-center gap-3">
-                                                <span className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}><b>₹{ProductData.selling_price}</b><del>₹{ProductData.mrp}</del></span>
+                                                <span className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}><b>₹{ProductData?.selling_price}</b><del>₹{ProductData?.mrp}</del></span>
                                                 {prodDiscount !== '' &&
                                                     <span className={`${styles.offerPercentage} d-inline-flex`}>{prodDiscount}% &nbsp;OFF</span>}
                                             </div>
                                         )}
                                     </div>
                                     
-                                    <span role="button" className={`${styles.continueShop} ${ProductData.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                    <span role="button" className={`${styles.continueShop} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
                                     <div className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}>
                                         <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
                                             <img src={delivery} alt="delivery" className="object-fit-contain"/>
@@ -407,7 +459,7 @@ export const ProductPage = () => {
                                                     </p>
                                                     ): ''}
 
-                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>Shop No-42, Cycle Market, Block E 4, Jhandewalan Extension, Jhandewalan, New Delhi, Delhi 110055</strong></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>42, Cycle Market, Jhandewalan Extension, New Delhi 110055.</strong></p>
                                                     <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`} to={`tel:${enviroment.PHONE_NUMBER}`} id="storeTel">{enviroment.PHONE_NUMBER}</Link></span></p>
                                                     <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link to="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6" target="_blank" className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}>Google Map</Link></span></p>
                                                 </div>
@@ -419,14 +471,40 @@ export const ProductPage = () => {
                         </div>
                     </div>
                     <div className={`col-12 d-inline-block mb-5`}>
-                        <FeaturedProducts product={ProductData.featured} />
-                        <SimilarProduct product={ProductData.similar} />
+                        <FeaturedProducts product={ProductData?.featured} />
+                        <SimilarProduct product={ProductData?.similar} />
                     </div>
                     <Footer />
                 </React.Fragment>
             ) : (
                 <React.Fragment></React.Fragment>
             )}
+            <div className={`${styles.productShare} position-fixed top-0 bottom-0 start-0 end-0 align-items-center justify-content-center ${prodSharePop === true ? 'd-inline-flex' : 'd-none'}`}>
+                <div className={`${styles.productShareContainer} col-4 d-inline-flex flex-column position-relative p-3`}>
+                    <div className="col-12 d-inline-flex align-items-center justify-content-between px-2 mb-4">
+                        <h4 className={`${styles.shareProdTitle} d-inline-flex`}>Share this product</h4>
+                        <span role="button" onClick={() => setProdSharePop(false)} className={`${styles.closeIcon} d-inline-flex align-items-center justify-content-center`}>
+                            <CrossIcon color="#000" />
+                        </span>
+                    </div>
+                    <div className="col-12 mb-5 d-inline-flex justify-content-center align-items-center">
+						<div className={`${styles.prodCustomUrl} col-10 position-relative d-inline-flex align-items-center`}>
+							<span className={`${styles.customUrl} col-12 d-inline-block p-2 `}>{window.location.href}</span>
+                            <span className={`${styles.copyLink} position-absolute d-inline-flex align-items-center justify-content-center`} onClick={() => copylinkUrl()}>
+                                <CopyIcon color="#000" />    
+                            </span>
+							<input type="text" value={window.location.href} className="d-none" id="myUrlInput"/>
+						</div>
+					</div>
+
+                    <div className={`${styles.socialShare} col-12 d-inline-flex justify-content-evenly align-items-center mb-5`}>
+						<Link to={`https://facebook.com/sharer/sharer.php?u=${pageCurrentURL}`} target="_blank" id="ShareFacebook" className={`${styles.shareicon} col-3 text-center d-inline-block`}><FacebookIcon color="#3b5998" /></Link>
+						<Link to={`https://pinterest.com/pin/create/bookmarklet/?&url=${pageCurrentURL}&description=${shareProdName}`} target="_blank" id="SharePinterest" className={`${styles.shareicon} col-3 text-center d-inline-block`}><PinterestIcon color="#ce2029" /></Link>
+						<Link to={`https://twitter.com/share?url=${pageCurrentURL}&text=${shareProdName}`} target="_blank" id="ShareTwitter" className={`${styles.shareicon} col-3 text-center d-inline-block`}><TwitterIcon color="#00b0ed" /></Link>
+						<Link to={`https://web.whatsapp.com://send?text=${pageCurrentURL}${shareProdName}`} target="_blank" id="ShareWhatsapp" className={`${styles.shareicon} col-3 text-center d-inline-block`}><WhatsAppIcon color="#4ced69" /></Link>
+					</div>
+                </div>
+            </div>
         </React.Fragment>
     )
 }

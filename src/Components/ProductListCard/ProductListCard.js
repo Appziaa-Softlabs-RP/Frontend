@@ -28,7 +28,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
         }
         ApiService.productDetails(payload).then((res) => {
             if (res.message === "Product Detail") {
-                navigate('/product', { state: { product: res.payload } })
+                navigate(`/product?id=${id}`, { state: { product: res.payload } })
             } else {
                 AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
             }
