@@ -27,7 +27,7 @@ const LoginPassword = ({ setLoginType }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -68,7 +68,7 @@ const LoginOTP = ({ setLoginType, mobileVal, setMobileVal, setOTPObj }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
