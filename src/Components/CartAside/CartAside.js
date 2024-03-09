@@ -112,6 +112,7 @@ export const CartAside = ({ setCartPop }) => {
 
     const showCheckoutPage = () => {
         navigate('/checkout');
+        closeDrawer();
     }
 
     useEffect(() => {

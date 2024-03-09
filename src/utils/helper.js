@@ -1,5 +1,3 @@
-import ApiService from "../services/ApiService";
-import { enviroment } from "../enviroment";
 import { Store } from 'react-notifications-component';
 
 export const AppNotification = (title, message, type) => {

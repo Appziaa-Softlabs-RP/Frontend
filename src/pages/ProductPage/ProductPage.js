@@ -25,10 +25,10 @@ export const ProductPage = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const locationState = useLocation();
-    const [prodMainImg, setProdMainImg] = useState(0);
+    const [prodMainImg, setProdMainImg] = useState('');
     const [pincode, setPincode] = useState('');
     const [deliveryDetail, setDeliveryDetail] = useState({});
-    const [activeImg, setActiveImg] = useState(0);
+    const [activeImg, setActiveImg] = useState('');
     const [prodDiscount, setProdDiscount] = useState(0);
     const [descActive, setDescActive] = useState(true);
     const [prodAdded, setProdAdded] = useState(false);
@@ -58,24 +58,24 @@ export const ProductPage = () => {
     }
 
     const addToCart = (e, item) => {
-        let cartInfo = appData?.appData?.cartData;
         e.preventDefault();
-        let ProdId = item.product_id;
-        let prodName = item?.name;
-        let Mrp = item?.mrp;
-        let sellingPrice = item?.selling_price;
+        let cartInfo = appData?.appData?.cartData;
+        let ProdId = ProductData.product_id ? ProductData.product_id : ProductData?.id;
+        let prodName = ProductData?.name;
+        let Mrp = ProductData?.mrp;
+        let sellingPrice = ProductData?.selling_price;
         let Quantity = 1;
-        let noQty = item?.no_of_q_a;
-        let dealType = item?.deal_type ? item?.deal_type : 0;
-        let dealId = item?.deal_type_id;
+        let noQty = ProductData?.no_of_quantity_allowed;
+        let dealType = ProductData?.deal_type ? ProductData?.deal_type : 0;
+        let dealId = ProductData?.deal_type_id;
 
         let cardObj = {
             company_id: parseInt(enviroment.COMPANY_ID),
             store_id: parseInt(enviroment.STORE_ID),
             product_id: ProdId,
-            image: item?.image,
+            image: ProductData?.image ? ProductData.image : ProductData?.image_url,
             product_name: prodName,
-            no_of_quantity_allowed: item?.no_of_quantity_allowed,
+            no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
             mrp: Mrp,
             selling_price: sellingPrice,
@@ -85,38 +85,90 @@ export const ProductPage = () => {
         if (cartInfo === null) {
             cartInfo = [cardObj];
         } else {
-            let cartID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+            let cartID = cartInfo?.findIndex((obj) => obj.product_id === ProdId);
             if (cartID === null || cartID === undefined || cartID === -1) {
                 cartInfo.push(cardObj);
             }
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
+        AppNotification('Success', 'Product added into the cart successfully.', 'success');
+
+        let cartDataJson = [{
+            product_id: ProdId,
+            product_name: prodName,
+            mrp: Mrp,
+            selling_price:sellingPrice,
+            quantity: Quantity,
+            no_of_quantity_allowed: noQty,
+            is_hot_deals: dealType,
+            deal_type_id: dealId
+        }];
 
         if (appData.appData?.user?.customer_id) {
-            
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userInfo.customer_id,
+                cartJson: JSON.stringify(cartDataJson)
+            }
+            ApiService.addMultipleCart(payload).then((res) => {
+                if(res?.message === 'Add successfully.'){
+                    appData.setAppData({ ...appData.appData, cartSaved: true });
+                    localStorage.setItem('cartSaved', true);
+                    let resCart = res.payload_cartList_items;
+                    let resProdId = resCart.findIndex((obj) => obj.product_id === ProdId);
+                    let cartID = resCart[resProdId].cart_id;
+                    let cartProdID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
+                    cartInfo[cartProdID].cart_id = cartID;
+                    
+                    appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
+                    localStorage.setItem('cartData', JSON.stringify(cartInfo));
+                }
+            }).catch((err) => {
+                return err;
+            });
         }
         e.stopPropagation();
     }
+    
 
-    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+    const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let cartID = cartInfo.findIndex((obj) => obj.product_id === prodID);
+        let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
-            if (currQty === allowQty) {
+            if(stock >= currQty){
+                if (currQty === allowQty) {
+                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+                } else {
+                    let newQty = currQty + 1;
+                    cartInfo[cartProdID].quantity = newQty;
+                }
+            }else {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
-            } else {
-                let newQty = currQty + 1;
-                cartInfo[cartID].quantity = newQty;
             }
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
+                let cartID = cartInfo[cartProdID].cart_id;
+                if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
+                    const payload = {
+                        store_id: parseInt(enviroment.STORE_ID),
+                        customer_id: userInfo.customer_id,
+                        cart_id: cartID
+                    }
+                    ApiService.removeCart(payload).then((res) => {
+
+                    }).catch((err) => {
+
+                    });
+                }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
+                AppNotification('Success', 'Product removed from cart successfully', 'success');
             } else {
-                cartInfo[cartID].quantity = newQty;
+                cartInfo[cartProdID].quantity = newQty;
             }
         }
         appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
@@ -126,7 +178,8 @@ export const ProductPage = () => {
 
     const checkProdAdded = () => {
         if (appData.appData.cartData?.length) {
-            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === ProductData?.product_id);
+            let productID = ProductData?.product_id ? ProductData.product_id : ProductData.id
+            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === productID);
             if (cartID !== -1) {
                 setProdAdded(true);
                 setProdAddedQty(appData.appData.cartData[cartID].quantity);
@@ -235,6 +288,7 @@ export const ProductPage = () => {
             });
         }else{
             window.scrollTo(0, 0);
+            setProductData(locationState?.state?.product)
             setProdMainImg(ProductData?.image);
 
             let discountOff = '',
@@ -247,49 +301,39 @@ export const ProductPage = () => {
                 setProdDiscount(discountOff);
             }
             
-            Object.values(ProductData?.other).map((item) => {
-                if (item !== '' && item !== null && item !== undefined) {
-                    otherInfo = true;
-                }
-            });
+            if(ProductData?.specifications !== null || ProductData?.specifications !== undefined){
+                Object.values(ProductData?.specifications).map((item) => {
+                    if (item !== '' && item !== null && item !== undefined) {
+                        otherInfo = true;
+                    }
+                });
+            }
         }
     }, [locationState?.state?.product]);
 
-    useEffect(() => {
-        if(ProductData === undefined){
-            let prodId = searchParams.get('id');
-            const payload = {
-                product_id: prodId,
-                company_id: parseInt(enviroment.COMPANY_ID),
-                store_id: parseInt(enviroment.STORE_ID)
-            }
-            ApiService.productDetails(payload).then((res) => {
-                if (res.message === "Product Detail") {
-                    setProductData(res.payload);
-                } else {
-                    AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-                }
-            }).catch((err) => {
-                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-            });
-        }else{
-            let discountOff = '',
-            ProductMrp = parseFloat(ProductData?.mrp),
-            ProdutSellPrice = parseFloat(ProductData?.selling_price);
+    useEffect(() => {    
+        setShareProdName(encodeURIComponent(ProductData?.name));
+        setProdAddedQty(ProductData.no_of_quantity_allowed);
+        setProdMainImg(ProductData?.image);
+        let discountOff = '',
+        ProductMrp = parseFloat(ProductData?.mrp),
+        ProdutSellPrice = parseFloat(ProductData?.selling_price);
 
-            if (ProductMrp > ProdutSellPrice) {
-                discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
-                discountOff = Math.ceil(discountOff);
-                setProdDiscount(discountOff);
-            }
-            
-            Object.values(ProductData?.other).map((item) => {
+        if (ProductMrp > ProdutSellPrice) {
+            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+            discountOff = Math.ceil(discountOff);
+            setProdDiscount(discountOff);
+        }
+        
+        if(ProductData?.specifications !== null || ProductData?.specifications !== undefined){
+            Object.values(ProductData?.specifications).map((item) => {
                 if (item !== '' && item !== null && item !== undefined) {
                     otherInfo = true;
                 }
             });
         }
-    }, []);
+    }, [ProductData]);
+
     return (
         <React.Fragment>
             {windowWidth === "mobile" ? (
@@ -405,7 +449,18 @@ export const ProductPage = () => {
                                 </div>
                                 <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}>
                                     <h2 className={`${styles.productDetailName} col-12 mb-1 mt-4`}>{ProductData?.name}</h2>
-                                    <span className='ml-3 mb-1'>Item Code: {ProductData?.barcode} </span>
+                                    <div className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}>
+                                        {ProductData?.gender ? ProductData?.gender+'Y+' : ''}
+                                        {ProductData?.gender !== null && ProductData?.gender_name !== null &&
+                                            <span className={`${styles.spaceLine} d-inline-flex`}>|</span>
+                                        }
+                                        {ProductData?.gender_name ? ProductData?.gender_name : ''}
+                                        {ProductData?.brand_name !== null && ProductData?.gender_name !== null &&
+                                            <span className={`${styles.spaceLine} d-inline-flex`}>|</span>
+                                        }
+                                        {ProductData?.brand_name ? ProductData?.brand_name : ''}
+                                    </div>
+                                    <span className='ml-3 mb-0'>Item Code: {ProductData?.barcode} </span>
                                     <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
                                         <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>Special Price</h2>
                                         {ProductData?.selling_price === ProductData?.mrp ? (
@@ -418,8 +473,17 @@ export const ProductPage = () => {
                                             </div>
                                         )}
                                     </div>
-                                    
-                                    <span role="button" className={`${styles.continueShop} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                    {!prodAdded ? (
+                                        <span role="button" className={`${styles.continueShop} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                    ) : (
+                                        <div className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}>
+                                            <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'minus', ProductData?.stock)} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                            <span className="d-inline-flex flex-shrink-0">
+                                                <input type="text" readOnly value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`} />
+                                            </span>
+                                            <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'plus', ProductData?.stock)} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                        </div>
+                                    )}
                                     <div className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}>
                                         <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
                                             <img src={delivery} alt="delivery" className="object-fit-contain"/>
@@ -442,7 +506,7 @@ export const ProductPage = () => {
                                         <div className={`col-12 d-inline-block`}>
                                             <div className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}>
                                                 <LocationIcon color={enviroment.PRIMARY_COLOR} />
-                                                <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => getDeliveyPincode(e.target.value)} value={pincode} />
+                                                <input type="number" className={`${styles.deliveryInput} col-12 d-inline-block position-relative`} maxLength="6" minLength="6" placeholder="Enter Delivery Pincode" onChange={(e) => getDeliveyPincode(e.target.value)} value={pincode || ''} />
                                                 <button onClick={() => getDeliveyInfo(pincode)} type="button" className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}>Check</button>
                                             </div>
                                             <span className={`${styles.checkZiperror} col-12 d-inline-block`}></span>
@@ -493,7 +557,7 @@ export const ProductPage = () => {
                             <span className={`${styles.copyLink} position-absolute d-inline-flex align-items-center justify-content-center`} onClick={() => copylinkUrl()}>
                                 <CopyIcon color="#000" />    
                             </span>
-							<input type="text" value={window.location.href} className="d-none" id="myUrlInput"/>
+							<input type="text" readOnly={true} value={window.location.href} className="d-none" id="myUrlInput"/>
 						</div>
 					</div>
 

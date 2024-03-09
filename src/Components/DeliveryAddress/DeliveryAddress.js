@@ -133,8 +133,11 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
                     appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
                     localStorage.setItem('cartData', JSON.stringify(emptyCartData));
                     navigate('/my-orders');
+                }else {
+                    AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
                 }
             }).catch((err) => {
+                AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
             })
         }
     }

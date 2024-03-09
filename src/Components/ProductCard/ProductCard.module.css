@@ -137,6 +137,13 @@
     font-size: 20px;
     padding-bottom: 5px;
 }
+.galleryImage {
+    opacity: 0;
+    transition: all ease 200ms;
+}
+.featuredImageBox:hover .galleryImage {
+    opacity: 1;
+}
 /* Desktop CSS */
 @media screen and (min-width:568px) {
     .offerItemName{

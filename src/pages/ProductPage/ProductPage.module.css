@@ -276,6 +276,49 @@
     height: 40px;
     width: 40px;
 }
+.itemQuantityBtnBox{
+    z-index: 9;
+}
+.itemQuantityBtnBox button{
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.itemQuantityBtn .decreaseBtn{
+	width: 20px;
+}
+.itemQuantityBtn{
+	padding-right: 0;
+    padding-left: 0;
+    margin-top: auto;
+    margin-bottom: 0px;
+	position: relative;
+	z-index: 9;
+}
+.countValue{
+	width: 20px;
+	text-align: center;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: default;
+	font-weight: 500;
+}
+.decrease_btn, .increase_btn{
+    height: 20px;
+    width: 20px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    color: var(--ADD_BUTTON_COLOR);
+    background: #FFF;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+.productSubLine {
+    font-size: 18px;
+    font-weight: 600;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
         font-size: 28px;
@@ -289,5 +332,12 @@
         font-size: 24px;
         line-height: 28px;
         font-weight: 500;
+    }
+    .countValue{
+        width: 40px;
+    }
+    .decrease_btn, .increase_btn{
+        height: 30px;
+        width: 30px;
     }
 }

@@ -69,10 +69,10 @@ export const ShoppingCart = () => {
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res.message === "Add successfully."){
                     setOrderStatus('Place Order');
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList, cartCount: res.payload_cartList?.length  });
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length  });
                     localStorage.setItem('cartSaved', true);
-                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList));
-                    setShopCartId(res.payload_cartList[0].cart_id);
+                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
+                    setShopCartId(res.payload_cartList_id);
                 }else{
                     AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
                 }

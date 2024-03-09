@@ -74,7 +74,7 @@ export const ProductCard = ({ item, index }) => {
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
         AppNotification('Success', 'Product added into the cart successfully.', 'success');
 
-        let cartData = {
+        let cartDataJson = [{
             product_id: ProdId,
             product_name: prodName,
             mrp: Mrp,
@@ -83,20 +83,20 @@ export const ProductCard = ({ item, index }) => {
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
             deal_type_id: dealId
-        }
+        }];
 
         if (appData.appData?.user?.customer_id) {
             const payload = {
                 company_id: parseInt(enviroment.COMPANY_ID),
                 store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
-                cartJson: JSON.stringify(cartData)
+                cartJson: JSON.stringify(cartDataJson)
             }
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res?.message === 'Add successfully.'){
                     appData.setAppData({ ...appData.appData, cartSaved: true });
                     localStorage.setItem('cartSaved', true);
-                    let resCart = res.payload_addTocart;
+                    let resCart = res.payload_cartList_items;
                     let resProdId = resCart.findIndex((obj) => obj.product_id === ProdId);
                     let cartID = resCart[resProdId].cart_id;
                     let cartProdID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
@@ -112,16 +112,20 @@ export const ProductCard = ({ item, index }) => {
         e.stopPropagation();
     }
 
-    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+    const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
         let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
-            if (currQty === allowQty) {
+            if(stock >= currQty){
+                if (currQty === allowQty) {
+                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+                } else {
+                    let newQty = currQty + 1;
+                    cartInfo[cartProdID].quantity = newQty;
+                }
+            }else {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
-            } else {
-                let newQty = currQty + 1;
-                cartInfo[cartProdID].quantity = newQty;
             }
         } else {
             let newQty = currQty - 1;
@@ -182,8 +186,14 @@ export const ProductCard = ({ item, index }) => {
 
                 <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
                     {item.stock === 0 &&
-                        <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>}
-                        <img onError={(e) => setNoImage(e)} src={item?.image ? item.image?.replace('https://rewardsplus.in/uploads/app/public/cogendermpany', 'https://merchant.rewardsplus.in/uploads/app/public/company') : item?.image_url } className="position-absolute h-100 col-12 p-0" />
+                        <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>
+                    }
+                    <img onError={(e) => setNoImage(e)} src={item?.image ? item.image?.replace('https://rewardsplus.in/uploads/app/public/cogendermpany', 'https://merchant.rewardsplus.in/uploads/app/public/company') : item?.image_url } className="position-absolute h-100 col-12 p-0" />
+                    {item?.gallery_images?.length && item?.gallery_images?.map((imagesrc, index) => {
+                        return (
+                            <img src={enviroment.API_IMAGE_GALLERY_URL+imagesrc} className={`${styles.galleryImage} position-absolute h-100 col-12 p-0`} key={index} />
+                        );
+                    })}
                 </div>
 
                 <span onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)} className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
@@ -203,11 +213,11 @@ export const ProductCard = ({ item, index }) => {
                             <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`} onClick={(e) => addToCart(e, item)}>Add to cart</span>
                         ) : (
                             <div className={`${styles.itemQuantityBtnBox} position-absolute`}>
-                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'minus', item?.stock)} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
                                 <span className="d-inline-flex flex-shrink-0">
                                     <input type="text" readOnly value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`} />
                                 </span>
-                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                <span role="button" onClick={(e) => updateProdQty(e, item?.product_id ? item.product_id : item.id, item?.no_of_quantity_allowed, prodAddedQty, 'plus', item?.stock)} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                             </div>
                         )}
                     </React.Fragment>
