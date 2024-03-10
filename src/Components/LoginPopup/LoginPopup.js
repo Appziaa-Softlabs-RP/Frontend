@@ -137,7 +137,8 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
             }
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res.message === "Add successfully."){
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length  });
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                    localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartSaved', true);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
                 }else{

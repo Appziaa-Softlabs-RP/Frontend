@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
     windowWidth: window.innerWidth > 560 ? "desktop" : "mobile",
     cartCount: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")).length : 0,
     cartData: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [],
+    cartID: localStorage.getItem("cartID") ? localStorage.getItem("cartID") : '',
     cartSaved: localStorage.getItem("cartSaved") ? true : false,
   };
   const [appData, setAppData] = useState(initialValues);

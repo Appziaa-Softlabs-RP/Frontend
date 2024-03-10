@@ -69,8 +69,9 @@ export const ShoppingCart = () => {
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res.message === "Add successfully."){
                     setOrderStatus('Place Order');
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length  });
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id });
                     localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
                     setShopCartId(res.payload_cartList_id);
                 }else{

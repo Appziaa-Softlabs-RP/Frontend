@@ -94,16 +94,11 @@ export const ProductCard = ({ item, index }) => {
             }
             ApiService.addMultipleCart(payload).then((res) => {
                 if(res?.message === 'Add successfully.'){
-                    appData.setAppData({ ...appData.appData, cartSaved: true });
-                    localStorage.setItem('cartSaved', true);
                     let resCart = res.payload_cartList_items;
-                    let resProdId = resCart.findIndex((obj) => obj.product_id === ProdId);
-                    let cartID = resCart[resProdId].cart_id;
-                    let cartProdID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
-                    cartInfo[cartProdID].cart_id = cartID;
-                    
-                    appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
-                    localStorage.setItem('cartData', JSON.stringify(cartInfo));
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: resCart, cartCount: resCart?.length, cartID: res.payload_cartList_id });
+                    localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartID', res.payload_cartList_id);
+                    localStorage.setItem('cartData', JSON.stringify(resCart));
                 }
             }).catch((err) => {
                 return err;
@@ -135,7 +130,8 @@ export const ProductCard = ({ item, index }) => {
                     const payload = {
                         store_id: parseInt(enviroment.STORE_ID),
                         customer_id: userInfo.customer_id,
-                        cart_id: cartID
+                        cart_id: cartID,
+                        product_id: prodID
                     }
                     ApiService.removeCart(payload).then((res) => {
 
