@@ -310,6 +310,22 @@
 .brandName {
     font-weight: 700;
 }
+.bankOfferTitle {
+    font-size: 20px;
+    color: #000;
+}
+.bankOfferText img {
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+    object-fit: cover;
+}
+.bankOfferText {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+}
 @media screen and (min-width:568px) {
     .productDetailName{
         font-size: 28px;
@@ -330,5 +346,19 @@
     .decrease_btn, .increase_btn{
         height: 30px;
         width: 30px;
+    }
+}
+@media screen and (max-width:568px) {
+    .addedQuantityBtnBox{
+        z-index: 9;
+        background: #FFF;
+    }
+    .addedQuantityBtnBox .decrease_btn, .addedQuantityBtnBox .increase_btn {
+        height: 30px;
+        width: 30px;
+        border-radius: 20px;
+    }
+    .addedQuantityBtnBox .countValue {
+        font-size: 24px;
     }
 }

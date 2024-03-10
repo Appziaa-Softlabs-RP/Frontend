@@ -83,7 +83,9 @@ export const ProductCard = ({ item, index }) => {
             quantity: Quantity,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
-            deal_type_id: dealId
+            deal_type_id: dealId,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
         }];
 
         if (appData.appData?.user?.customer_id) {

@@ -16,7 +16,15 @@ ApiService.PromoBanner = function (data) {
     method: "post",
     data: data,
   });
-};
+}
+
+ApiService.signIn = function (data) {
+  return fetch({
+    url: "user/signin",
+    method: "post",
+    data: data
+  });
+}
 
 ApiService.signupOTP = function (data) {
   return fetch({

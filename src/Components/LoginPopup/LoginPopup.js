@@ -7,7 +7,91 @@ import { useApp } from '../../context/AppContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { enviroment } from "../../enviroment";
 
-const LoginPassword = ({ setLoginType }) => {
+const LoginPassword = ({ setLoginType, setLoginPop }) => {
+    const [mobileVal, setMobileVal] = useState('');
+    const [mobilePass, seMobilePass] = useState('');
+    const appData = useApp();
+
+    const userLogin = () => {
+        const mobileNumberPattern = /^[0-9]{10}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (mobileVal === '') {
+            AppNotification('Error', 'Please enter mobile number or E-mail ID.', 'danger');
+        } else if (mobileNumberPattern.test(mobileVal) === false && emailPattern.test(mobileVal) === false) {
+            AppNotification('Error', 'Enter mobile number and email Address is not valid.', 'danger');
+        }else if (mobilePass === '') {
+            AppNotification('Error', 'Please enter your password', 'danger');
+        } else if (mobileNumberPattern.test(mobileVal) === true || emailPattern.test(mobileVal) === true) {
+            let registrationType = '';
+            if (mobileNumberPattern.test(mobileVal) === true) {
+                registrationType = 'mobile';
+            } else if (emailPattern.test(mobileVal) === true) {
+                registrationType = 'email';
+            }
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                type: registrationType,
+                username: mobileVal,
+                password: mobilePass
+            }
+            ApiService.signIn(payload).then((res) => {
+                if(res.message === "Login successfully."){
+                    localStorage.setItem('user', JSON.stringify(res.payload));
+                    appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
+                    localStorage.setItem('loggedIn', true);
+                    AppNotification('Welcome', 'You have been logged-In successfully.', 'success');
+                    setLoginPop(false);
+                    getAddCartList(res.payload);
+                }else {
+                    AppNotification('Error', 'Username or password is incorret.', 'danger');    
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'Username or password is incorret.', 'danger');
+            });
+        }
+    }
+
+    const getAddCartList = (userData) => {
+        let addedCart = appData.appData.cartData;
+        if (addedCart?.length > 0) {
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id,
+                cartJson: JSON.stringify(appData?.appData?.cartData)
+            }
+            ApiService.addMultipleCart(payload).then((res) => {
+                if(res.message === "Add successfully."){
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                    localStorage.setItem('cartID', res.payload_cartList_id);
+                    localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
+                    window.location.reload();
+                }else{
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
+            });
+        } else {
+            const payload = {
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id
+            }
+            ApiService.showCart(payload).then((res) => {
+                if (res.message === "Cart list successfully") {
+                    let addProducts = res.payload_cartList;
+                    appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
+                    localStorage.setItem('cartData', JSON.stringify(addProducts));
+                    localStorage.setItem('cartSaved', true);
+                    window.location.reload();
+                }
+            }).catch((err) => {
+
+            });
+        }
+    }
+
     return (
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
@@ -15,14 +99,14 @@ const LoginPassword = ({ setLoginType }) => {
                 <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-5">
                     <div className="col-12 d-inline-flex">
-                        <input type="text" name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                        <input type="text" value={mobileVal} onChange={(e) => setMobileVal(e.target.value)} name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
                     </div>
                     <div className="col-12 d-inline-flex">
-                        <input type="password" name="userpassword" placeholder="Enter Password" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
+                        <input type="password" value={mobilePass} onChange={(e) => seMobilePass(e.target.value)} name="userpassword" placeholder="Enter Password" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-between col-12 gap-5 mb-5">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button">Login</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => userLogin()}>Login</span>
                     <span className={`${styles.loginUnfilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => setLoginType('LoginOTP')}>Login via OTP</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
@@ -222,6 +306,8 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
                     }
                     setOTPObj({ otpID: res.payload.otp_id });
                     setLoginType('RegVerifyOTP');
+                }else if (res.message === "You are already registered. Please login."){
+                    AppNotification('Error', res.message, 'danger');
                 }
             }).catch((err) => {
                 AppNotification('Error', 'Unable to send OTP to your number', 'danger');
@@ -312,7 +398,6 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
                         setLoginPop(false);
                         getAddCartList(res.payload);
-                        navigate('/');
                     }
                 }).catch((err) => {
                     AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
@@ -324,44 +409,44 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
     }
 
     const getAddCartList = (userData) => {
-        const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            customer_id: userData.customer_id
-        }
-        ApiService.showCart(payload).then((res) => {
-            if (res.message === "Cart list successfully") {
-                let addProducts = res.payload_cartList;
-                let addedCart = appData.appData.cartData;
-                let nonAddedProd = [];
-                if (addProducts?.length > 0 && addedCart?.length > 0) {
-                    addProducts.map((prodCart) => {
-                        addedCart.map((item) => {
-                            if (prodCart.product_id !== item?.product_id) {
-                                nonAddedProd.push(item);
-                            }
-                        });
-                    });
+        let addedCart = appData.appData.cartData;
+        if (addedCart?.length > 0) {
+            const payload = {
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id,
+                cartJson: JSON.stringify(appData?.appData?.cartData)
+            }
+            ApiService.addMultipleCart(payload).then((res) => {
+                if(res.message === "Add successfully."){
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                    localStorage.setItem('cartID', res.payload_cartList_id);
+                    localStorage.setItem('cartSaved', true);
+                    localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
+                    window.location.reload();
+                }else{
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
                 }
-                if (addedCart?.length === 0) {
+            }).catch((err) => {
+                AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
+            });
+        } else {
+            const payload = {
+                store_id: parseInt(enviroment.STORE_ID),
+                customer_id: userData.customer_id
+            }
+            ApiService.showCart(payload).then((res) => {
+                if (res.message === "Cart list successfully") {
+                    let addProducts = res.payload_cartList;
                     appData.setAppData({ ...appData.appData, cartData: addProducts, cartCount: addProducts?.length, cartSaved: true, user: userData, loggedIn: true });
                     localStorage.setItem('cartData', JSON.stringify(addProducts));
                     localStorage.setItem('cartSaved', true);
                     window.location.reload();
-                } else if (nonAddedProd?.length > 0 && addProducts?.length > 0) {
-                    const mergedArray = [...nonAddedProd, ...addProducts];
-                    const uniqueData = [...mergedArray.reduce((map, obj) => map.set(obj.name, obj), new Map()).values()];
-                    appData.setAppData({ ...appData.appData, cartData: uniqueData, cartCount: uniqueData?.length, cartSaved: true, user: userData, loggedIn: true });
-                    localStorage.setItem('cartData', JSON.stringify(uniqueData));
-                    localStorage.setItem('cartSaved', true);
-                    window.location.reload();
-                } else {
-                    appData.setAppData({ ...appData.appData, cartData: addedCart, cartCount: addedCart?.length, user: userData, loggedIn: true });
-                    localStorage.setItem('cartData', JSON.stringify(addedCart));
                 }
-            }
-        }).catch((err) => {
+            }).catch((err) => {
 
-        });
+            });
+        }
     }
 
     useEffect(() => {
@@ -451,16 +536,16 @@ export const LoginPopup = ({ setLoginPop }) => {
                     <div className="col-8 p-4 position-relative">
                         <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
                         {loginType === 'Login' ?
-                            <LoginPassword setLoginType={setLoginType} />
+                                <LoginPassword setLoginType={setLoginType} setLoginPop={setLoginPop} />
                             : loginType === 'LoginOTP' ?
                                 <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
-                                : loginType === 'Register' ?
-                                    <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
-                                    : loginType === 'VerifyOTP' ?
-                                        <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
-                                        : loginType === 'RegVerifyOTP' ?
-                                            <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
-                                            : ''}
+                            : loginType === 'Register' ?
+                                <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
+                            : loginType === 'VerifyOTP' ?
+                                <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
+                            : loginType === 'RegVerifyOTP' ?
+                                <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
+                            : ''}
                     </div>
                 </div>
             </div>

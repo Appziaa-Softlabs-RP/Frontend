@@ -112,3 +112,11 @@ input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   width: 30px;
   margin: 0px;
 }
+@media screen and (max-width: 568px) {
+  .carousel-looking-for .owl-nav button.owl-prev, .brandSilder .owl-nav button.owl-prev {
+    left: -10px;
+  }
+  .carousel-looking-for .owl-nav button.owl-next, .brandSilder .owl-nav button.owl-next {
+    right: 20px;
+  }
+}

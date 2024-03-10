@@ -54,20 +54,20 @@ export const ProductPage = () => {
     const addToCart = (e, item) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
-        let ProdId = ProductData.product_id ? ProductData.product_id : ProductData?.id;
-        let prodName = ProductData?.name;
-        let Mrp = ProductData?.mrp;
-        let sellingPrice = ProductData?.selling_price;
+        let ProdId = item.product_id ? item.product_id : item?.id;
+        let prodName = item?.name;
+        let Mrp = item?.mrp;
+        let sellingPrice = item?.selling_price;
         let Quantity = 1;
-        let noQty = ProductData?.no_of_quantity_allowed;
-        let dealType = ProductData?.deal_type ? ProductData?.deal_type : 0;
-        let dealId = ProductData?.deal_type_id;
+        let noQty = item?.no_of_quantity_allowed;
+        let dealType = item?.deal_type ? item?.deal_type : 0;
+        let dealId = item?.deal_type_id;
 
         let cardObj = {
             company_id: parseInt(enviroment.COMPANY_ID),
             store_id: parseInt(enviroment.STORE_ID),
             product_id: ProdId,
-            image: ProductData?.image ? ProductData.image : ProductData?.image_url,
+            image: item?.image ? item.image : item?.image_url,
             product_name: prodName,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
@@ -88,18 +88,20 @@ export const ProductPage = () => {
         localStorage.setItem('cartData', JSON.stringify(cartInfo));
         AppNotification('Success', 'Product added into the cart successfully.', 'success');
 
-        let cartDataJson = [{
-            product_id: ProdId,
-            product_name: prodName,
-            mrp: Mrp,
-            selling_price:sellingPrice,
-            quantity: Quantity,
-            no_of_quantity_allowed: noQty,
-            is_hot_deals: dealType,
-            deal_type_id: dealId
-        }];
-
         if (appData.appData?.user?.customer_id) {
+            let cartDataJson = [{
+                product_id: ProdId,
+                product_name: prodName,
+                mrp: Mrp,
+                selling_price:sellingPrice,
+                quantity: Quantity,
+                no_of_quantity_allowed: noQty,
+                is_hot_deals: dealType,
+                deal_type_id: dealId,
+                company_id: parseInt(enviroment.COMPANY_ID),
+                store_id: parseInt(enviroment.STORE_ID)
+            }];
+
             const payload = {
                 company_id: parseInt(enviroment.COMPANY_ID),
                 store_id: parseInt(enviroment.STORE_ID),
@@ -236,6 +238,7 @@ export const ProductPage = () => {
                     }
                 }
             }).catch(function (error) {
+                setDeliveryDetail({});
             });
         }else{
             setDeliveryDetail({});
@@ -256,7 +259,7 @@ export const ProductPage = () => {
 
     useEffect(() => {
         checkProdAdded();
-    }, [appData.appData.cartData]);
+    }, [appData.appData]);
 
     useEffect(() => {
         if(ProductData === undefined){
@@ -339,6 +342,7 @@ export const ProductPage = () => {
                     }
                 });
             }
+            checkProdAdded();
         }
     }, [ProductData]);
 
@@ -348,7 +352,7 @@ export const ProductPage = () => {
                 <React.Fragment>
                     <PageHeader title={ProductData?.name} />
                     <div className="col-12 d-inline-block position-relative">
-                        {ProductData.stock === 0 || ProductData.stock < 0 ?
+                        {ProductData?.stock === 0 || ProductData?.stock < 0 ?
                             <div className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}>
                                 <span className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}>Sold Out</span>
                             </div>
@@ -381,6 +385,23 @@ export const ProductPage = () => {
                         <span className={`${styles.inclusivTax} col-12 d-inline-block`}>(Inclusive of all taxes)</span>
                     </div>
 
+                    
+
+                    {ProductData?.bank_offer !== null &&
+                        <div className={`${styles.productDesciptionBox} mt-2 col-12 d-inline-flex flex-column gap-2 p-4`}>
+                            <h2 className={`${styles.availSizeTitle} d-inline-flex mt-0 mb-1`}>Offers</h2>
+                            {ProductData?.bank_offer.length > 0 && ProductData?.bank_offer?.map((item, index) => {
+                                return (
+                                    <span key={index} className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}>
+                                        <img src={item.logo} alt={item.description}/>
+                                        {item.description}
+                                    </span>
+                                );
+                            })}
+                            
+                        </div>
+                    }
+
                     <div className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}>
                         <h2 className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}>Product Details</h2>
                         <div className={`${styles.productCollapseBox} mb-4 active col-12 d-inline-block p-0`} onClick={openProductColpse(this)}>
@@ -391,20 +412,28 @@ export const ProductPage = () => {
                         {otherInfo === true &&
                             <div className={`${styles.productCollapseBox} col-12 d-inline-block p-0`} onClick={openProductColpse(this)}>
                                 <button className={`${styles.productTabBox} col-12 text-decoration-none cursor-pointer d-inline-flex align-items-center justify-content-between`}><span>Other Info</span>&nbsp;<span className="close-icon position-relative"></span></button>
-                                <div className={`${styles.productDetailText} col-12 p-0`}>
-                                    {ProductData?.specifications?.type && <React.Fragment><strong>Type: </strong>{ProductData?.specifications?.type}<br /></React.Fragment>}
-                                    {ProductData?.specifications?.model_name && <React.Fragment><strong>Model Name: </strong>{ProductData?.specifications?.model_name} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.shelf_life && <React.Fragment><strong>Shelf Life: </strong>{ProductData?.specifications?.shelf_life} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.shelf_life_month_years && <React.Fragment><strong>Shelf Life Month Years: </strong>{ProductData?.specifications?.shelf_life_month_years} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.container_type && <React.Fragment><strong>Container Type: </strong>{ProductData?.specifications?.container_type} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.organic && <React.Fragment><strong>Organic: </strong>{ProductData?.specifications?.organic} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.polished && <React.Fragment><strong>Polished: </strong>{ProductData?.specifications?.polished} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.package_dimension_length && <React.Fragment><strong>Package Dimension Length: </strong>{ProductData?.specifications?.package_dimension_length} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.package_dimension_width && <React.Fragment><strong>Package Dimension Width: </strong>{ProductData?.specifications?.package_dimension_width} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.package_dimension_height && <React.Fragment><strong>Package Dimension Height: </strong>{ProductData?.specifications?.package_dimension_height} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.manufactured_by && <React.Fragment><strong>Manufactured By: </strong>{ProductData?.specifications?.manufactured_by} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.packed_by && <React.Fragment><strong>Packed By: </strong>{ProductData?.specifications?.packed_by} <br /></React.Fragment>}
-                                    {ProductData?.specifications?.exp_date && <React.Fragment><strong>Exp Date: </strong>{ProductData?.specifications?.exp_date} <br /></React.Fragment>}
+                                <div className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}>
+                                    {ProductData?.specifications?.type && <p className="col-12 d-inline-flex m-0"><strong>Type: </strong>{ProductData?.specifications?.type}</p>}
+                                    
+                                    {ProductData?.specifications?.model_name && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Model Name: </strong>{ProductData?.specifications?.model_name} </p>}
+                                    
+                                    {ProductData?.specifications?.shelf_life && <p className="col-12 d-none gap-2 m-0"><strong>Shelf Life: </strong>{ProductData?.specifications?.shelf_life} </p>}
+                                    
+                                    {ProductData?.specifications?.shelf_life_month_years && <p className="col-12 d-none gap-2 m-0"><strong>Shelf Life Month Years: </strong>{ProductData?.specifications?.shelf_life_month_years} </p>}
+                                    
+                                    {ProductData?.specifications?.container_type && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Container Type: </strong>{ProductData?.specifications?.container_type} </p>}
+                                    
+                                    {ProductData?.specifications?.organic && <p className="col-12 d-none gap-2 m-0"><strong>Organic: </strong>{ProductData?.specifications?.organic} </p>}
+                                    
+                                    {ProductData?.specifications?.polished && <p className="col-12 d-none gap-2 m-0"><strong>Polished: </strong>{ProductData?.specifications?.polished} </p>}
+
+                                    {ProductData?.specifications?.package_dimension_length && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Dimension: </strong>{'L '+ProductData?.specifications?.package_dimension_length+ ' x B '+ProductData?.specifications?.package_dimension_width+' x H '+ProductData?.specifications?.package_dimension_height} cm </p>}
+
+                                    {ProductData?.specifications?.manufactured_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Manufactured By: </strong>{ProductData?.specifications?.manufactured_by} </p>}
+
+                                    {ProductData?.specifications?.packed_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Packed By: </strong>{ProductData?.specifications?.packed_by} </p>}
+                                    
+                                    {ProductData?.specifications?.exp_date && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Exp Date: </strong>{ProductData?.specifications?.exp_date} </p>}
                                 </div>
                             </div>
                         }
@@ -415,7 +444,18 @@ export const ProductPage = () => {
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={() => showCheckoutPage()}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
+
+                        {!prodAdded ? (
+                            <span className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
+                        ) : (
+                            <div className={`${styles.addedQuantityBtnBox} d-inline-flex align-items-center position-relative col-6 justify-content-evenly`}>
+                                <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'minus', ProductData?.stock)} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                <span className="d-inline-flex flex-shrink-0">
+                                    <input type="text" readOnly value={prodAddedQty} className={`${styles.countValue} d-inline-block text-center`} />
+                                </span>
+                                <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'plus', ProductData?.stock)} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                            </div>
+                        )}
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -532,6 +572,22 @@ export const ProductPage = () => {
                                             <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'plus', ProductData?.stock)} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                                         </div>
                                     )}
+
+                                    {ProductData?.bank_offer !== null &&
+                                        <div className={`${styles.bankOffer} mt-2 col-12 d-inline-flex flex-column gap-2`}>
+                                            <h2 className={`${styles.bankOfferTitle} d-inline-flex mt-0 mb-1`}>Offers</h2>
+                                            {ProductData?.bank_offer.length > 0 && ProductData?.bank_offer?.map((item, index) => {
+                                                return (
+                                                    <span key={index} className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}>
+                                                        <img src={item.logo} alt={item.description}/>
+                                                        {item.description}
+                                                    </span>
+                                                );
+                                            })}
+                                            
+                                        </div>
+                                    }
+
                                     <div className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}>
                                         <div className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}>
                                             <img src={delivery} alt="delivery" className="object-fit-contain"/>
