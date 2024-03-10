@@ -64,7 +64,7 @@
 .productDetailText{
     font-size: 14px;
     line-height: 19px;
-    color: #445C80;
+    color: #000;
 }
 .productSoldOutBox{
     background: rgba(255,255,255,0.60);
@@ -120,23 +120,11 @@
 }
 .productDescHeader{
     padding: 15px;
-    background: #F3F3F3;
+    border-bottom: 1px solid #999;
 }
 .productDescTitle{
     color: #151515;
     font-size: 16px;
-}
-.headerArrow{
-    height: 15px;
-    width: 15px;
-    transition: all ease .4s;
-    -webkit-transition: all ease .4s;
-    transform: rotate(-180deg);
-    -webkit-transform: rotate(-180deg);
-}
-.headerArrow.arrowActive{
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
 }
 .prodDescAnswer{
     padding: 24px;
@@ -318,6 +306,9 @@
 .productSubLine {
     font-size: 18px;
     font-weight: 600;
+}
+.brandName {
+    font-weight: 700;
 }
 @media screen and (min-width:568px) {
     .productDetailName{

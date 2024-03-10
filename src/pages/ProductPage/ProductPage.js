@@ -10,7 +10,7 @@ import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import { useApp } from "../../context/AppContextProvider";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
-import { CrossIcon, DownArrowIcon, FacebookIcon, LocationIcon, ShareIcon, TwitterIcon, WhatsAppIcon, PinterestIcon, CopyIcon } from "../../Components/siteIcons";
+import { CrossIcon, FacebookIcon, LocationIcon, ShareIcon, TwitterIcon, WhatsAppIcon, PinterestIcon, CopyIcon } from "../../Components/siteIcons";
 import { AppNotification } from "../../utils/helper";
 import { enviroment } from "../../enviroment";
 import axios from "axios";
@@ -19,22 +19,24 @@ import orignal from '../../assets/images/original.png';
 import replacement from '../../assets/images/7-days-money-back-guarantee-icon.png';
 import ApiService from "../../services/ApiService";
 
-let otherInfo = false;
 export const ProductPage = () => {
     const appData = useApp();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const locationState = useLocation();
+    const [ProductData, setProductData] = useState(locationState?.state?.product);
     const [prodMainImg, setProdMainImg] = useState('');
     const [pincode, setPincode] = useState('');
     const [deliveryDetail, setDeliveryDetail] = useState({});
     const [activeImg, setActiveImg] = useState('');
     const [prodDiscount, setProdDiscount] = useState(0);
-    const [descActive, setDescActive] = useState(true);
+    const [descActive, setDescActive] = useState('Description');
+    const [prodDesc, setProdDesc] = useState({__html:ProductData?.description});
     const [prodAdded, setProdAdded] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const [prodSharePop, setProdSharePop] = useState(false);
-    const [ProductData, setProductData] = useState(locationState?.state?.product);
+    const [otherInfo, setOtherInfo] = useState(false);
+    const [featuresInfo, setFeaturesInfo] = useState(false);
     const [shareProdName, setShareProdName] = useState(encodeURIComponent(ProductData?.name));
     const userInfo = appData?.appData?.user;
     let windowWidth = appData.appData.windowWidth;
@@ -47,14 +49,6 @@ export const ProductPage = () => {
 
     const openProductColpse = () => {
 
-    }
-
-    const openDescription = () => {
-        if (descActive === false) {
-            setDescActive(true);
-        } else {
-            setDescActive(false);
-        }
     }
 
     const addToCart = (e, item) => {
@@ -172,7 +166,7 @@ export const ProductPage = () => {
     }
 
     const checkProdAdded = () => {
-        if (appData.appData.cartData?.length) {
+        if (appData.appData.cartData?.length && ProductData !== undefined) {
             let productID = ProductData?.product_id ? ProductData.product_id : ProductData.id
             let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === productID);
             if (cartID !== -1) {
@@ -299,33 +293,52 @@ export const ProductPage = () => {
             if(ProductData?.specifications !== null || ProductData?.specifications !== undefined){
                 Object.values(ProductData?.specifications).map((item) => {
                     if (item !== '' && item !== null && item !== undefined) {
-                        otherInfo = true;
+                        setOtherInfo(true);
+                    }
+                });
+            }
+            
+            if(ProductData?.other_information !== null || ProductData?.other_information !== undefined){
+                Object.values(ProductData?.other_information).map((item) => {
+                    if (item !== '' && item !== null && item !== undefined) {
+                        setFeaturesInfo(true);
                     }
                 });
             }
         }
     }, [locationState?.state?.product]);
 
-    useEffect(() => {    
-        setShareProdName(encodeURIComponent(ProductData?.name));
-        setProdAddedQty(ProductData.no_of_quantity_allowed);
-        setProdMainImg(ProductData?.image);
-        let discountOff = '',
-        ProductMrp = parseFloat(ProductData?.mrp),
-        ProdutSellPrice = parseFloat(ProductData?.selling_price);
+    useEffect(() => {
+        if(ProductData !== undefined){
+            setShareProdName(encodeURIComponent(ProductData?.name));
+            setProdAddedQty(ProductData.no_of_quantity_allowed);
+            setProdMainImg(ProductData?.image);
+            let discountOff = '',
+            ProductMrp = parseFloat(ProductData?.mrp),
+            ProdutSellPrice = parseFloat(ProductData?.selling_price);
 
-        if (ProductMrp > ProdutSellPrice) {
-            discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
-            discountOff = Math.ceil(discountOff);
-            setProdDiscount(discountOff);
-        }
-        
-        if(ProductData?.specifications !== null || ProductData?.specifications !== undefined){
-            Object.values(ProductData?.specifications).map((item) => {
-                if (item !== '' && item !== null && item !== undefined) {
-                    otherInfo = true;
-                }
-            });
+            if (ProductMrp > ProdutSellPrice) {
+                discountOff = ((ProductData?.mrp - ProductData?.selling_price) * 100) / ProductData?.mrp;
+                discountOff = Math.ceil(discountOff);
+                setProdDiscount(discountOff);
+            }
+            setProdDesc({__html:ProductData?.description});
+            
+            if(ProductData?.specifications !== null || ProductData?.specifications !== undefined){
+                Object.values(ProductData?.specifications).map((item) => {
+                    if (item !== '' && item !== null && item !== undefined) {
+                        setOtherInfo(true);
+                    }
+                });
+            }
+            
+            if(ProductData?.other_information !== null || ProductData?.other_information !== undefined){
+                Object.values(ProductData?.other_information).map((item) => {
+                    if (item !== '' && item !== null && item !== undefined) {
+                        setFeaturesInfo(true);
+                    }
+                });
+            }
         }
     }, [ProductData]);
 
@@ -335,11 +348,11 @@ export const ProductPage = () => {
                 <React.Fragment>
                     <PageHeader title={ProductData?.name} />
                     <div className="col-12 d-inline-block position-relative">
-                        {ProductData?.stock === 0 &&
+                        {ProductData.stock === 0 || ProductData.stock < 0 ?
                             <div className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}>
                                 <span className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}>Sold Out</span>
                             </div>
-                        }
+                        : ''}
                         <ReactOwlCarousel className={`${styles.bannerContainer} col-12 owl-theme`} margin={0} loop={false} dots={true} items={1}>
                             {ProductData?.gallery?.map((item, index) => {
                                 return (
@@ -378,21 +391,21 @@ export const ProductPage = () => {
                         {otherInfo === true &&
                             <div className={`${styles.productCollapseBox} col-12 d-inline-block p-0`} onClick={openProductColpse(this)}>
                                 <button className={`${styles.productTabBox} col-12 text-decoration-none cursor-pointer d-inline-flex align-items-center justify-content-between`}><span>Other Info</span>&nbsp;<span className="close-icon position-relative"></span></button>
-                                <p className={`${styles.productDetailText} col-12 p-0`}>
-                                    {ProductData?.other?.type && <React.Fragment><strong>Type: </strong>{ProductData?.other?.type}<br /></React.Fragment>}
-                                    {ProductData?.other?.model_name && <React.Fragment><strong>Model Name: </strong>{ProductData?.other?.model_name} <br /></React.Fragment>}
-                                    {ProductData?.other?.shelf_life && <React.Fragment><strong>Shelf Life: </strong>{ProductData?.other?.shelf_life} <br /></React.Fragment>}
-                                    {ProductData?.other?.shelf_life_month_years && <React.Fragment><strong>Shelf Life Month Years: </strong>{ProductData?.other?.shelf_life_month_years} <br /></React.Fragment>}
-                                    {ProductData?.other?.container_type && <React.Fragment><strong>Container Type: </strong>{ProductData?.other?.container_type} <br /></React.Fragment>}
-                                    {ProductData?.other?.organic && <React.Fragment><strong>Organic: </strong>{ProductData?.other?.organic} <br /></React.Fragment>}
-                                    {ProductData?.other?.polished && <React.Fragment><strong>Polished: </strong>{ProductData?.other?.polished} <br /></React.Fragment>}
-                                    {ProductData?.other?.package_dimension_length && <React.Fragment><strong>Package Dimension Length: </strong>{ProductData?.other?.package_dimension_length} <br /></React.Fragment>}
-                                    {ProductData?.other?.package_dimension_width && <React.Fragment><strong>Package Dimension Width: </strong>{ProductData?.other?.package_dimension_width} <br /></React.Fragment>}
-                                    {ProductData?.other?.package_dimension_height && <React.Fragment><strong>Package Dimension Height: </strong>{ProductData?.other?.package_dimension_height} <br /></React.Fragment>}
-                                    {ProductData?.other?.manufactured_by && <React.Fragment><strong>Manufactured By: </strong>{ProductData?.other?.manufactured_by} <br /></React.Fragment>}
-                                    {ProductData?.other?.packed_by && <React.Fragment><strong>Packed By: </strong>{ProductData?.other?.packed_by} <br /></React.Fragment>}
-                                    {ProductData?.other?.exp_date && <React.Fragment><strong>Exp Date: </strong>{ProductData?.other?.exp_date} <br /></React.Fragment>}
-                                </p>
+                                <div className={`${styles.productDetailText} col-12 p-0`}>
+                                    {ProductData?.specifications?.type && <React.Fragment><strong>Type: </strong>{ProductData?.specifications?.type}<br /></React.Fragment>}
+                                    {ProductData?.specifications?.model_name && <React.Fragment><strong>Model Name: </strong>{ProductData?.specifications?.model_name} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.shelf_life && <React.Fragment><strong>Shelf Life: </strong>{ProductData?.specifications?.shelf_life} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.shelf_life_month_years && <React.Fragment><strong>Shelf Life Month Years: </strong>{ProductData?.specifications?.shelf_life_month_years} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.container_type && <React.Fragment><strong>Container Type: </strong>{ProductData?.specifications?.container_type} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.organic && <React.Fragment><strong>Organic: </strong>{ProductData?.specifications?.organic} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.polished && <React.Fragment><strong>Polished: </strong>{ProductData?.specifications?.polished} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.package_dimension_length && <React.Fragment><strong>Package Dimension Length: </strong>{ProductData?.specifications?.package_dimension_length} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.package_dimension_width && <React.Fragment><strong>Package Dimension Width: </strong>{ProductData?.specifications?.package_dimension_width} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.package_dimension_height && <React.Fragment><strong>Package Dimension Height: </strong>{ProductData?.specifications?.package_dimension_height} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.manufactured_by && <React.Fragment><strong>Manufactured By: </strong>{ProductData?.specifications?.manufactured_by} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.packed_by && <React.Fragment><strong>Packed By: </strong>{ProductData?.specifications?.packed_by} <br /></React.Fragment>}
+                                    {ProductData?.specifications?.exp_date && <React.Fragment><strong>Exp Date: </strong>{ProductData?.specifications?.exp_date} <br /></React.Fragment>}
+                                </div>
                             </div>
                         }
                     </div>
@@ -402,7 +415,7 @@ export const ProductPage = () => {
                     </div>
                     <div className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}>
                         <span className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={() => showCheckoutPage()}>Go to Cart</span>
-                        <span className={`${styles.AddCartBtn} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
+                        <span className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0 ? styles.disableCartBtn: ''} position-relative col-6 d-inline-flex align-items-center justify-content-center`} onClick={(e) => addToCart(e, ProductData)}>Add to Cart</span>
                     </div>
                 </React.Fragment>
             ) : windowWidth === 'desktop' ? (
@@ -420,40 +433,80 @@ export const ProductPage = () => {
                                             <img src={prodMainImg} alt={ProductData?.name} className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute" />
                                         </div>
                                         <ReactOwlCarousel key={activeImg} className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`} margin={10} loop={false} dots={false} items={6}>
-                                            {ProductData?.gallery?.map((item, index) => {
+                                            {ProductData?.gallery_images?.map((item, index) => {
                                                 return (
-                                                    <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(item.image_url, index)} key={index}>
-                                                        <img src={item.image_url} alt={ProductData?.name} className="object-fit-cover col-12 d-inline-block" />
+                                                    <div className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ''} col-12 d-inline-flex align-items-center justify-content-center`} onClick={() => setMainImage(enviroment.API_IMAGE_GALLERY_URL+item, index)} key={index}>
+                                                        <img src={enviroment.API_IMAGE_GALLERY_URL+item} alt={ProductData?.name} className="object-fit-cover col-12 d-inline-block" />
                                                     </div>
                                                 )
                                             })}
                                         </ReactOwlCarousel>
                                     </div>
-                                    {ProductData?.description !== '' && ProductData?.description !== null && ProductData?.description !== "Not available" &&
-                                        <div className={`col-12 d-inline-flex flex-column my-3`}>
-                                            <div className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`} onClick={() => openDescription()} role="button">
-                                                <h3 className={`${styles.productDescTitle} d-inline-flex m-0`}>Product Description</h3>
-                                                <span className={`${styles.headerArrow} ${descActive === true && styles.arrowActive} d-inline-flex`}>
-                                                    <DownArrowIcon /></span>
-                                            </div>
-                                            {descActive === true &&
-                                                <div className={`${styles.prodDescAnswer} d-inline-flex col-12`}>{ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}</div>
+                                    <div className={`col-12 d-inline-flex flex-column my-3`}>
+                                        <div className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`}>
+                                            {ProductData?.description !== '' && ProductData?.description !== null && ProductData?.description !== "Not available" &&
+                                                <h3 className={`${descActive === 'Description' && styles.tabActive} ${styles.productDescTitle} col-4 d-inline-flex justify-content-center m-0`} onClick={() => setDescActive('Description')} role="button">Product Description</h3>
+                                            }
+                                            {otherInfo === true &&
+                                                <h3 className={`${descActive === 'Specifications' && styles.tabActive} ${styles.productDescTitle} col-4 justify-content-center d-inline-flex m-0`} onClick={() => setDescActive('Specifications')} role="button">Specifications</h3>
+                                            }
+                                            {featuresInfo === true &&
+                                                <h3 className={`${descActive === 'Features' && styles.tabActive} ${styles.productDescTitle} col-4 d-inline-flex justify-content-center m-0`} onClick={() => setDescActive('Features')} role="button">Other Information</h3>
                                             }
                                         </div>
-                                    }
+                                        {descActive === 'Description' &&
+                                            <div className={`${styles.prodDescAnswer} d-inline-flex flex-column col-12`}dangerouslySetInnerHTML={prodDesc}></div>
+                                        }
+                                        {descActive === 'Specifications' &&
+                                            <div className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}>
+                                                {ProductData?.specifications?.type && <p className="col-12 d-inline-flex m-0"><strong>Type: </strong>{ProductData?.specifications?.type}</p>}
+                                                
+                                                {ProductData?.specifications?.model_name && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Model Name: </strong>{ProductData?.specifications?.model_name} </p>}
+                                                
+                                                {ProductData?.specifications?.shelf_life && <p className="col-12 d-none gap-2 m-0"><strong>Shelf Life: </strong>{ProductData?.specifications?.shelf_life} </p>}
+                                                
+                                                {ProductData?.specifications?.shelf_life_month_years && <p className="col-12 d-none gap-2 m-0"><strong>Shelf Life Month Years: </strong>{ProductData?.specifications?.shelf_life_month_years} </p>}
+                                                
+                                                {ProductData?.specifications?.container_type && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Container Type: </strong>{ProductData?.specifications?.container_type} </p>}
+                                                
+                                                {ProductData?.specifications?.organic && <p className="col-12 d-none gap-2 m-0"><strong>Organic: </strong>{ProductData?.specifications?.organic} </p>}
+                                                
+                                                {ProductData?.specifications?.polished && <p className="col-12 d-none gap-2 m-0"><strong>Polished: </strong>{ProductData?.specifications?.polished} </p>}
+
+                                                {ProductData?.specifications?.package_dimension_length && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Dimension: </strong>{'L '+ProductData?.specifications?.package_dimension_length+ ' x B '+ProductData?.specifications?.package_dimension_width+' x H '+ProductData?.specifications?.package_dimension_height} cm </p>}
+
+                                                {ProductData?.specifications?.manufactured_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Manufactured By: </strong>{ProductData?.specifications?.manufactured_by} </p>}
+
+                                                {ProductData?.specifications?.packed_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Packed By: </strong>{ProductData?.specifications?.packed_by} </p>}
+                                                
+                                                {ProductData?.specifications?.exp_date && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Exp Date: </strong>{ProductData?.specifications?.exp_date} </p>}
+                                            </div>
+                                        }
+                                        
+                                        {descActive === 'Features' &&
+                                            <div className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}>
+                                                {ProductData?.other_information?.country_origin && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Country Of Origin: </strong>{ProductData?.other_information?.country_origin}<br /></p>}
+
+                                                {ProductData?.other_information?.manufactured_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Manufactured By: </strong>{ProductData?.other_information?.manufactured_by} <br /></p>}
+
+                                                {ProductData?.other_information?.marketed_by && <p className="col-12 d-inline-flex gap-2 m-0"><strong>Marketed By: </strong>{ProductData?.other_information?.marketed_by} <br /></p>}
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                                 <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}>
-                                    <h2 className={`${styles.productDetailName} col-12 mb-1 mt-4`}>{ProductData?.name}</h2>
+                                    {ProductData?.brand_name !== null  && <h6 className={`${styles.brandName} d-inline-flex m-0`}>{ProductData?.brand_name}</h6> }
+                                    <h2 className={`${styles.productDetailName} col-12 mb-1 mt-0`}>{ProductData?.name}</h2>
                                     <div className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}>
-                                        {ProductData?.gender ? ProductData?.gender+'Y+' : ''}
-                                        {ProductData?.gender !== null && ProductData?.gender_name !== null &&
+                                        {ProductData?.age_type ? ProductData?.age_type : ''}
+                                        {ProductData?.age_type !== null && ProductData?.gender_name !== null &&
                                             <span className={`${styles.spaceLine} d-inline-flex`}>|</span>
                                         }
                                         {ProductData?.gender_name ? ProductData?.gender_name : ''}
-                                        {ProductData?.brand_name !== null && ProductData?.gender_name !== null &&
+                                        {ProductData?.category_name !== null && ProductData?.gender_name !== null &&
                                             <span className={`${styles.spaceLine} d-inline-flex`}>|</span>
                                         }
-                                        {ProductData?.brand_name ? ProductData?.brand_name : ''}
+                                        {ProductData?.category_name ? ProductData?.category_name : ''}
                                     </div>
                                     <span className='ml-3 mb-0'>Item Code: {ProductData?.barcode} </span>
                                     <div className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}>
@@ -469,7 +522,7 @@ export const ProductPage = () => {
                                         )}
                                     </div>
                                     {!prodAdded ? (
-                                        <span role="button" className={`${styles.continueShop} ${ProductData?.stock === 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
+                                        <span role="button" className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0 ? styles.disableCartBtn: ''} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`} onClick={(e) => addToCart(e, ProductData)}>Add to cart</span>
                                     ) : (
                                         <div className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}>
                                             <span role="button" onClick={(e) => updateProdQty(e, ProductData?.product_id ? ProductData.product_id : ProductData.id, ProductData?.no_of_quantity_allowed, prodAddedQty, 'minus', ProductData?.stock)} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>

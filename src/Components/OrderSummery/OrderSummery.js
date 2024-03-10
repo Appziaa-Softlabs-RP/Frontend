@@ -7,7 +7,11 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
 
     useEffect(() => {
         setFinalTotal(checkoutTotal + deliveryCost);
-    }, [checkoutTotal, deliveryCost]);
+    }, [checkoutTotal]);
+
+    useEffect(() => {
+        setFinalTotal(checkoutTotal + deliveryCost);
+    }, [deliveryCost]);
     return (
         <React.Fragment>
             <div className={`${styles.orderSummryBox} col-12 d-inline-flex flex-column`}>
@@ -25,10 +29,28 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                     <div className="col-12 d-inline-flex flex-column mb-3 gap-2">
                         <div className="col-12 d-inline-flex align-items-center justify-content-between">
                             <h6 className={`${styles.subTotalLabel} d-inline-flex`}>
+                                Price
+                            </h6>
+                            <div className={`${styles.subTotalPrice} d-inline-flex`}>
+                                ₹{parseFloat(checkoutTotal + checkoutSaving).toFixed(2)}
+                            </div>
+                        </div>
+                        {checkoutSaving !== '' &&
+                            <div className="col-12 d-inline-flex align-items-center justify-content-between">
+                                <h6 className={`${styles.subTotalLabel} d-inline-flex`}>
+                                    Discount
+                                </h6>
+                                <div className={`${styles.subTotalSaving} d-inline-flex`}>
+                                    <b>-₹{parseFloat(checkoutSaving).toFixed(2)}</b>
+                                </div>
+                            </div>
+                        }
+                        <div className="col-12 d-inline-flex align-items-center justify-content-between">
+                            <h6 className={`${styles.subTotalLabel} d-inline-flex`}>
                                 Subtotal
                             </h6>
                             <div className={`${styles.subTotalPrice} d-inline-flex`}>
-                                ₹{checkoutTotal}
+                                ₹{parseFloat(checkoutTotal).toFixed(2)}
                             </div>
                         </div>
                         <div className="col-12 d-inline-flex align-items-center justify-content-between">
@@ -36,7 +58,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                                 Delivery
                             </h6>
                             <div className={`${styles.subTotalSaving} d-inline-flex`}>
-                                ₹{deliveryCost}
+                                {deliveryCost === 0 ? <React.Fragment><b><del>₹{parseFloat(deliveryCost).toFixed(2)}</del> Free</b></React.Fragment> : <span>₹{parseFloat(deliveryCost).toFixed(2)}</span> }
                             </div>
                         </div>
                     </div>
@@ -44,12 +66,12 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                         <div className={`${styles.finalTotalRow} col-12 d-inline-flex align-items-center justify-content-between py-3`}>
                             <h6 className={`${styles.finalTotalLabel} d-inline-flex`}>Total Amount Payable</h6>
                             <div className={`${styles.subTotalPrice} d-inline-flex`}>
-                                ₹{finalTotal}
+                                ₹{parseFloat(finalTotal).toFixed(2)}
                             </div>
                         </div>
                         <div className="col-12 d-inline-flex align-items-center justify-content-between mt-3">
                             <h6 className={`${styles.finalSavingLabel} d-inline-flex`}>Your Total Saving</h6>
-                            <div className={`${styles.subTotalSaving} d-inline-flex`}>₹{checkoutSaving}</div>
+                            <div className={`${styles.subTotalSaving} d-inline-flex`}>₹{parseFloat(checkoutSaving).toFixed(2)}</div>
                         </div>
                     </div>
                 </div>

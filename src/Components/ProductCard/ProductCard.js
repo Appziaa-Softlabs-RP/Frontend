@@ -44,6 +44,7 @@ export const ProductCard = ({ item, index }) => {
         let prodName = item?.name;
         let Mrp = item?.mrp;
         let sellingPrice = item?.selling_price;
+        let stockQTY = item?.stock;
         let Quantity = 1;
         let noQty = item?.no_of_quantity_allowed;
         let dealType = item?.deal_type ? item?.deal_type : 0;
@@ -180,15 +181,19 @@ export const ProductCard = ({ item, index }) => {
                 }
 
                 <div className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left overflow-hidden mb-1`} onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)}>
-                    {item.stock === 0 &&
+                    {item.stock === 0 || item.stock < 0 ?
                         <span className={`${styles.soldOutText} position-absolute d-block`}>Sold Out</span>
-                    }
+                    : ''}
                     <img onError={(e) => setNoImage(e)} src={item?.image ? item.image?.replace('https://rewardsplus.in/uploads/app/public/cogendermpany', 'https://merchant.rewardsplus.in/uploads/app/public/company') : item?.image_url } className="position-absolute h-100 col-12 p-0" />
-                    {item?.gallery_images?.length && item?.gallery_images?.map((imagesrc, index) => {
-                        return (
-                            <img src={enviroment.API_IMAGE_GALLERY_URL+imagesrc} className={`${styles.galleryImage} position-absolute h-100 col-12 p-0`} key={index} />
-                        );
-                    })}
+                    {item?.gallery_images?.length ? 
+                        <React.Fragment>
+                            {item?.gallery_images?.map((imagesrc, index) => {
+                                return (
+                                    <img src={enviroment.API_IMAGE_GALLERY_URL+imagesrc} className={`${styles.galleryImage} position-absolute h-100 col-12 p-0`} key={index} />
+                                );
+                            })}
+                        </React.Fragment>
+                    : ''}
                 </div>
 
                 <span onClick={() => showProductDetail(item?.product_id ? item.product_id : item.id)} className={`${styles.offerItemName} col-12 p-0 mb-1`}>{item.name}</span>
@@ -202,7 +207,7 @@ export const ProductCard = ({ item, index }) => {
                         <span className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}><b>₹{item.mrp}</b></span>
                     </div>
                 )}
-                {item.stock !== 0 &&
+                {item.stock > 0 &&
                     <React.Fragment>
                         {!prodAdded ? (
                             <span role="button" className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`} onClick={(e) => addToCart(e, item)}>Add to cart</span>

@@ -39,10 +39,15 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
 
     return (
         <div className={`${styles.deliveryBox} col-12 d-inline-flex flex-column mb-2`}>
-            <h2 className={`${styles.cartTitle} col-12 p-3 d-inline-flex align-items-center gap-2`}>
-                <LocationIcon color="#000" />
-                Select Delivery Address
-            </h2>
+            <div className={`${styles.cartTitle} col-12 d-inline-flex align-items-center justify-content-between`}>
+                <h2 className={`${styles.myCartTitle} d-inline-flex align-items-center gap-2`}>
+                    <LocationIcon color="#000" />
+                    Select Delivery Address
+                </h2>
+                {checkoutType === 'Payment' && 
+                    <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setCheckoutType('Address')}>Change</span>
+                }
+            </div>
             {checkoutType === 'Address' &&
                 <div className='col-12 d-inline-flex flex-column'>
                     <div className='col-12 d-inline-flex justify-content-end p-3'>
@@ -81,13 +86,10 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                 <div className={`col-12 d-inline-flex flex-column ${windowWidth === 'mobile' ? 'p-2': 'p-4'}`}>
                     <div className={`col-12 p-3 rounded d-inline-flex flex-column position-relative`} role="button">
                         <label className={`col-10 d-inline-flex flex-column`} role="button">
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}>Name:&nbsp;<b>{selectAddress.name}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}>Mobile:&nbsp;<b>{selectAddress.contact}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}>Address:&nbsp;<b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap mb-1`}><span className='col-1'>Name:&nbsp;</span><b>{selectAddress.name}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className='col-1'>Mobile:&nbsp;</span><b>{selectAddress.contact}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className='col-1'>Address:&nbsp;</span><b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
                         </label>
-                    </div>
-                    <div className={`col-12 p-3 d-inline-flex align-items-center justify-content-start`}>
-                        <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setCheckoutType('Address')}>Change</span>
                     </div>
                 </div>
             }
@@ -164,7 +166,7 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
                         </div>
                     </div>
                     <div className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}>
-                        <span onClick={() => proceedPayment(checkoutTotal)} role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PAY ₹{checkoutTotal}</span>
+                        <span onClick={() => proceedPayment(checkoutTotal)} role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PLACE ORDER (₹{checkoutTotal})</span>
                     </div>
                 </div>
             }
@@ -172,7 +174,7 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
     )
 }
 
-export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, shopcartID}) => {
+export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, shopcartID, setOrderStatus}) => {
     const appData = useApp();
     const [allAddress, setAllAddress] = useState([]);
     const [addressSaved, setAddressSaved] = useState(false);
@@ -195,6 +197,10 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
         });
     }
 
+    const changeProducts = () => {
+        setOrderStatus('Cart');
+    }
+
     useEffect(() => {
         getAllAdress();
     }, []);
@@ -207,6 +213,10 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
 
     return (
         <React.Fragment>
+            <div className={`${styles.cartSummryBox} col-12 d-inline-flex align-items-center justify-content-between mb-2`}>
+                <h1 className={`${styles.myCartTitle} d-inline-flex`}>My Cart ({appData?.appData?.cartCount})</h1>
+                <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => changeProducts()}>CHange</span>
+            </div>
             <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} setAddressSaved={setAddressSaved} />
             <PaymentMode checkoutType={checkoutType} checkoutTotal={checkoutTotal} userInfo={userInfo}checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} addressId={addressId} shopcartID={shopcartID} />
         </React.Fragment>

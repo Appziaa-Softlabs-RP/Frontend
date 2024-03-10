@@ -33,7 +33,7 @@ export const ShoppingCart = () => {
             cartData?.map((item) => {
                 let qtyTotal = item?.quantity * item?.selling_price;
                 allTotal = allTotal + qtyTotal;
-                let saveTotal = item?.mrp - item?.selling_price;
+                let saveTotal = (item?.mrp - item?.selling_price) * item.quantity;
                 allSaving = allSaving + saveTotal;
             });
             setCheckoutTotal(allTotal);
@@ -49,6 +49,7 @@ export const ShoppingCart = () => {
                 ApiService.getDeliveryCost(payload).then((res) => {
                     if (res.message === "Delivery Details.") {
                         setDelivryCost(res?.payload_deliveryCharge?.delivery_charge);
+                        setCheckoutTotal(allTotal + res?.payload_deliveryCharge?.delivery_charge);
                     }
                 }).catch((err) => {
         
@@ -169,7 +170,7 @@ export const ShoppingCart = () => {
                                     {orderStatus === 'Cart' ? (
                                         <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} setShopCartId={setShopCartId} />
                                     ) : orderStatus === 'Place Order' ? (
-                                        <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} />
+                                        <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} setOrderStatus={setOrderStatus} />
                                     ) : null}
                                 </div>
                                 <div className="col-3 flex-shrink-0">

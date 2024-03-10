@@ -89,7 +89,7 @@
 .deliveryRadio:before {
     background-color: hsl(0,0%,100%);
     border-radius: inherit;
-    box-shadow: 0 0 0 0.3em hsl(223,90%,50%);
+    box-shadow: 0 0 0 0.3em var(--PRIMARY_COLOR);
     content: "";
     display: block;
     position: absolute;
@@ -108,4 +108,13 @@
 .paymentRadio .deliveryRadio{
     left: -15px;
     top: 4px;
+}
+.cartSummryBox {
+    background: #FFF;
+    padding: 10px 20px;
+}
+.myCartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
 }

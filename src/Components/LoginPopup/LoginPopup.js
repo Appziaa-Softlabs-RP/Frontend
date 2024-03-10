@@ -113,7 +113,6 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                         AppNotification('Welcome', 'OTP verified successfully.', 'success');
                         setLoginPop(false);
                         getAddCartList(res.payload);
-                        navigate('/');
                     }
                 }).catch((err) => {
                     AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
@@ -141,6 +140,7 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                     localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartSaved', true);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
+                    window.location.reload();
                 }else{
                     AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
                 }

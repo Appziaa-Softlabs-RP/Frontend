@@ -146,10 +146,10 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
                                     <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item.no_of_quantity_allowed, item.quantity, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                                 </div>
                                 <div className="col-2 d-inline-flex flex-column">
-                                    <span className={`${styles.productPrice} d-inline-flex`}>₹{item.selling_price}</span>
+                                    <span className={`${styles.productPrice} d-inline-flex`}>₹{parseFloat(item.selling_price * item.quantity).toFixed(2)}</span>
                                 </div>
                                 <div className="col-2 d-inline-flex flex-column">
-                                    <span className={`${styles.savingPrice} d-inline-flex`}>₹{item.mrp - item.selling_price}</span>
+                                    <span className={`${styles.savingPrice} d-inline-flex`}>₹{parseFloat((item.mrp - item.selling_price) * item.quantity).toFixed(2)}</span>
                                 </div>
                                 <div className="col-1 d-inline-flex flex-column">
                                     <span className={`${styles.removeProd} d-inline-flex`} role="button" onClick={() => removeThisProd(item.product_id)}>

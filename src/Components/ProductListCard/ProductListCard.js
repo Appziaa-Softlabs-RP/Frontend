@@ -131,14 +131,13 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                         product_id: prodID
                     }
                     ApiService.removeCart(payload).then((res) => {
-
+                        AppNotification('Success', 'Product removed from cart successfully', 'success');
                     }).catch((err) => {
-
+                        AppNotification('Error', 'Unable to remove the product from cart successfully', 'danger');
                     });
                 }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
-                AppNotification('Success', 'Product removed from cart successfully', 'success');
             } else {
                 cartInfo[cartProdID].quantity = newQty;
             }
