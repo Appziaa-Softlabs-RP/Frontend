@@ -79,6 +79,19 @@
 	opacity: 0.8;
 	line-height: 14px;
 }
+.addCartBtn {
+    background: var(--ADD_BUTTON_COLOR);
+    padding: 0 15px;
+    color: #FFF;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    height: 35px;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+}
 .itemQuantityBtnBox{
 	bottom: 10px;
 	right: 15px;
@@ -109,23 +122,6 @@
 	background: transparent;
 	cursor: default;
 	font-weight: 500;
-}
-.addCartBtn {
-    background: var(--ADD_BUTTON_COLOR);
-    padding: 0 15px;
-    color: #FFF;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 500;
-    height: 35px;
-    bottom: 10px;
-    right: 10px;
-    left: 10px;
-}
-.itemQuantityBtnBox{
-    bottom: 10px;
-    right: 10px;
 }
 .decrease_btn, .increase_btn{
     height: 20px;
