@@ -125,7 +125,7 @@ export const ProductCard = ({ item, index }) => {
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
-                let cartID = cartInfo[cartProdID].cart_id;
+                let cartID = appData.appData.cartID;
                 if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
                         store_id: parseInt(enviroment.STORE_ID),
@@ -134,14 +134,13 @@ export const ProductCard = ({ item, index }) => {
                         product_id: prodID
                     }
                     ApiService.removeCart(payload).then((res) => {
-
+                        AppNotification('Success', 'Product removed from cart successfully', 'success');
                     }).catch((err) => {
-
+                        AppNotification('Error', 'Unable to remove the product from cart successfully', 'danger');
                     });
                 }
                 let newCartInfo = cartInfo.filter((obj) => obj.product_id !== prodID);
                 cartInfo = newCartInfo;
-                AppNotification('Success', 'Product removed from cart successfully', 'success');
             } else {
                 cartInfo[cartProdID].quantity = newQty;
             }

@@ -122,7 +122,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
         } else {
             let newQty = currQty - 1;
             if (newQty === 0) {
-                let cartID = cartInfo[cartProdID].cart_id;
+                let cartID = appData.appData.cartID;
                 if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
                     const payload = {
                         store_id: parseInt(enviroment.STORE_ID),
