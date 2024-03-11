@@ -14,7 +14,7 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
     const [userInfo, setUserInfo] = useState({});
     const [cartSummryData, setCartSummyData] = useState(cartData);
 
-    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+    const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
         let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
@@ -23,7 +23,11 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                cartInfo[cartProdID].quantity = newQty;
+                if(stock >= newQty){
+                    cartInfo[cartProdID].quantity = newQty;
+                }else{
+                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+                }
             }
         } else {
             let newQty = currQty - 1;
@@ -139,11 +143,11 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
                                     }
                                 </div>
                                 <div className="col-2 d-inline-flex align-items-center">
-                                    <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item.no_of_quantity_allowed, item.quantity, 'minus')} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                    <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item.no_of_quantity_allowed, item.quantity, 'minus', item?.stock)} className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}>-</span>
                                     <span className="d-inline-flex flex-shrink-0">
                                         <input type="text" readOnly value={item.quantity} className={`${styles.countValue} d-inline-block text-center`} />
                                     </span>
-                                    <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item.no_of_quantity_allowed, item.quantity, 'plus')} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                    <span role="button" onClick={(e) => updateProdQty(e, item.product_id, item.no_of_quantity_allowed, item.quantity, 'plus', item?.stock)} className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}>+</span>
                                 </div>
                                 <div className="col-2 d-inline-flex flex-column">
                                     <span className={`${styles.productPrice} d-inline-flex`}>₹{parseFloat(item.selling_price * item.quantity).toFixed(2)}</span>

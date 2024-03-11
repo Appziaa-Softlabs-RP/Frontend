@@ -115,15 +115,15 @@ export const ProductCard = ({ item, index }) => {
         let cartInfo = appData?.appData?.cartData;
         let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
         if (type === 'plus') {
-            if(stock >= currQty){
-                if (currQty === allowQty) {
-                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
-                } else {
-                    let newQty = currQty + 1;
-                    cartInfo[cartProdID].quantity = newQty;
-                }
-            }else {
+            if (currQty === allowQty) {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+            } else {
+                let newQty = currQty + 1;
+                if(stock >= newQty){
+                    cartInfo[cartProdID].quantity = newQty;
+                }else{
+                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+                }
             }
         } else {
             let newQty = currQty - 1;

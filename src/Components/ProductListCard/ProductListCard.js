@@ -108,7 +108,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
         e.stopPropagation();
     }
 
-    const updateProdQty = (e, prodID, allowQty, currQty, type) => {
+    const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
         e.preventDefault();
         let cartInfo = appData?.appData?.cartData;
         let cartProdID = cartInfo.findIndex((obj) => obj.product_id === prodID);
@@ -117,7 +117,11 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                cartInfo[cartProdID].quantity = newQty;
+                if(stock >= newQty){
+                    cartInfo[cartProdID].quantity = newQty;
+                }else{
+                    AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
+                }
             }
         } else {
             let newQty = currQty - 1;
@@ -214,7 +218,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                                 ) : (
                                 <div className={`${styles.itemPeice} d-inline-flex`}>
                                     <button className="d-inline-flex flex-shrink-0">
-                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'minus')} className={`${styles.decreaseBtn} d-inline-flex align-items-center justify-content-center`}>-</span>
+                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'minus', Product?.stock)} className={`${styles.decreaseBtn} d-inline-flex align-items-center justify-content-center`}>-</span>
                                     </button>
                                                     
                                     <span className="d-inline-flex flex-shrink-0">
@@ -222,7 +226,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                                     </span>
 
                                     <button className="d-inline-flex flex-shrink-0">
-                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'plus')} className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
+                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'plus', Product?.stock)} className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
                                     </button>
                                 </div>
                                 )}
