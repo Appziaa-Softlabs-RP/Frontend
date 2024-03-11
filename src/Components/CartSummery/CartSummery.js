@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
@@ -10,9 +10,27 @@ import styles from './CartSummery.module.css';
 
 export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
     const appData = useApp();
+    const navigate = useNavigate();
     const [loginPop, setLoginPop] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const [cartSummryData, setCartSummyData] = useState(cartData);
+
+    const showProductDetail = (id) => {
+        const payload = {
+            product_id: id,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
+        }
+        ApiService.productDetails(payload).then((res) => {
+            if (res.message === "Product Detail") {
+                navigate(`/product?id=${id}`, { state: { product: res.payload } })
+            } else {
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+        });
+    }
 
     const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
         e.preventDefault();
@@ -130,7 +148,7 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
                     {cartSummryData?.length > 0 && cartSummryData?.map((item, idx) => {
                         return (
                             <div className={`${styles.cartDataBox} col-12 d-inline-flex align-items-center p-2`} key={idx}>
-                                <div className="d-inline-flex align-items-center col-3 gap-1">
+                                <div className="d-inline-flex align-items-center col-3 gap-1" onClick={() => showProductDetail(item.id)}>
                                     <span className={`${styles.itemImage} d-inline-flex flex-shrink-0`}>
                                         <img src={item?.image} alt={item?.product_name} />
                                     </span>

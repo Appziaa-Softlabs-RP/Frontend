@@ -58,6 +58,7 @@ export const ProductPage = () => {
         let prodName = item?.name;
         let Mrp = item?.mrp;
         let sellingPrice = item?.selling_price;
+        let stockQTY = item?.stock;
         let Quantity = 1;
         let noQty = item?.no_of_quantity_allowed;
         let dealType = item?.deal_type ? item?.deal_type : 0;
@@ -71,6 +72,7 @@ export const ProductPage = () => {
             product_name: prodName,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
+            stock: stockQTY,
             mrp: Mrp,
             selling_price: sellingPrice,
             quantity: 1,
@@ -92,6 +94,7 @@ export const ProductPage = () => {
             let cartDataJson = [{
                 product_id: ProdId,
                 product_name: prodName,
+                stock: stockQTY,
                 mrp: Mrp,
                 selling_price:sellingPrice,
                 quantity: Quantity,
@@ -385,9 +388,7 @@ export const ProductPage = () => {
                         <span className={`${styles.inclusivTax} col-12 d-inline-block`}>(Inclusive of all taxes)</span>
                     </div>
 
-                    
-
-                    {ProductData?.bank_offer !== null &&
+                    {ProductData?.bank_offer !== null && ProductData?.bank_offer?.length > 0 && ProductData?.bank_offer !== undefined &&
                         <div className={`${styles.productDesciptionBox} mt-2 col-12 d-inline-flex flex-column gap-2 p-4`}>
                             <h2 className={`${styles.availSizeTitle} d-inline-flex mt-0 mb-1`}>Offers</h2>
                             {ProductData?.bank_offer.length > 0 && ProductData?.bank_offer?.map((item, index) => {
@@ -398,7 +399,6 @@ export const ProductPage = () => {
                                     </span>
                                 );
                             })}
-                            
                         </div>
                     }
 
@@ -573,7 +573,7 @@ export const ProductPage = () => {
                                         </div>
                                     )}
 
-                                    {ProductData?.bank_offer !== null &&
+                                    {ProductData?.bank_offer !== null && ProductData?.bank_offer?.length > 0 && ProductData?.bank_offer !== undefined &&
                                         <div className={`${styles.bankOffer} mt-2 col-12 d-inline-flex flex-column gap-2`}>
                                             <h2 className={`${styles.bankOfferTitle} d-inline-flex mt-0 mb-1`}>Offers</h2>
                                             {ProductData?.bank_offer.length > 0 && ProductData?.bank_offer?.map((item, index) => {

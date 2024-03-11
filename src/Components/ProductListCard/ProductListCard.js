@@ -44,6 +44,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
         let prodName = item?.name;
         let Mrp = item?.mrp;
         let sellingPrice = item?.selling_price;
+        let stockQTY = item?.stock;
         let Quantity = 1;
         let noQty = item?.no_of_quantity_allowed;
         let dealType = item?.deal_type ? item?.deal_type : 0;
@@ -57,6 +58,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
             product_name: prodName,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
+            stock: stockQTY,
             mrp: Mrp,
             selling_price: sellingPrice,
             quantity: 1,
@@ -81,6 +83,7 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                 customer_id: userInfo.customer_id,
                 product_id: ProdId,
                 product_name: prodName,
+                stock: stockQTY,
                 mrp: Mrp,
                 selling_price:sellingPrice,
                 quantity: Quantity,

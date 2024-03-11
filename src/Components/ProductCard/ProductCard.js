@@ -58,6 +58,7 @@ export const ProductCard = ({ item, index }) => {
             product_name: prodName,
             no_of_quantity_allowed: noQty,
             is_hot_deals: dealType,
+            stock: stockQTY,
             mrp: Mrp,
             selling_price: sellingPrice,
             quantity: 1,
@@ -78,6 +79,7 @@ export const ProductCard = ({ item, index }) => {
         let cartDataJson = [{
             product_id: ProdId,
             product_name: prodName,
+            stock: stockQTY,
             mrp: Mrp,
             selling_price:sellingPrice,
             quantity: Quantity,

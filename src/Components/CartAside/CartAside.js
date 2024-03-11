@@ -26,7 +26,8 @@ export const CartAside = ({ setCartPop }) => {
         }
         ApiService.productDetails(payload).then((res) => {
             if (res.message === "Product Detail") {
-                navigate(`/product?id=${id}`, { state: { product: res.payload } })
+                navigate(`/product?id=${id}`, { state: { product: res.payload } });
+                closeDrawer();
             } else {
                 AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
             }

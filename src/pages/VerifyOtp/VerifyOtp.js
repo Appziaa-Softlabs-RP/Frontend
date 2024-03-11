@@ -26,7 +26,7 @@ export const VerifyOtp = () => {
 
     useEffect(() => {
         document.title = enviroment.BUSINESS_NAME+' - User Verify';
-        if(locationState?.state?.opt && locationState?.state?.optID){
+        if(locationState?.state?.optID){
             mobileOTPId = locationState.state.optID;
             mobileNum = locationState.state.mobile;
             mobileNum = mobileNum?.substr(mobileNum.length - 5);
@@ -34,7 +34,7 @@ export const VerifyOtp = () => {
         }else{
             navigate('/');
         }
-    }, []);
+    }, [locationState]);
 
     const resendOTP = () => {
         const payload = {
@@ -71,27 +71,23 @@ export const VerifyOtp = () => {
         if(optInput.otpInput1 !== '' && optInput.otpInput2 !== '' && optInput.otpInput3 !== '' && optInput.otpInput4 !== ''){
             let matchOTP = optInput.otpInput1+optInput.otpInput2+optInput.otpInput3+optInput.otpInput4;
             matchOTP = parseInt(matchOTP);
-            if(matchOTP.length === 4){
-                const payload = {
-                    otp_id:mobileOTPId,
-                    otp:matchOTP,
-                    otp_type:"mobile"
-                }
-                ApiService.VerifyOTP(payload).then((res) => {
-                    if(res.message === "Registration successfully."){
-                        localStorage.setItem('user', JSON.stringify(res.payload));
-                        appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
-                        localStorage.setItem('loggedIn', true);
-                        AppNotification('Welcome', 'OTP verified successfully.', 'success');
-                        getAddCartList(res.payload);
-                        navigate('/');
-                    }
-                }).catch((err) => {
-                    AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
-                });
-            }else{
-                AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
+            const payload = {
+                otp_id:mobileOTPId,
+                otp:matchOTP,
+                otp_type:"mobile"
             }
+            ApiService.VerifyOTP(payload).then((res) => {
+                if(res.message === "Registration successfully."){
+                    localStorage.setItem('user', JSON.stringify(res.payload));
+                    appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
+                    localStorage.setItem('loggedIn', true);
+                    AppNotification('Welcome', 'OTP verified successfully.', 'success');
+                    getAddCartList(res.payload);
+                    navigate('/');
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'Entered OTP is incorrect.', 'danger');
+            });
         }else{
             AppNotification('Error', 'Please enter OTP', 'danger');
         }
