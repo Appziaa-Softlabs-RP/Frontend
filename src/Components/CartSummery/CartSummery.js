@@ -148,7 +148,7 @@ export const CartSummery = ({ cartData, setOrderStatus, setShopCartId }) => {
                     {cartSummryData?.length > 0 && cartSummryData?.map((item, idx) => {
                         return (
                             <div className={`${styles.cartDataBox} col-12 d-inline-flex align-items-center p-2`} key={idx}>
-                                <div className="d-inline-flex align-items-center col-3 gap-1" onClick={() => showProductDetail(item.id)}>
+                                <div className="d-inline-flex align-items-center col-3 gap-1" onClick={() => showProductDetail(item.product_id)}>
                                     <span className={`${styles.itemImage} d-inline-flex flex-shrink-0`}>
                                         <img src={item?.image} alt={item?.product_name} />
                                     </span>

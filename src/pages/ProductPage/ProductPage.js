@@ -172,14 +172,16 @@ export const ProductPage = () => {
 
     const checkProdAdded = () => {
         if (appData.appData.cartData?.length && ProductData !== undefined) {
-            let productID = ProductData?.product_id ? ProductData.product_id : ProductData.id
-            let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === productID);
-            if (cartID !== -1) {
-                setProdAdded(true);
-                setProdAddedQty(appData.appData.cartData[cartID].quantity);
-            } else {
-                setProdAdded(false);
-                setProdAddedQty(0);
+            let productID = ProductData?.product_id ? ProductData.product_id : ProductData?.id ? ProductData?.id : '';
+            if(productID !== ''){
+                let cartID = appData.appData.cartData.findIndex((obj) => obj.product_id === productID);
+                if (cartID !== -1) {
+                    setProdAdded(true);
+                    setProdAddedQty(appData.appData.cartData[cartID].quantity);
+                } else {
+                    setProdAdded(false);
+                    setProdAddedQty(0);
+                }
             }
         } else {
             setProdAdded(false);

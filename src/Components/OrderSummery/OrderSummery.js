@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from './OrderSummery.module.css';
 
-export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) => {
+export const OrderSummery = ({ cartPriceTotal }) => {
     const [finalTotal, setFinalTotal] = useState(0);
-    const [discount, setDiscount] = useState('');
+    const [discount, setDiscount] = useState(0);
 
     useEffect(() => {
-        setFinalTotal(checkoutTotal + deliveryCost);
-    }, [checkoutTotal]);
-
-    useEffect(() => {
-        setFinalTotal(checkoutTotal + deliveryCost);
-    }, [deliveryCost]);
+        setFinalTotal(cartPriceTotal.subTotal + cartPriceTotal.delivery);
+    }, [cartPriceTotal]);
     return (
         <React.Fragment>
             <div className={`${styles.orderSummryBox} col-12 d-inline-flex flex-column`}>
@@ -32,16 +28,16 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                                 Price
                             </h6>
                             <div className={`${styles.subTotalPrice} d-inline-flex`}>
-                                ₹{parseFloat(checkoutTotal + checkoutSaving).toFixed(2)}
+                                ₹{parseFloat(cartPriceTotal.price).toFixed(2)}
                             </div>
                         </div>
-                        {checkoutSaving !== '' &&
+                        {cartPriceTotal.saving !== 0 &&
                             <div className="col-12 d-inline-flex align-items-center justify-content-between">
                                 <h6 className={`${styles.subTotalLabel} d-inline-flex`}>
                                     Discount
                                 </h6>
                                 <div className={`${styles.subTotalSaving} d-inline-flex`}>
-                                    <b>-₹{parseFloat(checkoutSaving).toFixed(2)}</b>
+                                    <b>-₹{parseFloat(cartPriceTotal.saving).toFixed(2)}</b>
                                 </div>
                             </div>
                         }
@@ -50,7 +46,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                                 Subtotal
                             </h6>
                             <div className={`${styles.subTotalPrice} d-inline-flex`}>
-                                ₹{parseFloat(checkoutTotal).toFixed(2)}
+                                ₹{parseFloat(cartPriceTotal.subTotal).toFixed(2)}
                             </div>
                         </div>
                         <div className="col-12 d-inline-flex align-items-center justify-content-between">
@@ -58,7 +54,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                                 Delivery
                             </h6>
                             <div className={`${styles.subTotalSaving} d-inline-flex`}>
-                                {deliveryCost === 0 ? <React.Fragment><b><del>₹{parseFloat(deliveryCost).toFixed(2)}</del> Free</b></React.Fragment> : <span>₹{parseFloat(deliveryCost).toFixed(2)}</span> }
+                                {cartPriceTotal.delivery === 0 ? <React.Fragment><b><del>₹{parseFloat(cartPriceTotal.delivery).toFixed(2)}</del> Free</b></React.Fragment> : <span>₹{parseFloat(cartPriceTotal.delivery).toFixed(2)}</span> }
                             </div>
                         </div>
                     </div>
@@ -71,7 +67,7 @@ export const OrderSummery = ({ checkoutTotal, checkoutSaving, deliveryCost }) =>
                         </div>
                         <div className="col-12 d-inline-flex align-items-center justify-content-between mt-3">
                             <h6 className={`${styles.finalSavingLabel} d-inline-flex`}>Your Total Saving</h6>
-                            <div className={`${styles.subTotalSaving} d-inline-flex`}>₹{parseFloat(checkoutSaving).toFixed(2)}</div>
+                            <div className={`${styles.subTotalSaving} d-inline-flex`}>₹{parseFloat(cartPriceTotal.saving).toFixed(2)}</div>
                         </div>
                     </div>
                 </div>

@@ -86,9 +86,9 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                 <div className={`col-12 d-inline-flex flex-column ${windowWidth === 'mobile' ? 'p-2': 'p-4'}`}>
                     <div className={`col-12 p-3 rounded d-inline-flex flex-column position-relative`} role="button">
                         <label className={`col-10 d-inline-flex flex-column`} role="button">
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap mb-1`}><span className='col-1'>Name:&nbsp;</span><b>{selectAddress.name}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className='col-1'>Mobile:&nbsp;</span><b>{selectAddress.contact}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className='col-1'>Address:&nbsp;</span><b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Name:&nbsp;</span><b>{selectAddress.name}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Mobile:&nbsp;</span><b>{selectAddress.contact}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Address:&nbsp;</span><b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
                         </label>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
     )
 }
 
-export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, shopcartID, setOrderStatus}) => {
+export const DeliveryAddress = ({cartPriceTotal, shopcartID, setOrderStatus}) => {
     const appData = useApp();
     const [allAddress, setAllAddress] = useState([]);
     const [addressSaved, setAddressSaved] = useState(false);
@@ -215,10 +215,10 @@ export const DeliveryAddress = ({checkoutTotal, checkoutSaving, deliveryCost, sh
         <React.Fragment>
             <div className={`${styles.cartSummryBox} col-12 d-inline-flex align-items-center justify-content-between mb-2`}>
                 <h1 className={`${styles.myCartTitle} d-inline-flex`}>My Cart ({appData?.appData?.cartCount})</h1>
-                <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => changeProducts()}>CHange</span>
+                <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => changeProducts()}>Change</span>
             </div>
             <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} setAddressSaved={setAddressSaved} />
-            <PaymentMode checkoutType={checkoutType} checkoutTotal={checkoutTotal} userInfo={userInfo}checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} addressId={addressId} shopcartID={shopcartID} />
+            <PaymentMode checkoutType={checkoutType} userInfo={userInfo} addressId={addressId} shopcartID={shopcartID} cartPriceTotal={cartPriceTotal} />
         </React.Fragment>
     );
 }

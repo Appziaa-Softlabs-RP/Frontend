@@ -19,16 +19,21 @@ export const ShoppingCart = () => {
     const windowWidth = appData.appData.windowWidth;
     const [cartData, setCartData] = useState([]);
     const [userInfo, setUserInfo] = useState({});
-    const [checkoutTotal, setCheckoutTotal] = useState(0);
-    const [checkoutSaving, setCheckoutSaving] = useState(0);
-    const [deliveryCost, setDelivryCost] = useState(0);
+    const [cartPriceTotal, setCartPriceTotal] = useState({
+        price: 0,
+        discount: 0,
+        subTotal: 0,
+        delivery: 0,
+        saving: 0
+    });
     const [orderStatus, setOrderStatus] = useState('Cart');
     const [shopcartID, setShopCartId] = useState('');
     const navigate = useNavigate();
 
     const setCartTotal = (cartData) => {
-        let allTotal = 0;
-        let allSaving = 0;
+        let allTotal = 0,
+        allSaving = 0,
+        allPrice = 0;
         if (cartData?.length) {
             cartData?.map((item) => {
                 let qtyTotal = item?.quantity * item?.selling_price;
@@ -36,8 +41,8 @@ export const ShoppingCart = () => {
                 let saveTotal = (item?.mrp - item?.selling_price) * item.quantity;
                 allSaving = allSaving + saveTotal;
             });
-            setCheckoutTotal(allTotal);
-            setCheckoutSaving(allSaving);
+            allPrice = allTotal + allSaving;
+            setCartPriceTotal((cartPriceTotal) => ({...cartPriceTotal, saving:allSaving, subTotal: allTotal, price: allPrice}));
 
             if(userInfo?.customer_id !== undefined && userInfo?.customer_id !== null){
                 const payload = {
@@ -48,8 +53,8 @@ export const ShoppingCart = () => {
                 }
                 ApiService.getDeliveryCost(payload).then((res) => {
                     if (res.message === "Delivery Details.") {
-                        setDelivryCost(res?.payload_deliveryCharge?.delivery_charge);
-                        setCheckoutTotal(allTotal + res?.payload_deliveryCharge?.delivery_charge);
+                        let deliveryCost = res?.payload_deliveryCharge?.delivery_charge;
+                        setCartPriceTotal((cartPriceTotal) => ({...cartPriceTotal, delivery:deliveryCost}));
                     }
                 }).catch((err) => {
         
@@ -88,16 +93,11 @@ export const ShoppingCart = () => {
 
     useEffect(() => {
         setCartData(appData?.appData?.cartData);
-        setCartTotal(appData?.appData?.cartData);
     }, []);
 
     useEffect(() => {
+        setCartTotal(appData?.appData?.cartData);
         setCartData(appData?.appData?.cartData);
-        setCartTotal(appData?.appData?.cartData);
-    }, [appData?.appData.cartData]);
-
-    useEffect(() => {
-        setCartTotal(appData?.appData?.cartData);
         setUserInfo(appData.appData.user);
     }, [appData?.appData]);
     return (
@@ -119,8 +119,8 @@ export const ShoppingCart = () => {
                                     </div>
                                     <div className={`${styles.checkoutBox} col-12 justify-content-between p-3 d-inline-flex align-items-center`}>
                                         <div className={`col-5 d-inline-flex flex-column align-items-start gap-2`}>
-                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Total ₹{checkoutTotal}</span>
-                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Saved ₹{checkoutSaving}</span>
+                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Total ₹{cartPriceTotal.subTotal}</span>
+                                            <span className={`${styles.totalAmtLabel} d-inline-flex col-12 p-0`}>Saved ₹{cartPriceTotal.saving}</span>
                                         </div>
                                         <button className={`${styles.checkoutBtn} d-inline-flex align-items-center justify-content-center col-6 text-uppercase`} onClick={() => placeOrder()}>Place Order</button>
                                     </div>
@@ -141,8 +141,8 @@ export const ShoppingCart = () => {
                                     )
                                 })}
                             </div>
-                            <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} />
-                            <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} />
+                            <DeliveryAddress cartPriceTotal={cartPriceTotal} shopcartID={shopcartID} setOrderStatus={setOrderStatus} />
+                            <OrderSummery cartPriceTotal={cartPriceTotal} />
                             <div className={`${styles.cancelPolicyBox} col-12 mt-3 p-3`}>
                                 <h5 className={`${styles.policyHeader} col-12 d-inline-flex mb-3`}>Cancelation Policy</h5>
                                 <div className="col-12 d-inline-flex flex-column mt-2 gap-3">
@@ -168,13 +168,13 @@ export const ShoppingCart = () => {
                             <div className="col-12 d-inline-flex gap-5 align-items-start">
                                 <div className="col-9 flex-shrink-1">
                                     {orderStatus === 'Cart' ? (
-                                        <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} setShopCartId={setShopCartId} />
+                                        <CartSummery setOrderStatus={setOrderStatus} cartData={cartData} setShopCartId={setShopCartId} setCartPriceTotal={setCartPriceTotal} />
                                     ) : orderStatus === 'Place Order' ? (
-                                        <DeliveryAddress checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} shopcartID={shopcartID} setOrderStatus={setOrderStatus} />
+                                        <DeliveryAddress cartPriceTotal={cartPriceTotal} shopcartID={shopcartID} setOrderStatus={setOrderStatus} />
                                     ) : null}
                                 </div>
                                 <div className="col-3 flex-shrink-0">
-                                    <OrderSummery checkoutTotal={checkoutTotal} checkoutSaving={checkoutSaving} deliveryCost={deliveryCost} />
+                                    <OrderSummery cartPriceTotal={cartPriceTotal} />
                                 </div>
                             </div>
                         </div>
