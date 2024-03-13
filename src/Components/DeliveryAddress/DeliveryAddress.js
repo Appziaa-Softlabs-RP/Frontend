@@ -9,7 +9,7 @@ import { AppNotification } from '../../utils/helper';
 import { AddAddressPopup } from '../AddAddressPopup/AddAddressPopup';
 
 
-const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressId, setAddressSaved}) => {
+const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddressId, setAddressSaved }) => {
     const navigate = useNavigate();
     const [selectAddress, setSelectAddress] = useState({});
     const [openAdressPop, setOpenAdressPop] = useState(false);
@@ -17,18 +17,18 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
     let windowWidth = appData.appData.windowWidth;
 
     const editAddress = (id) => {
-        navigate('/add-new-address', {state: {addressEdit: true, addressId: id, routePopup: true}});
+        navigate('/add-new-address', { state: { addressEdit: true, addressId: id, routePopup: true } });
     }
 
     const chooseSelectAddr = () => {
-        if(Object.keys(selectAddress).length === 0){
+        if (Object.keys(selectAddress).length === 0) {
             AppNotification('Error', 'Please choose an address to proceed', 'danger');
-        }else{
+        } else {
             setCheckoutType('Payment');
         }
     }
 
-    const seletThisAddress = (e, item,addrId) => {
+    const seletThisAddress = (e, item, addrId) => {
         setSelectAddress(item);
         setAddressId(addrId);
     }
@@ -44,7 +44,7 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                     <LocationIcon color="#000" />
                     Select Delivery Address
                 </h2>
-                {checkoutType === 'Payment' && 
+                {checkoutType === 'Payment' &&
                     <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => setCheckoutType('Address')}>Change</span>
                 }
             </div>
@@ -53,14 +53,14 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                     <div className='col-12 d-inline-flex justify-content-end p-3'>
                         <span onClick={() => addNewAddress()} role="button" className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4`}>Add New Address</span>
                     </div>
-                    {allAddress?.length > 0 && 
+                    {allAddress?.length > 0 &&
                         <React.Fragment>
                             <div className="col-12 d-inline-flex flex-wrap p-3">
                                 {allAddress?.map((item, idx) => {
                                     return (
                                         <div className={`${windowWidth === 'mobile' ? 'col-12' : 'col-6'} p-3`} key={idx}>
                                             <div className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`} role="button" onClick={(e) => seletThisAddress(e, item, item.address_id)}>
-                                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} id={`delivery${idx}`} type="radio" name="delivery"/>
+                                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} id={`delivery${idx}`} type="radio" name="delivery" />
                                                 <label className={`col-10 d-inline-flex flex-column`} htmlFor={`delivery${idx}`} role="button">
                                                     <h6 className={`${styles.addressName} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}>{item.name}<span className={`${styles.addressTag} d-inline-flex align-items-center px-1`}>{item.address_type}</span></h6>
                                                     <label className={`${styles.addressdetail} col-12 d-inline-flex mb-0`}>{item.contact}</label>
@@ -82,13 +82,13 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
                     }
                 </div>
             }
-            {checkoutType === 'Payment' && 
-                <div className={`col-12 d-inline-flex flex-column ${windowWidth === 'mobile' ? 'p-2': 'p-4'}`}>
+            {checkoutType === 'Payment' &&
+                <div className={`col-12 d-inline-flex flex-column ${windowWidth === 'mobile' ? 'p-2' : 'p-4'}`}>
                     <div className={`col-12 p-3 rounded d-inline-flex flex-column position-relative`} role="button">
                         <label className={`col-10 d-inline-flex flex-column`} role="button">
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Name:&nbsp;</span><b>{selectAddress.name}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Mobile:&nbsp;</span><b>{selectAddress.contact}</b></label>
-                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3': 'col-1'}`}>Address:&nbsp;</span><b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex align-items-center flex-wrap mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3' : 'col-1'}`}>Name:&nbsp;</span><b>{selectAddress.name}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3' : 'col-1'}`}>Mobile:&nbsp;</span><b>{selectAddress.contact}</b></label>
+                            <label className={`${styles.addressdetail} col-12 d-inline-flex mb-1`}><span className={`${windowWidth === 'mobile' ? 'col-3' : 'col-1'}`}>Address:&nbsp;</span><b>{selectAddress.house_no}, {selectAddress?.street}, {selectAddress?.city}, {selectAddress?.state} - {selectAddress.pincode}</b></label>
                         </label>
                     </div>
                 </div>
@@ -100,28 +100,29 @@ const AddressDelivery = ({allAddress, setCheckoutType, checkoutType, setAddressI
     )
 }
 
-const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, deliveryCost, addressId, shopcartID}) => {
+const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceTotal }) => {
     const [paymentType, setPaymentType] = useState(null);
     const navigate = useNavigate();
     const appData = useApp();
 
     const selectPaymentMode = (type) => {
-        setPaymentType(type);       
+        setPaymentType(type);
     }
 
-    const proceedPayment = (amt) => {
-        if(paymentType === ''){
+    const proceedPayment = () => {
+        if (paymentType === '') {
             AppNotification('Error', "Please select payment type", 'danger');
-        }else{
+        } else {
+            let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
             const payload = {
                 company_id: parseInt(enviroment.COMPANY_ID),
                 store_id: parseInt(enviroment.STORE_ID),
                 customer_id: userInfo.customer_id,
                 address_id: addressId,
-                total_paid_amount: amt,
-                total_saving: checkoutSaving,
-                deliveryCharge: deliveryCost,
-                paymentmode:'cash',
+                total_paid_amount: finalAmount,
+                total_saving: cartPriceTotal.saving,
+                deliveryCharge: cartPriceTotal.delivery,
+                paymentmode: 'cash',
                 cart_id: shopcartID,
                 slot_id: 1,
                 couponValue: 0,
@@ -129,13 +130,13 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
                 slot_date: new Date(),
             }
             ApiService.cashOnDelivery(payload).then((res) => {
-                if(res.message === 'Cash on delivery successfully.'){
+                if (res.message === 'Cash on delivery successfully.') {
                     let emptyCartData = [];
                     AppNotification('Success', 'Your order has been placed successfully', 'success');
                     appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
                     localStorage.setItem('cartData', JSON.stringify(emptyCartData));
                     navigate('/my-orders');
-                }else {
+                } else {
                     AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
                 }
             }).catch((err) => {
@@ -154,19 +155,19 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
                     <div className='col-12 d-inline-flex flex-column gap-3 px-5 py-4'>
                         <div className='col-12 d-inline-flex'>
                             <label className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`} htmlFor="cash" role="button" onClick={() => selectPaymentMode('cash')}>
-                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} type="radio" id="cash" name="paymentmode"/>
+                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} type="radio" id="cash" name="paymentmode" />
                                 <span className={`${styles.radioText} d-inline-flex`}>Cash on Delivery</span>
                             </label>
                         </div>
                         <div className='col-12 d-inline-flex'>
                             <label className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`} htmlFor="online" role="button" onClick={() => selectPaymentMode('online')}>
-                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} type="radio" id="online" name="paymentmode"/>
+                                <input className={`${styles.deliveryRadio} position-absolute d-inline-block`} type="radio" id="online" name="paymentmode" />
                                 <span className={`${styles.radioText} d-inline-flex`}>Online Payment Options</span>
                             </label>
                         </div>
                     </div>
                     <div className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}>
-                        <span onClick={() => proceedPayment(checkoutTotal)} role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PLACE ORDER (₹{checkoutTotal})</span>
+                        <span onClick={() => proceedPayment()} role="button" className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}> PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery})</span>
                     </div>
                 </div>
             }
@@ -174,7 +175,7 @@ const PaymentMode = ({checkoutType, checkoutTotal, userInfo, checkoutSaving, del
     )
 }
 
-export const DeliveryAddress = ({cartPriceTotal, shopcartID, setOrderStatus}) => {
+export const DeliveryAddress = ({ cartPriceTotal, shopcartID, setOrderStatus }) => {
     const appData = useApp();
     const [allAddress, setAllAddress] = useState([]);
     const [addressSaved, setAddressSaved] = useState(false);
@@ -206,7 +207,7 @@ export const DeliveryAddress = ({cartPriceTotal, shopcartID, setOrderStatus}) =>
     }, []);
 
     useEffect(() => {
-        if(addressSaved === true){
+        if (addressSaved === true) {
             getAllAdress();
         }
     }, [addressSaved]);
