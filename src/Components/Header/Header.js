@@ -67,7 +67,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   }
 
   const userLoggedOut = () => {
-    appData.setAppData({ ...appData.appData, user: '', loggedIn: false, cartSaved: false });
+    let emptyCartData = [];
+    appData.setAppData({ ...appData.appData, user: '', loggedIn: false, cartSaved: false, cartData: emptyCartData, cartCount: 0 });
+    localStorage.setItem('cartData', JSON.stringify(emptyCartData));
     localStorage.removeItem('user');
     localStorage.removeItem('cartSaved');
     localStorage.removeItem('loggedIn');

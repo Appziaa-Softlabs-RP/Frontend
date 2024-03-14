@@ -21,6 +21,7 @@ const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddress
     }
 
     const chooseSelectAddr = () => {
+        console.log(selectAddress)
         if (Object.keys(selectAddress).length === 0) {
             AppNotification('Error', 'Please choose an address to proceed', 'danger');
         } else {
@@ -110,7 +111,8 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
     }
 
     const proceedPayment = () => {
-        if (paymentType === '' || paymentType !== null || paymentType !== undefined) {
+        console.log(paymentType)
+        if (paymentType === '' || paymentType === null || paymentType === undefined) {
             AppNotification('Error', "Please select payment type", 'danger');
         } else {
             let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
