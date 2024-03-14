@@ -133,8 +133,8 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
             }
             ApiService.cashOnDelivery(payload).then((res) => {
                 if (res.message === 'Cash on delivery successfully.') {
-                    let emptyCartData = [];
                     AppNotification('Success', 'Your order has been placed successfully', 'success');
+                    let emptyCartData = [];
                     appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
                     localStorage.setItem('cartData', JSON.stringify(emptyCartData));
                     navigate('/my-orders');
