@@ -110,7 +110,7 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
     }
 
     const proceedPayment = () => {
-        if (paymentType === '') {
+        if (paymentType === '' || paymentType !== null || paymentType !== undefined) {
             AppNotification('Error', "Please select payment type", 'danger');
         } else {
             let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
