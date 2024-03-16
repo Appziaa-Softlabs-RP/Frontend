@@ -82,8 +82,8 @@ export const CategoryPage = () => {
             {windowWidth === "mobile"
                 ? <PageHeader title="Explore Category" />
                 : windowWidth === "desktop"
-                ? <Header />
-                : ''
+                    ? <Header />
+                    : ''
             }
 
             <div className={`col-12 d-inline-flex flex-column ${windowWidth === "mobile" ? 'mt-3' : 'mt-5'}`}>
@@ -94,62 +94,64 @@ export const CategoryPage = () => {
                         </div>
                     }
                     {loading && <ProductListLoader />}
-                    <div className={`d-inline-flex flex-column col-12 mb-3`}>
-                        <div className={`d-inline-flex align-items-start col-12 gap-2`}>
-                            {windowWidth === "desktop" && filterVert !== null &&  filterVert !== undefined &&
-                                <div className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}>
-                                    <Filter filterVert={filterVert} filterCatg={filterCatg} setProductData={setProductData} setProductActualData={setProductActualData} />
-                                </div>
-                            }
-                            <div className={`${windowWidth === "mobile" ? 'col-12 pt-2' : filterVert !== null && filterVert !== undefined ? 'col-9' : 'col-12'} ${styles.productContainer} flex-shrink-1 d-inline-flex flex-wrap`}>
-                                {windowWidth !== "mobile" &&
-                                    <div className={`${styles.sortContainer} col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}>
-                                        <span onClick={() => resetSortFilter()} role="button" className={`${styles.clearAllBtn} d-inline-flex`}>Clear All</span>
-                                        <div className="col-12 d-inline-flex justify-content-end align-items-center">
-                                            <span className={`${styles.sortBy} d-inline-flex me-2`}>Sort By</span>
-                                            <span onClick={() => priceDescending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: Low to High</span>
-                                            <span onClick={() => priceAscending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: High to Low</span>
-                                        </div>
+                    {loading === false &&
+                        <div className={`d-inline-flex flex-column col-12 mb-3`}>
+                            <div className={`d-inline-flex align-items-start col-12 gap-2`}>
+                                {windowWidth === "desktop" && filterVert !== null && filterVert !== undefined &&
+                                    <div className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}>
+                                        <Filter filterVert={filterVert} filterCatg={filterCatg} setProductData={setProductData} setProductActualData={setProductActualData} />
                                     </div>
                                 }
-                                {ProductData?.length > 0 ? 
-                                    <React.Fragment>
-                                        {ProductData?.map((item, index) => {
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    {item.name !== '' &&
-                                                        <div className={`${windowWidth === "mobile" ? 'col-6' : filterVert !== null && filterVert !== undefined ? 'col-4' : 'col-3'} px-2 flex-shrink-0 mb-3`} key={index} role="button">
-                                                        <ProductCard item={item} index={index} />
-                                                        </div>
-                                                    }
-                                                </React.Fragment>
-                                            )
-                                        })}
-                                    </React.Fragment>
-                                :   <React.Fragment>
-                                        <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}>
-                                            <OrderIcon color="#888" />
-                                            <label className={`${styles.emptyProductText} col-12 text-center`}>No Products Found</label>
+                                <div className={`${windowWidth === "mobile" ? 'col-12 pt-2' : filterVert !== null && filterVert !== undefined ? 'col-9' : 'col-12'} ${styles.productContainer} flex-shrink-1 d-inline-flex flex-wrap`}>
+                                    {windowWidth !== "mobile" &&
+                                        <div className={`${styles.sortContainer} col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}>
+                                            <span onClick={() => resetSortFilter()} role="button" className={`${styles.clearAllBtn} d-inline-flex`}>Clear All</span>
+                                            <div className="col-12 d-inline-flex justify-content-end align-items-center">
+                                                <span className={`${styles.sortBy} d-inline-flex me-2`}>Sort By</span>
+                                                <span onClick={() => priceDescending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: Low to High</span>
+                                                <span onClick={() => priceAscending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: High to Low</span>
+                                            </div>
                                         </div>
-                                    </React.Fragment>
-                                }
+                                    }
+                                    {ProductData?.length > 0 ?
+                                        <React.Fragment>
+                                            {ProductData?.map((item, index) => {
+                                                return (
+                                                    <React.Fragment key={index}>
+                                                        {item.name !== '' &&
+                                                            <div className={`${windowWidth === "mobile" ? 'col-6' : filterVert !== null && filterVert !== undefined ? 'col-4' : 'col-3'} px-2 flex-shrink-0 mb-3`} key={index} role="button">
+                                                                <ProductCard item={item} index={index} />
+                                                            </div>
+                                                        }
+                                                    </React.Fragment>
+                                                )
+                                            })}
+                                        </React.Fragment>
+                                        : <React.Fragment>
+                                            <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}>
+                                                <OrderIcon color="#888" />
+                                                <label className={`${styles.emptyProductText} col-12 text-center`}>No Products Found</label>
+                                            </div>
+                                        </React.Fragment>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 {sortPopup === true &&
                     <div className={`${styles.actionSheet} position-fixed d-inline-flex flex-column justify-content-end gap-2 col-12 p-2 h-100 bottom-0 start-0`}>
                         <div className={`${styles.actionSheetBox} d-inline-flex flex-column col-12 overflow-hidden`}>
                             <div className={`${styles.actionSheetTitle} col-12 d-inline-flex align-items-center justify-content-center`}>Sort By</div>
-                            <button onClick={() => {priceDescending(); setSortPopup(false)}} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: Low to High</button>
-                            <button onClick={() => {priceAscending(); setSortPopup(false)}} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: High to Low</button>
-                            <button onClick={() => {resetSortFilter(); setSortPopup(false)}} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Clear All</button>
+                            <button onClick={() => { priceDescending(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: Low to High</button>
+                            <button onClick={() => { priceAscending(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: High to Low</button>
+                            <button onClick={() => { resetSortFilter(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Clear All</button>
                         </div>
                         <button onClick={() => setSortPopup(false)} className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Cancel</button>
                     </div>
                 }
 
-                {windowWidth === "mobile" && filterVert !== null &&  filterVert !== undefined &&
+                {windowWidth === "mobile" && filterVert !== null && filterVert !== undefined &&
                     <div className={`${styles.filterPopup} top-0 start-0 h-100 col-12 position-fixed ${filterPopup === true ? 'd-inline-flex' : 'd-none'} flex-column overflow-y-auto`}>
                         <div className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}>
                             <div className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`} onClick={() => setFilterPopup(false)}>
