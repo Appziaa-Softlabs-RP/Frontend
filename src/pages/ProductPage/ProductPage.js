@@ -539,7 +539,7 @@ export const ProductPage = () => {
                                 <div className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}>
                                     {ProductData?.brand_name !== null  && <h6 className={`${styles.brandName} d-inline-flex m-0`}>{ProductData?.brand_name}</h6> }
                                     <h2 className={`${styles.productDetailName} col-12 mb-1 mt-0`}>{ProductData?.name}</h2>
-                                    <div className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}>
+                                    <div className={`${styles.productSubLine} d-none align-items-center gap-2 col-12 mb-0 position-relative`}>
                                         {ProductData?.age_type ? ProductData?.age_type : ''}
                                         {ProductData?.age_type !== null && ProductData?.gender_name !== null &&
                                             <span className={`${styles.spaceLine} d-inline-flex`}>|</span>

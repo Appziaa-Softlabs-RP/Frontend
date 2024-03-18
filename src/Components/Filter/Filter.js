@@ -134,6 +134,7 @@ export const Filter = ({filterVert, setProductData, filterCatg, setProductActual
                     </div>
                 }
                 
+            {/*
                 {allBrandLen.age?.length > 0 &&
                     <div className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}>
                         <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>Age</h5>
@@ -171,6 +172,7 @@ export const Filter = ({filterVert, setProductData, filterCatg, setProductActual
                         </ul>
                     </div>
                 }
+            */}
 
                 <div className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}>
                     <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>Price</h5>
