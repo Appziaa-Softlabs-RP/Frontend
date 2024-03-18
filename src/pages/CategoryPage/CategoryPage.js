@@ -10,6 +10,7 @@ import ApiService from "../../services/ApiService";
 import { ProductListLoader } from "../../Components/Loader/Loader";
 import { Filter } from "../../Components/Filter/Filter";
 import { BackArrowIcon, FilterIcon, OrderIcon, SortByIcon } from "../../Components/siteIcons";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const CategoryPage = () => {
     const locationState = useLocation();
@@ -20,6 +21,7 @@ export const CategoryPage = () => {
     const [filterPopup, setFilterPopup] = useState(false);
     const [filterVert, setFilterVert] = useState(null);
     const [filterCatg, setFilterCatg] = useState(null);
+    const [apiPayload, setApiPayload] = useState(null);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
@@ -40,12 +42,9 @@ export const CategoryPage = () => {
         setProductData(originalProduct);
     }
 
-    useEffect(() => {
-        const payload = locationState.state.payload;
-        setFilterVert(locationState?.state?.verticalId);
-        setFilterCatg(locationState?.state?.categoryId);
+    const fetchProductsList = (data) => {
         if (locationState.state.category === 'SHOP') {
-            ApiService.ageGroupProduct(payload).then((res) => {
+            ApiService.ageGroupProduct(data).then((res) => {
                 if (res.message === "Fetch successfully.") {
                     setProductData(res.payload_ageGroupByProduct);
                     setProductActualData(res.payload_ageGroupByProduct);
@@ -55,7 +54,7 @@ export const CategoryPage = () => {
 
             });
         } else if (locationState.state.category === 'Brand') {
-            ApiService.brandProduct(payload).then((res) => {
+            ApiService.brandProduct(data).then((res) => {
                 if (res.message === "Fetch successfully.") {
                     setProductData(res.payload_BrandByProduct);
                     setProductActualData(res.payload_BrandByProduct);
@@ -65,7 +64,7 @@ export const CategoryPage = () => {
 
             });
         } else {
-            ApiService.CategoryByProd(payload).then((res) => {
+            ApiService.CategoryByProd(data).then((res) => {
                 if (res.message === "Fetch successfully.") {
                     setProductData(res.payload_CategoryByProduct);
                     setProductActualData(res.payload_CategoryByProduct);
@@ -75,6 +74,17 @@ export const CategoryPage = () => {
 
             });
         }
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        const payload = locationState.state.payload;
+        setFilterVert(locationState?.state?.verticalId);
+        setFilterCatg(locationState?.state?.categoryId);
+        payload.page = 1;
+        payload.result_per_page = 10;
+        setApiPayload(payload);
+        fetchProductsList(payload);
     }, [locationState]);
 
     return (
@@ -114,7 +124,11 @@ export const CategoryPage = () => {
                                         </div>
                                     }
                                     {ProductData?.length > 0 ?
-                                        <React.Fragment>
+                                        <InfiniteScroll 
+                                        dataLength={ProductData.length}
+                                        next={fetchData}
+                                        hasMore={true}
+                                        loader={<h4>Loading...</h4>}>
                                             {ProductData?.map((item, index) => {
                                                 return (
                                                     <React.Fragment key={index}>
@@ -126,7 +140,7 @@ export const CategoryPage = () => {
                                                     </React.Fragment>
                                                 )
                                             })}
-                                        </React.Fragment>
+                                        </InfiniteScroll>
                                         : <React.Fragment>
                                             <div className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}>
                                                 <OrderIcon color="#888" />
