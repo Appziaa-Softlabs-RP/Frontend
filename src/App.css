@@ -4,6 +4,26 @@
   --MENU_HOVER_COLOR : rgba(22, 91, 219, 0.12);
   --ADD_BUTTON_COLOR : #165bdb;
 }
+@media (min-width: 1600px){
+  .container-xxl {
+      max-width: 1520px;
+  }
+}
+@media (min-width: 1800px){
+  .container-xxl {
+      max-width: 1720px;
+  }
+}
+@media (min-width: 2000px){
+  .container-xxl {
+      max-width: 1920px;
+  }
+}
+@media (min-width: 2200px){
+  .container-xxl {
+      max-width: 2120px;
+  }
+}
 body{
   background: #E7ECF2;
 }

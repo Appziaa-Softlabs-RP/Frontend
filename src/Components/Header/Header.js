@@ -281,7 +281,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </div>
           </div>
           <div className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}>
-            <div className="container">
+            <div className="container-xxl">
               {loading
                 ? <HeaderNavLoader />
                 :
