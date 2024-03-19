@@ -49,6 +49,7 @@ export const CategoryPage = () => {
                     setProductData(res.payload_ageGroupByProduct);
                     setProductActualData(res.payload_ageGroupByProduct);
                     setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: 2}));
                 }
             }).catch((err) => {
 
@@ -59,6 +60,7 @@ export const CategoryPage = () => {
                     setProductData(res.payload_BrandByProduct);
                     setProductActualData(res.payload_BrandByProduct);
                     setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: 2}));
                 }
             }).catch((err) => {
 
@@ -69,6 +71,67 @@ export const CategoryPage = () => {
                     setProductData(res.payload_CategoryByProduct);
                     setProductActualData(res.payload_CategoryByProduct);
                     setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: 2}));
+                }
+            }).catch((err) => {
+
+            });
+        }
+    }
+
+    const LoadMoreProducts = () => {
+        let pageCount = apiPayload?.page;
+        pageCount = pageCount + 1;
+        if (locationState.state.category === 'SHOP') {
+            ApiService.ageGroupProduct(apiPayload).then((res) => {
+                if (res.message === "Fetch successfully.") {
+                    let prevProdArr = [];
+                    prevProdArr = ProductData;
+                    let newProd = res.payload_ageGroupByProduct;
+                    for(let i= 0; i < newProd.length; i++){
+                        prevProdArr.push(newProd[i]);
+                    }
+                    let newProduct = [...prevProdArr];
+                    setProductData(newProduct);
+                    setProductActualData(newProduct);
+                    setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: pageCount}));
+                }
+            }).catch((err) => {
+
+            });
+        } else if (locationState.state.category === 'Brand') {
+            ApiService.brandProduct(apiPayload).then((res) => {
+                if (res.message === "Fetch successfully.") {
+                    let prevProdArr = [];
+                    prevProdArr = ProductData;
+                    let newProd = res.payload_BrandByProduct;
+                    for(let i= 0; i < newProd.length; i++){
+                        prevProdArr.push(newProd[i]);
+                    }
+                    let newProduct = [...prevProdArr];
+                    setProductData(newProduct);
+                    setProductActualData(newProduct);
+                    setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: pageCount}));
+                }
+            }).catch((err) => {
+
+            });
+        } else {
+            ApiService.CategoryByProd(apiPayload).then((res) => {
+                if (res.message === "Fetch successfully.") {
+                    let prevProdArr = [];
+                    prevProdArr = ProductData;
+                    let newProd = res.payload_CategoryByProduct;
+                    for(let i= 0; i < newProd.length; i++){
+                        prevProdArr.push(newProd[i]);
+                    }
+                    let newProduct = [...prevProdArr];
+                    setProductData(newProduct);
+                    setProductActualData(newProduct);
+                    setLoading(false);
+                    setApiPayload((prev) => ({...prev, page: pageCount}));
                 }
             }).catch((err) => {
 
@@ -105,7 +168,7 @@ export const CategoryPage = () => {
                     }
                     {loading && <ProductListLoader />}
                     {loading === false &&
-                        <div className={`d-inline-flex flex-column col-12 mb-3`}>
+                        <div className={`d-inline-flex flex-column col-12 mb-3`} id="scrollableDiv">
                             <div className={`d-inline-flex align-items-start col-12 gap-2`}>
                                 {windowWidth === "desktop" && filterVert !== null && filterVert !== undefined &&
                                     <div className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}>
@@ -124,11 +187,10 @@ export const CategoryPage = () => {
                                         </div>
                                     }
                                     {ProductData?.length > 0 ?
-                                        <InfiniteScroll 
+                                        <InfiniteScroll className="d-inline-flex col-12 flex-wrap"
                                         dataLength={ProductData.length}
-                                        next={fetchData}
-                                        hasMore={true}
-                                        loader={<h4>Loading...</h4>}>
+                                        next={LoadMoreProducts}
+                                        hasMore={true}>
                                             {ProductData?.map((item, index) => {
                                                 return (
                                                     <React.Fragment key={index}>
