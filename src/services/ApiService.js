@@ -354,6 +354,14 @@ ApiService.onlinePaymentProcess = function (data) {
   });
 }
 
+ApiService.onlinePaymentSuccess = function (data) {
+  return fetch({
+    url: 'store/onlinePaymentSuccess',
+    method: 'post',
+    data: data
+  });
+}
+
 ApiService.storeSearch = function(data) {
   return fetch({
     url: 'store/searchAI',

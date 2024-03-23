@@ -112,37 +112,73 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
         setPaymentType(type);
     }
 
-    const handlePayment = useCallback(() => {
+    const createOrderId = (payload) => {
+        ApiService.onlinePaymentProcess(payload).then((res) => {
+            if (res.message === 'Online payment process successfully.') {
+                handlePayment(res.payload_onlinePaymentProcess.order_id);
+            } else {
+                AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+        });
+    }
+
+    const handlePayment = useCallback((orderId) => {
         //const order = createOrder(params);
         
         let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
         const options = {
-          key: 'rzp_live_JaHAb0V5w6ZxfC',
-          amount: '1',
-          currency: "INR",
-          name: enviroment.BUSINESS_NAME,
-          description: "Order Purchase",
-          image: "https://knickknack.online/favicon.ico",
-          order_id: "order_Np3s2i8H4tFXUD",
-          handler: (res) => {
-            console.log(res);
-          },
-          prefill: {
-            name: selectAddrDetail?.name,
-            email: selectAddrDetail?.email,
-            contact: selectAddrDetail?.contact,
-          },
-          notes: {
-            address: enviroment.STORE_ADDRESS,
-          },
-          theme: {
-            color: enviroment.PRIMARY_COLOR,
-          },
+            key: 'rzp_live_JaHAb0V5w6ZxfC',
+            amount: finalAmount,
+            currency: "INR",
+            name: enviroment.BUSINESS_NAME,
+            description: "Order Purchase",
+            image: "https://knickknack.online/favicon.ico",
+            order_id: orderId,
+            handler: (res) => {
+                onlinePaymentSuccess(orderId,res.razorpay_payment_id, res.razorpay_order_id);
+            },
+            prefill: {
+                name: selectAddrDetail?.name,
+                email: selectAddrDetail?.email,
+                contact: selectAddrDetail?.contact,
+            },
+            notes: {
+                address: enviroment.STORE_ADDRESS,
+            },
+            theme: {
+                color: enviroment.PRIMARY_COLOR,
+            },
         };
     
         const rzpay = new Razorpay(options);
         rzpay.open();
     }, [Razorpay]);
+
+    const onlinePaymentSuccess = (orderId, transID) => {
+        const payload = {
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID),
+            customer_id: userInfo.customer_id,
+            order_id:orderId,
+            transection_id:transID,
+            cart_id: shopcartID
+        }
+        ApiService.onlinePaymentSuccess(payload).then((res) => {
+            if (res.message == 'Online payment successfully.') {
+                AppNotification('Success', 'Your order has been placed successfully', 'success');
+                let emptyCartData = [];
+                appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
+                localStorage.setItem('cartData', JSON.stringify(emptyCartData));
+                navigate('/my-orders');
+            } else {
+                AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+        });
+    }
 
     const proceedPayment = () => {
         if (paymentType === '' || paymentType === null || paymentType === undefined) {
@@ -179,22 +215,7 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
                     AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
                 });
             }else {
-                handlePayment();
-                return;
-                
-                ApiService.onlinePaymentProcess(payload).then((res) => {
-                    if (res.message === 'Online payment process successfully.') {
-                        AppNotification('Success', 'Your order has been placed successfully', 'success');
-                        let emptyCartData = [];
-                        appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
-                        localStorage.setItem('cartData', JSON.stringify(emptyCartData));
-                        navigate('/my-orders');
-                    } else {
-                        AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
-                    }
-                }).catch((err) => {
-                    AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
-                });
+                createOrderId(payload);
             }
         }
     }
