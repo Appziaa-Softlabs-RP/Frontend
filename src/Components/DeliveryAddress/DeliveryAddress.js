@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback  } from 'react';
 import styles from './DeliveryAddress.module.css';
 import { DeleteIcon, EditIcon, LocationIcon } from '../siteIcons';
 import { enviroment } from '../../enviroment';
@@ -7,9 +7,10 @@ import ApiService from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { AppNotification } from '../../utils/helper';
 import { AddAddressPopup } from '../AddAddressPopup/AddAddressPopup';
+import useRazorpay from "react-razorpay";
 
 
-const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddressId, setAddressSaved }) => {
+const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddressId, setAddressSaved, setSelectAddrDetail }) => {
     const navigate = useNavigate();
     const [selectAddress, setSelectAddress] = useState({});
     const [openAdressPop, setOpenAdressPop] = useState(false);
@@ -21,7 +22,6 @@ const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddress
     }
 
     const chooseSelectAddr = () => {
-        console.log(selectAddress)
         if (Object.keys(selectAddress).length === 0) {
             AppNotification('Error', 'Please choose an address to proceed', 'danger');
         } else {
@@ -31,6 +31,7 @@ const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddress
 
     const seletThisAddress = (e, item, addrId) => {
         setSelectAddress(item);
+        setSelectAddrDetail(item);
         setAddressId(addrId);
     }
 
@@ -101,17 +102,49 @@ const AddressDelivery = ({ allAddress, setCheckoutType, checkoutType, setAddress
     )
 }
 
-const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceTotal }) => {
+const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceTotal, selectAddrDetail }) => {
     const [paymentType, setPaymentType] = useState(null);
     const navigate = useNavigate();
     const appData = useApp();
+    const [Razorpay, isLoaded] = useRazorpay();
 
     const selectPaymentMode = (type) => {
         setPaymentType(type);
     }
 
+    const handlePayment = useCallback(() => {
+        //const order = createOrder(params);
+        
+        let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
+        const options = {
+          key: 'rzp_live_JaHAb0V5w6ZxfC',
+          amount: '1',
+          currency: "INR",
+          name: enviroment.BUSINESS_NAME,
+          description: "Order Purchase",
+          image: "https://knickknack.online/favicon.ico",
+          order_id: "order_Np3s2i8H4tFXUD",
+          handler: (res) => {
+            console.log(res);
+          },
+          prefill: {
+            name: selectAddrDetail?.name,
+            email: selectAddrDetail?.email,
+            contact: selectAddrDetail?.contact,
+          },
+          notes: {
+            address: enviroment.STORE_ADDRESS,
+          },
+          theme: {
+            color: enviroment.PRIMARY_COLOR,
+          },
+        };
+    
+        const rzpay = new Razorpay(options);
+        rzpay.open();
+    }, [Razorpay]);
+
     const proceedPayment = () => {
-        console.log(paymentType)
         if (paymentType === '' || paymentType === null || paymentType === undefined) {
             AppNotification('Error', "Please select payment type", 'danger');
         } else {
@@ -124,26 +157,45 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
                 total_paid_amount: finalAmount,
                 total_saving: cartPriceTotal.saving,
                 deliveryCharge: cartPriceTotal.delivery,
-                paymentmode: 'cash',
+                paymentmode: paymentType,
                 cart_id: shopcartID,
                 slot_id: 1,
                 couponValue: 0,
                 couponcode: '',
                 slot_date: new Date(),
             }
-            ApiService.cashOnDelivery(payload).then((res) => {
-                if (res.message === 'Cash on delivery successfully.') {
-                    AppNotification('Success', 'Your order has been placed successfully', 'success');
-                    let emptyCartData = [];
-                    appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
-                    localStorage.setItem('cartData', JSON.stringify(emptyCartData));
-                    navigate('/my-orders');
-                } else {
+            if(paymentType === 'cash'){
+                ApiService.cashOnDelivery(payload).then((res) => {
+                    if (res.message === 'Cash on delivery successfully.') {
+                        AppNotification('Success', 'Your order has been placed successfully', 'success');
+                        let emptyCartData = [];
+                        appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
+                        localStorage.setItem('cartData', JSON.stringify(emptyCartData));
+                        navigate('/my-orders');
+                    } else {
+                        AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+                    }
+                }).catch((err) => {
                     AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
-                }
-            }).catch((err) => {
-                AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
-            })
+                });
+            }else {
+                handlePayment();
+                return;
+                
+                ApiService.onlinePaymentProcess(payload).then((res) => {
+                    if (res.message === 'Online payment process successfully.') {
+                        AppNotification('Success', 'Your order has been placed successfully', 'success');
+                        let emptyCartData = [];
+                        appData.setAppData({ ...appData.appData, cartData: emptyCartData, cartCount: 0 });
+                        localStorage.setItem('cartData', JSON.stringify(emptyCartData));
+                        navigate('/my-orders');
+                    } else {
+                        AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+                    }
+                }).catch((err) => {
+                    AppNotification('Error', 'We are un-able to place your order. Please try later.', 'danger');
+                });
+            }
         }
     }
 
@@ -184,6 +236,7 @@ export const DeliveryAddress = ({ cartPriceTotal, shopcartID, setOrderStatus }) 
     const [checkoutType, setCheckoutType] = useState('Address');
     const userInfo = appData.appData.user;
     const [addressId, setAddressId] = useState('');
+    const [selectAddrDetail, setSelectAddrDetail] = useState({});
 
     const getAllAdress = () => {
         const payload = {
@@ -220,8 +273,8 @@ export const DeliveryAddress = ({ cartPriceTotal, shopcartID, setOrderStatus }) 
                 <h1 className={`${styles.myCartTitle} d-inline-flex`}>My Cart ({appData?.appData?.cartCount})</h1>
                 <span role="button" className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`} onClick={() => changeProducts()}>Change</span>
             </div>
-            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} setAddressSaved={setAddressSaved} />
-            <PaymentMode checkoutType={checkoutType} userInfo={userInfo} addressId={addressId} shopcartID={shopcartID} cartPriceTotal={cartPriceTotal} />
+            <AddressDelivery allAddress={allAddress} setCheckoutType={setCheckoutType} checkoutType={checkoutType} setAddressId={setAddressId} setAddressSaved={setAddressSaved} setSelectAddrDetail={setSelectAddrDetail} />
+            <PaymentMode checkoutType={checkoutType} userInfo={userInfo} addressId={addressId} shopcartID={shopcartID} cartPriceTotal={cartPriceTotal} selectAddrDetail={selectAddrDetail} />
         </React.Fragment>
     );
 }

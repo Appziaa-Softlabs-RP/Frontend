@@ -629,7 +629,7 @@ export const ProductPage = () => {
                                                     </p>
                                                     ): ''}
 
-                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>42, Cycle Market, Jhandewalan Extension, New Delhi 110055.</strong></p>
+                                                    <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Available for Pickup at: </span><strong id="deliveryLoc" className={`${styles.checkDeliveryLabel} d-inline-flex`}>{enviroment.STORE_ADDRESS}</strong></p>
                                                     <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Store Contact: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`} to={`tel:${enviroment.PHONE_NUMBER}`} id="storeTel">{enviroment.PHONE_NUMBER}</Link></span></p>
                                                     <p className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}><span>Locate Store: </span><span className={`${styles.checkDeliveryLabel} d-inline-flex`}><Link to="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6" target="_blank" className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}>Google Map</Link></span></p>
                                                 </div>

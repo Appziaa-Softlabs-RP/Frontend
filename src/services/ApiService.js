@@ -346,6 +346,14 @@ ApiService.cashOnDelivery = function (data) {
   });
 }
 
+ApiService.onlinePaymentProcess = function (data) {
+  return fetch({
+    url: 'store/onlinePaymentProcess',
+    method: 'post',
+    data: data
+  });
+}
+
 ApiService.storeSearch = function(data) {
   return fetch({
     url: 'store/searchAI',
