@@ -38,7 +38,7 @@ export const PromoBanner = ({ type }) => {
                     Promo for you
                   </h5>
                 }
-                <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={10} loop={false} dots={false} items={1} stagePadding={15}>
+                <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}  margin={10} loop={false} dots={false} items={1} stagePadding={15}>
                   {allBanner.map((item, index) => {
                     return (
                       <div className={styles.item} key={index}>
@@ -64,7 +64,7 @@ export const PromoBanner = ({ type }) => {
                           ✨ Promos for you ✨
                         </h5>
                       }
-                      <ReactOwlCarousel className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : ''}`} stagePadding={0}>
+                      <ReactOwlCarousel className={`${styles.bannerContainer} brandSilder col-12 d-inline-block owl-theme`} margin={10} nav={true} loop={true} dots={false} items={`${type === 'Promo Banner' ? 3 : type === 'Offers' ? 1 : ''}`} stagePadding={0}>
                         {allBanner.map((item, index) => {
                           return (
                             <div className={styles.item} key={index}>

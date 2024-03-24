@@ -7,6 +7,7 @@ import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { useApp } from "../../context/AppContextProvider";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 let currentCat = '';
 export const SubCategory = ({categoryID}) => {
@@ -63,6 +64,10 @@ export const SubCategory = ({categoryID}) => {
         }).catch((err) => {
             
         });
+    }
+
+    const LoadMoreProducts = () => {
+        
     }
 
     useEffect(() => {
@@ -130,7 +135,10 @@ export const SubCategory = ({categoryID}) => {
 
             <div className={`col-12 d-inline-flex ${windowWidth === 'desktop' && 'mt-5'}`}>
                 <div className={`${windowWidth === 'mobile' && 'p-0'} container`}>
-                    <div className="col-12 d-inline-flex flex-wrap">
+                    <InfiniteScroll className="col-12 d-inline-flex flex-wrap"
+                    dataLength={categoryProd.length}
+                    next={LoadMoreProducts}
+                    hasMore={true}>    
                         {categoryProd.map((item, index) => {
                             return (
                                 <React.Fragment key={index}>
@@ -142,7 +150,7 @@ export const SubCategory = ({categoryID}) => {
                                 </React.Fragment>
                             )
                         })}
-                    </div>
+                    </InfiniteScroll>
                 </div>
             </div>
         </React.Fragment>
