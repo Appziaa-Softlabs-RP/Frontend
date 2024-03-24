@@ -394,4 +394,12 @@ ApiService.storeFilterOption = function(data) {
   });
 }
 
+ApiService.orderItemCancel = function(data) {
+  return fetch({
+    url: 'store/orderItemCancel',
+    method: 'post',
+    data: data
+  })
+}
+
 export default ApiService;

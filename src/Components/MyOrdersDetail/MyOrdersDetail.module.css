@@ -84,3 +84,12 @@
     color: #000;
     font-weight: 500;
 }
+.reSchduleBtn {
+    border: 1px solid #DD5E5E;
+    color: #DD5E5E;
+    height: 30px;
+    border-radius: 2px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 13px;
+}
