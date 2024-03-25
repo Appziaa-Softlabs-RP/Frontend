@@ -16,7 +16,9 @@ export const SubCategory = ({categoryID}) => {
     const [subShopCategory, setSubShopCategory] = useState([]);
     const [categoryProd, setShopCategoryProd] = useState([]);
     const [subCatActive, setSubCatActive] = useState('');
+    const [activeApi, setActiveApi] = useState(null);
     const [catActive, setCatActive] = useState('');
+    const [apiPayload, setApiPayload] = useState(null);
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
@@ -28,6 +30,7 @@ export const SubCategory = ({categoryID}) => {
         currentCat = id;
         setCatActive(id);
         setSubCatActive('');
+        setActiveApi('subChild');
         ApiService.StoreSubChildCategory(payload).then((res) => {
             setSubShopCategory(res?.payload_categoryBySubCategory);
         }).catch((err) => {
@@ -43,9 +46,13 @@ export const SubCategory = ({categoryID}) => {
     const getSubCategoryProd = (subId) => {
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
-            subcategory_id: subId
+            subcategory_id: subId,
+            page: 1,
+            result_per_page: 10
         }
         setSubCatActive(subId);
+        setApiPayload(payload);
+        setActiveApi('categorySub');
         ApiService.CategoryBySubProd(payload).then((res) => {
             setShopCategoryProd(res.payload_SubCategoryByProduct);
         }).catch((err) => {
@@ -56,10 +63,40 @@ export const SubCategory = ({categoryID}) => {
     const getCategoryProd = (currentCat) => {
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
-            vertical_id: currentCat
+            vertical_id: currentCat,
+            page: 1,
+            result_per_page: 10
         }
         setSubCatActive('');
+        setApiPayload(payload);
+        setActiveApi('categoryProd');
         ApiService.CategoryByProd(payload).then((res) => {
+            setShopCategoryProd(res.payload_CategoryByProduct);
+        }).catch((err) => {
+            
+        });
+    }
+
+    const fetchProducts = () => {
+        const catpayload = {
+            store_id: parseInt(enviroment.STORE_ID),
+            vertical_id: categoryID
+        }
+        const payload = {
+            store_id: parseInt(enviroment.STORE_ID),
+            vertical_id: categoryID,
+            page: 1,
+            result_per_page: 10
+        }
+        setActiveApi('storeSub');
+        ApiService.StoreSubCategory(catpayload).then((res) => {
+            setShopCategory(res.payload_verticalByCategory);
+        }).catch((err) => {
+            
+        });
+        
+        setApiPayload(payload);
+        ApiService.StoreCategoryProd(payload).then((res) => {
             setShopCategoryProd(res.payload_VerticalByProduct);
         }).catch((err) => {
             
@@ -67,25 +104,53 @@ export const SubCategory = ({categoryID}) => {
     }
 
     const LoadMoreProducts = () => {
-        
+        let pageCount = apiPayload?.page;
+        pageCount = pageCount + 1;
+
+        if(activeApi === 'storeSub' || activeApi === 'categoryProd'){
+            ApiService.StoreCategoryProd(apiPayload).then((res) => {
+                let prevProdArr = [];
+                prevProdArr = categoryProd;
+                let newProd = res.payload_VerticalByProduct;
+                for(let i= 0; i < newProd.length; i++){
+                    prevProdArr.push(newProd[i]);
+                }
+                let newProduct = [...prevProdArr];
+                setShopCategoryProd(newProduct);
+            }).catch((err) => {
+                
+            });
+        }else if(activeApi === 'categorySub'){
+            ApiService.CategoryBySubProd(apiPayload).then((res) => {
+                let prevProdArr = [];
+                prevProdArr = categoryProd;
+                let newProd = res.payload_SubCategoryByProduct;
+                for(let i= 0; i < newProd.length; i++){
+                    prevProdArr.push(newProd[i]);
+                }
+                let newProduct = [...prevProdArr];
+                setShopCategoryProd(newProduct);
+            }).catch((err) => {
+                
+            });
+        }else if(activeApi === 'subChild'){
+            ApiService.CategoryByProd(apiPayload).then((res) => {
+                let prevProdArr = [];
+                prevProdArr = categoryProd;
+                let newProd = res.payload_SubCategoryByProduct;
+                for(let i= 0; i < newProd.length; i++){
+                    prevProdArr.push(newProd[i]);
+                }
+                let newProduct = [...prevProdArr];
+                setShopCategoryProd(newProduct);
+            }).catch((err) => {
+                
+            });
+        }
     }
 
     useEffect(() => {
-        const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            vertical_id: categoryID
-        }
-        ApiService.StoreSubCategory(payload).then((res) => {
-            setShopCategory(res.payload_verticalByCategory);
-        }).catch((err) => {
-            
-        })
-        
-        ApiService.StoreCategoryProd(payload).then((res) => {
-            setShopCategoryProd(res.payload_VerticalByProduct);
-        }).catch((err) => {
-            
-        });
+        fetchProducts();
     }, []);
 
     useEffect(() => {
