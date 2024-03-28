@@ -5,7 +5,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from './AddAddressForm.module.css';
-// address form
+// Addaddress form
 export const AddAddressForm = ({ stopNavigate, setOpenAdressPop, setAddressSaved }) => {
     const appData = useApp();
     const navigate = useNavigate();
