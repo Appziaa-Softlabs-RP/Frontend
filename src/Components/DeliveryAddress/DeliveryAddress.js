@@ -129,12 +129,12 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
         
         let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
         const options = {
-            key: 'rzp_live_JaHAb0V5w6ZxfC',
+            key: 'rzp_live_7NXmXoE72iTqIo',
             amount: finalAmount,
             currency: "INR",
             name: enviroment.BUSINESS_NAME,
             description: "Order Purchase",
-            image: "https://knickknack.online/favicon.ico",
+            image: enviroment.SITE_DOMAIN+'favicon.ico',
             order_id: orderId,
             handler: (res) => {
                 onlinePaymentSuccess(orderId,res.razorpay_payment_id, res.razorpay_order_id);
