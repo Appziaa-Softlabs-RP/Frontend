@@ -4,6 +4,7 @@
 .siteLogoBox img{
     height: 100px;
     width: 250px;
+    filter: invert(100%);
 }
 .welcomeBiz{
     font-size: 32px;

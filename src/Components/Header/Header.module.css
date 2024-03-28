@@ -11,7 +11,7 @@
     width: 25px;
 }
 .siteLogoBox img{
-    height: 70px;
+    height: 40px;
 }
 .cartCount{
     font-size: 10px;
@@ -37,7 +37,7 @@
     outline: none;
 }
 .topHeaderSale{
-    background: #BA1C37;
+    background: var(--TOP-SALE-COLOR);
     height: 30px;
 }
 .dealsLink{

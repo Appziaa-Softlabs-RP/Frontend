@@ -11,18 +11,22 @@ export const Login = () => {
     const [mobileVal, setMobileVal] = useState('');
 
     const sendMobileOtp = () => {
-        const payload = {
-            otp_type:'mobile',
-            username:mobileVal
-        }
-        ApiService.sendOTP(payload).then((res) => {
-            if(res.message === 'Otp send successfully.'){
-                AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
-                navigate('/verify', {state: {optID: res.payload.otp_id, mobile: mobileVal}})
+        if(mobileVal < 9){
+            AppNotification('Error', 'Please enter a valid mobile Number', 'danger');
+        }else{
+            const payload = {
+                otp_type:'mobile',
+                username:mobileVal
             }
-        }).catch((err) => {
-            AppNotification('Error', 'Unable to send OTP to your number', 'danger');
-        });
+            ApiService.sendOTP(payload).then((res) => {
+                if(res.message === 'Otp send successfully.'){
+                    AppNotification('Sucess', 'OTP sent to your mobile number.', 'success');
+                    navigate('/verify', {state: {optID: res.payload.otp_id, mobile: mobileVal}})
+                }
+            }).catch((err) => {
+                AppNotification('Error', 'Unable to send OTP to your number', 'danger');
+            });
+        }
     }
 
     const routeHome = () => {

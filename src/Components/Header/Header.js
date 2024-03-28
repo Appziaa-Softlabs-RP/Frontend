@@ -294,7 +294,11 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
                             {item.catList.map((subNme, subIdx) => {
                               return (
-                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
+                                <React.Fragment>
+                                  {subNme.name !== '' &&
+                                    <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
+                                  }
+                                </React.Fragment>
                               )
                             })}
                           </div>

@@ -67,7 +67,8 @@ export const Footer = () => {
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link to={enviroment.INSTAGRAM_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Instagram`}>
                                         <InstagramIcon />
-                                        <span className="icon__fallback-text">Instagram</span></Link>
+                                        <span className="icon__fallback-text">Instagram</span>
+                                    </Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link to={enviroment.FACEBOOK_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Facebook`}>

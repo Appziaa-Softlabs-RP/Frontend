@@ -4,7 +4,6 @@ import ReactOwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useApp } from "../../context/AppContextProvider";
-
 import { useAppStore } from "../../store";
 import ApiService from '../../services/ApiService';
 import { enviroment } from "../../enviroment";
