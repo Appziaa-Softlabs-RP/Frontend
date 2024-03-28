@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from './Footer.module.css';
 import { enviroment } from "../../enviroment";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ export const Footer = () => {
                         <div className={`${styles.footerBlock}`} data-type="menu">
                             <div className={`${styles.footerTitle}`}>Get Help</div>
                             <ul className={`${styles.footerMenu} list-unstyled`}>
-                                <li><Link className="text-decoration-none d-inline-flex">Cancellation</Link></li>
+                                <li><Link to="/Cancellation-policy" className="text-decoration-none d-inline-flex">Cancellation</Link></li>
                                 <li><Link to="/payments" className="text-decoration-none d-inline-flex">Payments</Link></li>
                                 <li><Link className="text-decoration-none d-inline-flex">FAQ</Link></li>
                             </ul>
@@ -51,13 +51,13 @@ export const Footer = () => {
                             <ul className={`${styles.footerMenu} list-unstyled d-inline-flex flex-column`}>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link className="d-inline-flex align-items-center text-decoration-none gap-1" to={`tel:${enviroment.PHONE_NUMBER}`}>
-                                    <PhoneIcon />
-                                    <span>{enviroment.PHONE_NUMBER}</span></Link>
+                                        <PhoneIcon />
+                                        <span>{enviroment.PHONE_NUMBER}</span></Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link className="d-inline-flex align-items-center text-decoration-none gap-1" to={`mailto:${enviroment?.EMAIL_ADDRESS}`}>
-                                    <EmailIcon/>
-                                    <span>{enviroment?.EMAIL_ADDRESS}</span></Link>
+                                        <EmailIcon />
+                                        <span>{enviroment?.EMAIL_ADDRESS}</span></Link>
                                 </li>
                             </ul>
                         </div>
@@ -66,8 +66,8 @@ export const Footer = () => {
                             <ul className={`${styles.footerMenu} d-inline-flex flex-column gap-2 list-unstyled`}>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link to={enviroment.INSTAGRAM_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Instagram`}>
-                                    <InstagramIcon />
-                                    <span className="icon__fallback-text">Instagram</span></Link>
+                                        <InstagramIcon />
+                                        <span className="icon__fallback-text">Instagram</span></Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link to={enviroment.FACEBOOK_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME} on Facebook`}>
@@ -77,7 +77,7 @@ export const Footer = () => {
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
                                     <Link to={enviroment.TWITTER_LINK} className="d-inline-flex align-items-center text-decoration-none gap-1" target="_blank" rel="noopener" title={`${enviroment.BUSINESS_NAME}  on Twitter`}>
-                                        <TwitterIcon/>
+                                        <TwitterIcon />
                                         <span className="icon__fallback-text">Twitter</span>
                                     </Link>
                                 </li>
@@ -142,7 +142,7 @@ export const Footer = () => {
                                 <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Get Help</h5>
                                     <ul className="list-unstyled">
-                                        <li><Link className="text-decoration-none" to="">Cancellation</Link></li>
+                                        <li><Link className="text-decoration-none" to="/Cancellation-policy">Cancellation</Link></li>
                                         <li><Link className="text-decoration-none" to="/payments">Payments</Link></li>
                                         <li><Link className="text-decoration-none" to="">FAQ</Link></li>
                                     </ul>
@@ -176,14 +176,14 @@ export const Footer = () => {
                             <div className="col-md-12 d-inline-flex justify-content-between align-items-center">
                                 <div className={`col-12 d-inline-flex mt-3`}>
                                     <div className={`${styles.copyright}`}>
-                                        <p>© Copyright {new Date().getFullYear()} {enviroment.BUSINESS_NAME}. All Rights Reserved<br/><small> Made with <i className="fa fa-heart" aria-hidden="true"></i> by <Link className={`${styles.copyrightReward} text-decoration-none`} to="https://rewardsplus.in">RewardsPlus</Link></small></p>
+                                        <p>© Copyright {new Date().getFullYear()} {enviroment.BUSINESS_NAME}. All Rights Reserved<br /><small> Made with <i className="fa fa-heart" aria-hidden="true"></i> by <Link className={`${styles.copyrightReward} text-decoration-none`} to="https://rewardsplus.in">RewardsPlus</Link></small></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </React.Fragment>
-            ): ('')}
+            ) : ('')}
         </React.Fragment>
     )
 }

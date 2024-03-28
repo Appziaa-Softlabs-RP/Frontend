@@ -15,7 +15,7 @@ export const Return = () => {
         <React.Fragment>
             {windowWidth === "mobile" ? (
                 <PageHeader title="Return Policy" hide={true} />
-            ) : ( 
+            ) : (
                 <Header />
             )}
             <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
