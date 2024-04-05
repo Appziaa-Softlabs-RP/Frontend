@@ -112,6 +112,10 @@ input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   width: 30px;
   margin: 0px;
 }
+.infinite-scroll-component__outerdiv{
+  width: 100%;
+  display: inline-flex;
+}
 @media screen and (max-width: 568px) {
   .carousel-looking-for .owl-nav button.owl-prev, .brandSilder .owl-nav button.owl-prev {
     left: -10px;
