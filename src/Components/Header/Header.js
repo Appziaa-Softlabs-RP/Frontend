@@ -1,37 +1,41 @@
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 import React, { useEffect, useState } from "react";
-import styles from './Header.module.css';
-import { MenuIcons, CartIcon, SupportIcon, MailIcon, UserIcon, SearchIcon, BackArrowIcon } from "../siteIcons";
-import siteLogo from '../../assets/images/site_logo.png';
-import { enviroment } from "../../enviroment";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import siteLogo from "../../assets/images/site_logo.png";
 import { useApp } from "../../context/AppContextProvider";
-import { Link } from "react-router-dom";
-import { LoginPopup } from "../LoginPopup/LoginPopup";
-import ReactOwlCarousel from "react-owl-carousel";
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
+import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { CartAside } from "../CartAside/CartAside";
 import { AppNotification } from "../../utils/helper";
+import { CartAside } from "../CartAside/CartAside";
+import { LoginPopup } from "../LoginPopup/LoginPopup";
+import {
+  CartIcon,
+  MailIcon,
+  MenuIcons,
+  SupportIcon,
+  UserIcon,
+} from "../siteIcons";
+import styles from "./Header.module.css";
 
 import { useAppStore } from "../../store";
-import { HeaderNavLoader } from "../Loader/Loader";
-
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
-    const appData = useApp();
-    const [loading, setLoading] = useState(true);
-    const navItems = useAppStore(state => state.navItems);
-    const setNavItems = useAppStore(state => state.setNavItems);
-    const setCategories = useAppStore(state => state.setCategories);
-    const [searchProd, setSearchProd] = useState('');
-    const [searchProdList, setSearchProdList] = useState([]);
-    const [loginPop, setLoginPop] = useState(false);
-    const [accountOptn, setAccountOptn] = useState(false);
-    const [cartPop, setCartPop] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
-    const navigate = useNavigate();
-    let windowWidth = appData.appData.windowWidth;
+  const appData = useApp();
+  const [loading, setLoading] = useState(true);
+  const navItems = useAppStore((state) => state.navItems);
+  const setNavItems = useAppStore((state) => state.setNavItems);
+  const setCategories = useAppStore((state) => state.setCategories);
+  const [searchProd, setSearchProd] = useState("");
+  const [searchProdList, setSearchProdList] = useState([]);
+  const [loginPop, setLoginPop] = useState(false);
+  const [accountOptn, setAccountOptn] = useState(false);
+  const [cartPop, setCartPop] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+  const [isHeaderActive, setIsHeaderActive] = useState(false);
+
+  const navigate = useNavigate();
+  let windowWidth = appData.appData.windowWidth;
 
   const openAsideMenu = () => {
     if (asideOpen === true) {
@@ -39,15 +43,15 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     } else {
       setAsideOpen(true);
     }
-  }
+  };
 
   const openCart = () => {
-    navigate('/checkout')
-  }
+    navigate("/checkout");
+  };
 
   const routeHome = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   const openAccountDetail = () => {
     if (accountOptn === true) {
@@ -55,266 +59,337 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     } else {
       setAccountOptn(true);
     }
-  }
-
-  const showCategroryProd = (id, name, verticalId) => {
-    const payload = {
-      store_id: parseInt(enviroment.STORE_ID),
-      category_id: id
-    }
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store-product/${category}`, { state: { payload: payload, verticalId: verticalId, categoryId: id } });
-  }
+  };
 
   const userLoggedOut = () => {
     let emptyCartData = [];
-    appData.setAppData({ ...appData.appData, user: '', loggedIn: false, cartSaved: false, cartData: emptyCartData, cartCount: 0 });
-    localStorage.setItem('cartData', JSON.stringify(emptyCartData));
-    localStorage.removeItem('user');
-    localStorage.removeItem('cartSaved');
-    localStorage.removeItem('loggedIn');
-    AppNotification('Logged Out', 'You have been successfully logged out.', 'success');
-    navigate('/');
-  };
-
-  let prodTime = ''
-  const searchShopProd = (event, val) => {
-    setSearchProd(val);
-    clearTimeout(prodTime);
-    if(val.length > 2){
-      prodTime = setTimeout(function(){
-        const payload = {
-          store_id: parseInt(enviroment.STORE_ID),
-          keyword: val
-        }
-        ApiService.storeSearch(payload).then((res) => {
-          if(res.message === "Fetch successfully."){
-            setSearchProdList(res.payload_searchAI);
-          }
-        }).catch((err) => {
-        })
-      }, 500);
-    }
-  }
-
-  const openProductId = (prodId, name) => {
-    setSearchProdList([]);
-    setSearchProd(name);
-    const payload = {
-      product_id: prodId,
-      company_id: parseInt(enviroment.COMPANY_ID),
-      store_id: parseInt(enviroment.STORE_ID)
-    }
-    ApiService.productDetails(payload).then((res) => {
-        if (res.message === "Product Detail") {
-            navigate(`/product?id=${prodId}`, { state: { product: res.payload } })
-        } else {
-            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-        }
-    }).catch((err) => {
-        AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+    appData.setAppData({
+      ...appData.appData,
+      user: "",
+      loggedIn: false,
+      cartSaved: false,
+      cartData: emptyCartData,
+      cartCount: 0,
     });
-  }
-
-  const handleKeyDown = (event) => {
-    if(searchProd.length > 2 && event.code === "Enter"){
-      let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
-      setSearchProdList([]);
-      navigate(`/search-product/${category}`, { state: { keyword: searchProd }});
-    }
+    localStorage.setItem("cartData", JSON.stringify(emptyCartData));
+    localStorage.removeItem("user");
+    localStorage.removeItem("cartSaved");
+    localStorage.removeItem("loggedIn");
+    AppNotification(
+      "Logged Out",
+      "You have been successfully logged out.",
+      "success"
+    );
+    navigate("/");
   };
 
   useEffect(() => {
-      if(searchProd === ''){
-        setSearchProdList([]);
-      }
+    if (searchProd === "") {
+      setSearchProdList([]);
+    }
   }, [searchProd]);
 
   useEffect(() => {
     const payload = {
-      store_id: parseInt(enviroment.STORE_ID)
-    }
-    ApiService.AllCategory(payload).then((res) => {
-      let allCatList = [];
-      let allSubCategory = res?.payload_verticalWithCatList?.vertical;
-      allSubCategory.map((item) => {
-        if (item?.catList?.length > 0) {
-          item.catList.map((catItem) => {
-            let catObj = {
-              verticalId : item.vertical_id,
-              category: catItem
-            }
-            allCatList.push(catObj);
-          })
-        }
+      store_id: parseInt(enviroment.STORE_ID),
+    };
+    ApiService.AllCategory(payload)
+      .then((res) => {
+        let allCatList = [];
+        let allSubCategory = res?.payload_verticalWithCatList?.vertical;
+        allSubCategory.map((item) => {
+          if (item?.catList?.length > 0) {
+            item.catList.map((catItem) => {
+              let catObj = {
+                verticalId: item.vertical_id,
+                category: catItem,
+              };
+              allCatList.push(catObj);
+            });
+          }
+        });
+        setNavItems(allSubCategory);
+        setCategories(allCatList);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
       });
-      setNavItems(allSubCategory);
-      setCategories(allCatList);
-      setLoading(false);
-    }).catch((err) => {
-      setLoading(false);
-    });
   }, []);
 
   useEffect(() => {
     setUserInfo(appData.appData.user);
   }, [appData?.appData]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY >= 200) {
+        setIsHeaderActive(true);
+      } else {
+        setIsHeaderActive(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
-        <div className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3`}>
+        <div
+          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3 pe-4`}
+        >
           <div className={`col-12 d-inline-flex align-items-center`}>
-            <span className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`} onClick={openAsideMenu}>
-              <MenuIcons color={enviroment.SECONDARY_COLOR} />
+            <span
+              className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`}
+              onClick={openAsideMenu}
+            >
+              <MenuIcons color={"black"} />
             </span>
-            <span onClick={() => routeHome()} className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}>
+            <span
+              onClick={() => routeHome()}
+              className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}
+            >
               <img src={siteLogo} alt="Logo" className="object-fit-contain" />
             </span>
-            <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`} onClick={() => openCart()}>
-              <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
-              <CartIcon color={enviroment.SECONDARY_COLOR} />
+            <span
+              className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`}
+              onClick={() => openCart()}
+            >
+              <span
+                className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
+              >
+                {appData?.appData?.cartCount}
+              </span>
+              <CartIcon color={"black"} />
             </span>
-          </div>
-          <div className="col-12 d-inline-flex position-relative px-3">
-            <input type="search" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} onKeyDown={handleKeyDown} />
-            {searchProdList?.length > 0 &&
-              <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
-                {searchProdList.map((item, idx) => {
-                  return (
-                    <span className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.product_id, item.name)}>{item.name}</span>
-                  )
-                })}
-              </div>
-            }
           </div>
         </div>
       ) : windowWidth === "desktop" ? (
-        <div className="col-12 d-inline-flex flex-column">
-          <ReactOwlCarousel className={`${styles.topHeaderSale} col-12 owl-theme`} margin={0} items={1} loop={true} dots={false} animateOut='slideOutUp' animateIn='slideInUp' autoPlay={true}>
-            <div className={`col-12 d-inline-flex align-items-center justify-content-center`}>
-              <span className={`d-inline-block text-decoration-none ${styles.dealsLink}`} title="Superdeals">Shipping Across India.</span>
-            </div>
-            <div className={`col-12 d-inline-flex align-items-center justify-content-center`}>
-              <span className={`d-inline-block text-decoration-none ${styles.dealsLink}`} title="Superdeals">Shipping Across India.</span>
-            </div>
-          </ReactOwlCarousel>
-          <div className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}>
+        <div
+          className={`col-12 d-inline-flex flex-column position-fixed z-3 ${
+            isHeaderActive ? "bg-white" : "bg-white bg-opacity-50"
+          }`}
+        >
+          <div className={`col-12 d-inline-flex align-items-center`}>
             <div className="container h-100 d-flex align-items-stretch">
-              <div className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}>
-                <span className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`} role="button" onClick={() => routeHome()}>
-                  <img src={siteLogo} alt="Logo" className="object-fit-contain" />
+              <div
+                className={`${styles.headerInnerRow} col-12 d-inline-flex justify-content-between  align-items-stretch gap-3 `}
+              >
+                {/* logo */}
+                <span
+                  className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}
+                  role="button"
+                  onClick={() => routeHome()}
+                >
+                  <img
+                    src={siteLogo}
+                    alt="Logo"
+                    className="object-fit-contain"
+                  />
                 </span>
-                <div className={`d-inline-flex col-6 position-relative align-items-center`}>
-                  <span className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}><SearchIcon color="#000" /></span>
-                  <input type="search" className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}  value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} placeholder={enviroment.SEARCH_PLACEHOLDER} onKeyDown={handleKeyDown} />
-                  {searchProdList?.length > 0 &&
-                    <div className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}>
-                      {searchProdList.map((item, idx) => {
-                        return (
-                          <span className={`${styles.searchRow} p-3 text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.product_id, item.name)}>{item.name}</span>
-                        )
-                      })}
-                    </div>
-                  }
+
+                {/* nav-link */}
+                <div
+                  className={`d-flex d-inline-flex col-6 position-relative align-items-center justify-content-center fw-semibold fs-6`}
+                >
+                  <ul class="navbar-nav mr-auto d-flex flex-row text-black ">
+                    <li class="nav-item m-3">
+                      <a class="nav-link" href="/">
+                        Home
+                      </a>
+                    </li>
+                    <li class="nav-item m-3">
+                      <a class="nav-link" href="/">
+                        Products
+                      </a>
+                    </li>
+                    <li class="nav-item m-3">
+                      <a class="nav-link" href="/">
+                        Recipes
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-                <div className="d-inline-flex align-items-stretch justify-content-end gap-5">
-                  <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button">
-                    <SupportIcon color="#FFF" />
-                    <span className={`${styles.supportText} d-inline-flex`}>Support</span>
-                    <div className={`${styles.supportDropDown} position-absolute d-inline-block`}>
-                      <div className={`${styles.timingPhoneBox} d-inline-flex col-12 align-items-center gap-3`}>
-                        <SupportIcon color="#000" />
+
+                <div className="d-inline-flex align-items-stretch justify-content-end gap-3 gap-md-4">
+                  {/* support */}
+                  <div
+                    className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                    role="button"
+                  >
+                    <SupportIcon color="#000000" />
+                    <span
+                      className={`${styles.supportText} d-none d-md-flex text-black`}
+                    >
+                      Support
+                    </span>
+                    <div
+                      className={`${styles.supportDropDown} position-absolute d-inline-block`}
+                    >
+                      <div
+                        className={`${styles.timingPhoneBox} d-inline-flex col-12 align-items-center gap-3`}
+                      >
+                        <SupportIcon color="#000000" />
                         <div className="d-inline-flex flex-column">
-                          <label className={`${styles.supportTimings} d-inline-block col-12 p-0 text-center`}>7 days, 9AM to 9PM</label>
-                          <Link to={`tel:${enviroment.PHONE_NUMBER}`} className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}>{enviroment.PHONE_NUMBER}</Link>
+                          <label
+                            className={`${styles.supportTimings} d-inline-block col-12 p-0 text-center`}
+                          >
+                            7 days, 9AM to 9PM
+                          </label>
+                          <Link
+                            to={`tel:${enviroment.PHONE_NUMBER}`}
+                            className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}
+                          >
+                            {enviroment.PHONE_NUMBER}
+                          </Link>
                         </div>
                       </div>
-                      <div className={`${styles.mailtoBox} text-decoration-none d-inline-flex align-items-center gap-3 col-12`}>
-                        <MailIcon color="#000" />
-                        <Link to={`mailto:${enviroment.EMAIL_ADDRESS}`} className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}>{enviroment.EMAIL_ADDRESS}</Link>
+                      <div
+                        className={`${styles.mailtoBox} text-decoration-none d-inline-flex align-items-center gap-3 col-12`}
+                      >
+                        <MailIcon color="#000000" />
+                        <Link
+                          to={`mailto:${enviroment.EMAIL_ADDRESS}`}
+                          className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}
+                        >
+                          {enviroment.EMAIL_ADDRESS}
+                        </Link>
                       </div>
-                      <div className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}>
-                        <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Chat With Us</Link>
-                        <span className={`${styles.dotSymbol} d-inline-flex`}>&bull;</span>
-                        <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>FAQ’s</Link>
-                        <span className={`${styles.dotSymbol} d-inline-flex`}>&bull;</span>
-                        <Link className={`${styles.supportLinks} text-decoration-none d-inline-flex`}>Track Order</Link>
+                      <div
+                        className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}
+                      >
+                        <Link
+                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                        >
+                          Chat With Us
+                        </Link>
+                        <span className={`${styles.dotSymbol} d-inline-flex`}>
+                          &bull;
+                        </span>
+                        <Link
+                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                        >
+                          FAQ’s
+                        </Link>
+                        <span className={`${styles.dotSymbol} d-inline-flex`}>
+                          &bull;
+                        </span>
+                        <Link
+                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                        >
+                          Track Order
+                        </Link>
                       </div>
                     </div>
                   </div>
+                  {/* account */}
                   {userInfo && userInfo?.customer_id ? (
-                    <div className={`${styles.supportDrop} d-inline-flex flex-column align-items-center gap-1 position-relative justify-content-center`} role="button" onClick={() => openAccountDetail()}>
+                    <div
+                      className={`${styles.supportDrop} d-inline-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
+                      role="button"
+                      onClick={() => openAccountDetail()}
+                    >
                       <div className="d-inline-flex align-items-center gap-2">
-                        <UserIcon color="#FFF" />
-                        <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                        <UserIcon color="#000000" />
+                        <span
+                          className={`${styles.supportText} d-inline-flex text-black`}
+                        >
+                          Account
+                        </span>
                       </div>
-                      {userInfo?.name !== '' && 
-                        <span className={`${styles.userName} d-inline-flex`}>{userInfo.name}</span>
-                      }
-                      {accountOptn === true &&
-                        <div className={`${styles.userAccountDrop} position-absolute col-12`} onClick={(e) => e.preventDefault()}>
-                          <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-account')}>My Account</span>
-                          <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-orders')}>My Orders</span>
-                          <span role="button" className={`${styles.accountOption} col-12 d-inline-flex align-items-center`} onClick={() => navigate('/my-address')}>My Address</span>
-                          <span role="button" onClick={() => userLoggedOut()} className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}>Logged Out</span>
+                      {userInfo?.name !== "" && (
+                        <span className={`${styles.userName} d-inline-flex`}>
+                          {userInfo.name}
+                        </span>
+                      )}
+                      {accountOptn === true && (
+                        <div
+                          className={`${styles.userAccountDrop} position-absolute col-12`}
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          <span
+                            role="button"
+                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                            onClick={() => navigate("/my-account")}
+                          >
+                            My Account
+                          </span>
+                          <span
+                            role="button"
+                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                            onClick={() => navigate("/my-orders")}
+                          >
+                            My Orders
+                          </span>
+                          <span
+                            role="button"
+                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                            onClick={() => navigate("/my-address")}
+                          >
+                            My Address
+                          </span>
+                          <span
+                            role="button"
+                            onClick={() => userLoggedOut()}
+                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                          >
+                            Logged Out
+                          </span>
                         </div>
-                      }
+                      )}
                     </div>
                   ) : (
-                    <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} onClick={() => setLoginPop(true)} role="button">
-                      <UserIcon color="#FFF" />
-                      <span className={`${styles.supportText} d-inline-flex`}>Account</span>
+                    <div
+                      className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                      onClick={() => setLoginPop(true)}
+                      role="button"
+                    >
+                      <UserIcon color="#000000" />
+                      <span
+                        className={`${styles.supportText} d-none text-black d-md-flex`}
+                      >
+                        Account
+                      </span>
                     </div>
                   )}
-                  <div className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`} role="button" onClick={() => setCartPop(true)}>
+                  {/* cart */}
+                  <div
+                    className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                    role="button"
+                    onClick={() => setCartPop(true)}
+                  >
                     <span className="position-relative d-inline-flex">
-                        <CartIcon color="#FFF" />
-                        {appData?.appData?.cartCount > 0 &&
-                          <span className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}>{appData?.appData?.cartCount}</span>
-                        }
+                      <CartIcon color="#000000" />
+                      {appData?.appData?.cartCount > 0 && (
+                        <span
+                          className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
+                        >
+                          {appData?.appData?.cartCount}
+                        </span>
+                      )}
                     </span>
-                    <span className={`${styles.supportText} d-inline-flex`}>Cart</span>
+                    <span
+                      className={`${styles.supportText} d-none text-black d-md-flex`}
+                    >
+                      Cart
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}>
-            <div className="container">
-              {loading
-                ? <HeaderNavLoader />
-                :
-                <div className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}>
-                  {navItems.length > 0 && navItems.map((item, index) => {
-                    return (
-                      <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
-                        <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000" role="button" /></span>
-                        {item.catList?.length > 0 &&
-                          <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
-                            {item.catList.map((subNme, subIdx) => {
-                              return (
-                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
-                              )
-                            })}
-                          </div>
-                        }
-                      </div>
-                    )
-                  })}
-                </div>
-              }
 
-            </div>
-          </div>
-          {loginPop === true &&
-            <LoginPopup setLoginPop={setLoginPop} />
-          }
-          {cartPop === true &&
-            <CartAside setCartPop={setCartPop} />
-          }
+          {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
+          {cartPop === true && <CartAside setCartPop={setCartPop} />}
         </div>
-      ) : (<></>)}
+      ) : (
+        <></>
+      )}
     </React.Fragment>
-  )
-}
+  );
+};
