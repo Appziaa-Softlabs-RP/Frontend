@@ -5,26 +5,68 @@ import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 
 export const AboutUs = () => {
-    const appData = useApp();
-    let windowWidth = appData.appData.windowWidth;
+  const appData = useApp();
+  let windowWidth = appData.appData.windowWidth;
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-    return (
-        <React.Fragment>
-            {windowWidth === "mobile" ? (
-                <PageHeader title="About Us" hide={true} />
-            ) : ( 
-                <Header />
-            )}
-            <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
-                <div className="container">
-                    <h1>About Us</h1>
-                    <p className="c6"><span className="c1">About KnickKnack &ndash; Your Premium Toy Destination</span></p><p className="c6"><span className="c4">KnickKnack is where the joy of childhood comes alive. We&#39;re a premium toy store dedicated to bringing the world&#39;s best playthings to your doorstep. Whether you&#39;re searching for a classic wooden puzzle, the latest tech-powered robot, or a beloved character from your favorite story, you&#39;ll find it at KnickKnack.</span></p><p className="c6"><span className="c1">The KnickKnack Difference</span></p><ul className="c10 lst-kix_ck63bwdhsg7q-0 start"><li className="c0 li-bullet-0"><span className="c2">Curated Collection:</span><span className="c4">&nbsp;We carefully handpick toys from around the world and India, ensuring a mix of both internationally renowned brands and exceptional local craftsmanship.</span></li><li className="c0 li-bullet-0"><span className="c2">Premium Experience:</span><span className="c4">&nbsp;From the moment you explore our website to the day your little one unwraps their new treasure, we strive to provide a delightful and seamless shopping experience.</span></li><li className="c0 li-bullet-0"><span className="c2">Passion for Play:</span><span className="c4">&nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His dynamic vision drives KnickKnack&#39;s mission to make us the preferred destination for all things toys in India.</span></li></ul><p className="c6"><span className="c1">Discover the Wonders of Play</span></p><p className="c6"><span className="c4">Come explore the endless possibilities of imagination and creativity at KnickKnack.</span></p><p className="c6"><span className="c1">Let us help you find the perfect toy that will spark joy and wonder in your child&#39;s life!</span></p>
-                </div>
-            </div>
-            <Footer />
-        </React.Fragment>
-    )
-}
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return (
+    <React.Fragment>
+      {windowWidth === "mobile" ? (
+        <PageHeader title="About Us" hide={true} />
+      ) : (
+        <Header />
+      )}
+      <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
+        <div className="container">
+          <h1>About Us</h1>
+          <p className="c6">
+            <span className="c1">
+              About Neverowned &ndash; Your Ultimate Destination for Quality
+              Re-Commerce!
+            </span>
+          </p>
+          <p className="c6">
+            Welcome to Never Owned!
+            <br />
+            At Never Owned, we pride ourselves on being a premium brand
+            dedicated to re-commerce. We specialize in the resale of branded
+            electronics and household items, offering our customers quality
+            products at exceptional value.
+            <br />
+            <br />
+            Our inventory consists of items sourced directly from original
+            equipment manufacturers (OEMs) under various categories, including
+            excess inventory, transit damage, service returns, and end-of-life
+            items. Additionally, we procure unboxed items returned by customers
+            from leading eCommerce portals. These products have never been owned
+            by anyone else, ensuring they are pristine and unused.
+            <br />
+            <br />
+            While some of our items may have packaging boxes opened or exhibit
+            minor scratches or dents, we guarantee their quality and
+            functionality.
+            <br />
+            <br />
+            What sets us apart is our efficient procurement channel, allowing us
+            to source these items at scale from OEMs and eCommerce platforms
+            nationwide. This enables us to offer a wide selection of products
+            through our company-owned outlets, franchises, business associates,
+            and our online portal.
+            <br />
+            <br />
+            Whether you're looking for the latest gadgets or essential household
+            items, Never Owned is your trusted destination for premium
+            re-commerce products. Join us in embracing sustainable consumption
+            while enjoying top-notch products at unbeatable prices.
+            <br />
+            <br />
+            Discover the difference with Never Owned today!
+          </p>
+        </div>
+      </div>
+      <Footer />
+    </React.Fragment>
+  );
+};

@@ -134,7 +134,7 @@ const PaymentMode = ({ checkoutType, userInfo, addressId, shopcartID, cartPriceT
             currency: "INR",
             name: enviroment.BUSINESS_NAME,
             description: "Order Purchase",
-            image: "https://knickknack.online/favicon.ico",
+            image: "https://neverused.in/favicon.ico",
             order_id: orderId,
             handler: (res) => {
                 onlinePaymentSuccess(orderId,res.razorpay_payment_id, res.razorpay_order_id);

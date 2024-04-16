@@ -37,7 +37,7 @@
     outline: none;
 }
 .topHeaderSale{
-    background: #BA1C37;
+    background: var(--SECONDARY_COLOR);
     height: 30px;
 }
 .dealsLink{
