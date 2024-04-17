@@ -50,12 +50,12 @@ export const Footer = () => {
                             <div className={`${styles.footerTitle}`}>Get in touch</div>
                             <ul className={`${styles.footerMenu} list-unstyled d-inline-flex flex-column`}>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" to={`tel:${enviroment.PHONE_NUMBER}`}>
+                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_" to={`tel:${enviroment.PHONE_NUMBER}`}>
                                         <PhoneIcon />
                                         <span>{enviroment.PHONE_NUMBER}</span></Link>
                                 </li>
                                 <li className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}>
-                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" to={`mailto:${enviroment?.EMAIL_ADDRESS}`}>
+                                    <Link className="d-inline-flex align-items-center text-decoration-none gap-1" target="_" to={`mailto:${enviroment?.EMAIL_ADDRESS}`}>
                                         <EmailIcon />
                                         <span>{enviroment?.EMAIL_ADDRESS}</span></Link>
                                 </li>
@@ -158,14 +158,14 @@ export const Footer = () => {
                                 <div className={`${styles.footerTabCol} col-3 d-inline-flex flex-column px-3`}>
                                     <h5>Get social with us</h5>
                                     <ul className="list-unstyled d-inline-flex align-items-center mb-3 gap-3">
-                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.FACEBOOK_LINK} className="text-decoration-none"><FacebookIcon /></Link></li>
-                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.TWITTER_LINK} className="text-decoration-none"><TwitterIcon /></Link></li>
-                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.INSTAGRAM_LINK}><InstagramIcon /></Link></li>
-                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.YOUTUBE_LINK} className="text-decoration-none"><YoutubeIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.FACEBOOK_LINK} target="_" className="text-decoration-none"><FacebookIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.TWITTER_LINK} target="_" className="text-decoration-none"><TwitterIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.INSTAGRAM_LINK} target="_"><InstagramIcon /></Link></li>
+                                        <li className={`${styles.socialIcon} list-unstyled`}><Link to={enviroment.YOUTUBE_LINK} target="_" className="text-decoration-none"><YoutubeIcon /></Link></li>
                                     </ul>
                                     <h5 className="mb-2">Contact Us</h5>
                                     <div className="d-inline-flex align-items-center mb-3">
-                                        <Link to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`} className={`text-decoration-none d-inline-flex align-items-center ${styles.whatsAppLink}`}><i className="fa fa-whatsapp"></i>&nbsp;<span>{enviroment.PHONE_NUMBER}</span></Link>
+                                        <Link to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`} target="_" className={`text-decoration-none d-inline-flex align-items-center ${styles.whatsAppLink}`}><i className="fa fa-whatsapp"></i>&nbsp;<span>{enviroment.PHONE_NUMBER}</span></Link>
                                     </div>
                                 </div>
                             </div>
