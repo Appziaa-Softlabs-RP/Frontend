@@ -281,20 +281,20 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </div>
           </div>
           <div className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}>
-            <div className="container">
+            <div className="container-fluid">
               {loading
                 ? <HeaderNavLoader />
                 :
                 <div className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}>
                   {navItems.length > 0 && navItems.map((item, index) => {
                     return (
-                      <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`} key={index}>
-                        <span className={`${styles.menuName} d-inline-flex align-items-center gap-2`}>{item.name} <BackArrowIcon color="#000" role="button" /></span>
+                      <div className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-1`} key={index}>
+                        <span className={`${styles.menuName} d-inline-flex align-items-center gap-1`}>{item.name} <BackArrowIcon color="#000" role="button" /></span>
                         {item.catList?.length > 0 &&
                           <div className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}>
                             {item.catList.map((subNme, subIdx) => {
                               return (
-                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
+                                <span role="button" key={subIdx} className={`${styles.subMenuName} col-12 align-items-center px-2 d-inline-flex py-2`} onClick={() => showCategroryProd(subNme.category_id, subNme.name, item?.vertical_id)}>{subNme.name}</span>
                               )
                             })}
                           </div>

@@ -147,7 +147,9 @@
     height: 50px;
 }
 .headerNavBox{
-    min-width: 240px;
+    min-width: 'fit-content';
+    margin: 0 15px;
+    white-space: nowrap;
 }
 .menuName, .subMenuName{
     font-size: 15px;
