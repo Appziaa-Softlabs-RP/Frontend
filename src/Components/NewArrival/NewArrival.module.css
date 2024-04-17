@@ -1,0 +1,15 @@
+.brandInTitle {
+  color: #1d2a39;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+@media screen and (min-width: 568px) {
+  .brandInTitle {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    color: #000;
+  }
+}

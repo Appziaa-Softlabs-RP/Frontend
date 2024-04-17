@@ -34,7 +34,7 @@ export const PromoBanner = ({ type }) => {
             <div className={`col-12 d-inline-flex flex-column p-3`}>
               <div className={`${type === 'Promo Banner' ? styles.categoryBox : type === 'Offers' ? styles.offersBox : ''} col-12 d-inline-flex flex-column p-3`}>
                 {type === 'Promo Banner' && 
-                  <h5 className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex mt-0 mb-3`}>
+                  <h5 className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex mt-0 mb-3 fs-2`}>
                     Promo for you
                   </h5>
                 }
@@ -60,7 +60,7 @@ export const PromoBanner = ({ type }) => {
                   <div className="container">
                     <div className={`col-12 d-inline-flex flex-column py-3`}>
                       {type === 'Promo Banner' &&
-                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3`}>
+                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-0 mb-3 fs-2 `}>
                           ✨ Promos for you ✨
                         </h5>
                       }

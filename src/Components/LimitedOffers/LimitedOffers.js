@@ -31,7 +31,7 @@ export const LimitedOffers = () => {
                     {windowWidth === "mobile" ? (
                         <div className="col-12 d-inline-flex">
                             <div className={`p-3 container d-flex flex-column`}>
-                                <h5 className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12`}>Hot Deals</h5>
+                                <h5 className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 fs-2`}>Hot Deals</h5>
                                 <div className={`${styles.limitedOfferBox} col-12 d-inline-flex`}>
                                     <div className="col-12 d-inline-flex flex-wrap align-items-stretch">
                                         {offerProd?.map((item, indx) => {
@@ -53,7 +53,7 @@ export const LimitedOffers = () => {
                                         <img src={superSaving} className="object-fit-cover col-12 d-inline-block"/>
                                     </div>
                                     <div className="col-9 d-inline-flex flex-column">
-                                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex mb-0 position-relative`}>Limited Time Offers</h5>
+                                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex mb-0 position-relative fs-2`}>Limited Time Offers</h5>
                                         <ReactOwlCarousel className={`limitedOfferSlider col-12 d-inline-block owl-theme`} margin={10} loop={false} dots={false} nav={true} items={`${windowWidth === 'desktop' ? 3 : windowWidth === 'mobile' ? 1 : ''}`} stagePadding={`${windowWidth === 'desktop' ? 20 : windowWidth === 'mobile' ? 10 : ''}`}>
                                             {offerProd?.map((item, indx) => {
                                                 return (

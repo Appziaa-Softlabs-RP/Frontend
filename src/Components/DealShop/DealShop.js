@@ -30,7 +30,7 @@ export const DealShop = () => {
                     <div className={`${windowWidth === "mobile" && 'p-3'} container d-flex flex-column`}>
                         <div className="col-12 d-inline-flex justify-content-center">
                             {windowWidth === 'desktop' ? (
-                                <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ Deals of the day ✨</h5>
+                                <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}>✨ Deals of the day ✨</h5>
                             ) : windowWidth === 'mobile' ? (
                                 <h5 className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12`}>Deals of the day</h5>
                             ) : ('')}

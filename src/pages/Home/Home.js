@@ -11,11 +11,12 @@ import { useApp } from "../../context/AppContextProvider";
 import { LookingFor } from "../../Components/LookingFor/LookingFor";
 import { DealShop } from "../../Components/DealShop/DealShop";
 import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
+import { NewArrival } from "../../Components/NewArrival/NewArrival";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
   const appData = useApp();
-  const isMobile = appData.appData.windowWidth === 'mobile';
+  const isMobile = appData.appData.windowWidth === "mobile";
 
   return (
     <React.Fragment>
@@ -24,25 +25,28 @@ export const Home = () => {
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         {/* hero banner */}
         <HeroBanner />
+
+        <ShopAge />
+
+        <NewArrival />
+
         {/* what are you looking for ? */}
         {!isMobile && <LookingFor />}
-        
+
         {isMobile && <CategoryShop />}
 
         <DealShop />
 
         <PromoBanner type="Promo Banner" />
 
-        <ShopAge />
-
         <PromoBanner type="Offers" />
 
-        <LimitedOffers/>
+        <LimitedOffers />
 
         <BrandFocus />
 
         <Footer />
       </div>
     </React.Fragment>
-  )
-}
+  );
+};

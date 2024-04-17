@@ -28,7 +28,7 @@ export const CategoryShop = () => {
             {shopCategory.length > 0 &&
             <div className="col-12 d-inline-flex flex-column p-3">
                 <div className={`${styles.categoryBox} col-12 d-inline-flex flex-column p-3`}>
-                    <h5 className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex`}>Explore by Category</h5>
+                    <h5 className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex fs-2`}>Shop by Category</h5>
                     <div className={`${styles.lookingContainer} col-12 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}>
                         {shopCategory.map((item, index) => {
                             return (

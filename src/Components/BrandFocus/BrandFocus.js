@@ -39,7 +39,7 @@ export const BrandFocus = () => {
                 <div className={`col-12 ${windowWidth === "desktop" && 'p-3 mt-2'} d-inline-flex`}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
                         <div className={`col-12 ${windowWidth === 'mobile' ? 'p-3' : 'mt-3'} d-inline-flex flex-column`}>
-                            <h6 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4' : 'mb-3'} mt-0`}>{windowWidth === 'mobile' ? 'Brands in Focus' : '✨ Brands in Focus ✨'}</h6>
+                            <h6 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4' : 'mb-3'} mt-0 fs-2`}>{windowWidth === 'mobile' ? 'Brands in Focus' : '✨ Brands in Focus ✨'}</h6>
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 1 : 4}`} loop={false} nav={true} stagePadding={`${windowWidth === 'mobile' ? 50 : 0}`}>
                                 {brandData?.map((item, index) => {
                                     return (

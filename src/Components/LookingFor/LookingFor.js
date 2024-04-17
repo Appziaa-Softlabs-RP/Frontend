@@ -38,7 +38,7 @@ export const LookingFor = () => {
             ) :  (
                 <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container d-flex flex-column m-auto`}>
-                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3`}>✨ What are you looking for? ✨</h5>
+                        <h5 className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}>✨ Shop by Category ✨</h5>
                         <div className="col-12 d-inline-flex">
                         <ReactOwlCarousel className={`carousel-looking-for col-12 d-inline-block owl-theme`} margin={10} loop={true} dots={false} items={8} stagePadding={0} nav={true}>
                             {categories?.map((item, idx) => {
