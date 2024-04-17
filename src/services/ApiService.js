@@ -378,6 +378,14 @@ ApiService.storeFilter = function(data) {
   });
 }
 
+ApiService.storeFilterNew = function(data) {
+  return fetch({
+    url: 'store/FilterByProductNew',
+    method: 'post',
+    data: data
+  });
+}
+
 ApiService.storeFilterBrand = function(data) {
   return fetch({
     url: 'store/categoryByBrand',
