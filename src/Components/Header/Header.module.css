@@ -1,268 +1,273 @@
-.siteHeader{
-    padding: 15px 0px 150px;
-    background: var(--PRIMARY_COLOR);
+.siteHeader {
+  padding: 15px 0px 150px;
+  background: var(--PRIMARY_COLOR);
 }
-.menuIconBox, .cartIconBox{
-    height: 50px;
-    width: 50px;
+.menuIconBox,
+.cartIconBox {
+  height: 50px;
+  width: 50px;
 }
-.menuIconBox svg, .cartIconBox svg{
-    height: 25px;
-    width: 25px;
+.menuIconBox svg,
+.cartIconBox svg {
+  height: 25px;
+  width: 25px;
 }
-.siteLogoBox img{
-    height: 70px;
+.siteLogoBox img {
+  height: 70px;
 }
-.cartCount{
-    font-size: 10px;
-    line-height: 11px;
-    background: var(--SECONDARY_COLOR);
-    color: var(--PRIMARY_COLOR);
-    height: 15px;
-    padding: 0px 5px;
-    top: 6px;
-    right: 6px;
-    border-radius: 6px;
+.cartCount {
+  font-size: 10px;
+  line-height: 11px;
+  background: var(--SECONDARY_COLOR);
+  color: var(--PRIMARY_COLOR);
+  height: 15px;
+  padding: 0px 5px;
+  top: 6px;
+  right: 6px;
+  border-radius: 6px;
 }
-.searchProdInput{
-    height: 40px;
-    border-radius: 35px;
-    color: #000;
-    font-size: 15px;
-    box-shadow: none;
-    border: none;
-    padding: 15px;
+.searchProdInput {
+  height: 40px;
+  border-radius: 35px;
+  color: #000;
+  font-size: 15px;
+  box-shadow: none;
+  border: none;
+  padding: 15px;
 }
-.searchProdInput:focus{
-    outline: none;
+.searchProdInput:focus {
+  outline: none;
 }
-.topHeaderSale{
-    background: var(--SECONDARY_COLOR);
-    height: 30px;
+.topHeaderSale {
+  background: var(--SECONDARY_COLOR);
+  height: 30px;
 }
-.dealsLink{
-    font-size: 16px;
-    line-height: 16px;
-    color: #FFF;
+.dealsLink {
+  font-size: 16px;
+  line-height: 16px;
+  color: #fff;
 }
-.headerRow{
-    background: var(--PRIMARY_COLOR);
-    height: 74px;
+.headerRow {
+  background: var(--PRIMARY_COLOR);
+  height: 74px;
 }
 /* Desktop CSS */
-.supportDrop svg{
-	height: 20px;
-	width: 20px;
-  color: #FFF;
+.supportDrop svg {
+  height: 20px;
+  width: 20px;
+  color: #fff;
 }
-.supportDrop .supportText{
-	font-size: 16px;
-	color: #FFF;
-	font-weight: 500;
+.supportDrop .supportText {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
 }
-.supportDropDown{
-	opacity: 0;
-	visibility: hidden;
-	background: #FFF;
-	left: 50%;
-	transition: all ease 400ms;
-	-webkit-transition: all ease 400ms;
-	-webkit-transform: translateX(-50%) translateY(200px);
-	transform: translateX(-50%) translateY(200px);
-	top: 70px;
-	width: 320px;
-	border-radius: 4px;
-	box-shadow: 1px 1px 0px 2px rgba(0,0,0,0.10);
-	z-index: 5;
-	padding: 20px;
+.supportDropDown {
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  left: 50%;
+  transition: all ease 400ms;
+  -webkit-transition: all ease 400ms;
+  -webkit-transform: translateX(-50%) translateY(200px);
+  transform: translateX(-50%) translateY(200px);
+  top: 70px;
+  width: 320px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  padding: 20px;
 }
-.supportDrop:hover .supportDropDown{
-	transform: translateX(-50%) translateY(0%);
-	-webkit-transform: translateX(-50%) translateY(0%);
-	opacity: 1;
-	visibility: visible;
+.supportDrop:hover .supportDropDown {
+  transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+  opacity: 1;
+  visibility: visible;
 }
-.timingPhoneBox{
-	background: #e0f9fe;
-	padding: 10px;
-	border-radius: 10px;
+.timingPhoneBox {
+  background: #e0f9fe;
+  padding: 10px;
+  border-radius: 10px;
 }
 .timingPhoneBox .timingCallIcon {
-    position: absolute;
-    height: 25px;
-    top: 50%;
-    margin-top: -12px;
+  position: absolute;
+  height: 25px;
+  top: 50%;
+  margin-top: -12px;
 }
-.supportTimings{
-	font-size: 14px;
-	color: #000;
-	line-height: 1.5;
+.supportTimings {
+  font-size: 14px;
+  color: #000;
+  line-height: 1.5;
 }
-.supportPhoneNumber, .mailtoEmail{
-	font-size: 18px;
-	color: #000;
-	font-weight: 600;
-	line-height: 2;
+.supportPhoneNumber,
+.mailtoEmail {
+  font-size: 18px;
+  color: #000;
+  font-weight: 600;
+  line-height: 2;
 }
-.mailtoBox{
-	background: #f8f8f8;
-	border-radius: 5px;
-	padding: 10px;
-	margin: 10px 0px;
+.mailtoBox {
+  background: #f8f8f8;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0px;
 }
-.mailtoBox svg{
-	height: 25px;
-	width: 25px;
+.mailtoBox svg {
+  height: 25px;
+  width: 25px;
 }
-.supportLinks{
-	font-size: 14px;
-	color: #000;
+.supportLinks {
+  font-size: 14px;
+  color: #000;
 }
-.dotSymbol{
-	font-size: 20px;
-	color: #000;
+.dotSymbol {
+  font-size: 20px;
+  color: #000;
 }
-.searchIcon, .searchIcon svg{
-    height: 20px;
-    width: 20px;
+.searchIcon,
+.searchIcon svg {
+  height: 20px;
+  width: 20px;
 }
-.inputSearch{
-    height: 45px;
-    border-radius: 6px;
-    background: #FFF;
-    font-size: 16px;
-    color: #000;
-    border: none;
-    box-shadow: none;
+.inputSearch {
+  height: 45px;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 16px;
+  color: #000;
+  border: none;
+  box-shadow: none;
 }
-.inputSearch:focus{
-    border: none;
-    box-shadow: none;
-    outline: none;
+.inputSearch:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
-.headerNavList{
-    background: #FFF;
+.headerNavList {
+  background: #fff;
 }
-.headerMenuRow{
-    height: 50px;
+.headerMenuRow {
+  height: 50px;
 }
-.headerNavBox{
-    min-width: 'fit-content';
-    margin: 0 15px;
-    white-space: nowrap;
+.headerNavBox {
+  min-width: "fit-content";
+  margin: 0 15px;
+  white-space: nowrap;
 }
-.menuName, .subMenuName{
-    font-size: 15px;
-    color: #000;
+.menuName,
+.subMenuName {
+  font-size: 15px;
+  color: #000;
 }
-.menuName{
-    font-weight: 500;
+.menuName {
+  font-weight: 500;
 }
-.menuName svg{
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    height: 8px;
-    width: 8px;
-    transition: transform .1s,-webkit-transform .1s;
+.menuName svg {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  height: 8px;
+  width: 8px;
+  transition: transform 0.1s, -webkit-transform 0.1s;
 }
-.SubMenuList{
-    background: #FFF;
-    z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
-    top: 48px;
-    border-radius: 5px;
-    padding: 12px;
-    min-width: 240px;
-    left: 0px;
-    opacity: 0;
-    visibility: hidden;
+.SubMenuList {
+  background: #fff;
+  z-index: 5;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+  top: 48px;
+  border-radius: 5px;
+  padding: 12px;
+  min-width: 240px;
+  left: 0px;
+  opacity: 0;
+  visibility: hidden;
 }
-.headerNavBox:hover .SubMenuList:after{
-    content: '';
-    position: absolute;
-    left: 50%;
-    margin-left: -5px;
-    background: #FFF;
-    height: 10px;
-    width: 10px;
-    position: absolute;
-    top: -5px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    display: inline-block;
+.headerNavBox:hover .SubMenuList:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  background: #fff;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: -5px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: inline-block;
 }
-.headerNavBox:hover .SubMenuList{
-    opacity: 1;
-    visibility: visible;
+.headerNavBox:hover .SubMenuList {
+  opacity: 1;
+  visibility: visible;
 }
-.subMenuName{
-    min-height: 40px;
-    border-radius: 4px;
+.subMenuName {
+  min-height: 40px;
+  border-radius: 4px;
 }
-.headerNavBox:hover .menuName svg{
-    transform: rotate(-90deg) scaleX(-1);
-    -webkit-transform: rotate(-90deg) scaleX(-1);
+.headerNavBox:hover .menuName svg {
+  transform: rotate(-90deg) scaleX(-1);
+  -webkit-transform: rotate(-90deg) scaleX(-1);
 }
-.subMenuName:hover{
-    font-weight: 500;
-    background: var(--MENU_HOVER_COLOR);
+.subMenuName:hover {
+  font-weight: 500;
+  background: var(--MENU_HOVER_COLOR);
 }
-.userAccountDrop{
-    background: #FFF;
-    z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
-    top: 74px;
-    border-radius: 5px;
-    padding: 12px;
-    min-width: 240px;
-    left: 0px;
-    opacity: 1;
-    visibility: visible;
+.userAccountDrop {
+  background: #fff;
+  z-index: 5;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+  top: 74px;
+  border-radius: 5px;
+  padding: 12px;
+  min-width: 240px;
+  left: 0px;
+  opacity: 1;
+  visibility: visible;
 }
-.accountOption{
-    border-bottom: 1px solid #EDEDED;
-    height: 45px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #000;
-    padding: 0 10px;
-    transition: .1s;
+.accountOption {
+  border-bottom: 1px solid #ededed;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  padding: 0 10px;
+  transition: 0.1s;
 }
-.accountOption:last-child{
-    border-bottom: none;
+.accountOption:last-child {
+  border-bottom: none;
 }
-.accountOption:hover{
-    background: var(--MENU_HOVER_COLOR);
+.accountOption:hover {
+  background: var(--MENU_HOVER_COLOR);
 }
-.userName{
-    font-size: 12px;
-    line-height: 12px;
-    color: var(--SECONDARY_COLOR);
+.userName {
+  font-size: 12px;
+  line-height: 12px;
+  color: var(--SECONDARY_COLOR);
 }
-.showSearchList{
-    top: 55px;
-    max-height: 230px;
-    background: #FFF;
-    z-index: 5;
-    box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.30);
+.showSearchList {
+  top: 55px;
+  max-height: 230px;
+  background: #fff;
+  z-index: 5;
+  box-shadow: 0px 16px 16px 0px rgba(0, 0, 0, 0.3);
 }
-.searchRow{
-    font-size: 16px;
-    color: #000;
-    border-bottom: 1px solid #EEE;
-    transition: .2s;
+.searchRow {
+  font-size: 16px;
+  color: #000;
+  border-bottom: 1px solid #eee;
+  transition: 0.2s;
 }
-.searchRow:hover{
-    background: var(--MENU_HOVER_COLOR);
+.searchRow:hover {
+  background: var(--MENU_HOVER_COLOR);
 }
-.showSearchListMobile.showSearchList{
-    top: 40px;
-    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
-    border-radius: 10px;
+.showSearchListMobile.showSearchList {
+  top: 40px;
+  box-shadow: 0px 3px 7px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
-@media screen and (min-width:568px) {
-    .cartCount{
-        top: -8px;
-        right: -8px;
-    }
+@media screen and (min-width: 568px) {
+  .cartCount {
+    top: -8px;
+    right: -8px;
+  }
 }

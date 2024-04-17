@@ -163,12 +163,12 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
-        <div className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3`}>
+        <div className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3 px-4`}>
           <div className={`col-12 d-inline-flex align-items-center`}>
             <span className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`} onClick={openAsideMenu}>
               <MenuIcons color={enviroment.SECONDARY_COLOR} />
             </span>
-            <span onClick={() => routeHome()} className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}>
+            <span onClick={() => routeHome()} className={`${styles.siteLogoBox} px-5 d-inline-flex align-items-center justify-content-center m-auto`}>
               <img src={siteLogo} alt="Logo" className="object-fit-contain" />
             </span>
             <span className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`} onClick={() => openCart()}>
@@ -176,7 +176,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <CartIcon color={enviroment.SECONDARY_COLOR} />
             </span>
           </div>
-          <div className="col-12 d-inline-flex position-relative px-3">
+          <div className="col-12 d-inline-flex position-relative ">
             <input type="search" placeholder={enviroment.SEARCH_PLACEHOLDER} className={`${styles.searchProdInput} col-12 d-inline-block`} value={searchProd} onChange={(e) => searchShopProd(e, e.target.value)} onKeyDown={handleKeyDown} />
             {searchProdList?.length > 0 &&
               <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
