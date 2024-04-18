@@ -11,18 +11,8 @@ import { ProductCard } from "../ProductCard/ProductCard";
 
 export const NewArrival = () => {
     const appData = useApp();
-    const navigate = useNavigate();
     let windowWidth = appData.appData.windowWidth;
     const [productData, setProductData] = useState([]);
-
-    const showBrandProd = (id, name) => {
-        const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            brand_id: id
-        }
-        let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-        navigate(`/store-product/${category}`, { state: { payload: payload, category: 'Brand' } });
-    }
 
     useEffect(() => {
         const payload = {
@@ -45,12 +35,11 @@ export const NewArrival = () => {
                                 {/* {productData?.map((item, index) => { */}
                                 {/* show in descending order according sort by stock */}
                                 {productData?.sort((a, b) => b.stock - a.stock).map((item, index) => {
-                                    if (item?.stock)
-                                        return (
-                                            <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`} onClick={() => showBrandProd(item.brand_id, item.brand_offer)}>
-                                                <ProductCard item={item} index={index} />
-                                            </div>
-                                        );
+                                    return (
+                                        <div key={index} className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`}>
+                                            <ProductCard item={item} index={index} />
+                                        </div>
+                                    );
                                 })}
                             </ReactOwlCarousel>
                         </div>

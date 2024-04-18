@@ -28,12 +28,12 @@ export const Home = () => {
 
         <ShopAge />
 
-        <NewArrival />
-
         {/* what are you looking for ? */}
         {!isMobile && <LookingFor />}
 
         {isMobile && <CategoryShop />}
+
+        <NewArrival />
 
         <DealShop />
 

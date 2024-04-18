@@ -44,14 +44,14 @@ export const ShopAge = () => {
       ? 4
       : window.innerWidth >= 768
       ? 3
-      : window.innerWidth >= 576
-      ? 2
-      : 1.5;
+      : 2.5;
 
   return (
     <React.Fragment>
       {categAge?.length > 0 && (
-        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}>
+        <div
+          className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}
+        >
           <div className={`${windowWidth === "mobile" && "p-0"} container`}>
             {windowWidth === "desktop" && (
               <h5
@@ -61,17 +61,17 @@ export const ShopAge = () => {
               </h5>
             )}
             <div
-              className={`${styles.shopAgeContainer} col-12 pt-4 pb-4 pl-0 pr-0`}
+              className={`${styles.shopAgeContainer} col-12 pb-4 pl-0 pr-0`}
             >
               {windowWidth === "mobile" && (
                 <h5
-                  className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12`}
+                  className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}
                 >
                   Shop By Age
                 </h5>
               )}
               <div
-                className={`${styles.scrollAgeBox} col-12 flex-wrap d-inline-flex justify-content-center px-4 pb-0 ps-5 `}
+                className={`${styles.scrollAgeBox} col-12 flex-wrap d-inline-flex justify-content-center px-2 pb-0 `}
               >
                 <ReactOwlCarousel
                   className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
@@ -87,7 +87,8 @@ export const ShopAge = () => {
                         className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0 mouse-cursor`}
                         key={index}
                         style={{
-                          minWidth: "180px",
+                          minWidth:
+                            window.innerWidth <= 500 ? "120px" : "180px",
                         }}
                         onClick={() =>
                           openAgeProd(
@@ -97,12 +98,7 @@ export const ShopAge = () => {
                           )
                         }
                       >
-                        <div
-                          className="col-12 pl-1 pr-1 d-inline-flex flex-column justify-content-center align-items-center position-relative text-decoration-none"
-                          style={{
-                            minWidth: "180px",
-                          }}
-                        >
+                        <div className="col-12 pl-1 pr-1 d-inline-flex flex-column justify-content-center align-items-center position-relative text-decoration-none">
                           <div
                             className={`${styles.ageBlockIcon} overflow-hidden d-inline-block col-12 position-relative`}
                           >
@@ -110,15 +106,17 @@ export const ShopAge = () => {
                               src={item?.image}
                               alt={item?.name}
                               style={{
-                                maxWidth: "180px",
-                                maxHeight: "180px",
+                                maxWidth:
+                                  window.innerWidth <= 500 ? "120px" : "180px",
+                                maxHeight:
+                                  window.innerWidth <= 500 ? "120px" : "180px",
                                 borderRadius: "100%",
                               }}
                               className="position-absolute col-12 h-100 d-inline-block p-0"
                             />
                           </div>
                           <h6
-                            className={`${styles.shopAgeNumber} text-center col-12 p-0 mb-0`}
+                            className={`${styles.shopAgeNumber} text-center col-12 p-0 mb-0 text-black fs-5 `}
                           >
                             {item.name}
                           </h6>
