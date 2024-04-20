@@ -22,24 +22,33 @@ export const CategoryPage = () => {
     const [filterVert, setFilterVert] = useState(null);
     const [filterCatg, setFilterCatg] = useState(null);
     const [apiPayload, setApiPayload] = useState(null);
+    const [isDescendingOrder, setIsDscendingOrder] = useState(false);
+    const [isAscendingOrder, setIsAscendingOrder] = useState(false);
+
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
 
     const resetSortFilter = () => {
         let originalProduct = [...ProductActualData];
         setProductData(originalProduct);
+        setIsDscendingOrder(false);
+        setIsAscendingOrder(false);
     }
 
     const priceAscending = () => {
         let originalProduct = [...ProductData];
         originalProduct.sort((p1, p2) => (parseInt(p1.mrp) < parseInt(p2.mrp)) ? 1 : (parseInt(p1.mrp) > parseInt(p2.mrp)) ? -1 : 0);
         setProductData(originalProduct);
+        setIsAscendingOrder(true);
+        setIsDscendingOrder(false);
     }
 
     const priceDescending = () => {
         let originalProduct = [...ProductData];
         originalProduct.sort((p1, p2) => (parseInt(p1.mrp) > parseInt(p2.mrp)) ? 1 : (parseInt(p1.mrp) < parseInt(p2.mrp)) ? -1 : 0);
         setProductData(originalProduct);
+        setIsDscendingOrder(true);
+        setIsAscendingOrder(false);
     }
 
     const fetchProductsList = (data) => {
@@ -181,8 +190,8 @@ export const CategoryPage = () => {
                                             <span onClick={() => resetSortFilter()} role="button" className={`${styles.clearAllBtn} d-inline-flex`}>Clear All</span>
                                             <div className="col-12 d-inline-flex justify-content-end align-items-center">
                                                 <span className={`${styles.sortBy} d-inline-flex me-2`}>Sort By</span>
-                                                <span onClick={() => priceDescending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: Low to High</span>
-                                                <span onClick={() => priceAscending()} role="button" className={`${styles.priceLow} d-inline-flex px-1`}>Price: High to Low</span>
+                                                <span onClick={() => priceDescending()} role="button" className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ''} d-inline-flex px-1`}>Price: Low to High</span>
+                                                <span onClick={() => priceAscending()} role="button" className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ''}`}>Price: High to Low</span>
                                             </div>
                                         </div>
                                     }
@@ -220,8 +229,10 @@ export const CategoryPage = () => {
                         <div className={`${styles.actionSheetBox} d-inline-flex flex-column col-12 overflow-hidden`}>
                             <div className={`${styles.actionSheetTitle} col-12 d-inline-flex align-items-center justify-content-center`}>Sort By</div>
                             <button onClick={() => { priceDescending(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: Low to High</button>
-                            <button onClick={() => { priceAscending(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: High to Low</button>
-                            <button onClick={() => { resetSortFilter(); setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Clear All</button>
+                            <button onClick={() => { priceAscending(); 
+                                setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Price: High to Low</button>
+                            <button onClick={() => { resetSortFilter(); 
+                                setSortPopup(false) }} className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Clear All</button>
                         </div>
                         <button onClick={() => setSortPopup(false)} className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}>Cancel</button>
                     </div>

@@ -21,7 +21,7 @@ export const Filter = ({
   const [allfilterVal, setFilterVal] = useState({
     priceMin: "",
     priceMax: "",
-    brandId: "",
+    brandId: [],
     genderId: "",
     ageGroup: "",
   });
@@ -73,8 +73,20 @@ export const Filter = ({
   }, [filterCatg]);
 
   const filterBrand = (id) => {
-    setFilterVal({ ...allfilterVal, brandId: id });
-    fetchFilterProd();
+    setFilterVal((prevState) => {
+      const brandVals = prevState.brandId ?? [];
+      if (brandVals.includes(id)) {
+        return {
+          ...prevState,
+          brandId: brandVals.filter((item) => item !== id),
+        };
+      } else {
+        return {
+          ...prevState,
+          brandId: [...brandVals, id],
+        };
+      }
+    });
   };
 
   const filterPrice = (min, max) => {
@@ -115,8 +127,8 @@ export const Filter = ({
       vertical_id: filterVert,
       from_price: allfilterVal.priceMin,
       to_price: allfilterVal.priceMax,
-      brand_id: allfilterVal.brandId ? [allfilterVal.brandId] : null,
-            gender: [allfilterVal.genderId],
+      brand_id: allfilterVal.brandId ? allfilterVal.brandId : null,
+      gender: allfilterVal.genderId ? [allfilterVal.genderId] : null,
       age: allfilterVal.ageGroup,
       page: 1,
       result_per_page: 1000,
@@ -131,6 +143,10 @@ export const Filter = ({
       })
       .catch((err) => {});
   };
+
+  useEffect(() => {
+    fetchFilterProd();
+  }, [allfilterVal]);
 
   return (
     <React.Fragment>
@@ -165,10 +181,12 @@ export const Filter = ({
                     >
                       <label
                         className="d-inline-flex align-items-center gap-2 text-capitalize"
-                        onClick={() => filterBrand(item.brand_id)}
+                        htmlFor={`brand-checkbox-${index}`}
                       >
                         <input
-                          type="radio"
+                          id={`brand-checkbox-${index}`}
+                          onClick={(e) => filterBrand(item?.brand_id)}
+                          type="checkbox"
                           className={`${styles.address_option}`}
                           value={item.brand_id}
                           name="brand"
