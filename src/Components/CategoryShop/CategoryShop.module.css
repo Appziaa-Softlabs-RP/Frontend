@@ -1,6 +1,6 @@
 .categoryBox{
     background: #FFF;
-    border-radius: 10px;
+    border-radius: 10px
 }
 .exploreByCategoryHeader {
     font-weight: bold;
@@ -15,7 +15,7 @@
     padding: 0px 10px;
 }
 .imgBox{
-    border-radius: 5px;
+    border-radius: 100%;
     border: 2px solid #F9F01F;
 }
 .categoryProdName{

@@ -3,15 +3,18 @@
     font-weight: 700;
 }
 .thumbItem img{
-    height: 160px;
+    /* height: 160px; */
+    margin: 5px;
     border-radius: 6px;
     object-fit: cover;
 }
 .thumbName{
+    font-family: 'Roboto', sans-serif;
     color: #000;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .thumbName:hover {
-    color: blue;
+    color: green;
 }
