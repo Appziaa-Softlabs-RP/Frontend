@@ -155,6 +155,8 @@ export const CategoryPage = () => {
         setFilterCatg(locationState?.state?.categoryId);
         payload.page = 1;
         payload.result_per_page = 10;
+        console.log(payload)
+        console.log(locationState)
         setApiPayload(payload);
         fetchProductsList(payload);
     }, [locationState]);

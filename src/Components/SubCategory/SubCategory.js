@@ -111,48 +111,42 @@ export const SubCategory = ({ categoryID }) => {
     if (activeApi === "storeSub" || activeApi === "categoryProd") {
       ApiService.StoreCategoryProd(apiPayload)
         .then((res) => {
+          let prevProdArr = [];
+          prevProdArr = categoryProd;
           let newProd = res.payload_VerticalByProduct;
-          let uniqueNewProd = newProd.filter(
-            (newProduct) =>
-              !categoryProd.some(
-                (existingProduct) => existingProduct.id === newProduct.id
-              )
-          );
-
-          setShopCategoryProd((prevProdArr) => [
-            ...prevProdArr,
-            ...uniqueNewProd,
-          ]);
+          for (let i = 0; i < newProd.length; i++) {
+            prevProdArr.push(newProd[i]);
+          }
+          let newProduct = [...prevProdArr];
+          setShopCategoryProd(newProduct);
         })
-        .catch((err) => {
-          // Handle error
-        });
-    } else if (activeApi === "categorySub" || activeApi === "subChild") {
-      let apiMethod;
-      if (activeApi === "categorySub") {
-        apiMethod = ApiService.CategoryBySubProd;
-      } else if (activeApi === "subChild") {
-        apiMethod = ApiService.CategoryByProd;
-      }
-
-      apiMethod(apiPayload)
+        .catch((err) => {});
+    } else if (activeApi === "categorySub") {
+      ApiService.CategoryBySubProd(apiPayload)
         .then((res) => {
+          let prevProdArr = [];
+          prevProdArr = categoryProd;
           let newProd = res.payload_SubCategoryByProduct;
-          let uniqueNewProd = newProd.filter(
-            (newProduct) =>
-              !categoryProd.some(
-                (existingProduct) => existingProduct.id === newProduct.id
-              )
-          );
-
-          setShopCategoryProd((prevProdArr) => [
-            ...prevProdArr,
-            ...uniqueNewProd,
-          ]);
+          for (let i = 0; i < newProd.length; i++) {
+            prevProdArr.push(newProd[i]);
+          }
+          let newProduct = [...prevProdArr];
+          setShopCategoryProd(newProduct);
         })
-        .catch((err) => {
-          // Handle error
-        });
+        .catch((err) => {});
+    } else if (activeApi === "subChild") {
+      ApiService.CategoryByProd(apiPayload)
+        .then((res) => {
+          let prevProdArr = [];
+          prevProdArr = categoryProd;
+          let newProd = res.payload_SubCategoryByProduct;
+          for (let i = 0; i < newProd.length; i++) {
+            prevProdArr.push(newProd[i]);
+          }
+          let newProduct = [...prevProdArr];
+          setShopCategoryProd(newProduct);
+        })
+        .catch((err) => {});
     }
   };
 
@@ -211,6 +205,7 @@ export const SubCategory = ({ categoryID }) => {
                   All
                 </p>
               </div>
+
               {shopCategory?.map((item, index) => {
                 return (
                   <div

@@ -25,6 +25,7 @@ import { AboutUs } from "../pages/AboutUs/AboutUs";
 import { Faq } from "../pages/Faq/Faq";
 import { Cancellation } from "../pages/Cancellation/Cancellation";
 import { Press } from "../pages/Press/Press";
+import { BrandCategoryPage } from "../pages/CategoryPage/brandCategoryPage";
 
 export const PublicRoutes = () => {
   return (
@@ -37,6 +38,10 @@ export const PublicRoutes = () => {
       <Route path="/shop-offers" element={<ShopOffers />} />
       <Route path="/store/:category" element={<SubCategoryPage />} />
       <Route path="/store-product/:category" element={<CategoryPage />} />
+      <Route
+        path="/store-product/brand/:brandId"
+        element={<BrandCategoryPage />}
+      />
       <Route path="/store/age/:category" element={<CategoryPage />} />
       <Route path="/search-product/:category" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
