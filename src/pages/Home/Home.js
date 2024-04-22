@@ -39,11 +39,11 @@ export const Home = () => {
 
         <PromoBanner type="Promo Banner" />
 
-        <PromoBanner type="Offers" />
-
         <LimitedOffers />
 
         <BrandFocus />
+
+        <PromoBanner type="Offers" />
 
         <Footer />
       </div>
