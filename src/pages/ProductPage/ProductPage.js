@@ -1034,13 +1034,6 @@ export const ProductPage = () => {
                           |
                         </span>
                       )}
-                    {ProductData?.gender_name ? ProductData?.gender_name : ""}
-                    {ProductData?.category_name !== null &&
-                      ProductData?.gender_name !== null && (
-                        <span className={`${styles.spaceLine} d-inline-flex`}>
-                          |
-                        </span>
-                      )}
                     {ProductData?.category_name
                       ? ProductData?.category_name
                       : ""}
