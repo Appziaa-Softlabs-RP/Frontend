@@ -42,6 +42,7 @@ export const PublicRoutes = () => {
         path="/store-product/brand/:brandId"
         element={<BrandCategoryPage />}
       />
+      
       <Route path="/store/age/:category" element={<CategoryPage />} />
       <Route path="/search-product/:category" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
