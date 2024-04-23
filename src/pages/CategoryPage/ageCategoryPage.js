@@ -17,10 +17,9 @@ import {
 } from "../../Components/siteIcons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { enviroment } from "../../enviroment";
-import { Helmet } from "react-helmet";
 
-export const BrandCategoryPage = () => {
-  const { brandId } = useParams();
+export const AgeCategoryPage = () => {
+  const { ageId } = useParams();
 
   const locationState = useLocation();
   const [ProductData, setProductData] = useState([]);
@@ -73,11 +72,11 @@ export const BrandCategoryPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    ApiService.brandProduct(data)
+    ApiService.ageGroupProduct(data)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
-          setProductData(res.payload_BrandByProduct);
-          setProductActualData(res.payload_BrandByProduct);
+          setProductData(res.payload_ageGroupByProduct);
+          setProductActualData(res.payload_ageGroupByProduct);
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
         }
@@ -88,12 +87,12 @@ export const BrandCategoryPage = () => {
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
-    ApiService.brandProduct(apiPayload)
+    ApiService.ageGroupProduct(apiPayload)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
           let prevProdArr = [];
           prevProdArr = ProductData;
-          let newProd = res.payload_BrandByProduct;
+          let newProd = res.payload_ageGroupByProduct;
           for (let i = 0; i < newProd.length; i++) {
             prevProdArr.push(newProd[i]);
           }
@@ -111,7 +110,7 @@ export const BrandCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      brand_id: brandId,
+      age_group_id: ageId,
     };
     setFilterVert(locationState?.state?.verticalId);
     setFilterCatg(locationState?.state?.categoryId);
@@ -125,18 +124,6 @@ export const BrandCategoryPage = () => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>
-          Shop the latest&nbsp;
-          {ProductData ? (ProductData[0] ? ProductData[0].brand_name : "") : ""}
-          &nbsp;merchandise at knickknack.online, their official store!
-        </title>
-        <meta
-          name="description"
-          content="From action figures to musical instruments, knickknack.online has all the official <Band Name> toys to inspire creativity and rockstar dreams!"
-        />
-      </Helmet>
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (
@@ -151,7 +138,7 @@ export const BrandCategoryPage = () => {
         }`}
       >
         <div className="container">
-          {locationState?.state?.banner !== "" &&
+          {/*} {locationState?.state?.banner !== "" &&
             locationState?.state?.banner !== null &&
             locationState?.state?.banner !== undefined && (
               <div
@@ -164,6 +151,7 @@ export const BrandCategoryPage = () => {
                 />
               </div>
             )}
+        */}
           {loading && <ProductListLoader />}
           {loading === false && (
             <div

@@ -7,6 +7,7 @@ import { useApp } from "../../context/AppContextProvider";
 
 import { useAppStore } from "../../store";
 import { PromoBannerLoader } from "../Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 export const PromoBanner = ({ type }) => {
   const [loading, setLoading] = useState(true);
@@ -15,6 +16,7 @@ export const PromoBanner = ({ type }) => {
   const [allBanner, setAllBanner] = useState([]);
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (type === "Promo Banner") {
@@ -25,6 +27,18 @@ export const PromoBanner = ({ type }) => {
       setLoading(false);
     }
   }, [promoBanners, offerBanners]);
+
+  const redirectToLink = (item) => {
+    if (item?.site_link) {
+      window.location.href(item?.site_link);
+    } else if (item?.category_id && item?.vertical_id) {
+      navigate(
+        `/store-product/vertical/${item?.vertical_id}/category/${item?.category_id}`
+      );
+    } else if (item?.product_id) {
+      navigate(`/product?id=${item?.product_id}`);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -56,9 +70,13 @@ export const PromoBanner = ({ type }) => {
                   items={1}
                   stagePadding={15}
                 >
-                  {allBanner.map((item, index) => {
+                  {allBanner?.map((item, index) => {
                     return (
-                      <div className={styles.item} key={index}>
+                      <div
+                        className={styles.item}
+                        onClick={() => redirectToLink(item)}
+                        key={index}
+                      >
                         <img
                           src={item?.image}
                           alt={item?.name}
@@ -106,7 +124,11 @@ export const PromoBanner = ({ type }) => {
                       >
                         {allBanner.map((item, index) => {
                           return (
-                            <div className={styles.item} key={index}>
+                            <div
+                              className={styles.item}
+                              onClick={() => redirectToLink(item)}
+                              key={index}
+                            >
                               <img
                                 src={item?.image}
                                 alt={item?.name}

@@ -13,14 +13,7 @@ export const ShopAge = () => {
   let windowWidth = appData.appData.windowWidth;
 
   const openAgeProd = (ageId, banner, name) => {
-    const payload = {
-      store_id: parseInt(enviroment.STORE_ID),
-      age_group_id: ageId,
-    };
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store/age/${category}`, {
-      state: { payload: payload, banner: banner, category: "SHOP" },
-    });
+    navigate(`/store/age/${ageId}`);
   };
 
   useEffect(() => {
@@ -49,9 +42,7 @@ export const ShopAge = () => {
   return (
     <React.Fragment>
       {categAge?.length > 0 && (
-        <div
-          className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}
-        >
+        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}>
           <div className={`${windowWidth === "mobile" && "p-0"} container`}>
             {windowWidth === "desktop" && (
               <h5
@@ -60,9 +51,7 @@ export const ShopAge = () => {
                 ✨ Shop By Age ✨
               </h5>
             )}
-            <div
-              className={`${styles.shopAgeContainer} col-12 pb-4 pl-0 pr-0`}
-            >
+            <div className={`${styles.shopAgeContainer} col-12 pb-4 pl-0 pr-0`}>
               {windowWidth === "mobile" && (
                 <h5
                   className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}

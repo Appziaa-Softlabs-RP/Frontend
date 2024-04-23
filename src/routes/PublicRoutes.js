@@ -26,6 +26,8 @@ import { Faq } from "../pages/Faq/Faq";
 import { Cancellation } from "../pages/Cancellation/Cancellation";
 import { Press } from "../pages/Press/Press";
 import { BrandCategoryPage } from "../pages/CategoryPage/brandCategoryPage";
+import { AgeCategoryPage } from "../pages/CategoryPage/ageCategoryPage";
+import { ShopCategoryPage } from "../pages/CategoryPage/shopCategoryPage";
 
 export const PublicRoutes = () => {
   return (
@@ -36,14 +38,18 @@ export const PublicRoutes = () => {
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
-      <Route path="/store/:category" element={<SubCategoryPage />} />
+      <Route path="/store/:categoryId" element={<ShopCategoryPage />} />
       <Route path="/store-product/:category" element={<CategoryPage />} />
+      <Route
+        path="/store-product/vertical/:verticalId/category/:categoryId"
+        element={<ShopCategoryPage />}
+      />
       <Route
         path="/store-product/brand/:brandId"
         element={<BrandCategoryPage />}
       />
-      
-      <Route path="/store/age/:category" element={<CategoryPage />} />
+
+      <Route path="/store/age/:ageId" element={<AgeCategoryPage />} />
       <Route path="/search-product/:category" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route path="/checkout" element={<ShoppingCart />} />

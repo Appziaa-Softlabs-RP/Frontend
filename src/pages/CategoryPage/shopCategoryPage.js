@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CategoryPage.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation, useParams } from "react-router-dom";
+import { Filter } from "../../Components/Filter/Filter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
-import { ProductListLoader } from "../../Components/Loader/Loader";
-import { Filter } from "../../Components/Filter/Filter";
 import {
-  BackArrowIcon,
-  FilterIcon,
-  OrderIcon,
-  SortByIcon,
+    BackArrowIcon,
+    FilterIcon,
+    OrderIcon,
+    SortByIcon,
 } from "../../Components/siteIcons";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
-import { Helmet } from "react-helmet";
+import ApiService from "../../services/ApiService";
+import styles from "./CategoryPage.module.css";
 
-export const BrandCategoryPage = () => {
-  const { brandId } = useParams();
+export const ShopCategoryPage = () => {
+  const { categoryId, verticalId } = useParams();
 
   const locationState = useLocation();
   const [ProductData, setProductData] = useState([]);
@@ -73,11 +72,11 @@ export const BrandCategoryPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    ApiService.brandProduct(data)
+    ApiService.CategoryByProd(data)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
-          setProductData(res.payload_BrandByProduct);
-          setProductActualData(res.payload_BrandByProduct);
+          setProductData(res.payload_CategoryByProduct);
+          setProductActualData(res.payload_CategoryByProduct);
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
         }
@@ -88,12 +87,12 @@ export const BrandCategoryPage = () => {
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
-    ApiService.brandProduct(apiPayload)
+    ApiService.CategoryByProd(apiPayload)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
           let prevProdArr = [];
           prevProdArr = ProductData;
-          let newProd = res.payload_BrandByProduct;
+          let newProd = res.payload_CategoryByProduct;
           for (let i = 0; i < newProd.length; i++) {
             prevProdArr.push(newProd[i]);
           }
@@ -111,10 +110,10 @@ export const BrandCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      brand_id: brandId,
+      category_id: categoryId,
     };
-    setFilterVert(locationState?.state?.verticalId);
-    setFilterCatg(locationState?.state?.categoryId);
+    setFilterVert(verticalId);
+    setFilterCatg(categoryId);
     payload.page = 1;
     payload.result_per_page = 10;
     console.log(payload);
@@ -125,18 +124,6 @@ export const BrandCategoryPage = () => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>
-          Shop the latest&nbsp;
-          {ProductData ? (ProductData[0] ? ProductData[0].brand_name : "") : ""}
-          &nbsp;merchandise at knickknack.online, their official store!
-        </title>
-        <meta
-          name="description"
-          content="From action figures to musical instruments, knickknack.online has all the official <Band Name> toys to inspire creativity and rockstar dreams!"
-        />
-      </Helmet>
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (
