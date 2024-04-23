@@ -322,6 +322,14 @@ ApiService.brandInFocus = function (data) {
   });
 }
 
+ApiService.newArrivals = function (data) {
+  return fetch({
+    url: "store/newarrivalRandom",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.brandProduct = function (data) {
   return fetch({
     url: 'store/BrandByProduct',
