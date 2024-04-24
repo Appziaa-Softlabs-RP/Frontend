@@ -5,7 +5,6 @@ import { useApp } from "../../context/AppContextProvider";
 import styles from "./LookingFor.module.css";
 
 import { useAppStore } from "../../store";
-import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
 
 export const LookingFor = () => {
@@ -16,14 +15,7 @@ export const LookingFor = () => {
   let windowWidth = appData.appData.windowWidth;
 
   const subCatProduts = (id, name, verticalId) => {
-    const payload = {
-      store_id: parseInt(enviroment.STORE_ID),
-      category_id: id,
-    };
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store-product/${category}`, {
-      state: { payload: payload, verticalId: verticalId, categoryId: id },
-    });
+    navigate(`/store-product/vertical/${verticalId}/category/${id}`);
   };
 
   useEffect(() => {
