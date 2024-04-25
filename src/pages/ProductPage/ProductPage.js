@@ -32,6 +32,7 @@ import delivery from "../../assets/images/free-delivery.png";
 import orignal from "../../assets/images/original.png";
 import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
 import ApiService from "../../services/ApiService";
+import { Helmet } from "react-helmet";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -466,8 +467,30 @@ export const ProductPage = () => {
     }
   }, [ProductData]);
 
+  function removeHtmlAndTruncate(text, maxLength = 200) {
+    // Remove HTML tags using DOM parsing (safer than regex)
+    const tempElement = document.createElement("div");
+    tempElement.innerHTML = text;
+    const cleanText = tempElement.textContent || tempElement.innerText; // Handle browser compatibility
+
+    // Truncate the text if it exceeds the limit
+    return cleanText.length > maxLength
+      ? cleanText.substring(0, maxLength) + "..."
+      : cleanText;
+  }
+
   return (
     <React.Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Buy {ProductData?.name} Online - {ProductData?.store_name}
+        </title>
+        <meta
+          name="description"
+          content={removeHtmlAndTruncate(ProductData?.description)}
+        />
+      </Helmet>
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title={ProductData?.name} />
@@ -824,6 +847,10 @@ export const ProductPage = () => {
                               src={enviroment.API_IMAGE_GALLERY_URL + item}
                               alt={ProductData?.name}
                               className="object-fit-cover col-12 d-inline-block"
+                              style={{
+                                maxHeight: "80px",
+                                width: "auto",
+                              }}
                             />
                           </div>
                         );
