@@ -33,6 +33,7 @@ import orignal from "../../assets/images/original.png";
 import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
 import ApiService from "../../services/ApiService";
 import { Helmet } from "react-helmet";
+import { ThreeDots } from 'react-loader-spinner'
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -57,9 +58,12 @@ export const ProductPage = () => {
   const [shareProdName, setShareProdName] = useState(
     encodeURIComponent(ProductData?.name)
   );
+  const [isAboutProductDesc, setIsAboutProductDesc] = useState(true);
+  const [isOtherProductDesc, setIsOtherProductDesc] = useState(false);
   const userInfo = appData?.appData?.user;
   let windowWidth = appData.appData.windowWidth;
   const pageCurrentURL = encodeURIComponent(window.location.href);
+
 
   const setMainImage = (image, count) => {
     setActiveImg(count);
@@ -481,6 +485,7 @@ export const ProductPage = () => {
 
   return (
     <React.Fragment>
+      {ProductData &&
       <Helmet>
         <meta charSet="utf-8" />
         <title>
@@ -491,6 +496,7 @@ export const ProductPage = () => {
           content={removeHtmlAndTruncate(ProductData?.description)}
         />
       </Helmet>
+}
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title={ProductData?.name} />
@@ -515,18 +521,72 @@ export const ProductPage = () => {
               dots={true}
               items={1}
             >
-              {ProductData?.gallery?.map((item, index) => {
+              {ProductData?.gallery_images?.map((item, index) => {
                 return (
-                  <div className={`col-12 d-inline-block`} key={index}>
-                    <img
-                      src={item.image_url}
-                      alt={ProductData?.name}
-                      className="object-fit-cover col-12 d-inline-block"
-                    />
+                  <div className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`} key={index}>
+                   {
+                        prodMainImg ?
+                        <img
+                        src={enviroment.API_IMAGE_GALLERY_URL + item}
+                        alt={ProductData?.name}
+                        className="col-12 d-inline-block"
+                        style={{
+                          maxHeight: "500px",
+                          width: "auto"
+                        }}
+                       />
+                      :
+                      <div className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`} 
+                         style={{
+                        height: "500px",
+                      }}>
+                        <ThreeDots
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="#CF102E"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                          />
+                      </div>
+                      }
+                   
                   </div>
                 );
               })}
             </ReactOwlCarousel>
+            {
+              !ProductData?.gallery_images.length ?  prodMainImg ?
+              <div className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`} >
+              <img
+              src={prodMainImg}
+              alt={ProductData?.name}
+              className="col-12 d-inline-block"
+              style={{
+                maxHeight: "500px",
+                width: "auto"
+              }}
+             />
+             </div>
+            :
+            <div className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`} 
+               style={{
+              height: "500px",
+            }}>
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#CF102E"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                />
+            </div> : null
+            }
           </div>
 
           <div
@@ -602,13 +662,34 @@ export const ProductPage = () => {
               className={`${styles.productCollapseBox} mb-4 active col-12 d-inline-block p-0`}
               onClick={openProductColpse(this)}
             >
-              <button
-                className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+              <div className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                style={{
+                  height: "fit-content"
+                }}
               >
+              <button
+               style={{
+                  borderRadius: "4px",
+                  border: "none",
+                  outline: "none",
+                  boxShadow: "none",
+                  }}
+                >
                 <span>About product</span>&nbsp;
-                <span className="close-icon position-relative"></span>
               </button>
-              <div className={`${styles.productDetailText} col-12 p-0`}>
+              <button
+               style={{
+                borderRadius: "4px",
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                  }}
+                  onClick={()=>setIsAboutProductDesc(!isAboutProductDesc)}
+                >
+                +
+              </button>
+              </div>
+              <div className={`${styles.productDetailText} col-12 p-0 ${!isAboutProductDesc && 'visually-hidden'}`}>
                 {ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}
               </div>
             </div>
@@ -618,17 +699,40 @@ export const ProductPage = () => {
                 className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
                 onClick={openProductColpse(this)}
               >
-                <button
-                  className={`${styles.productTabBox} col-12 text-decoration-none cursor-pointer d-inline-flex align-items-center justify-content-between`}
+                              <div className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                style={{
+                  height: "fit-content"
+                }}
+              >
+              <button
+               style={{
+                  borderRadius: "4px",
+                  border: "none",
+                  outline: "none",
+                  boxShadow: "none",
+                  }}
                 >
-                  <span>Other Info</span>&nbsp;
-                  <span className="close-icon position-relative"></span>
-                </button>
+                <span>Other Info</span>&nbsp;
+              </button>
+              <button
+               style={{
+                borderRadius: "4px",
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                  }}
+                  onClick={()=>setIsOtherProductDesc(!isOtherProductDesc)}
+                >
+                +
+              </button>
+              </div>
+              {
+                isOtherProductDesc &&
                 <div
                   className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
                 >
                   {ProductData?.specifications?.type && (
-                    <p className="col-12 d-inline-flex m-0">
+                    <p className="col-12 d-inline-flex gap-2  m-0">
                       <strong>Type: </strong>
                       {ProductData?.specifications?.type}
                     </p>
@@ -711,6 +815,7 @@ export const ProductPage = () => {
                     </p>
                   )}
                 </div>
+}
               </div>
             )}
           </div>
@@ -815,11 +920,27 @@ export const ProductPage = () => {
                       >
                         <ShareIcon color="#CF112D" />
                       </span>
+                      {
+                        prodMainImg ?
                       <img
                         src={prodMainImg}
                         alt={ProductData?.name}
                         className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
                       />
+                      :
+                      <div   className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
+                        <ThreeDots
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="#CF102E"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                          />
+                      </div>
+                      }
                     </div>
                     <ReactOwlCarousel
                       key={activeImg}
@@ -846,10 +967,12 @@ export const ProductPage = () => {
                             <img
                               src={enviroment.API_IMAGE_GALLERY_URL + item}
                               alt={ProductData?.name}
-                              className="object-fit-cover col-12 d-inline-block"
+                              className=""
                               style={{
+                                height: "80px",
                                 maxHeight: "80px",
-                                width: "auto",
+                                maxWidth: "100%",
+                                objectFit: "contain"
                               }}
                             />
                           </div>
