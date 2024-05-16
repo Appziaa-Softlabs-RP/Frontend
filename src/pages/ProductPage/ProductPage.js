@@ -834,6 +834,14 @@ export const ProductPage = () => {
             </span>
 
             {!prodAdded ? (
+                                   ProductData?.stock <= 0 ?
+
+              <span
+                className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+              >
+                Out of Stock
+              </span>
+:
               <span
                 className={`${styles.AddCartBtn} ${
                   ProductData?.stock === 0 || ProductData?.stock < 0
@@ -1227,6 +1235,14 @@ export const ProductPage = () => {
                     )}
                   </div>
                   {!prodAdded ? (
+                     ProductData?.stock <= 0 ?
+                     <span
+                     role="button"
+                     className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                   >
+                     Out of stock
+                   </span>
+                   :
                     <span
                       role="button"
                       className={`${styles.continueShop} ${

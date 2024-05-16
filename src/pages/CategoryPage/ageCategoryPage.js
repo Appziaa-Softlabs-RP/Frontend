@@ -94,6 +94,10 @@ export const AgeCategoryPage = () => {
           prevProdArr = ProductData;
           let newProd = res.payload_ageGroupByProduct;
           for (let i = 0; i < newProd.length; i++) {
+            // if new product already exists
+            if(prevProdArr.find((item) => item.id === newProd[i].id)) {
+              continue;
+            }
             prevProdArr.push(newProd[i]);
           }
           let newProduct = [...prevProdArr];
