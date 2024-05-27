@@ -21,3 +21,7 @@
 .bannerContainer img{
     border-radius: 10px;
 }
+
+.banner{
+    cursor: pointer;
+}

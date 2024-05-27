@@ -166,7 +166,7 @@ export const Filter = ({
               >
                 <input
                   type="search"
-                  placeholder="Search Band"
+                  placeholder="Search Brand"
                   value={searchBrand}
                   className={`${styles.filterSearchInput} col-12 d-inline-flex p-3`}
                   onChange={(e) => searchBrandName(e.target.value)}

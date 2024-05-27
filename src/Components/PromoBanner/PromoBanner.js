@@ -30,7 +30,7 @@ export const PromoBanner = ({ type }) => {
 
   const redirectToLink = (item) => {
     if (item?.site_link) {
-      window.location.href(item?.site_link);
+      if (window !== undefined) window.open(item?.site_link, "_blank");
     } else if (item?.category_id && item?.vertical_id) {
       navigate(
         `/store-product/vertical/${item?.vertical_id}/category/${item?.category_id}`
@@ -73,7 +73,7 @@ export const PromoBanner = ({ type }) => {
                   {allBanner?.map((item, index) => {
                     return (
                       <div
-                        className={styles.item}
+                        className={styles.banner}
                         onClick={() => redirectToLink(item)}
                         key={index}
                       >
@@ -125,9 +125,11 @@ export const PromoBanner = ({ type }) => {
                         {allBanner.map((item, index) => {
                           return (
                             <div
-                              className={styles.item}
                               onClick={() => redirectToLink(item)}
                               key={index}
+                              style={{
+                                cursor: 'pointer',
+                              }}
                             >
                               <img
                                 src={item?.image}
