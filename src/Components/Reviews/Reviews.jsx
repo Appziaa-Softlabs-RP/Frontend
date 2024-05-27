@@ -1,10 +1,10 @@
 import ReactOwlCarousel from "react-owl-carousel";
 import styles from "./Review.module.css";
 import { useApp } from "../../context/AppContextProvider";
+import { useState } from "react";
 
 export default function Reviews() {
     const appData = useApp();
-    let windowWidth = appData.appData.windowWidth;
 
     const settings = {
         items: 3, // Number of items to display on desktop by default
@@ -43,6 +43,81 @@ export default function Reviews() {
         },
     };
 
+    const reviews = [
+        {
+            id: 1,
+            name: "Manav Verma",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a/ACg8ocJatwL8_irMwuyHBScTSXIWOA_NHugzs6gImgXAM5OmO4pq9Q=w36-h36-p-rp-mo-br100",
+            rating: 5,
+            review: "Knickknack is the ultimate toy store! From Barbie to LEGO, they have it all. Friendly staff, eazy shopping, and quick delivery. Highly recommend for quality toys at great prices!"
+        },
+        {
+            id: 2,
+            name: "Nisha Rawat",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a/ACg8ocKaL_Ty63cRYIBQH3t0WyWpl8zO8YfXeKdOl4AXfvi6ZBuc5Q=w36-h36-p-rp-mo-br100",
+            rating: 5,
+            review: "Knickknack is simply fantastic! I found all my favorite toy brands. The staff was incredibly welcoming and knowledgeable, making my shopp experience a breeze."
+        },
+        {
+            id: 3,
+            name: "kiran. rawat_194",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjXhFLJ4YJvqfTseY6mP4jFhLFRz_-5Hy7VftJz8m7YQGIeLTHY=w36-h36-p-rp-mo-br100",
+            rating: 5,
+            review: "Knickknack is a dream come true for toy lovers like me! They've got an incredible selection of top brands like Hot Wheels and LEGO, all at prices that won't break the bank. The staff was super friendly and helpful, making my shopping experience a delight. Knickknack has definitely earned my loyalty as the go-to spot for quality toys!"
+        },
+        {
+            id: 4,
+            name: "Roman Khan",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjWSGqej9V4kFr0axsItP5kXh2O2w4l_D0PqoscsWy8DR0fGWZs=w36-h36-p-rp-mo-br100",
+            rating: 5,
+            review: "Absolutely thrilled with my Knickknack experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze. Online ordering was a snap, and my delivery arrived right on time. Knickknack is now my go-to for top-quality toys!"
+        },
+        {
+            id: 5,
+            name: "Zaid Khan",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjVwBqMVy_pcC1Anf5NP2I0i0UT8lPfzQho172ODNXPdQsnLGQ9I=w36-h36-p-rp-mo-br100",
+            rating: 5,
+            review: "Absolutely thrilled with my Knickknack experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze. Online ordering was a snap, and my delivery arrived right on time. Knickknack is now my go-to for top-quality toys!"
+        },
+        {
+            id: 6,
+            name: "avinash Jha",
+            date: "1 day ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjVCGA_5Ye68OglcKE_ClzE6i7ajS_93JV_IGLPlsWrjJQelpRwu=w36-h36-p-rp-mo-ba4-br100",
+            rating: 5,
+            review: "Knickknack is an absolute treasure trove for toy enthusiasts of all ages! As a parent, I'm always on the lookout for high-quality toys that spark creativity and keep my kids entertained for hours. Knickknack exceeded all my expectations with its extensive collection of branded toys, including favorites like Barbie, LEGO, Hot Wheels, and PlayShifu"
+        },
+    ];
+
+    const ShowReview = ({ review }) => {
+        const [showMore, setShowMore] = useState(false);
+
+        if (showMore) {
+            return <div style={{
+                maxHeight: "200px",
+                overflow: "auto"
+            }}>
+                <p className="mb-0">{review}</p>
+                <button onClick={() => setShowMore(false)} className="text-sm text-primary" style={{ background: "none", border: "none" }}>Show Less</button>
+            </div>
+        } else {
+            return <>
+                <p className="mb-0">{review.length > 200 ? review.slice(0, 200) + "..." : review}</p>
+                {review.length > 200 &&
+                    <button onClick={() => setShowMore(true)} className="text-sm text-primary" style={{
+                        background: "none",
+                        border: "none",
+                        width: 'fit-content'
+                    }}>Show More</button>}
+            </>
+        }
+    }
+
     return <div style={{
         display: "flex",
         justifyContent: "center",
@@ -68,290 +143,33 @@ export default function Reviews() {
                 }}>Write a Review</button>
             </div>
 
-            <ReactOwlCarousel
-                className={`${styles.brandSilder}`}
-                {...settings}
-            >
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
+            <ReactOwlCarousel className={`${styles.brandSilder}`} {...settings}>
+                {reviews.map((review) => (
+                    <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
+                        background: "#ebd4d4",
+                        color: "#291845",
+                        borderRadius: "5px"
                     }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a/ACg8ocJatwL8_irMwuyHBScTSXIWOA_NHugzs6gImgXAM5OmO4pq9Q=w36-h36-p-rp-mo-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>Manav Verma</b></p>
-                                <p className="mb-0 ">1 day ago</p>
+                        <div className="d-flex justify-content-between" style={{ alignItems: "center" }}>
+                            <div className="d-flex" style={{ alignItems: "center" }}>
+                                <img src={review.image} alt="" style={{ width: "50px" }} />
+                                <div className="px-2">
+                                    <p className="mb-0"><b>{review.name}</b></p>
+                                    <p className="mb-0">{review.date}</p>
+                                </div>
                             </div>
+                            <img src="/review/gimg.png" alt="" style={{ maxWidth: "30px" }} />
                         </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">Knickknack is the ultimate toy store! From Barbie to LEGO, they have it all. Friendly staff, eazy shopping, and quick delivery. Highly recommend for quality toys at great prices!</p>
-                </div>
-
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
-                    }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a/ACg8ocKaL_Ty63cRYIBQH3t0WyWpl8zO8YfXeKdOl4AXfvi6ZBuc5Q=w36-h36-p-rp-mo-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>Nisha Rawat</b></p>
-                                <p className="mb-0 ">1 day ago</p>
-                            </div>
+                        <div className="d-flex my-2">
+                            {Array(review.rating).fill(0).map((_, index) => (
+                                <img key={index} src="/review/star-solid.png" alt="" style={{ maxWidth: "30px" }} />
+                            ))}
                         </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
+                        <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
+                            <ShowReview review={review?.review} />
+                        </p>
                     </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">Knickknack is simply fantastic! I found all my favorite toy brands. The staff was incredibly welcoming and knowledgeable, making my shopp experience a breeze.</p>
-                </div>
-
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
-                    }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a-/ALV-UjXhFLJ4YJvqfTseY6mP4jFhLFRz_-5Hy7VftJz8m7YQGIeLTHY=w36-h36-p-rp-mo-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>kiran. rawat_194</b></p>
-                                <p className="mb-0 ">1 day ago</p>
-                            </div>
-                        </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">Prices at knickknack.in is unbelievable infact better than Amazon and Flipkart. I just love buying remote controlled 🚘 . …</p>
-
-                    <p className="mb-0 mt-1" style={{
-                        cursor: "pointer",
-                        fontSize: "15px"
-                    }}><b>See more</b></p>
-                </div>
-
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
-                    }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a-/ALV-UjWSGqej9V4kFr0axsItP5kXh2O2w4l_D0PqoscsWy8DR0fGWZs=w36-h36-p-rp-mo-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>Roman Khan</b></p>
-                                <p className="mb-0 ">1 day ago</p>
-                            </div>
-                        </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">Knickknack is a dream come true for toy lovers like me! They've got an incredible selection of top brands like Hot Wheels and LEGO, all at prices that won't break the bank. The staff was super friendly and helpful…</p>
-
-                    <p className="mb-0 mt-1" style={{
-                        cursor: "pointer",
-                        fontSize: "15px"
-                    }}><b>See more</b></p>
-                </div>
-
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
-                    }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a-/ALV-UjVwBqMVy_pcC1Anf5NP2I0i0UT8lPfzQho172ODNXPdQsnLGQ9I=w36-h36-p-rp-mo-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>Zaid Khan</b></p>
-                                <p className="mb-0 ">1 day ago</p>
-                            </div>
-                        </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">
-                        Absolutely thrilled with my Knickknack experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze...
-                    </p>
-                    <p className="mb-0 mt-1" style={{
-                        cursor: "pointer",
-                        fontSize: "15px"
-                    }}><b>See more</b></p>
-                </div>
-
-                <div className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                    background: "#ebd4d4",
-                    color: "#291845",
-                    borderRadius: "5px"
-                }}>
-                    <div className="d-flex  justify-content-between" style={{
-                        alignItems: "center"
-                    }}>
-                        <div className="d-flex" style={{
-                            alignItems: "center"
-                        }}>
-                            <img src="https://lh3.googleusercontent.com/a-/ALV-UjVCGA_5Ye68OglcKE_ClzE6i7ajS_93JV_IGLPlsWrjJQelpRwu=w36-h36-p-rp-mo-ba4-br100" alt="" style={{
-                                width: "50px"
-                            }} />
-                            <div className="px-2">
-                                <p className="mb-0"><b>avinash Jha</b></p>
-                                <p className="mb-0 ">1 day ago</p>
-                            </div>
-                        </div>
-                        <img src="/review/gimg.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <div className="d-flex my-2">
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                        <img src="/review/star-solid.png" alt="" style={{
-                            maxWidth: "30px"
-                        }} />
-                    </div>
-                    <p className="text-sm">
-                        Knickknack is an absolute treasure trove for toy enthusiasts of all ages! As a parent, I'm always on the lookout for high-quality toys that spark creativity and keep my kids entertained for…
-                    </p>
-
-                    <p className="mb-0 mt-1" style={{
-                        cursor: "pointer",
-                        fontSize: "15px"
-                    }}><b>See more</b></p>
-                </div>
+                ))}
             </ReactOwlCarousel>
         </div>
     </div>

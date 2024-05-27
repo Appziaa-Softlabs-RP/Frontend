@@ -17,6 +17,7 @@ import {
 } from "../../Components/siteIcons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { enviroment } from "../../enviroment";
+import { SearchFilter } from "../../Components/Filter/SearchFilter";
 
 export const AgeCategoryPage = () => {
   const { ageId } = useParams();
@@ -159,13 +160,11 @@ export const AgeCategoryPage = () => {
               id="scrollableDiv"
             >
               <div className={`d-inline-flex align-items-start col-12 gap-2`}>
-                {windowWidth === "desktop" &&
-                  filterVert !== null &&
-                  filterVert !== undefined && (
+                {windowWidth === "desktop" && (
                     <div
                       className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
                     >
-                      <Filter
+                      <SearchFilter
                         filterVert={filterVert}
                         filterCatg={filterCatg}
                         setProductData={setProductData}
@@ -318,9 +317,7 @@ export const AgeCategoryPage = () => {
           </div>
         )}
 
-        {windowWidth === "mobile" &&
-          filterVert !== null &&
-          filterVert !== undefined && (
+        {windowWidth === "mobile" &&(
             <div
               className={`${
                 styles.filterPopup
@@ -345,7 +342,7 @@ export const AgeCategoryPage = () => {
                   </label>
                 </div>
               </div>
-              <Filter
+              <SearchFilter
                 filterVert={filterVert}
                 filterCatg={filterCatg}
                 setProductData={setProductData}
