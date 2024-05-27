@@ -42,6 +42,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/about-us"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     About Us
@@ -70,6 +71,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/Cancellation-policy"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Cancellation
@@ -78,6 +80,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/payments"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Payments
@@ -96,6 +99,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/privacy-policy"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Privacy
@@ -104,6 +108,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/terms"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Terms &amp; Conditions
@@ -112,6 +117,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/return-policy"
+                    target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Return Policies
@@ -137,6 +143,7 @@ export const Footer = () => {
                   <Link
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     to={`tel:${enviroment.PHONE_NUMBER}`}
+                    target="_blank"
                   >
                     <PhoneIcon />
                     <span>{enviroment.PHONE_NUMBER}</span>
@@ -148,6 +155,7 @@ export const Footer = () => {
                   <Link
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     to={`mailto:${enviroment?.EMAIL_ADDRESS}`}
+                    target="_blank"
                   >
                     <EmailIcon />
                     <span>{enviroment?.EMAIL_ADDRESS}</span>
@@ -315,7 +323,11 @@ export const Footer = () => {
                   <h5>About Us</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <Link to="/about-us" className="text-decoration-none">
+                      <Link
+                        to="/about-us"
+                        target="_blank"
+                        className="text-decoration-none"
+                      >
                         About Us
                       </Link>
                     </li>
@@ -345,12 +357,17 @@ export const Footer = () => {
                       <Link
                         className="text-decoration-none"
                         to="/Cancellation-policy"
+                        target="_blank"
                       >
                         Cancellation
                       </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to="/payments">
+                      <Link
+                        className="text-decoration-none"
+                        to="/payments"
+                        target="_blank"
+                      >
                         Payments
                       </Link>
                     </li>
@@ -370,12 +387,17 @@ export const Footer = () => {
                       <Link
                         className="text-decoration-none"
                         to="/privacy-policy"
+                        target="_blank"
                       >
                         Privacy
                       </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to="/terms">
+                      <Link
+                        className="text-decoration-none"
+                        to="/terms"
+                        target="_blank"
+                      >
                         Terms & Conditions
                       </Link>
                     </li>
@@ -383,6 +405,7 @@ export const Footer = () => {
                       <Link
                         className="text-decoration-none"
                         to="/return-policy"
+                        target="_blank"
                       >
                         Return Policies
                       </Link>
@@ -431,6 +454,7 @@ export const Footer = () => {
                   <div className="d-inline-flex align-items-center mb-3">
                     <Link
                       to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`}
+                      target="_blank"
                       className={`text-decoration-none d-inline-flex align-items-center ${styles.whatsAppLink}`}
                     >
                       <i className="fa fa-whatsapp"></i>&nbsp;
@@ -460,6 +484,7 @@ export const Footer = () => {
                         <Link
                           className={`${styles.copyrightReward} text-decoration-none`}
                           to="https://rewardsplus.in"
+                          target="_blank"
                         >
                           RewardsPlus
                         </Link>

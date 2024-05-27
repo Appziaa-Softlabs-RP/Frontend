@@ -136,11 +136,13 @@ export default function Reviews() {
                 <p className="text-sm mt-3" style={{
                     color: "#1a1a1a"
                 }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with Knickknack.</p>
-                <button className="text-white py-2 px-3 mt-3 mb-2" style={{
-                    background: "#cf102e",
-                    border: "none",
-                    borderRadius: "5px"
-                }}>Write a Review</button>
+                <a href="https://g.page/r/CYF-YBA6SelvEBM/review" target="_blank">
+                    <button className="text-white py-2 px-3 mt-3 mb-2" style={{
+                        background: "#cf102e",
+                        border: "none",
+                        borderRadius: "5px"
+                    }}>Write a Review</button>
+                </a>
             </div>
 
 
