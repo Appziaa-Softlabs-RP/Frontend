@@ -47,7 +47,7 @@
 /* Desktop CSS */
 .footerContainer {
 	margin-top: 20px;
-	background-color: #FFF2C5;
+	background-color: var(--MENU_HOVER_COLOR);
 }
 .imgBoxText .imgBoxTitle {
 	font-size: 18px;
