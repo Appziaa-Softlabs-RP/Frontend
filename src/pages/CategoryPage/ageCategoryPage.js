@@ -95,7 +95,7 @@ export const AgeCategoryPage = () => {
           let newProd = res.payload_ageGroupByProduct;
           for (let i = 0; i < newProd.length; i++) {
             // if new product already exists
-            if(prevProdArr.find((item) => item.id === newProd[i].id)) {
+            if (prevProdArr.find((item) => item.id === newProd[i].id)) {
               continue;
             }
             prevProdArr.push(newProd[i]);
@@ -142,20 +142,16 @@ export const AgeCategoryPage = () => {
         }`}
       >
         <div className="container">
-          {/*} {locationState?.state?.banner !== "" &&
-            locationState?.state?.banner !== null &&
-            locationState?.state?.banner !== undefined && (
-              <div
-                className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}
-              >
-                <img
-                  src={locationState.state.banner[0]?.image}
-                  alt="Banner"
-                  className="col-12 d-inline-block"
-                />
-              </div>
-            )}
-        */}
+          {
+            ProductData && ProductData[0] && ProductData[0]['banner_image'] &&
+          <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
+            <img
+              src={ProductData[0]['banner_image']}
+              alt="Banner"
+              className="col-12 d-inline-block"
+            />
+          </div>
+}
           {loading && <ProductListLoader />}
           {loading === false && (
             <div

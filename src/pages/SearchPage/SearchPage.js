@@ -10,6 +10,11 @@ import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./SearchPage.module.css";
+import {
+  BackArrowIcon,
+  FilterIcon,
+  SortByIcon,
+} from "../../Components/siteIcons";
 
 export const SearchPage = () => {
   const locationState = useLocation();
@@ -21,6 +26,8 @@ export const SearchPage = () => {
   const [isAscendingOrder, setIsAscendingOrder] = useState(false);
   const [filterVert, setFilterVert] = useState(null);
   const [filterCatg, setFilterCatg] = useState(null);
+  const [sortPopup, setSortPopup] = useState(false);
+  const [filterPopup, setFilterPopup] = useState(false);
 
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
@@ -170,6 +177,28 @@ export const SearchPage = () => {
                         </span>
                       </div>
                     </div>
+
+                    {windowWidth === "mobile" && (
+                      <div
+                        className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 bottom-0 start-0`}
+                      >
+                        <span
+                          className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+                          onClick={() => setSortPopup(true)}
+                        >
+                          {" "}
+                          <SortByIcon />
+                          Sort By
+                        </span>
+                        <span
+                          className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+                          onClick={() => setFilterPopup(true)}
+                        >
+                          <FilterIcon /> Filters
+                        </span>
+                      </div>
+                    )}
+
                     <div className={`d-inline-flex flex-wrap col-12 mb-3`}>
                       {ProductData?.length > 0 &&
                         ProductData?.map((item, index) => {
@@ -196,6 +225,99 @@ export const SearchPage = () => {
             )}
           </div>
         </div>
+
+        {sortPopup === true && (
+          <div
+            className={`${styles.actionSheet} position-fixed d-inline-flex flex-column justify-content-end gap-2 col-12 p-2 h-100 bottom-0 start-0`}
+          >
+            <div
+              className={`${styles.actionSheetBox} d-inline-flex flex-column col-12 overflow-hidden`}
+            >
+              <div
+                className={`${styles.actionSheetTitle} col-12 d-inline-flex align-items-center justify-content-center`}
+              >
+                Sort By
+              </div>
+              <button
+                onClick={() => {
+                  priceDescending();
+                  setSortPopup(false);
+                }}
+                className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}
+              >
+                Price: Low to High
+              </button>
+              <button
+                onClick={() => {
+                  priceAscending();
+                  setSortPopup(false);
+                }}
+                className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}
+              >
+                Price: High to Low
+              </button>
+              <button
+                onClick={() => {
+                  resetSortFilter();
+                  setSortPopup(false);
+                }}
+                className={`${styles.actionSheetBtn} col-12 d-inline-flex align-items-center justify-content-center`}
+              >
+                Clear All
+              </button>
+            </div>
+            <button
+              onClick={() => setSortPopup(false)}
+              className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+
+        {windowWidth === "mobile" && (
+            <div
+              className={`${
+                styles.filterPopup
+              } top-0 start-0 h-100 col-12 position-fixed ${
+                filterPopup === true ? "d-inline-flex" : "d-none"
+              } flex-column overflow-y-auto`}
+            >
+              <div
+                className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}
+              >
+                <div
+                  className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}
+                  onClick={() => setFilterPopup(false)}
+                >
+                  <BackArrowIcon color="#FFF" />
+                </div>
+                <div className="d-inline-flex align-items-center mw-100 flex-shrink-1 col-6 me-auto">
+                  <label
+                    className={`${styles.currentName} text-truncate col-12 d-inline-block`}
+                  >
+                    Filter
+                  </label>
+                </div>
+              </div>
+              <SearchFilter
+                filterVert={filterVert}
+                filterCatg={filterCatg}
+                setProductData={setProductData}
+                setProductActualData={setProductActualData}
+              />
+              <div
+                className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+              >
+                <span
+                  className={`${styles.saveFilterBtn} position-relative col-12 d-inline-flex align-items-center justify-content-center gap-2`}
+                  onClick={() => setFilterPopup(false)}
+                >
+                  Apply Filter
+                </span>
+              </div>
+            </div>
+          )}
       </div>
       <Footer />
     </React.Fragment>

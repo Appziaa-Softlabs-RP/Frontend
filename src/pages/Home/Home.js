@@ -12,6 +12,7 @@ import { LookingFor } from "../../Components/LookingFor/LookingFor";
 import { DealShop } from "../../Components/DealShop/DealShop";
 import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
 import { NewArrival } from "../../Components/NewArrival/NewArrival";
+import Reviews from "../../Components/Reviews/Reviews";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -44,6 +45,8 @@ export const Home = () => {
         <BrandFocus />
 
         <PromoBanner type="Offers" />
+
+        <Reviews />
 
         <Footer />
       </div>

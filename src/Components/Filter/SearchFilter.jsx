@@ -49,8 +49,18 @@ export const SearchFilter = ({
         fetchFilterProd();
     };
 
+    const resetFilterPrice = () => {
+        setFilterVal({ ...allfilterVal, priceMax: "", priceMin: "" });
+        fetchFilterProd();
+    };
+
     const filterAge = (id) => {
         setFilterVal({ ...allfilterVal, ageGroup: id });
+        fetchFilterProd();
+    };
+
+    const resetFilterAge = () => {
+        setFilterVal({ ...allfilterVal, ageGroup: "" });
         fetchFilterProd();
     };
 
@@ -58,6 +68,12 @@ export const SearchFilter = ({
         setFilterVal({ ...allfilterVal, genderId: id });
         fetchFilterProd();
     };
+
+    const resetFilterGender = () => {
+        setFilterVal({ ...allfilterVal, genderId: "" });
+        fetchFilterProd();
+    };
+
 
     const getAgeBrandOption = (brands) => {
         const payload = {
@@ -190,9 +206,29 @@ export const SearchFilter = ({
                 <div
                     className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
                 >
-                    <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>
-                        Age
-                    </h5>
+                    <div className="mb-4 d-flex align-items-center justify-content-between">
+                        <h5 className={`${styles.filterTitle}`}>Age</h5>
+                        <div
+                            style={{
+                                display: "flex",
+                                padding: "10px",
+                                justifyContent: "end",
+                            }}
+                        >
+                            <button
+                                onClick={resetFilterAge}
+                                style={{
+                                    border: "none",
+                                    padding: "5px 10px",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    width: "fit-content",
+                                }}
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
                     <ul
                         className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
                     >
@@ -211,6 +247,7 @@ export const SearchFilter = ({
                                                 type="radio"
                                                 className={`${styles.address_option}`}
                                                 value={item.age_group_id}
+                                                checked={allfilterVal.ageGroup === item.age_group_id}
                                                 name="age"
                                             />
                                             <div
@@ -227,13 +264,33 @@ export const SearchFilter = ({
                 <div
                     className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
                 >
-                    <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>
-                        Gender
-                    </h5>
+                    <div className="mb-4 d-flex align-items-center justify-content-between">
+                        <h5 className={`${styles.filterTitle}`}>Gender</h5>
+                        <div
+                            style={{
+                                display: "flex",
+                                padding: "10px",
+                                justifyContent: "end",
+                            }}
+                        >
+                            <button
+                                onClick={resetFilterGender}
+                                style={{
+                                    border: "none",
+                                    padding: "5px 10px",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    width: "fit-content",
+                                }}
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
                     <ul
                         className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
                     >
-                        {allBrandLen?.gender?.length > 0 &&
+                        {allBrandLen.gender.length > 0 &&
                             allBrandLen.gender?.map((item, index) => {
                                 return (
                                     <li
@@ -247,6 +304,7 @@ export const SearchFilter = ({
                                             <input
                                                 type="radio"
                                                 className={`${styles.address_option}`}
+                                                checked={allfilterVal.genderId === item.gender_id}
                                                 value={item.gender_id}
                                                 name="gender"
                                             />
@@ -260,12 +318,33 @@ export const SearchFilter = ({
                             })}
                     </ul>
                 </div>
+
                 <div
                     className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
                 >
-                    <h5 className={`${styles.filterTitle} col-12 d-inline-flex mb-4`}>
-                        Price
-                    </h5>
+                    <div className="mb-4 d-flex align-items-center justify-content-between">
+                        <h5 className={`${styles.filterTitle}`}>Price</h5>
+                        <div
+                            style={{
+                                display: "flex",
+                                padding: "10px",
+                                justifyContent: "end",
+                            }}
+                        >
+                            <button
+                                onClick={resetFilterPrice}
+                                style={{
+                                    border: "none",
+                                    padding: "5px 10px",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    width: "fit-content",
+                                }}
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
                     <ul className="col-12 d-inline-flex list-unstyled flex-column gap-3">
                         <li
                             className={`${styles.filterRow} col-12 d-inline-flex align-items-center`}
@@ -278,6 +357,9 @@ export const SearchFilter = ({
                                     type="radio"
                                     className={`${styles.address_option}`}
                                     value="1,100"
+                                    checked={
+                                        allfilterVal.priceMin === 1 && allfilterVal.priceMax === 100
+                                    }
                                     name="price"
                                 />
                                 <div
@@ -297,6 +379,10 @@ export const SearchFilter = ({
                                     type="radio"
                                     className={`${styles.address_option}`}
                                     value="101,500"
+                                    checked={
+                                        allfilterVal.priceMin === 101 &&
+                                        allfilterVal.priceMax === 500
+                                    }
                                     name="price"
                                 />
                                 <div
@@ -317,6 +403,10 @@ export const SearchFilter = ({
                                     className={`${styles.address_option}`}
                                     value="501,1000"
                                     name="price"
+                                    checked={
+                                        allfilterVal.priceMin === 501 &&
+                                        allfilterVal.priceMax === 1000
+                                    }
                                 />
                                 <div
                                     className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
@@ -336,6 +426,10 @@ export const SearchFilter = ({
                                     className={`${styles.address_option}`}
                                     value="1001,10000"
                                     name="price"
+                                    checked={
+                                        allfilterVal.priceMin === 1001 &&
+                                        allfilterVal.priceMax === 10000
+                                    }
                                 />
                                 <div
                                     className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
