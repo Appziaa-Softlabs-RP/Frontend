@@ -143,16 +143,15 @@ export const AgeCategoryPage = () => {
         }`}
       >
         <div className="container">
-          {
-            ProductData && ProductData[0] && ProductData[0]['banner_image'] &&
-          <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
-            <img
-              src={ProductData[0]['banner_image']}
-              alt="Banner"
-              className="col-12 d-inline-block"
-            />
-          </div>
-}
+          {ProductData && ProductData[0] && ProductData[0]["banner_image"] && (
+            <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
+              <img
+                src={ProductData[0]["banner_image"]}
+                alt="Banner"
+                className="col-12 d-inline-block"
+              />
+            </div>
+          )}
           {loading && <ProductListLoader />}
           {loading === false && (
             <div
@@ -161,17 +160,17 @@ export const AgeCategoryPage = () => {
             >
               <div className={`d-inline-flex align-items-start col-12 gap-2`}>
                 {windowWidth === "desktop" && (
-                    <div
-                      className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
-                    >
-                      <SearchFilter
-                        filterVert={filterVert}
-                        filterCatg={filterCatg}
-                        setProductData={setProductData}
-                        setProductActualData={setProductActualData}
-                      />
-                    </div>
-                  )}
+                  <div
+                    className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
+                  >
+                    <SearchFilter
+                      filterVert={filterVert}
+                      filterCatg={filterCatg}
+                      setProductData={setProductData}
+                      setProductActualData={setProductActualData}
+                    />
+                  </div>
+                )}
                 <div
                   className={`${
                     windowWidth === "mobile"
@@ -317,49 +316,49 @@ export const AgeCategoryPage = () => {
           </div>
         )}
 
-        {windowWidth === "mobile" &&(
+        {windowWidth === "mobile" && (
+          <div
+            className={`${
+              styles.filterPopup
+            } top-0 start-0 h-100 col-12 position-fixed ${
+              filterPopup === true ? "d-inline-flex" : "d-none"
+            } flex-column overflow-y-auto`}
+          >
             <div
-              className={`${
-                styles.filterPopup
-              } top-0 start-0 h-100 col-12 position-fixed ${
-                filterPopup === true ? "d-inline-flex" : "d-none"
-              } flex-column overflow-y-auto`}
+              className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}
             >
               <div
-                className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}
+                className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}
+                onClick={() => setFilterPopup(false)}
               >
-                <div
-                  className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}
-                  onClick={() => setFilterPopup(false)}
-                >
-                  <BackArrowIcon color="#FFF" />
-                </div>
-                <div className="d-inline-flex align-items-center mw-100 flex-shrink-1 col-6 me-auto">
-                  <label
-                    className={`${styles.currentName} text-truncate col-12 d-inline-block`}
-                  >
-                    Filter
-                  </label>
-                </div>
+                <BackArrowIcon color="#FFF" />
               </div>
-              <SearchFilter
-                filterVert={filterVert}
-                filterCatg={filterCatg}
-                setProductData={setProductData}
-                setProductActualData={setProductActualData}
-              />
-              <div
-                className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
-              >
-                <span
-                  className={`${styles.saveFilterBtn} position-relative col-12 d-inline-flex align-items-center justify-content-center gap-2`}
-                  onClick={() => setFilterPopup(false)}
+              <div className="d-inline-flex align-items-center mw-100 flex-shrink-1 col-6 me-auto">
+                <label
+                  className={`${styles.currentName} text-truncate col-12 d-inline-block`}
                 >
-                  Apply Filter
-                </span>
+                  Filter
+                </label>
               </div>
             </div>
-          )}
+            <SearchFilter
+              filterVert={filterVert}
+              filterCatg={filterCatg}
+              setProductData={setProductData}
+              setProductActualData={setProductActualData}
+            />
+            <div
+              className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+            >
+              <span
+                className={`${styles.saveFilterBtn} position-relative col-12 d-inline-flex align-items-center justify-content-center gap-2`}
+                onClick={() => setFilterPopup(false)}
+              >
+                Apply Filter
+              </span>
+            </div>
+          </div>
+        )}
         {windowWidth === "mobile" && (
           <div
             className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
