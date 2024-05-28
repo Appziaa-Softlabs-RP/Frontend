@@ -129,6 +129,8 @@ export const SearchPage = () => {
                         filterCatg={filterCatg}
                         setProductData={setProductData}
                         setProductActualData={setProductActualData}
+                        setProductDataLen={setProductDataLen}
+                        keyword={locationState?.state?.keyword}
                       />
                     </div>
                   )}

@@ -9,6 +9,8 @@ export const SearchFilter = ({
     filterCatg,
     setProductActualData,
     setFilterPopup,
+    setProductDataLen,
+    keyword = null
 }) => {
     const [allBrands, setAllBrands] = useState("");
     const [allBrandLen, setAllBrandLen] = useState({
@@ -22,23 +24,23 @@ export const SearchFilter = ({
     const [allfilterVal, setFilterVal] = useState({
         priceMin: "",
         priceMax: "",
-        brandId: [],
-        genderId: "",
+        brandsName: [],
+        genderName: "",
         ageGroup: "",
     });
 
     const filterBrand = (id) => {
         setFilterVal((prevState) => {
-            const brandVals = prevState.brandId ?? [];
+            const brandVals = prevState.brandsName ?? [];
             if (brandVals.includes(id)) {
                 return {
                     ...prevState,
-                    brandId: brandVals.filter((item) => item !== id),
+                    brandsName: brandVals.filter((item) => item !== id),
                 };
             } else {
                 return {
                     ...prevState,
-                    brandId: [...brandVals, id],
+                    brandsName: [...brandVals, id],
                 };
             }
         });
@@ -65,12 +67,12 @@ export const SearchFilter = ({
     };
 
     const filterGender = (id) => {
-        setFilterVal({ ...allfilterVal, genderId: id });
+        setFilterVal({ ...allfilterVal, genderName: id });
         fetchFilterProd();
     };
 
     const resetFilterGender = () => {
-        setFilterVal({ ...allfilterVal, genderId: "" });
+        setFilterVal({ ...allfilterVal, genderName: "" });
         fetchFilterProd();
     };
 
@@ -91,6 +93,7 @@ export const SearchFilter = ({
                     allBrands: brands,
                     length: brands?.length,
                 }));
+                setAllBrands(res?.payload_filterOption?.brand);
             })
             .catch((err) => { });
     };
@@ -113,7 +116,6 @@ export const SearchFilter = ({
                         }
                         return 0;
                     });
-                    setAllBrands(allBrand);
                     getAgeBrandOption(allBrand);
                 }
             })
@@ -123,26 +125,30 @@ export const SearchFilter = ({
     }, [filterCatg]);
 
     const fetchFilterProd = () => {
+        console.log('workign')
         const payload = {
             store_id: enviroment.STORE_ID,
             vertical_id: filterVert,
-            from_price: allfilterVal.priceMin,
-            to_price: allfilterVal.priceMax,
-            brand_id: allfilterVal.brandId ? allfilterVal.brandId : null,
-            gender: allfilterVal.genderId ? [allfilterVal.genderId] : null,
-            age: allfilterVal.ageGroup,
+            keyword: keyword,
+            gender: (allfilterVal?.genderName && allfilterVal?.genderName)!='' ? allfilterVal?.genderName : null,
+            price_to: allfilterVal.priceMax ? allfilterVal.priceMax : null,
+            price_from: allfilterVal.priceMin ? allfilterVal.priceMin : null,
+            age: allfilterVal.ageGroup ? allfilterVal.ageGroup : null,
+            brand: allfilterVal.brandsName ? allfilterVal.brandsName : null,
+            // brand_id: allfilterVal.brandsName ? allfilterVal.brandsName : null,
             page: 1,
             result_per_page: 1000,
         };
 
-        // ApiService.storeFilterNew(payload)
-        //     .then((res) => {
-        //         if (res.message === "Fetch successfully.") {
-        //             setProductData(res.payload_FilterByProductNew);
-        //             setProductActualData(res.payload_FilterByProductNew);
-        //         }
-        //     })
-        //     .catch((err) => { });
+        ApiService.storeSearch(payload)
+            .then((res) => {
+                if (res.message === "Fetch successfully.") {
+                    setProductData(res.payload_searchAI);
+                    setProductActualData(res.payload_searchAI);
+                    setProductDataLen(res.payload_searchAI.length);
+                }
+            })
+            .catch((err) => { });
     };
 
     //update when filter value change
@@ -186,7 +192,7 @@ export const SearchFilter = ({
                                         >
                                             <input
                                                 id={`brand-checkbox-${index}`}
-                                                onClick={(e) => filterBrand(item?.brand_id)}
+                                                onClick={(e) => filterBrand(item?.brand_name)}
                                                 type="checkbox"
                                                 className={`${styles.address_option}`}
                                                 value={item.brand_id}
@@ -195,7 +201,7 @@ export const SearchFilter = ({
                                             <div
                                                 className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
                                             ></div>
-                                            {item.name}
+                                            {item.brand_name}
                                         </label>
                                     </li>
                                 );
@@ -241,13 +247,13 @@ export const SearchFilter = ({
                                     >
                                         <label
                                             className="d-inline-flex align-items-center gap-2 text-capitalize"
-                                            onClick={() => filterAge(item.age_group_id)}
+                                            onClick={() => filterAge(item.name)}
                                         >
                                             <input
                                                 type="radio"
                                                 className={`${styles.address_option}`}
-                                                value={item.age_group_id}
-                                                checked={allfilterVal.ageGroup === item.age_group_id}
+                                                value={item.name}
+                                                checked={allfilterVal.ageGroup === item.name}
                                                 name="age"
                                             />
                                             <div
@@ -299,12 +305,12 @@ export const SearchFilter = ({
                                     >
                                         <label
                                             className="d-inline-flex align-items-center gap-2 text-capitalize"
-                                            onClick={() => filterGender(item.gender_id)}
+                                            onClick={() => filterGender(item.gender_name)}
                                         >
                                             <input
                                                 type="radio"
                                                 className={`${styles.address_option}`}
-                                                checked={allfilterVal.genderId === item.gender_id}
+                                                checked={allfilterVal.genderName === item.gender_name}
                                                 value={item.gender_id}
                                                 name="gender"
                                             />
@@ -380,7 +386,7 @@ export const SearchFilter = ({
                                     className={`${styles.address_option}`}
                                     value="101,500"
                                     checked={
-                                        allfilterVal.priceMin === 101 &&
+                                        allfilterVal.priceMin === 100 &&
                                         allfilterVal.priceMax === 500
                                     }
                                     name="price"
