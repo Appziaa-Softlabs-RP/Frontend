@@ -64,17 +64,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     }
   };
 
-  const showCategroryProd = (id, name, verticalId) => {
-    const payload = {
-      store_id: parseInt(enviroment.STORE_ID),
-      category_id: id,
-    };
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store-product/${category}`, {
-      state: { payload: payload, verticalId: verticalId, categoryId: id },
-    });
-  };
-
   const userLoggedOut = () => {
     let emptyCartData = [];
     appData.setAppData({
@@ -173,7 +162,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           if (item?.catList?.length > 0) {
             item.catList.map((catItem) => {
               let catObj = {
-                verticalId: item.vertical_id,
+                verticalSlug: item.name_url,
                 category: catItem,
               };
               allCatList.push(catObj);
@@ -365,6 +354,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           </label>
                           <Link
                             to={`tel:${enviroment.PHONE_NUMBER}`}
+                            style={{
+                              textDecoration: "none",
+                            }}
                             className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}
                           >
                             {enviroment.PHONE_NUMBER}
@@ -396,7 +388,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         <Link
                           className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
                         >
-                          FAQ’s
+                          FAQ&apos;s
                         </Link>
                         <span className={`${styles.dotSymbol} d-inline-flex`}>
                           &bull;
@@ -526,20 +518,16 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             >
                               {item.catList.map((subNme, subIdx) => {
                                 return (
-                                  <span
-                                    role="button"
+                                  <Link
+                                    to={`/store-product/${subNme?.name_url}`}
+                                    style={{
+                                      textDecoration: "none",
+                                    }}
                                     key={subIdx}
                                     className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
-                                    onClick={() =>
-                                      showCategroryProd(
-                                        subNme.category_id,
-                                        subNme.name,
-                                        item?.vertical_id
-                                      )
-                                    }
                                   >
                                     {subNme.name}
-                                  </span>
+                                  </Link>
                                 );
                               })}
                             </div>

@@ -15,8 +15,8 @@ export const LookingFor = () => {
   const navigate = useNavigate();
   let windowWidth = appData.appData.windowWidth;
 
-  const subCatProduts = (id, name, verticalId) => {
-    navigate(`/store-product/vertical/${verticalId}/category/${id}`);
+  const subCatProduts = (categorySlug, verticalSlug) => {
+    navigate(`/store-product/vertical/${verticalSlug}/category/${categorySlug}`);
   };
 
   useEffect(() => {
@@ -58,9 +58,8 @@ export const LookingFor = () => {
                       key={idx}
                       onClick={() =>
                         subCatProduts(
-                          item?.category?.category_id,
-                          item?.category?.name,
-                          item?.verticalId
+                          item?.category?.name_url,
+                          item?.verticalSlug
                         )
                       }
                     >
