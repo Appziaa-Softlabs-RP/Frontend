@@ -12,8 +12,8 @@ export const ShopAge = () => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
 
-  const openAgeProd = (ageId, banner, name) => {
-    navigate(`/store/age/${ageId}`);
+  const openAgeProd = (ageSlug, banner, name) => {
+    navigate(`/store/age/${ageSlug}`);
   };
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const ShopAge = () => {
                         }}
                         onClick={() =>
                           openAgeProd(
-                            item?.age_group_id,
+                            item?.name_url,
                             item?.age_group_banner,
                             item?.name
                           )

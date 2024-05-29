@@ -8,6 +8,7 @@ import {
   Link,
   useLocation,
   useNavigate,
+  useParams,
   useSearchParams,
 } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
@@ -39,6 +40,7 @@ export const ProductPage = () => {
   const appData = useApp();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { slug } = useParams();
   const locationState = useLocation();
   const [ProductData, setProductData] = useState(locationState?.state?.product);
   const [prodMainImg, setProdMainImg] = useState("");
@@ -364,7 +366,7 @@ export const ProductPage = () => {
     if (ProductData === undefined) {
       let prodId = searchParams.get("id");
       const payload = {
-        product_id: prodId,
+        product_slug: slug,
         company_id: parseInt(enviroment.COMPANY_ID),
         store_id: parseInt(enviroment.STORE_ID),
       };
@@ -426,7 +428,7 @@ export const ProductPage = () => {
         });
       }
     }
-  }, [locationState?.state?.product]);
+  }, [slug, navigate]);
 
   useEffect(() => {
     if (ProductData !== undefined) {

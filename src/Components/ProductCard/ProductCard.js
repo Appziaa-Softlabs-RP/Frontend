@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
@@ -18,29 +18,6 @@ export const ProductCard = ({ item, index }) => {
     if (e.target) {
       e.target.src = noImage;
     }
-  };
-
-  const showProductDetail = (id) => {
-    const payload = {
-      product_id: id,
-      company_id: parseInt(enviroment.COMPANY_ID),
-      store_id: parseInt(enviroment.STORE_ID),
-    };
-    ApiService.productDetails(payload)
-      .then((res) => {
-        if (res.message === "Product Detail") {
-          navigate(`/product?id=${id}`, { state: { product: res.payload } });
-        } else {
-          AppNotification(
-            "Error",
-            "Sorry, Product detail not found.",
-            "danger"
-          );
-        }
-      })
-      .catch((err) => {
-        AppNotification("Error", "Sorry, Product detail not found.", "danger");
-      });
   };
 
   const addToCart = (e, item) => {
@@ -245,11 +222,12 @@ export const ProductCard = ({ item, index }) => {
           </span>
         )}
 
-        <div
+        <Link
+          to={`/product/${item?.name_url}`}
+          style={{
+            textDecoration: "none",
+          }}
           className={`${styles.featuredImageBox} position-relative col-12 mt-1 float-left mb-1 d-flex justify-content-center align-items-center w-full`}
-          onClick={() =>
-            showProductDetail(item?.product_id ? item.product_id : item.id)
-          }
         >
           {item.stock === 0 || item.stock < 0 ? (
             <span className={`${styles.soldOutText} position-absolute d-block`}>
@@ -281,6 +259,7 @@ export const ProductCard = ({ item, index }) => {
                 return (
                   <img
                     src={enviroment.API_IMAGE_GALLERY_URL + imagesrc}
+                    alt=""
                     className={`${styles.galleryImage} position-absolute h-100 col-12 p-0`}
                     key={index}
                   />
@@ -290,16 +269,17 @@ export const ProductCard = ({ item, index }) => {
           ) : (
             ""
           )}
-        </div>
+        </Link>
         <div>
-          <span
-            onClick={() =>
-              showProductDetail(item?.product_id ? item.product_id : item.id)
-            }
+          <Link
+          to={`/product/${item?.name_url}`}
+          style={{
+              textDecoration: "none",
+            }}
             className={`${styles.offerItemName} col-12 p-0 mb-1`}
           >
             {item.name}
-          </span>
+          </Link>
           {item.mrp > item.selling_price ? (
             <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
               <span className={`${styles.offerPrice} d-inline-flex`}>

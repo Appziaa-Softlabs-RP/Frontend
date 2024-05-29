@@ -115,7 +115,7 @@ export const AgeCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      age_group_id: ageId,
+      age_group_slug: ageId,
     };
     setFilterVert(locationState?.state?.verticalId);
     setFilterCatg(locationState?.state?.categoryId);
