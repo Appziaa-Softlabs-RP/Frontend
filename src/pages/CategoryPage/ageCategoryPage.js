@@ -18,6 +18,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import { enviroment } from "../../enviroment";
 import { SearchFilter } from "../../Components/Filter/SearchFilter";
+import { SearchAgeFilter } from "../../Components/Filter/SearchAgeFilter";
 
 export const AgeCategoryPage = () => {
   const { ageId } = useParams();
@@ -163,7 +164,7 @@ export const AgeCategoryPage = () => {
                   <div
                     className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
                   >
-                    <SearchFilter
+                    <SearchAgeFilter
                       filterVert={filterVert}
                       filterCatg={filterCatg}
                       setProductData={setProductData}
