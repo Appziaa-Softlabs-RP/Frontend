@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { SearchFilter } from "../../Components/Filter/SearchFilter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
@@ -18,6 +18,7 @@ import {
 
 export const SearchPage = () => {
   const locationState = useLocation();
+  const {keyword} = useParams();
   const [ProductData, setProductData] = useState([]);
   const [ProductDataLen, setProductDataLen] = useState("");
   const [ProductActualData, setProductActualData] = useState([]);
@@ -33,7 +34,6 @@ export const SearchPage = () => {
   let windowWidth = appData.appData.windowWidth;
 
   useEffect(() => {
-    const keyword = locationState?.state?.keyword;
     if (keyword) {
       const payload = {
         store_id: parseInt(enviroment.STORE_ID),
@@ -52,7 +52,7 @@ export const SearchPage = () => {
         .catch((err) => {});
       setLoading(false);
     }
-  }, [locationState]);
+  }, [keyword]);
 
   const resetSortFilter = () => {
     let originalProduct = [...ProductActualData];
@@ -110,7 +110,7 @@ export const SearchPage = () => {
             {ProductDataLen > 0 && (
               <h4 className={`${styles.searchProdTitle} col-12 d-inline-flex`}>
                 Showing {ProductDataLen} Results for{" "}
-                {locationState.state.keyword}
+                {keyword}
               </h4>
             )}
             {loading && <ProductListLoader />}
@@ -130,7 +130,7 @@ export const SearchPage = () => {
                         setProductData={setProductData}
                         setProductActualData={setProductActualData}
                         setProductDataLen={setProductDataLen}
-                        keyword={locationState?.state?.keyword}
+                        keyword={keyword}
                       />
                     </div>
                   )}
