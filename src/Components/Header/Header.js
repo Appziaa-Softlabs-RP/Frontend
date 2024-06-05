@@ -64,10 +64,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     }
   };
 
-  const showCategroryProd = (id, name, verticalId) => {
-    navigate(`/store-product/vertical/${verticalId}/category/${id}`);
-  };
-
   const userLoggedOut = () => {
     let emptyCartData = [];
     appData.setAppData({
@@ -166,7 +162,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           if (item?.catList?.length > 0) {
             item.catList.map((catItem) => {
               let catObj = {
-                verticalId: item.vertical_id,
+                verticalSlug: item.name_url,
                 category: catItem,
               };
               allCatList.push(catObj);
@@ -190,7 +186,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     <React.Fragment>
       {windowWidth === "mobile" ? (
         <div
-          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3 px-4`}
+          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3`}
         >
           <div className={`col-12 d-inline-flex align-items-center`}>
             <span
@@ -201,7 +197,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </span>
             <span
               onClick={() => routeHome()}
-              className={`${styles.siteLogoBox} px-5 d-inline-flex align-items-center justify-content-center m-auto`}
+              className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}
             >
               <img src={siteLogo} alt="Logo" className="object-fit-contain" />
             </span>
@@ -217,7 +213,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <CartIcon color={enviroment.SECONDARY_COLOR} />
             </span>
           </div>
-          <div className="col-12 d-inline-flex position-relative ">
+          <div className="col-12 d-inline-flex position-relative px-3">
             <input
               type="search"
               placeholder={enviroment.SEARCH_PLACEHOLDER}
@@ -358,6 +354,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           </label>
                           <Link
                             to={`tel:${enviroment.PHONE_NUMBER}`}
+                            style={{
+                              textDecoration: "none",
+                            }}
                             className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}
                           >
                             {enviroment.PHONE_NUMBER}
@@ -389,7 +388,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         <Link
                           className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
                         >
-                          FAQ’s
+                          FAQ&apos;s
                         </Link>
                         <span className={`${styles.dotSymbol} d-inline-flex`}>
                           &bull;
@@ -493,7 +492,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           <div
             className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}
           >
-            <div className="container-fluid">
+            <div className="container">
               {loading ? (
                 <HeaderNavLoader />
               ) : (
@@ -504,11 +503,11 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     navItems.map((item, index) => {
                       return (
                         <div
-                          className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-1`}
+                          className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`}
                           key={index}
                         >
                           <span
-                            className={`${styles.menuName} d-inline-flex align-items-center gap-1`}
+                            className={`${styles.menuName} d-inline-flex align-items-center gap-2`}
                           >
                             {item.name}{" "}
                             <BackArrowIcon color="#000" role="button" />
@@ -519,20 +518,16 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             >
                               {item.catList.map((subNme, subIdx) => {
                                 return (
-                                  <span
-                                    role="button"
+                                  <Link
+                                    to={`/store-product/${subNme?.name_url}`}
+                                    style={{
+                                      textDecoration: "none",
+                                    }}
                                     key={subIdx}
-                                    className={`${styles.subMenuName} col-12 align-items-center px-2 d-inline-flex py-2`}
-                                    onClick={() =>
-                                      showCategroryProd(
-                                        subNme.category_id,
-                                        subNme.name,
-                                        item?.vertical_id
-                                      )
-                                    }
+                                    className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
                                   >
                                     {subNme.name}
-                                  </span>
+                                  </Link>
                                 );
                               })}
                             </div>

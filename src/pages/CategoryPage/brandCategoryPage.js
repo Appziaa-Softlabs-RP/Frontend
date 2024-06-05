@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CategoryPage.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
@@ -16,8 +16,12 @@ import {
   SortByIcon,
 } from "../../Components/siteIcons";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { enviroment } from "../../enviroment";
+import { Helmet } from "react-helmet";
 
-export const CategoryPage = () => {
+export const BrandCategoryPage = () => {
+  const { brandId } = useParams();
+
   const locationState = useLocation();
   const [ProductData, setProductData] = useState([]);
   const [ProductActualData, setProductActualData] = useState([]);
@@ -69,105 +73,46 @@ export const CategoryPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    if (locationState.state.category === "SHOP") {
-      ApiService.ageGroupProduct(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_ageGroupByProduct);
-            setProductActualData(res.payload_ageGroupByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    } else if (locationState.state.category === "Brand") {
-      ApiService.brandProduct(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_BrandByProduct);
-            setProductActualData(res.payload_BrandByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    } else {
-      ApiService.CategoryByProd(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_CategoryByProduct);
-            setProductActualData(res.payload_CategoryByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    }
+    ApiService.brandProduct(data)
+      .then((res) => {
+        if (res.message === "Fetch successfully.") {
+          setProductData(res.payload_BrandByProduct);
+          setProductActualData(res.payload_BrandByProduct);
+          setLoading(false);
+          setApiPayload((prev) => ({ ...prev, page: 2 }));
+        }
+      })
+      .catch((err) => {});
   };
 
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
-    if (locationState.state.category === "SHOP") {
-      ApiService.ageGroupProduct(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_ageGroupByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
+    ApiService.brandProduct(apiPayload)
+      .then((res) => {
+        if (res.message === "Fetch successfully.") {
+          let prevProdArr = [];
+          prevProdArr = ProductData;
+          let newProd = res.payload_BrandByProduct;
+          for (let i = 0; i < newProd.length; i++) {
+            prevProdArr.push(newProd[i]);
           }
-        })
-        .catch((err) => {});
-    } else if (locationState.state.category === "Brand") {
-      ApiService.brandProduct(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_BrandByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
-          }
-        })
-        .catch((err) => {});
-    } else {
-      ApiService.CategoryByProd(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_CategoryByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
-          }
-        })
-        .catch((err) => {});
-    }
+          let newProduct = [...prevProdArr];
+          setProductData(newProduct);
+          setProductActualData(newProduct);
+          setLoading(false);
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        }
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
     setLoading(true);
-    const payload = locationState.state.payload;
+    const payload = {
+      store_id: parseInt(enviroment.STORE_ID),
+      brand_id: brandId,
+    };
     setFilterVert(locationState?.state?.verticalId);
     setFilterCatg(locationState?.state?.categoryId);
     payload.page = 1;
@@ -180,6 +125,18 @@ export const CategoryPage = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Shop the latest&nbsp;
+          {ProductData ? (ProductData[0] ? ProductData[0].brand_name : "") : ""}
+          &nbsp;merchandise at neverused.in, their official store!
+        </title>
+        <meta
+          name="description"
+          content="From action figures to musical instruments, neverused.in has all the official <Band Name> toys to inspire creativity and rockstar dreams!"
+        />
+      </Helmet>
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (
@@ -239,7 +196,7 @@ export const CategoryPage = () => {
                     styles.productContainer
                   } flex-shrink-1 d-inline-flex flex-wrap`}
                 >
-                  {windowWidth === "desktop" && (
+                  {windowWidth !== "mobile" && (
                     <div
                       className={`${styles.sortContainer} col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
                     >
@@ -275,28 +232,6 @@ export const CategoryPage = () => {
                       </div>
                     </div>
                   )}
-
-                  {windowWidth === "mobile" && (
-                    <div
-                      className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 bottom-0 start-0`}
-                    >
-                      <span
-                        className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setSortPopup(true)}
-                      >
-                        {" "}
-                        <SortByIcon />
-                        Sort By
-                      </span>
-                      <span
-                        className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setFilterPopup(true)}
-                      >
-                        <FilterIcon /> Filters
-                      </span>
-                    </div>
-                  )}
-
                   {ProductData?.length > 0 ? (
                     <InfiniteScroll
                       className="d-inline-flex col-12 flex-wrap"
@@ -440,6 +375,26 @@ export const CategoryPage = () => {
               </div>
             </div>
           )}
+        {windowWidth === "mobile" && (
+          <div
+            className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+          >
+            <span
+              className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setSortPopup(true)}
+            >
+              {" "}
+              <SortByIcon />
+              Sort By
+            </span>
+            <span
+              className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setFilterPopup(true)}
+            >
+              <FilterIcon /> Filters
+            </span>
+          </div>
+        )}
       </div>
       <Footer />
     </React.Fragment>

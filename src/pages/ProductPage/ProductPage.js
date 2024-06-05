@@ -8,6 +8,7 @@ import {
   Link,
   useLocation,
   useNavigate,
+  useParams,
   useSearchParams,
 } from "react-router-dom";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
@@ -33,11 +34,13 @@ import orignal from "../../assets/images/original.png";
 import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
 import ApiService from "../../services/ApiService";
 import { Helmet } from "react-helmet";
+import { ThreeDots } from "react-loader-spinner";
 
 export const ProductPage = () => {
   const appData = useApp();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { slug } = useParams();
   const locationState = useLocation();
   const [ProductData, setProductData] = useState(locationState?.state?.product);
   const [prodMainImg, setProdMainImg] = useState("");
@@ -57,6 +60,8 @@ export const ProductPage = () => {
   const [shareProdName, setShareProdName] = useState(
     encodeURIComponent(ProductData?.name)
   );
+  const [isAboutProductDesc, setIsAboutProductDesc] = useState(true);
+  const [isOtherProductDesc, setIsOtherProductDesc] = useState(false);
   const userInfo = appData?.appData?.user;
   let windowWidth = appData.appData.windowWidth;
   const pageCurrentURL = encodeURIComponent(window.location.href);
@@ -360,7 +365,7 @@ export const ProductPage = () => {
     if (ProductData === undefined) {
       let prodId = searchParams.get("id");
       const payload = {
-        product_id: prodId,
+        product_slug: slug,
         company_id: parseInt(enviroment.COMPANY_ID),
         store_id: parseInt(enviroment.STORE_ID),
       };
@@ -422,7 +427,7 @@ export const ProductPage = () => {
         });
       }
     }
-  }, [locationState?.state?.product]);
+  }, [slug, navigate]);
 
   useEffect(() => {
     if (ProductData !== undefined) {
@@ -481,16 +486,18 @@ export const ProductPage = () => {
 
   return (
     <React.Fragment>
-          <Helmet>
-        <meta charSet="utf-8" />
-        <title>
-          Buy {ProductData?.name} Online - {ProductData?.store_name}
-        </title>
-        <meta
-          name="description"
-          content={removeHtmlAndTruncate(ProductData?.description)}
-        />
-      </Helmet>
+      {ProductData && (
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>
+            Buy {ProductData?.name} Online - {ProductData?.store_name}
+          </title>
+          <meta
+            name="description"
+            content={removeHtmlAndTruncate(ProductData?.description)}
+          />
+        </Helmet>
+      )}
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title={ProductData?.name} />
@@ -515,18 +522,80 @@ export const ProductPage = () => {
               dots={true}
               items={1}
             >
-              {ProductData?.gallery?.map((item, index) => {
+              {ProductData?.gallery_images?.map((item, index) => {
                 return (
-                  <div className={`col-12 d-inline-block`} key={index}>
-                    <img
-                      src={item.image_url}
-                      alt={ProductData?.name}
-                      className="object-fit-cover col-12 d-inline-block"
-                    />
+                  <div
+                    className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+                    key={index}
+                  >
+                    {prodMainImg ? (
+                      <img
+                        src={enviroment.API_IMAGE_GALLERY_URL + item}
+                        alt={ProductData?.name}
+                        className="col-12 d-inline-block"
+                        style={{
+                          maxHeight: "500px",
+                          width: "auto",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                        style={{
+                          height: "500px",
+                        }}
+                      >
+                        <ThreeDots
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="#CF102E"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </ReactOwlCarousel>
+            {!ProductData?.gallery_images.length ? (
+              prodMainImg ? (
+                <div
+                  className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                >
+                  <img
+                    src={prodMainImg}
+                    alt={ProductData?.name}
+                    className="col-12 d-inline-block"
+                    style={{
+                      maxHeight: "500px",
+                      width: "auto",
+                    }}
+                  />
+                </div>
+              ) : (
+                <div
+                  className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                  style={{
+                    height: "500px",
+                  }}
+                >
+                  <ThreeDots
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#CF102E"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                </div>
+              )
+            ) : null}
           </div>
 
           <div
@@ -602,13 +671,39 @@ export const ProductPage = () => {
               className={`${styles.productCollapseBox} mb-4 active col-12 d-inline-block p-0`}
               onClick={openProductColpse(this)}
             >
-              <button
+              <div
                 className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                style={{
+                  height: "fit-content",
+                }}
               >
-                <span>About product</span>&nbsp;
-                <span className="close-icon position-relative"></span>
-              </button>
-              <div className={`${styles.productDetailText} col-12 p-0`}>
+                <button
+                  style={{
+                    borderRadius: "4px",
+                    border: "none",
+                    outline: "none",
+                    boxShadow: "none",
+                  }}
+                >
+                  <span>About product</span>&nbsp;
+                </button>
+                <button
+                  style={{
+                    borderRadius: "4px",
+                    border: "none",
+                    outline: "none",
+                    boxShadow: "none",
+                  }}
+                  onClick={() => setIsAboutProductDesc(!isAboutProductDesc)}
+                >
+                  +
+                </button>
+              </div>
+              <div
+                className={`${styles.productDetailText} col-12 p-0 ${
+                  !isAboutProductDesc && "visually-hidden"
+                }`}
+              >
                 {ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}
               </div>
             </div>
@@ -618,99 +713,126 @@ export const ProductPage = () => {
                 className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
                 onClick={openProductColpse(this)}
               >
-                <button
-                  className={`${styles.productTabBox} col-12 text-decoration-none cursor-pointer d-inline-flex align-items-center justify-content-between`}
-                >
-                  <span>Other Info</span>&nbsp;
-                  <span className="close-icon position-relative"></span>
-                </button>
                 <div
-                  className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                  className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                  style={{
+                    height: "fit-content",
+                  }}
                 >
-                  {ProductData?.specifications?.type && (
-                    <p className="col-12 d-inline-flex m-0">
-                      <strong>Type: </strong>
-                      {ProductData?.specifications?.type}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.model_name && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Model Name: </strong>
-                      {ProductData?.specifications?.model_name}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.shelf_life && (
-                    <p className="col-12 d-none gap-2 m-0">
-                      <strong>Shelf Life: </strong>
-                      {ProductData?.specifications?.shelf_life}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.shelf_life_month_years && (
-                    <p className="col-12 d-none gap-2 m-0">
-                      <strong>Shelf Life Month Years: </strong>
-                      {ProductData?.specifications?.shelf_life_month_years}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.container_type && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Container Type: </strong>
-                      {ProductData?.specifications?.container_type}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.organic && (
-                    <p className="col-12 d-none gap-2 m-0">
-                      <strong>Organic: </strong>
-                      {ProductData?.specifications?.organic}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.polished && (
-                    <p className="col-12 d-none gap-2 m-0">
-                      <strong>Polished: </strong>
-                      {ProductData?.specifications?.polished}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.package_dimension_length && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Dimension: </strong>
-                      {"L " +
-                        ProductData?.specifications?.package_dimension_length +
-                        " x B " +
-                        ProductData?.specifications?.package_dimension_width +
-                        " x H " +
-                        ProductData?.specifications
-                          ?.package_dimension_height}{" "}
-                      cm{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.manufactured_by && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Manufactured By: </strong>
-                      {ProductData?.specifications?.manufactured_by}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.packed_by && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Packed By: </strong>
-                      {ProductData?.specifications?.packed_by}{" "}
-                    </p>
-                  )}
-
-                  {ProductData?.specifications?.exp_date && (
-                    <p className="col-12 d-inline-flex gap-2 m-0">
-                      <strong>Exp Date: </strong>
-                      {ProductData?.specifications?.exp_date}{" "}
-                    </p>
-                  )}
+                  <button
+                    style={{
+                      borderRadius: "4px",
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <span>Other Info</span>&nbsp;
+                  </button>
+                  <button
+                    style={{
+                      borderRadius: "4px",
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                    }}
+                    onClick={() => setIsOtherProductDesc(!isOtherProductDesc)}
+                  >
+                    +
+                  </button>
                 </div>
+                {isOtherProductDesc && (
+                  <div
+                    className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                  >
+                    {ProductData?.specifications?.type && (
+                      <p className="col-12 d-inline-flex gap-2  m-0">
+                        <strong>Type: </strong>
+                        {ProductData?.specifications?.type}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.model_name && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Model Name: </strong>
+                        {ProductData?.specifications?.model_name}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.shelf_life && (
+                      <p className="col-12 d-none gap-2 m-0">
+                        <strong>Shelf Life: </strong>
+                        {ProductData?.specifications?.shelf_life}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.shelf_life_month_years && (
+                      <p className="col-12 d-none gap-2 m-0">
+                        <strong>Shelf Life Month Years: </strong>
+                        {
+                          ProductData?.specifications?.shelf_life_month_years
+                        }{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.container_type && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Container Type: </strong>
+                        {ProductData?.specifications?.container_type}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.organic && (
+                      <p className="col-12 d-none gap-2 m-0">
+                        <strong>Organic: </strong>
+                        {ProductData?.specifications?.organic}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.polished && (
+                      <p className="col-12 d-none gap-2 m-0">
+                        <strong>Polished: </strong>
+                        {ProductData?.specifications?.polished}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.package_dimension_length && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Dimension: </strong>
+                        {"L " +
+                          ProductData?.specifications
+                            ?.package_dimension_length +
+                          " x B " +
+                          ProductData?.specifications?.package_dimension_width +
+                          " x H " +
+                          ProductData?.specifications
+                            ?.package_dimension_height}{" "}
+                        cm{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.manufactured_by && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Manufactured By: </strong>
+                        {ProductData?.specifications?.manufactured_by}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.packed_by && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Packed By: </strong>
+                        {ProductData?.specifications?.packed_by}{" "}
+                      </p>
+                    )}
+
+                    {ProductData?.specifications?.exp_date && (
+                      <p className="col-12 d-inline-flex gap-2 m-0">
+                        <strong>Exp Date: </strong>
+                        {ProductData?.specifications?.exp_date}{" "}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -729,16 +851,24 @@ export const ProductPage = () => {
             </span>
 
             {!prodAdded ? (
-              <span
-                className={`${styles.AddCartBtn} ${
-                  ProductData?.stock === 0 || ProductData?.stock < 0
-                    ? styles.disableCartBtn
-                    : ""
-                } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
-                onClick={(e) => addToCart(e, ProductData)}
-              >
-                Add to Cart
-              </span>
+              ProductData?.stock <= 0 ? (
+                <span
+                  className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                >
+                  Out of Stock
+                </span>
+              ) : (
+                <span
+                  className={`${styles.AddCartBtn} ${
+                    ProductData?.stock === 0 || ProductData?.stock < 0
+                      ? styles.disableCartBtn
+                      : ""
+                  } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                  onClick={(e) => addToCart(e, ProductData)}
+                >
+                  Add to Cart
+                </span>
+              )
             ) : (
               <div
                 className={`${styles.addedQuantityBtnBox} d-inline-flex align-items-center position-relative col-6 justify-content-evenly`}
@@ -815,11 +945,26 @@ export const ProductPage = () => {
                       >
                         <ShareIcon color="#CF112D" />
                       </span>
-                      <img
-                        src={prodMainImg}
-                        alt={ProductData?.name}
-                        className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
-                      />
+                      {prodMainImg ? (
+                        <img
+                          src={prodMainImg}
+                          alt={ProductData?.name}
+                          className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
+                        />
+                      ) : (
+                        <div className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
+                          <ThreeDots
+                            visible={true}
+                            height="80"
+                            width="80"
+                            color="#CF102E"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+                        </div>
+                      )}
                     </div>
                     <ReactOwlCarousel
                       key={activeImg}
@@ -846,7 +991,13 @@ export const ProductPage = () => {
                             <img
                               src={enviroment.API_IMAGE_GALLERY_URL + item}
                               alt={ProductData?.name}
-                              className="object-fit-cover col-12 d-inline-block"
+                              className=""
+                              style={{
+                                height: "80px",
+                                maxHeight: "80px",
+                                maxWidth: "100%",
+                                objectFit: "contain",
+                              }}
                             />
                           </div>
                         );
@@ -1057,6 +1208,13 @@ export const ProductPage = () => {
                           |
                         </span>
                       )}
+                    {ProductData?.gender_name ? ProductData?.gender_name : ""}
+                    {ProductData?.category_name !== null &&
+                      ProductData?.gender_name !== null && (
+                        <span className={`${styles.spaceLine} d-inline-flex`}>
+                          |
+                        </span>
+                      )}
                     {ProductData?.category_name
                       ? ProductData?.category_name
                       : ""}
@@ -1093,17 +1251,26 @@ export const ProductPage = () => {
                     )}
                   </div>
                   {!prodAdded ? (
-                    <span
-                      role="button"
-                      className={`${styles.continueShop} ${
-                        ProductData?.stock === 0 || ProductData?.stock < 0
-                          ? styles.disableCartBtn
-                          : ""
-                      } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
-                      onClick={(e) => addToCart(e, ProductData)}
-                    >
-                      Add to cart
-                    </span>
+                    ProductData?.stock <= 0 ? (
+                      <span
+                        role="button"
+                        className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                      >
+                        Out of stock
+                      </span>
+                    ) : (
+                      <span
+                        role="button"
+                        className={`${styles.continueShop} ${
+                          ProductData?.stock === 0 || ProductData?.stock < 0
+                            ? styles.disableCartBtn
+                            : ""
+                        } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                        onClick={(e) => addToCart(e, ProductData)}
+                      >
+                        Add to cart
+                      </span>
+                    )
                   ) : (
                     <div
                       className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}

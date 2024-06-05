@@ -5,6 +5,7 @@ import { useApp } from "../../context/AppContextProvider";
 import styles from "./LookingFor.module.css";
 
 import { useAppStore } from "../../store";
+import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
 
 export const LookingFor = () => {
@@ -14,8 +15,8 @@ export const LookingFor = () => {
   const navigate = useNavigate();
   let windowWidth = appData.appData.windowWidth;
 
-  const subCatProduts = (id, name, verticalId) => {
-    navigate(`/store-product/vertical/${verticalId}/category/${id}`);
+  const subCatProduts = (categorySlug, verticalSlug) => {
+    navigate(`/store-product/vertical/${verticalSlug}/category/${categorySlug}`);
   };
 
   useEffect(() => {
@@ -23,15 +24,6 @@ export const LookingFor = () => {
       setLoading(false);
     }
   }, [categories]);
-
-  const responsiveItems =
-    window.innerWidth >= 1200
-      ? 5
-      : window.innerWidth >= 992
-      ? 4
-      : window.innerWidth >= 768
-      ? 3
-      : 2.5;
 
   return (
     <React.Fragment>
@@ -53,28 +45,28 @@ export const LookingFor = () => {
               <ReactOwlCarousel
                 className={`carousel-looking-for col-12 d-inline-block owl-theme`}
                 margin={10}
+                loop={true}
                 dots={false}
-                items={responsiveItems}
-                loop={false}
+                items={8}
+                stagePadding={0}
                 nav={true}
               >
                 {categories?.map((item, idx) => {
                   return (
                     <div
-                      className={`${styles.thumbItem} col-12 d-inline-flex flex-column mouse-cursor`}
+                      className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2 mouse-cursor`}
                       key={idx}
                       onClick={() =>
                         subCatProduts(
-                          item?.category?.category_id,
-                          item?.category?.name,
-                          item?.verticalId
+                          item?.category?.name_url,
+                          item?.verticalSlug
                         )
                       }
                     >
                       <img
                         src={item?.category?.image}
                         alt={item?.category?.name}
-                        className="col-12 d-inline-block"
+                        className="object-fit-cover col-12 d-inline-block"
                       />
                       <p
                         className={`${styles.thumbName} text-truncate col-12 text-center mb-0`}
