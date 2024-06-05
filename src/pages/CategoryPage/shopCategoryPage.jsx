@@ -18,7 +18,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
 
-export const ShopCategoryPage = () => {
+export const shopCategoryPage = () => {
   const { categorySlug, verticalSlug } = useParams();
 
   const locationState = useLocation();
