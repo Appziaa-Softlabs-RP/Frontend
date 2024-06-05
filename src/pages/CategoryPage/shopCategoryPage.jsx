@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CategoryPage.module.css";
-import { useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useLocation, useParams } from "react-router-dom";
+import { Filter } from "../../Components/Filter/Filter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
-import { ProductListLoader } from "../../Components/Loader/Loader";
-import { Filter } from "../../Components/Filter/Filter";
 import {
-  BackArrowIcon,
-  FilterIcon,
-  OrderIcon,
-  SortByIcon,
+    BackArrowIcon,
+    FilterIcon,
+    OrderIcon,
+    SortByIcon,
 } from "../../Components/siteIcons";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import styles from "./CategoryPage.module.css";
 
-export const CategoryPage = () => {
+export const ShopCategoryPage = () => {
+  const { categorySlug, verticalSlug } = useParams();
+
   const locationState = useLocation();
   const [ProductData, setProductData] = useState([]);
   const [ProductActualData, setProductActualData] = useState([]);
@@ -69,107 +72,48 @@ export const CategoryPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    if (locationState.state.category === "SHOP") {
-      ApiService.ageGroupProduct(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_ageGroupByProduct);
-            setProductActualData(res.payload_ageGroupByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    } else if (locationState.state.category === "Brand") {
-      ApiService.brandProduct(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_BrandByProduct);
-            setProductActualData(res.payload_BrandByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    } else {
-      ApiService.CategoryByProd(data)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            setProductData(res.payload_CategoryByProduct);
-            setProductActualData(res.payload_CategoryByProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: 2 }));
-          }
-        })
-        .catch((err) => {});
-    }
+    ApiService.CategoryByProd(data)
+      .then((res) => {
+        if (res.message === "Fetch successfully.") {
+          setProductData(res.payload_CategoryByProduct);
+          setProductActualData(res.payload_CategoryByProduct);
+          setLoading(false);
+          setApiPayload((prev) => ({ ...prev, page: 2 }));
+        }
+      })
+      .catch((err) => {});
   };
 
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
-    if (locationState.state.category === "SHOP") {
-      ApiService.ageGroupProduct(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_ageGroupByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
+    ApiService.CategoryByProd(apiPayload)
+      .then((res) => {
+        if (res.message === "Fetch successfully.") {
+          let prevProdArr = [];
+          prevProdArr = ProductData;
+          let newProd = res.payload_CategoryByProduct;
+          for (let i = 0; i < newProd.length; i++) {
+            prevProdArr.push(newProd[i]);
           }
-        })
-        .catch((err) => {});
-    } else if (locationState.state.category === "Brand") {
-      ApiService.brandProduct(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_BrandByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
-          }
-        })
-        .catch((err) => {});
-    } else {
-      ApiService.CategoryByProd(apiPayload)
-        .then((res) => {
-          if (res.message === "Fetch successfully.") {
-            let prevProdArr = [];
-            prevProdArr = ProductData;
-            let newProd = res.payload_CategoryByProduct;
-            for (let i = 0; i < newProd.length; i++) {
-              prevProdArr.push(newProd[i]);
-            }
-            let newProduct = [...prevProdArr];
-            setProductData(newProduct);
-            setProductActualData(newProduct);
-            setLoading(false);
-            setApiPayload((prev) => ({ ...prev, page: pageCount }));
-          }
-        })
-        .catch((err) => {});
-    }
+          let newProduct = [...prevProdArr];
+          setProductData(newProduct);
+          setProductActualData(newProduct);
+          setLoading(false);
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        }
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
     setLoading(true);
-    const payload = locationState.state.payload;
-    setFilterVert(locationState?.state?.verticalId);
-    setFilterCatg(locationState?.state?.categoryId);
+    const payload = {
+      store_id: parseInt(enviroment.STORE_ID),
+      category_slug: categorySlug,
+    };
+    setFilterVert(verticalSlug);
+    setFilterCatg(categorySlug);
     payload.page = 1;
     payload.result_per_page = 10;
     console.log(payload);
@@ -239,7 +183,7 @@ export const CategoryPage = () => {
                     styles.productContainer
                   } flex-shrink-1 d-inline-flex flex-wrap`}
                 >
-                  {windowWidth === "desktop" && (
+                  {windowWidth !== "mobile" && (
                     <div
                       className={`${styles.sortContainer} col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
                     >
@@ -275,28 +219,6 @@ export const CategoryPage = () => {
                       </div>
                     </div>
                   )}
-
-                  {windowWidth === "mobile" && (
-                    <div
-                      className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 bottom-0 start-0`}
-                    >
-                      <span
-                        className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setSortPopup(true)}
-                      >
-                        {" "}
-                        <SortByIcon />
-                        Sort By
-                      </span>
-                      <span
-                        className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setFilterPopup(true)}
-                      >
-                        <FilterIcon /> Filters
-                      </span>
-                    </div>
-                  )}
-
                   {ProductData?.length > 0 ? (
                     <InfiniteScroll
                       className="d-inline-flex col-12 flex-wrap"
@@ -440,6 +362,26 @@ export const CategoryPage = () => {
               </div>
             </div>
           )}
+        {windowWidth === "mobile" && (
+          <div
+            className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+          >
+            <span
+              className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setSortPopup(true)}
+            >
+              {" "}
+              <SortByIcon />
+              Sort By
+            </span>
+            <span
+              className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setFilterPopup(true)}
+            >
+              <FilterIcon /> Filters
+            </span>
+          </div>
+        )}
       </div>
       <Footer />
     </React.Fragment>
