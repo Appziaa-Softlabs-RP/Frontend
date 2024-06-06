@@ -23,14 +23,14 @@ export const AboutUs = () => {
           <h1>About Us</h1>
           <p className="c6">
             <span className="c1">
-              About Neverowned &ndash; Your Ultimate Destination for Quality
+              About Neverused &ndash; Your Ultimate Destination for Quality
               Re-Commerce!
             </span>
           </p>
           <p className="c6">
-            Welcome to Never Owned!
+            Welcome to Neveused!
             <br />
-            At Never Owned, we pride ourselves on being a premium brand
+            At Neveused, we pride ourselves on being a premium brand
             dedicated to re-commerce. We specialize in the resale of branded
             electronics and household items, offering our customers quality
             products at exceptional value.
@@ -57,12 +57,12 @@ export const AboutUs = () => {
             <br />
             <br />
             Whether you're looking for the latest gadgets or essential household
-            items, Never Owned is your trusted destination for premium
+            items, Neverused is your trusted destination for premium
             re-commerce products. Join us in embracing sustainable consumption
             while enjoying top-notch products at unbeatable prices.
             <br />
             <br />
-            Discover the difference with Never Owned today!
+            Discover the difference with Neverused today!
           </p>
         </div>
       </div>

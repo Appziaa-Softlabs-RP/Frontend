@@ -472,8 +472,8 @@ export const Footer = () => {
                   <div className={`${styles.copyright}`}>
                     <p>
                       © Copyright {new Date().getFullYear()}{" "}
-                      {enviroment.BUSINESS_NAME}. All Rights Reserved
-                      <br />
+                      <b>Neverused owned and operated by Iksh Retail Private Limited</b>. All Rights Reserved
+                      {/* <br />
                       <small>
                         {" "}
                         Made with{" "}
@@ -488,7 +488,7 @@ export const Footer = () => {
                         >
                           RewardsPlus
                         </Link>
-                      </small>
+                      </small> */}
                     </p>
                   </div>
                 </div>

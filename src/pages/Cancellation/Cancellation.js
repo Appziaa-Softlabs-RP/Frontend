@@ -24,7 +24,7 @@ export const Cancellation = () => {
         <div className="container">
           <h1>Cancellation Policy</h1>
           <p className="c6">
-            <span className="c7">Neverowned Cancellation Policy</span>
+            <span className="c7">Neverused Cancellation Policy</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
@@ -34,7 +34,7 @@ export const Cancellation = () => {
             <span className="c1">Cancellation Window:</span>
           </p>
           <p className="c6">
-            <span className="c8">Neverowned offers a </span>
+            <span className="c8">Neverused offers a </span>
             <span className="c2">7-day Cancellation policy</span>
             <span className="c4">
               &nbsp;for all online and in-store purchases. This means you have 7
@@ -115,7 +115,7 @@ export const Cancellation = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 You are responsible for the cost of shipping the Cancellationed
-                item(s) back to Neverowned.
+                item(s) back to Neverused.
               </span>
             </li>
             <li className="c0 li-bullet-0">
@@ -150,7 +150,7 @@ export const Cancellation = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 This Cancellation policy applies only to purchases made from
-                Neverowned. Items purchased from other retailers or through
+                Neverused. Items purchased from other retailers or through
                 third-party marketplaces may have different Cancellation
                 policies.
               </span>
