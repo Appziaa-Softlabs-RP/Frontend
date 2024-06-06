@@ -160,7 +160,7 @@ export const Filter = ({
   };
 
   useEffect(() => {
-    fetchFilterProd();
+    // fetchFilterProd();
   }, [allfilterVal]);
 
   return (
@@ -399,7 +399,7 @@ export const Filter = ({
                   className={`${styles.address_option}`}
                   value="101,500"
                   checked={
-                    allfilterVal.priceMin === 101 &&
+                    allfilterVal.priceMin === 100 &&
                     allfilterVal.priceMax === 500
                   }
                   name="price"

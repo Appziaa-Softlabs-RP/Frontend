@@ -33,10 +33,10 @@ export const PromoBanner = ({ type }) => {
       if (window !== undefined) window.open(item?.site_link, "_blank");
     } else if (item?.category_id && item?.vertical_id) {
       navigate(
-        `/store-product/vertical/${item?.vertical_id}/category/${item?.category_id}`
+        `/store-product/vertical/${item?.vertical_name_url}/category/${item?.category_name_url}`
       );
     } else if (item?.product_id) {
-      navigate(`/product?id=${item?.product_id}`);
+      navigate(`/product/${item?.product_name_url}`);
     }
   };
 
@@ -128,7 +128,7 @@ export const PromoBanner = ({ type }) => {
                               onClick={() => redirectToLink(item)}
                               key={index}
                               style={{
-                                cursor: 'pointer',
+                                cursor: "pointer",
                               }}
                             >
                               <img
