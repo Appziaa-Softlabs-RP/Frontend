@@ -1,23 +1,26 @@
 .exploreByCategoryHeader {
-    font-weight: bold;
-    color: #1D2A39;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
+  font-weight: bold;
+  color: #1d2a39;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
-.categoryBox{
-    border-radius: 10px;
-    background: #FFF;
+.categoryBox {
+  border-radius: 10px;
+  background: #fff;
 }
-.offersBox{
-    background: yellow;
-    border-radius: 10px;
+.offersBox {
+  background: yellow;
+  border-radius: 10px;
 }
 /* Desktop CSS */
-.categoryHeaderTitle{
-    font-size: 25px;
-    font-weight: 700;
+.categoryHeaderTitle {
+  font-size: 25px;
+  font-weight: 700;
 }
-.bannerContainer img{
-    border-radius: 10px;
+.bannerContainer img {
+  border-radius: 10px;
+}
+.banner {
+  cursor: pointer;
 }
