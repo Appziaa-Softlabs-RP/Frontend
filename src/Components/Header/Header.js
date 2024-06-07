@@ -110,28 +110,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   const openProductId = (prodId, name) => {
     setSearchProdList([]);
     setSearchProd(name);
-    const payload = {
-      product_id: prodId,
-      company_id: parseInt(enviroment.COMPANY_ID),
-      store_id: parseInt(enviroment.STORE_ID),
-    };
-    ApiService.productDetails(payload)
-      .then((res) => {
-        if (res.message === "Product Detail") {
-          navigate(`/product?id=${prodId}`, {
-            state: { product: res.payload },
-          });
-        } else {
-          AppNotification(
-            "Error",
-            "Sorry, Product detail not found.",
-            "danger"
-          );
-        }
-      })
-      .catch((err) => {
-        AppNotification("Error", "Sorry, Product detail not found.", "danger");
-      });
+    navigate(`/product/${prodId}`);
   };
 
   const handleKeyDown = (event) => {
@@ -232,7 +211,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`}
                       role="button"
                       key={idx}
-                      onClick={() => openProductId(item.product_id, item.name)}
+                      onClick={() => openProductId(item.name_url, item.name)}
                     >
                       {item.name}
                     </span>
@@ -320,7 +299,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             role="button"
                             key={idx}
                             onClick={() =>
-                              openProductId(item.product_id, item.name)
+                              openProductId(item.name_url, item.name)
                             }
                           >
                             {item.name}
