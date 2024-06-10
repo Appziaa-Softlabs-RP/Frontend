@@ -31,6 +31,7 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 export const PublicRoutes = () => {
   return (
     <Routes>
+      <Route exact path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
