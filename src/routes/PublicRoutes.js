@@ -31,7 +31,6 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 export const PublicRoutes = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -39,10 +38,7 @@ export const PublicRoutes = () => {
       <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
       <Route path="/store/:categoryId" element={<ShopCategoryPage />} />
-      <Route
-        path="/store-product/:category"
-        element={<StoreProductCategory />}
-      />
+      <Route path="/store-product/:category" element={<StoreProductCategory />} />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
         element={<ShopCategoryPage />}
@@ -53,7 +49,7 @@ export const PublicRoutes = () => {
       />
 
       <Route path="/store/age/:ageId" element={<AgeCategoryPage />} />
-      <Route exact path="/search-product/:keyword" element={<SearchPage />} />
+      <Route path="/search-product/:keyword" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route path="/checkout" element={<ShoppingCart />} />
       <Route
@@ -84,7 +80,7 @@ export const PublicRoutes = () => {
       <Route path="/faq" element={<Faq />} />
       <Route path="/Cancellation-policy" element={<Cancellation />} />
       <Route path="/press" element={<Press />} />
-      {/* <Route path="*" element={<Home />} /> */}
+      <Route path="*" element={<Home />} />
     </Routes>
   );
 };
