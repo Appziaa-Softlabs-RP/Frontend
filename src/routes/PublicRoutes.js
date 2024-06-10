@@ -49,7 +49,7 @@ export const PublicRoutes = () => {
       />
 
       <Route path="/store/age/:ageId" element={<AgeCategoryPage />} />
-      <Route path="/search-product/:keyword" element={<SearchPage />} />
+      <Route exact path="/search-product/:keyword" element={<SearchPage />} />
       <Route path="/offers" element={<Offers />} />
       <Route path="/checkout" element={<ShoppingCart />} />
       <Route
