@@ -520,16 +520,16 @@ export const LoginPopup = ({ setLoginPop }) => {
                     <div className="col-4 d-inline-flex flex-column align-items-center" onClick={(e) => stopParentLayer(e)}>
                         <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-4 px-4 flex-grow-1 justify-content-center`}>
                             <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Original Products</h2>
-                                <p className="col-12 d-inline-flex m-0">Step into the world of KnickKnack, your trusted toy haven, where every plaything is a genuine joy-bringer, crafted with authenticity and love.</p>
+                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Sangpriya prioritizes authentic and natural ingredients</h2>
+                                <p className="col-12 d-inline-flex m-0">They focus on traditional recipes and avoid artificial additives, preservatives, and colors.</p>
                             </div>
                             <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Easy Returns</h2>
-                                <p className="col-12 d-inline-flex m-0">Shop with confidence and zero worries, as our 7-day free return policy ensures your satisfaction is our priority!</p>
+                                <h2 className="col-12 d-inline-flex mb-2 mt-0">The brand is built on a legacy</h2>
+                                <p className="col-12 d-inline-flex m-0">Inspired by family recipes, Sangpriya aims to reconnect people with true Indian flavors.</p>
                             </div>
                             <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Home Delivery</h2>
-                                <p className="col-12 d-inline-flex m-0">Experience the joy of shopping from the comfort of your home, as we bring your desires to your doorstep with our swift and reliable home delivery!</p>
+                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Our mission is to make pure food accessible</h2>
+                                <p className="col-12 d-inline-flex m-0">Sangpriya offers high-quality ingredients to create delicious and wholesome meals for everyone.</p>
                             </div>
                         </div>
                     </div>

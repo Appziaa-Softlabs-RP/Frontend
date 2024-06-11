@@ -272,8 +272,8 @@ export const ProductCard = ({ item, index }) => {
         </Link>
         <div>
           <Link
-          to={`/product/${item?.name_url}`}
-          style={{
+            to={`/product/${item?.name_url}`}
+            style={{
               textDecoration: "none",
             }}
             className={`${styles.offerItemName} col-12 p-0 mb-1`}

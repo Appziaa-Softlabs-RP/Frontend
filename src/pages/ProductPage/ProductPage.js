@@ -362,72 +362,73 @@ export const ProductPage = () => {
   }, [appData.appData]);
 
   useEffect(() => {
-    if (ProductData === undefined) {
-      let prodId = searchParams.get("id");
-      const payload = {
-        product_slug: slug,
-        company_id: parseInt(enviroment.COMPANY_ID),
-        store_id: parseInt(enviroment.STORE_ID),
-      };
-      ApiService.productDetails(payload)
-        .then((res) => {
-          if (res.message === "Product Detail") {
-            setProductData(res.payload);
-          } else {
-            AppNotification(
-              "Error",
-              "Sorry, Product detail not found.",
-              "danger"
-            );
+    let prodId = searchParams.get("id");
+    const payload = {
+      product_slug: slug,
+      company_id: parseInt(enviroment.COMPANY_ID),
+      store_id: parseInt(enviroment.STORE_ID),
+    };
+
+    // Fetch product details based on the slug
+    ApiService.productDetails(payload)
+      .then((res) => {
+        if (res.message === "Product Detail") {
+          setProductData(res.payload);
+
+          // Scroll to top after setting product data
+          window.scrollTo(0, 0);
+
+          setProdMainImg(res.payload.image);
+
+          let discountOff = "",
+            ProductMrp = parseFloat(res.payload.mrp),
+            ProdutSellPrice = parseFloat(res.payload.selling_price);
+
+          if (ProductMrp > ProdutSellPrice) {
+            discountOff =
+              ((res.payload.mrp - res.payload.selling_price) * 100) /
+              res.payload.mrp;
+            discountOff = Math.ceil(discountOff);
+            setProdDiscount(discountOff);
           }
-        })
-        .catch((err) => {
+
+          if (
+            res.payload.specifications !== null &&
+            res.payload.specifications !== undefined
+          ) {
+            Object.values(res.payload.specifications).forEach((item) => {
+              if (item !== "" && item !== null && item !== undefined) {
+                setOtherInfo(true);
+              }
+            });
+          }
+
+          if (
+            res.payload.other_information !== null &&
+            res.payload.other_information !== undefined
+          ) {
+            Object.values(res.payload.other_information).forEach((item) => {
+              if (item !== "" && item !== null && item !== undefined) {
+                setFeaturesInfo(true);
+              }
+            });
+          }
+        } else {
           AppNotification(
             "Error",
             "Sorry, Product detail not found.",
             "danger"
           );
-        });
-    } else {
-      window.scrollTo(0, 0);
-      setProductData(locationState?.state?.product);
-      setProdMainImg(ProductData?.image);
-
-      let discountOff = "",
-        ProductMrp = parseFloat(ProductData?.mrp),
-        ProdutSellPrice = parseFloat(ProductData?.selling_price);
-
-      if (ProductMrp > ProdutSellPrice) {
-        discountOff =
-          ((ProductData?.mrp - ProductData?.selling_price) * 100) /
-          ProductData?.mrp;
-        discountOff = Math.ceil(discountOff);
-        setProdDiscount(discountOff);
-      }
-
-      if (
-        ProductData?.specifications !== null ||
-        ProductData?.specifications !== undefined
-      ) {
-        Object.values(ProductData?.specifications).map((item) => {
-          if (item !== "" && item !== null && item !== undefined) {
-            setOtherInfo(true);
-          }
-        });
-      }
-
-      if (
-        ProductData?.other_information !== null ||
-        ProductData?.other_information !== undefined
-      ) {
-        Object.values(ProductData?.other_information).map((item) => {
-          if (item !== "" && item !== null && item !== undefined) {
-            setFeaturesInfo(true);
-          }
-        });
-      }
-    }
-  }, [slug, navigate]);
+        }
+      })
+      .catch((err) => {
+        AppNotification(
+          "Error",
+          "Sorry, Product detail not found.",
+          "danger"
+        );
+      });
+  }, [slug, navigate, searchParams]);
 
   useEffect(() => {
     if (ProductData !== undefined) {
@@ -924,13 +925,15 @@ export const ProductPage = () => {
       ) : windowWidth === "desktop" ? (
         <React.Fragment>
           <Header />
-          <div className="col-12 d-inline-flex">
+          <div className="col-12 d-inline-flex" style={{
+              marginTop: "80px"
+            }}>
             <div className="container">
               <div
                 className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}
               >
                 <div
-                  className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}
+                  className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0`}
                 >
                   <div
                     className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
@@ -1201,20 +1204,6 @@ export const ProductPage = () => {
                   <div
                     className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
                   >
-                    {ProductData?.age_type ? ProductData?.age_type : ""}
-                    {ProductData?.age_type !== null &&
-                      ProductData?.gender_name !== null && (
-                        <span className={`${styles.spaceLine} d-inline-flex`}>
-                          |
-                        </span>
-                      )}
-                    {ProductData?.gender_name ? ProductData?.gender_name : ""}
-                    {ProductData?.category_name !== null &&
-                      ProductData?.gender_name !== null && (
-                        <span className={`${styles.spaceLine} d-inline-flex`}>
-                          |
-                        </span>
-                      )}
                     {ProductData?.category_name
                       ? ProductData?.category_name
                       : ""}

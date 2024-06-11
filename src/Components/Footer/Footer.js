@@ -319,6 +319,15 @@ export const Footer = () => {
                           <li>
                             <b>ABOUT YOU</b>
                           </li>
+                          <li>
+                            <Link
+                              to="/about-us"
+                              target="_"
+                              className="text-decoration-none d-inline-flex text-black"
+                            >
+                              About Us
+                            </Link>
+                          </li>
                           <li>Who are we</li>
                           <li>Team</li>
                           <li>Recipes</li>
@@ -354,6 +363,7 @@ export const Footer = () => {
                         <li className={`${styles.socialIcon} list-unstyled`}>
                           <Link
                             to={enviroment.FACEBOOK_LINK}
+                            target="_blank"
                             className="text-decoration-none"
                           >
                             <FacebookIcon />
@@ -362,19 +372,21 @@ export const Footer = () => {
                         <li className={`${styles.socialIcon} list-unstyled`}>
                           <Link
                             to={enviroment.TWITTER_LINK}
+                            target="_blank"
                             className="text-decoration-none"
                           >
                             <TwitterIcon />
                           </Link>
                         </li>
                         <li className={`${styles.socialIcon} list-unstyled`}>
-                          <Link to={enviroment.INSTAGRAM_LINK}>
+                          <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
                             <InstagramIcon />
                           </Link>
                         </li>
                         <li className={`${styles.socialIcon} list-unstyled`}>
                           <Link
                             to={enviroment.YOUTUBE_LINK}
+                            target="_blank"
                             className="text-decoration-none"
                           >
                             <YoutubeIcon />
