@@ -1,0 +1,109 @@
+.ageBannerRow img{
+    border-radius: 10px;
+}
+.filterSticky {
+    top: 20px;
+    height: calc(100vh - 30px);
+}
+.filterSticky::-webkit-scrollbar {
+    width: 5px;
+}
+.clearAllBtn {
+    color: #009CDE;
+    font-size: 14px;
+}
+.sortBy, .priceLow {
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+.priceLow {
+    font-weight: 400;
+}
+.productContainer {
+    border-radius: 8px;
+    background: #FFF;
+}
+.sortContainer {
+    border-bottom: 1px solid #EDEDED;
+}
+.emptyProduct svg{
+    height: 150px;
+    width: 150px;
+}
+.emptyProductText {
+    font-size: 30px;
+}
+.goCartBtn, .AddCartBtn, .saveFilterBtn{
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    background: #FFF;
+}
+.goCartBtn svg, .AddCartBtn svg {
+    height: 15px;
+    width: 15px;
+}
+.goCartBtn {
+    border-right: 1px solid #EDEDED;
+}
+.productBtnBox{
+    position: fixed;
+    z-index: 9;
+    box-shadow: 0px -10px 10px 0px rgba(0, 0, 0, 0.10);
+}
+.actionSheet {
+    background: rgba(0, 0, 0, 0.90);
+    z-index: 10;
+}
+.actionSheetBox {
+    border-radius: 8px;
+}
+.actionSheetTitle {
+    height: 45px;
+    background: #FFF;
+    color: #000;
+    font-size: 14px;
+}
+.actionSheetBtn, .actionSheetCnclBtn{
+    color: #009CDE;
+    border: none;
+    box-shadow: none;
+    background: #FFF;
+    border-top: 1px solid #EDEDED;
+    font-size: 17px;
+    font-weight: 600;
+    height: 50px;
+}
+.actionSheetCnclBtn {
+    color: #FF0000;
+    border-radius: 8px;
+}
+.filterPopup {
+    background: #FFF;
+    z-index: 10;
+}
+.PageHeader{
+    height: 60px;
+    background: var(--PRIMARY_COLOR);
+    z-index: 15;
+}
+.backBox{
+    height: 60px;
+    width: 40px;
+    padding-top: 2px;
+}
+.backBox svg{
+    height: 20px;
+    width: 20px;
+}
+.currentName{
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+.saveFilterBtn {
+    background: var(--PRIMARY_COLOR);
+    color: var(--SECONDARY_COLOR);
+}

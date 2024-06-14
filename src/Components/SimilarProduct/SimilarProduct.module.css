@@ -1,0 +1,25 @@
+.similarProductBox{
+	margin-top: 20px;
+	background: #FFF;
+}
+.availSizeTitle{
+    font-size: 16px;
+	line-height: 18px;
+	color: #16253B;
+    margin-bottom: 0px;
+}
+.smallTitle{
+    font-size: 12px;
+	color: #000;
+}
+/* Desktop CSS */
+@media screen and (min-width:568px) {
+	.similarProductBox{
+		background: transparent;
+	}
+    .availSizeTitle{
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,61 @@
+.filterBox {
+    border-radius: 8px;
+    background: #FFF;
+}
+.filterTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+}
+.customRadio{
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+.address_option:checked+.customRadio:after{
+    margin: auto;
+    content: '';
+    height: 14px;
+    width: 14px;
+    display: block;
+    border-radius: 50%;
+    background-color: var(--ADD_BUTTON_COLOR);
+    position: absolute;
+    inset: 0;
+}
+.filterRow{
+    font-size: 15px;
+    color: #111;
+}
+.filterRow .address_option{
+    display: none;
+}
+.brandScroll{
+    max-height: 200px;
+}
+.brandScroll::-webkit-scrollbar{
+    width: 5px;
+}
+.brandScroll::-webkit-scrollbar-thumb {
+    background: #DDD;
+    border-radius: 5px;
+    width: 5px;
+}
+.filterSearchInput {
+    border: 1px solid #EDEDED;
+    border-radius: 4px;
+    height: 45px;
+    background: #FFF;
+}
+.filterSearchInput:focus {
+    outline: none;
+}
+.filterSearch{
+    z-index: 5;
+}
+@media only screen and (max-width:568px) {    
+    .brandScroll{
+        max-height: auto;
+    }
+}

@@ -1,0 +1,45 @@
+.orderBox{
+    background: #FFF;
+}
+.orderLabel{
+    font-size: 16px;
+    color: #111;
+}
+.orderImag{
+    height: 50px;
+    width: 50px;
+}
+.orderItemName{
+    font-size: 12px;
+    font-weight: 700;
+    color: #111;
+}
+.itemName{
+    font-size: 11px;
+    color: #676E8A;
+}
+.itemPrice{
+    font-size: 14px;
+    color: #676E8A;
+}
+.assurityTabs{
+    background-color: #E4E9F2;
+    color: #676E8A;
+    font-size: 11px;
+    padding: 3px 6px;
+}
+.orderDetailBtn, .reSchduleBtn{
+    height: 30px;
+    border-radius: 2px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 13px;
+}
+.orderDetailBtn {
+    border: 1px solid #0376FC;
+    color: #0376FC;
+}
+.reSchduleBtn {
+    border: 1px solid #DD5E5E;
+    color: #DD5E5E;
+}

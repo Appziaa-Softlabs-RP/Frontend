@@ -1,0 +1,120 @@
+.cartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.cartTitle svg {
+    height: 20px;
+    width: 20px;
+}
+
+.placeOrderBtnBox {
+    border-top: 1px solid #EEE;
+}
+
+.placeOrderBtn, .payOrderBtn, .addAddressBtn {
+    height: 45px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    background: var(--ADD_BUTTON_COLOR);
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+.addAddressBtn {
+    background: #FFF;
+    color: var(--ADD_BUTTON_COLOR);
+}
+
+.addedAdres, .deliveryBox {
+    background: #FFF;
+}
+.addedAdres{
+    border: 1px solid #CCC;
+    border-radius: 4px;
+}
+.addedAdres:hover{
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+}
+
+.addressName {
+    color: #14273E;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.addressTag {
+    color: #676E8A;
+    font-size: 12px;
+    border-radius: 2px;
+    background-color: #E4E9F2;
+}
+
+.addressdetail {
+    color: #000;
+    font-size: 14px;
+}
+
+.deleteBtn, .editBtn {
+    height: 30px;
+    color: #DD5E5E;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    background: #FEFEFE;
+}
+.deleteBtn svg, .editBtn svg{
+    height: 14px;
+}
+
+.editBtn {
+    border: 1px solid var(--PRIMARY_COLOR);
+    color: var(--PRIMARY_COLOR);
+}
+.deliveryRadio{
+    left: 15px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 0 2px hsl(223,10%,80%) inset;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.deliveryRadio:before {
+    background-color: hsl(0,0%,100%);
+    border-radius: inherit;
+    box-shadow: 0 0 0 0.3em var(--PRIMARY_COLOR);
+    content: "";
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    transition: transform 0.3s cubic-bezier(0.37,0,0.63,1);
+    transform: scale(0);
+    border-radius: 20px;
+}
+.deliveryRadio:checked:before {
+    transform: scale(1);
+    transition-timing-function: cubic-bezier(0.34,1.56,0.64,1);
+}
+.paymentRadio .deliveryRadio{
+    left: -15px;
+    top: 4px;
+}
+.cartSummryBox {
+    background: #FFF;
+    padding: 10px 20px;
+}
+.myCartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+}

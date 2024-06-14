@@ -1,0 +1,79 @@
+.backBox{
+    height: 60px;
+    width: 40px;
+    padding-top: 2px;
+}
+.backBox svg{
+    height: 20px;
+    width: 20px;
+}
+.PageHeader{
+    height: 60px;
+    background: var(--PRIMARY_COLOR);
+}
+.cartQtyCount{
+    color: #FFF;
+    z-index: 2;
+    top: 10px;
+    right: 2px;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: #E86339;
+    border-radius: 50%;
+}
+.currentName{
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+.searchPopup {
+    background: var(--PRIMARY_COLOR);
+    z-index: 4;
+    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
+}
+.searchProdInput{
+    height: 40px;
+    border-radius: 35px;
+    color: #000;
+    font-size: 15px;
+    box-shadow: none;
+    border: none;
+    padding: 15px;
+}
+.searchProdInput:focus{
+    outline: none;
+}
+.showSearchList{
+    top: 55px;
+    max-height: 230px;
+    background: #FFF;
+    z-index: 5;
+    box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.30);
+}
+.searchRow{
+    font-size: 16px;
+    color: #000;
+    border-bottom: 1px solid #EEE;
+    transition: .2s;
+}
+.searchRow:hover{
+    background: var(--MENU_HOVER_COLOR);
+}
+.showSearchListMobile.showSearchList{
+    top: 60px;
+    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
+    border-radius: 10px;
+}
+.closePopupBox {
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+    margin: 8px;
+}
+.closePopupBox svg {
+    height: 100%;
+    width: 100%;
+}

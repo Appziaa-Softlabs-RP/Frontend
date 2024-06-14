@@ -1,0 +1,50 @@
+.loginTitle{
+    padding: 20px 30px 30px;
+}
+.siteLogoBox img{
+    height: 100px;
+    width: 250px;
+}
+.welcomeBiz{
+    font-size: 32px;
+    color: #000;
+    font-weight: 400;
+}
+.bizName{
+    font-weight: 700;
+}
+.loginSubTitle{
+    font-size: 15px;
+    color: #444;
+}
+.isdCode{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+    left: 10px;
+}
+.formInput{
+    padding-left: 50px;
+    font-size: 20px;
+    color: #000;
+    border-radius: 6px;
+    box-shadow: none;
+    border: 1px solid var(--PRIMARY_COLOR);
+    height: 60px;
+    padding-bottom: 3px;
+}
+.formInput::-webkit-input-placeholder{
+    opacity: 0.5;
+}
+.formInput:focus{
+    border: 1px solid var(--PRIMARY_COLOR);
+    outline: none;
+}
+.formLoginBtn{
+    background: var(--PRIMARY_COLOR);
+    border-radius: 6px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--SECONDARY_COLOR);
+}

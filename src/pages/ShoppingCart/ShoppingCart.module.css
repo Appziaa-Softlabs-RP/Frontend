@@ -1,0 +1,48 @@
+.cartTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+}
+.checkoutBox {
+    background: #2C3646;
+}
+.totalAmtLabel {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #FFF;
+}
+.checkoutBtn {
+    background: var(--PRIMARY_COLOR);
+    color: var(--SECONDARY_COLOR);
+    box-shadow: none;
+    border: none;
+    border-radius: 4px;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.cancelPolicyBox{
+    background: #FFF;
+}
+.policyHeader {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+}
+.cancelPolicydesc svg{
+    height: 25px;
+    width: 25px;
+    flex-shrink: 0;
+}
+.cancelPolicydesc {
+    font-size: 14px;
+    color: #757575;
+}
+.emptyProduct svg{
+    height: 80px;
+    width: 80px;
+}
+.emptyProductText {
+    font-size: 20px;
+}

@@ -1,0 +1,55 @@
+.orderSummryBox {
+    background: #FFF;
+}
+
+.summeryTitle {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    border-bottom: 1px solid #EEE;
+}
+
+.finalTotalRow {
+    border-top: 1px solid #EEE;
+    border-bottom: 1px dotted #000;
+}
+
+.subTotalLabel, .subTotalPrice {
+    font-size: 16px;
+    color: #000;
+}
+
+.finalTotalLabel, .couponLabel {
+    font-size: 14px;
+    color: #000;
+}
+
+.finalSavingLabel, .subTotalSaving {
+    font-size: 15px;
+    color: #75BF3A;
+}
+
+.couponInputBox {
+    border-radius: 4px;
+}
+
+.couponinput {
+    height: 40px;
+    border: 1px solid #DDD;
+    border-right: none;
+    padding: 10px;
+    font-size: 15px;
+    color: #000;
+    border-radius: 4px 0px 0px 4px;
+}
+.couponinput:focus{
+    outline: none;
+}
+
+.couponApplyBtn {
+    height: 40px;
+    font-size: 15px;
+    background: #009CDE;
+    color: #FFF;
+    border-radius: 0px 4px 4px 0px;
+}

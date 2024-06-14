@@ -1,0 +1,51 @@
+
+.shopAgeContainer .ageBlock{
+	width: calc(50% - 10px);
+}
+.ageBlockIcon{
+	padding-top: 100%;
+	border-radius: 100%;
+	background: #FFF;
+}
+.ageBlockIcon img{
+	inset: 0;
+	border-radius: 100%;
+}
+.shopAgeContainer{
+	background: var(--MENU_HOVER_COLOR);
+	padding: 30px 0px 20px 0px;
+	border-radius: 10px;
+}
+.shopAgeNumber{
+	font-size: 14px;
+	margin-top: 10px;
+	color: #FFF;
+	font-weight: 500;
+}
+.shopAgeBox .exploreByCategoryHeader{
+	color: #FFF;
+	font-size: 16px;
+	font-weight: 700;
+}
+.scrollAgeBox{
+	gap: 20px;
+}
+/* Desktop CSS */
+.categoryHeaderTitle{
+    font-size: 25px;
+    font-weight: 700;
+}
+@media screen and (min-width:568px) {
+	.shopAgeContainer .ageBlock{
+		width: calc(25% - 30px);
+	}
+	.shopAgeContainer{
+		padding: 30px 20px 20px 20px;
+	}
+	.scrollAgeBox{
+		gap: 30px;
+	}
+	.shopAgeNumber{
+		font-size: 17px;
+	}
+}

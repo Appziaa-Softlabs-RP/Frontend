@@ -1,0 +1,29 @@
+.sliderContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  width: 1300px;
+  max-width: 90%;
+  margin: 10px 50px;
+}
+
+.brandSilder {
+  display: grid;
+  overflow: hidden;
+  margin: 10px 0px;
+}
+
+.sliderItem {
+  min-width: 280px;
+  max-width: 280px;
+  height: 330px;
+}
+
+@media screen and (min-width: 700px) {
+  .sliderContainer {
+    flex-direction: row;
+  }
+}

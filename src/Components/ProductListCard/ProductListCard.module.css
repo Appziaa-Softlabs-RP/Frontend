@@ -1,0 +1,83 @@
+.productsGlance{
+	margin-bottom: 10px;
+	padding: 10px 15px;
+	min-height: 90px;
+    border-radius: 4px;
+	background: #FFF;
+}
+.offerImgContainer {
+    width: 70px;
+    height: 70px;
+}
+.offerImgContainer img{
+    height: 100%;
+    width: 100%;
+}
+.offerItemName{
+    font-size: 15px;
+    line-height: 17px;
+    color: #212121;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 400;
+    white-space: normal;
+}
+.offerPrice{
+    font-size: 14px;
+    line-height: 16px;
+    color: #16253B;
+}
+.savePrice{
+	color: #00A100;
+    font-size: 13px;
+    font-weight: 500;
+}
+.itemQuantityBtnBox{
+	bottom: 8px;
+	right: 10px;
+    z-index: 9;
+}
+.itemQuantityBtnBox button{
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.itemQuantityBtnBox .decreaseBtn{
+	width: 20px;
+}
+.countValue{
+	width: 20px;
+	text-align: center;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: default;
+	font-weight: 500;
+}
+.increaseBtn, .decreaseBtn{
+	cursor: pointer;
+	outline:none;
+	border:none;
+	color: var(--ADD_BUTTON_COLOR);
+	display: inline-block;
+	width: 20px;
+	border-radius: 50%;
+	line-height: 15px;
+	height: 20px;
+	border: 1px solid var(--ADD_BUTTON_COLOR);
+}
+.offerPercentage{
+    background: #389956;
+    color: #FFF;
+	font-weight: 600;
+	border-radius: 4px;
+	font-size: 9px;
+	line-height: 10px;
+	padding: 2px 4px;
+	margin-left: 10px;
+}

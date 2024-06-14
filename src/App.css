@@ -1,0 +1,128 @@
+:root{
+  --PRIMARY_COLOR : #CF102E;
+  --SECONDARY_COLOR : #FFF;
+  --MENU_HOVER_COLOR : rgba(207,16,46,0.12);
+  --ADD_BUTTON_COLOR : #CF102E;
+}
+body{
+  background: #E7ECF2;
+}
+img{
+  max-width: 100%;
+}
+.owl-carousel .owl-stage-outer .owl-stage{
+  padding: 0 !important;
+}
+.galleryBox .owl-stage{
+  display: flex;
+  align-items: stretch;
+}
+.mouse-cursor {
+  cursor: pointer;
+}
+/* owl  carousel left & right arrow */
+.owl-nav {
+  position: absolute;
+  top: calc(50% - 50px);
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+}
+.owl-nav button {
+  min-width: 40px;
+}
+.owl-nav span {
+  font-size: 30px;
+}
+.carousel-looking-for .owl-nav button, .heroBanner .owl-nav button, .brandSilder .owl-nav button, .limitedOfferSlider .owl-nav button{
+  position: absolute;
+  background: var(--SECONDARY_COLOR) !important;
+  border-radius: 50% !important;
+  height: 40px;
+  width: 40px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+.carousel-looking-for .owl-nav button.owl-prev, .brandSilder .owl-nav button.owl-prev {
+left: -25px;
+}
+.carousel-looking-for .owl-nav button.owl-next, .brandSilder .owl-nav button.owl-next {
+  right: -25px;
+}
+.carousel-looking-for .owl-nav button span, .brandSilder .owl-nav button span{
+  color: var(--PRIMARY_COLOR);
+  position: relative;
+  top: -2px;
+}
+.carousel-looking-for .owl-nav button:hover, .brandSilder .owl-nav button:hover{
+  background: var(--PRIMARY_COLOR) !important;
+}
+.carousel-looking-for .owl-nav button:hover span, .brandSilder .owl-nav button:hover span{
+  color: var(--SECONDARY_COLOR);
+}
+.heroBanner .owl-nav button, .limitedOfferSlider .owl-nav button{
+  background: transparent !important;
+}
+.heroBanner .owl-nav button.owl-prev {
+  left: 15px;
+}
+.heroBanner .owl-nav button.owl-next {
+  right: 15px;
+}
+.heroBanner .owl-nav button span{
+  font-size: 80px;
+  color: var(--SECONDARY_COLOR);
+}
+.brandSilder .owl-nav button.disabled, .limitedOfferSlider .owl-nav button.disabled{
+  display: none !important;
+}
+input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
+  -webkit-appearance: none;
+  display: none;
+}
+.dealsShop.owl-carousel .owl-stage{
+  display: flex;
+  align-items: stretch;
+}
+.limitedOfferSlider .owl-stage-outer{
+  padding-top: 30px;
+}
+.limitedOfferSlider.owl-theme .owl-nav{
+  width: 100px;
+  top: 0px;
+  right: 0px;
+  height: 30px;
+  margin-top: -5px;
+}
+.limitedOfferSlider .owl-nav button.owl-next{
+  right: 0px;
+}
+.limitedOfferSlider .owl-nav button.owl-prev{
+  right: 30px;
+}
+.limitedOfferSlider .owl-nav button span{
+  font-size: 20px;
+  color: var(--SECONDARY_COLOR);
+}
+.limitedOfferSlider.owl-theme .owl-nav button{
+  height: 30px;
+  width: 30px;
+  margin: 0px;
+}
+.infinite-scroll-component__outerdiv{
+  width: 100%;
+  display: inline-flex;
+}
+@media screen and (max-width: 568px) {
+  .carousel-looking-for .owl-nav button.owl-prev, .brandSilder .owl-nav button.owl-prev {
+    left: -10px;
+    display: none !important;
+  }
+  .carousel-looking-for .owl-nav button.owl-next, .brandSilder .owl-nav button.owl-next {
+    right: 20px;
+    display: none !important;
+  }
+}

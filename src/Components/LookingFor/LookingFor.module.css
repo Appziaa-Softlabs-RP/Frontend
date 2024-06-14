@@ -1,0 +1,17 @@
+.categoryHeaderTitle{
+    font-size: 25px;
+    font-weight: 700;
+}
+.thumbItem img{
+    height: 160px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+.thumbName{
+    color: #000;
+    font-size: 12px;
+}
+
+.thumbName:hover {
+    color: blue;
+}

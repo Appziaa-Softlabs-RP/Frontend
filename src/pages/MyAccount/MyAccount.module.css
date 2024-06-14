@@ -1,0 +1,49 @@
+.loginBox{
+  background: #FFF;
+  border-radius: 6px;
+}
+.loginImage{
+  height: 60px;
+  width: 60px;
+}
+.loginImage svg{
+    height: 40px;
+    width: 40px;
+}
+.profileName{
+    color: #353A4F;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px;
+}
+.profileNumber, .profileEmail{
+    color: #353A4F;
+    font-size: 14px;
+    line-height: 16px;
+}
+.accountRow{
+    min-height: 45px;
+    transition: .2s;
+}
+.accountIcon{
+    height: 40px;
+    width: 40px;
+}
+.accountIcon svg{
+    height: 30px;
+    width: 30px;
+}
+.accountLabel{
+    color: #353A4F;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+}
+.LoggedOutRow .accountLabel{
+    color: var(--PRIMARY_COLOR);
+}
+.activeMenu{
+    background-color: var(--MENU_HOVER_COLOR);
+    font-weight: bold;
+    border-left: 4px solid var(--PRIMARY_COLOR);
+}
