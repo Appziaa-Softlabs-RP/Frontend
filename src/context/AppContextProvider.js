@@ -7,7 +7,7 @@ export const AppProvider = ({ children }) => {
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     loggedIn: localStorage.getItem("loggedIn") ? true : false,
     fetchWallet: localStorage.getItem("bettoken") ? true : false,
-    windowWidth: window.innerWidth > 560 ? "desktop" : "mobile",
+    windowWidth: window.innerWidth > 900 ? "desktop" : "mobile",
     cartCount: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")).length : 0,
     cartData: localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [],
     cartID: localStorage.getItem("cartID") ? localStorage.getItem("cartID") : '',
