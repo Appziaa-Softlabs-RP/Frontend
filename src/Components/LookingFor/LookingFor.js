@@ -5,7 +5,6 @@ import { useApp } from "../../context/AppContextProvider";
 import styles from "./LookingFor.module.css";
 
 import { useAppStore } from "../../store";
-import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
 
 export const LookingFor = () => {
@@ -16,7 +15,9 @@ export const LookingFor = () => {
   let windowWidth = appData.appData.windowWidth;
 
   const subCatProduts = (categorySlug, verticalSlug) => {
-    navigate(`/store-product/vertical/${verticalSlug}/category/${categorySlug}`);
+    navigate(
+      `/store-product/vertical/${verticalSlug}/category/${categorySlug}`
+    );
   };
 
   useEffect(() => {

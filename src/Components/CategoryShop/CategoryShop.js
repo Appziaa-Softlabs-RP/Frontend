@@ -8,9 +8,8 @@ export const CategoryShop = () => {
   const [shopCategory, setShopCategory] = useState([]);
   const navigate = useNavigate();
 
-  const getCategoryProd = (name, id) => {
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store/${category}`, { state: { cat: id } });
+  const getCategoryProd = (name_url) => {
+    navigate(`/store/${name_url}`);
   };
 
   useEffect(() => {
@@ -43,9 +42,7 @@ export const CategoryShop = () => {
                   <div
                     key={index}
                     className={`${styles.categoryblock} d-inline-flex flex-column gap-2`}
-                    onClick={() =>
-                      getCategoryProd(item?.name, item?.vertical_id)
-                    }
+                    onClick={() => getCategoryProd(item?.name_url)}
                   >
                     <div
                       className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center overflow-hidden`}

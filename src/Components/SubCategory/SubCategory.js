@@ -8,9 +8,13 @@ import { enviroment } from "../../enviroment";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { useApp } from "../../context/AppContextProvider";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useParams } from "react-router-dom";
+import { PageHeader } from "../PageHeader/PageHeader";
 
 let currentCat = "";
 export const SubCategory = ({ categoryID }) => {
+  const { categorySlug } = useParams();
+
   const slideRef = useRef([]);
   const [shopCategory, setShopCategory] = useState([]);
   const [subShopCategory, setSubShopCategory] = useState([]);
@@ -47,6 +51,7 @@ export const SubCategory = ({ categoryID }) => {
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       subcategory_id: subId,
+      vertical_slug: categorySlug,
       page: 1,
       result_per_page: 10,
     };
@@ -63,7 +68,7 @@ export const SubCategory = ({ categoryID }) => {
   const getCategoryProd = (currentCat) => {
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_id: currentCat,
+      vertical_slug: categorySlug,
       page: 1,
       result_per_page: 10,
     };
@@ -80,11 +85,12 @@ export const SubCategory = ({ categoryID }) => {
   const fetchProducts = () => {
     const catpayload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_id: categoryID,
+      vertical_slug: categorySlug,
     };
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       vertical_id: categoryID,
+      vertical_slug: categorySlug,
       page: 1,
       result_per_page: 10,
     };
@@ -171,7 +177,15 @@ export const SubCategory = ({ categoryID }) => {
   }, [shopCategory]);
   return (
     <React.Fragment>
-      {shopCategory?.length && windowWidth === "mobile" ? (
+      <div
+        style={{
+          width: "100%",
+        }}
+      >
+        <PageHeader title="Explore Category" />
+      </div>
+
+      {shopCategory?.length ? (
         <React.Fragment>
           <div
             className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}
@@ -189,6 +203,11 @@ export const SubCategory = ({ categoryID }) => {
                   catActive === "" && styles.active
                 } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
                 onClick={() => fetchProducts()}
+                style={{
+                  maxHeight: "100px",
+                  maxWidth: "100px",
+                  marginBottom: "2rem",
+                }}
               >
                 <div
                   className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}
@@ -215,6 +234,10 @@ export const SubCategory = ({ categoryID }) => {
                     } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
                     onClick={() => getSubCategory(item?.category_id)}
                     ref={(element) => (slideRef.current[index] = element)}
+                    style={{
+                      maxHeight: "100px",
+                      maxWidth: "100px",
+                    }}
                   >
                     <div
                       className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}
@@ -272,6 +295,9 @@ export const SubCategory = ({ categoryID }) => {
         className={`col-12 d-inline-flex ${
           windowWidth === "desktop" && "mt-5"
         }`}
+        style={{
+          marginTop: "10px",
+        }}
       >
         <div className={`${windowWidth === "mobile" && "p-0"} container`}>
           <InfiniteScroll
@@ -299,6 +325,17 @@ export const SubCategory = ({ categoryID }) => {
           </InfiniteScroll>
         </div>
       </div>
+
+      {categoryProd?.length === 0 && (
+        <div
+          className="col-12 d-inline-flex justify-content-center align-items-center"
+          style={{
+            color: "gray",
+          }}
+        >
+          <h3>No Products Found</h3>
+        </div>
+      )}
     </React.Fragment>
   );
 };

@@ -163,7 +163,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     <React.Fragment>
       {windowWidth === "mobile" ? (
         <div
-          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3`}
+          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3 px-3`}
         >
           <div className={`col-12 d-inline-flex align-items-center`}>
             <span
