@@ -14,7 +14,7 @@ export const SearchAgeFilter = ({
 }) => {
   const [allBrands, setAllBrands] = useState(brands);
   const [selectedBrandId, setSelectedBrandId] = useState([]);
-  
+
   const [allBrandLen, setAllBrandLen] = useState({
     length: 0,
     allBrands: [],
@@ -47,7 +47,7 @@ export const SearchAgeFilter = ({
           length: brands?.length,
         }));
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   useEffect(() => {
@@ -68,8 +68,8 @@ export const SearchAgeFilter = ({
             }
             return 0;
           });
-        //   setAllBrands(allBrand);
-        //   getAgeBrandOption(allBrand);
+          //   setAllBrands(allBrand);
+          //   getAgeBrandOption(allBrand);
         }
       })
       .catch((err) => {
@@ -80,56 +80,45 @@ export const SearchAgeFilter = ({
   const filterBrand = (id) => {
 
     setSelectedBrandId((prev) => {
-        if (prev.includes(id)) {
-          // If id is already in the array, remove it
-          return prev.filter((brandId) => brandId !== id);
-        } else {
-          // If id is not in the array, add it
-          return [...prev, id];
-        }
-      });
-
+      const updatedArray = prev.includes(id)
+        ? prev.filter((brandId) => brandId !== id)
+        : [...prev, id];
+      return updatedArray;
+    });
     setFilterVal({ ...allfilterVal, brandId: selectedBrandId });
-    fetchFilterProd();
   };
 
   const filterPrice = (min, max) => {
     setFilterVal({ ...allfilterVal, priceMax: max, priceMin: min });
-    fetchFilterProd();
   };
 
   const resetFilterPrice = () => {
     setFilterVal({ ...allfilterVal, priceMax: "", priceMin: "" });
-    fetchFilterProd();
   };
 
   const filterAge = (id) => {
     setFilterVal({ ...allfilterVal, ageGroup: id });
-    fetchFilterProd();
   };
 
   const resetFilterAge = () => {
     setFilterVal({ ...allfilterVal, ageGroup: "" });
-    fetchFilterProd();
   };
 
   const filterGender = (id) => {
     setFilterVal({ ...allfilterVal, genderId: id });
-    fetchFilterProd();
   };
 
   const resetFilterGender = () => {
     setFilterVal({ ...allfilterVal, genderId: "" });
-    fetchFilterProd();
   };
 
   const searchBrandName = (val) => {
     setSearchBrand(val);
     if (val?.length > 0) {
       var result = allBrandLen.allBrands.filter(searchByFirstName);
-    //   setAllBrands(result);
+      //   setAllBrands(result);
     } else {
-    //   setAllBrands(allBrandLen.allBrands);
+      //   setAllBrands(allBrandLen.allBrands);
     }
   };
 
@@ -147,7 +136,7 @@ export const SearchAgeFilter = ({
       vertical_id: filterVert,
       from_price: allfilterVal.priceMin,
       to_price: allfilterVal.priceMax,
-      brand_id: allfilterVal.brandId ? allfilterVal.brandId : null,
+      brand_id: selectedBrandId ?? null,
       gender: allfilterVal.genderId ? [allfilterVal.genderId] : null,
       age: allfilterVal.ageGroup,
       page: 1,
@@ -161,16 +150,17 @@ export const SearchAgeFilter = ({
           setProductActualData(res.payload_FilterByProductAge);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   useEffect(() => {
-    // fetchFilterProd();
-  }, [allfilterVal]);
+    fetchFilterProd();
+  }, [allfilterVal, selectedBrandId]);
 
   return (
     <React.Fragment>
       <div className="col-12 d-inline-flex flex-column gap-3">
+
         {allBrands?.length > 0 && (
           <div
             className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
@@ -207,6 +197,7 @@ export const SearchAgeFilter = ({
                           id={`brand-checkbox-${index}`}
                           onClick={(e) => filterBrand(item?.id)}
                           type="checkbox"
+                          checked={selectedBrandId.includes(item.id)}
                           className={`${styles.address_option}`}
                           value={item.id}
                           name="brand"
