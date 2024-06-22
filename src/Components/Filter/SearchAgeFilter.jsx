@@ -161,7 +161,7 @@ export const SearchAgeFilter = ({
     <React.Fragment>
       <div className="col-12 d-inline-flex flex-column gap-3">
 
-        {allBrands?.length > 0 && (
+        {brands?.length > 0 && (
           <div
             className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
           >
@@ -182,8 +182,8 @@ export const SearchAgeFilter = ({
                   onChange={(e) => searchBrandName(e.target.value)}
                 />
               </li>
-              {allBrands?.length > 0 &&
-                allBrands?.map((item, index) => {
+              {brands?.length > 0 &&
+                brands?.map((item, index) => {
                   return (
                     <li
                       className={`${styles.filterRow} col-12 d-inline-flex align-items-center`}
