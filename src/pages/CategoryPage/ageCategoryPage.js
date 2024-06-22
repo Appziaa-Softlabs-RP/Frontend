@@ -34,7 +34,7 @@ export const AgeCategoryPage = () => {
   const [apiPayload, setApiPayload] = useState(null);
   const [isDescendingOrder, setIsDscendingOrder] = useState(false);
   const [isAscendingOrder, setIsAscendingOrder] = useState(false);
-  const [brands, setBrands] = useState([])
+  const [brands, setBrands] = useState([]);
 
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
@@ -81,10 +81,12 @@ export const AgeCategoryPage = () => {
           setProductData(res.payload_ageGroupByProduct?.products);
           setProductActualData(res.payload_ageGroupByProduct?.products);
           setBrands(res.payload_ageGroupByProduct?.brands);
-          
+
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
-          setFilterVert(res.payload_ageGroupByProduct?.products[0]["vertical_id"]);
+          setFilterVert(
+            res.payload_ageGroupByProduct?.products[0]["vertical_id"]
+          );
         }
       })
       .catch((err) => {});
@@ -348,11 +350,13 @@ export const AgeCategoryPage = () => {
                 </label>
               </div>
             </div>
-            <SearchFilter
+            <SearchAgeFilter
+              ageSlug={ageId}
               filterVert={filterVert}
               filterCatg={filterCatg}
               setProductData={setProductData}
               setProductActualData={setProductActualData}
+              brands={brands}
             />
             <div
               className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
