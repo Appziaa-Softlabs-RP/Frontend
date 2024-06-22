@@ -394,6 +394,14 @@ ApiService.storeFilterNew = function (data) {
   });
 };
 
+ApiService.storeFilterAge = function (data) {
+  return fetch({
+    url: "store/FilterByProductAge",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.storeFilterBrand = function (data) {
   return fetch({
     url: "store/categoryByBrand",

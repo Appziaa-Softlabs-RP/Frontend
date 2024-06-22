@@ -34,6 +34,7 @@ export const AgeCategoryPage = () => {
   const [apiPayload, setApiPayload] = useState(null);
   const [isDescendingOrder, setIsDscendingOrder] = useState(false);
   const [isAscendingOrder, setIsAscendingOrder] = useState(false);
+  const [brands, setBrands] = useState([])
 
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
@@ -77,10 +78,13 @@ export const AgeCategoryPage = () => {
     ApiService.ageGroupProduct(data)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
-          setProductData(res.payload_ageGroupByProduct);
-          setProductActualData(res.payload_ageGroupByProduct);
+          setProductData(res.payload_ageGroupByProduct?.products);
+          setProductActualData(res.payload_ageGroupByProduct?.products);
+          setBrands(res.payload_ageGroupByProduct?.brands);
+          
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
+          setFilterVert(res.payload_ageGroupByProduct?.products[0]["vertical_id"]);
         }
       })
       .catch((err) => {});
@@ -94,7 +98,7 @@ export const AgeCategoryPage = () => {
         if (res.message === "Fetch successfully.") {
           let prevProdArr = [];
           prevProdArr = ProductData;
-          let newProd = res.payload_ageGroupByProduct;
+          let newProd = res.payload_ageGroupByProduct?.products;
           for (let i = 0; i < newProd.length; i++) {
             // if new product already exists
             if (prevProdArr.find((item) => item.id === newProd[i].id)) {
@@ -118,7 +122,7 @@ export const AgeCategoryPage = () => {
       store_id: parseInt(enviroment.STORE_ID),
       age_group_slug: ageId,
     };
-    setFilterVert(locationState?.state?.verticalId);
+    // setFilterVert(locationState?.state?.verticalId);
     setFilterCatg(locationState?.state?.categoryId);
     payload.page = 1;
     payload.result_per_page = 10;
@@ -165,10 +169,12 @@ export const AgeCategoryPage = () => {
                     className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
                   >
                     <SearchAgeFilter
+                      ageSlug={ageId}
                       filterVert={filterVert}
                       filterCatg={filterCatg}
                       setProductData={setProductData}
                       setProductActualData={setProductActualData}
+                      brands={brands}
                     />
                   </div>
                 )}
