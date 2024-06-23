@@ -6,14 +6,22 @@ import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
+import { ProductOfferCard } from "../ProductOfferCard/ProductOfferCard";
 
-export const ProductListCard = ({Product, index, hideQty}) => {
+export const ProductListCard = ({ setSelectedOfferProductId,
+    offers,
+    selectedOfferId,
+    setSelectedOfferId,
+    Product,
+    index,
+    hideQty}) => {
     const [prodAdded, setProdAdded] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const [userInfo, setUserInfo] = useState({});
     const appData = useApp();
     const navigate = useNavigate();
-    
+    const windowWidth = appData.appData.windowWidth;
+
     let discountOff = '';
     if(Product?.mrp > Product?.selling_price){
         discountOff = ((Product?.mrp - Product?.selling_price) * 100) / Product?.mrp;
@@ -237,6 +245,38 @@ export const ProductListCard = ({Product, index, hideQty}) => {
                         }
                     </div>
                 </div>
+                {
+            (offers && offers?.products?.length > 0) ?
+            <div className={`${styles.featuredProductBox} col-12 d-inline-flex flex-column py-4`}>
+            <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
+                <h5 className={`${styles.availSizeTitle} font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${windowWidth === "mobile" && 'px-4'}`}>
+                Applicable Offer - {offers?.name}
+                </h5>
+                {/* <ReactOwlCarousel className={`${styles.allFeaturedProduct} ${windowWidth === "mobile" && 'px-3'} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}> */}
+                <div style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap"
+                }}>
+                    {offers?.products?.map((item, index) => {
+                        return (<div key={index}>
+                          <ProductOfferCard
+                          offer_id={offers?.id}
+                          setSelectedOfferProductId={setSelectedOfferProductId}
+                          selectedOfferId={selectedOfferId}
+                          setSelectedOfferId={setSelectedOfferId}
+                          key={index}
+                          item={item}
+                            index={index} />
+                          </div>    
+                        )
+                    })}
+            </div>
+                {/* </ReactOwlCarousel> */}
+            </div>
+        </div>
+            : null
+          }
             </div>
         </React.Fragment>
     )

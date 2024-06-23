@@ -162,6 +162,14 @@ ApiService.updateCart = function (data) {
   });
 };
 
+ApiService.applicableOffers = function (data) {
+  return fetch({
+    url: "store/applicable-offer",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.addMultipleCart = function (data) {
   return fetch({
     url: "store/addTocartMultiple",
