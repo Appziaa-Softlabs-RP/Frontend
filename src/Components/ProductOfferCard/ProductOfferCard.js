@@ -122,11 +122,20 @@ export const ProductOfferCard = ({
         {item.stock > 0 && (
           <React.Fragment>
             <span
+              style={{
+                color: "#75BF3A",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Free
+            </span>
+            <span
               onClick={setOfferProductItem}
               role="button"
               className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}
               style={{
-                background: selectedOfferId === item?.id ? '#F9C100' : '',
+                background: selectedOfferId === item?.id ? "#F9C100" : "",
               }}
             >
               {selectedOfferId === item?.id ? (
