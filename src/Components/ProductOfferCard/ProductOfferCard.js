@@ -121,15 +121,20 @@ export const ProductOfferCard = ({
         )}
         {item.stock > 0 && (
           <React.Fragment>
-            <span
+            <p
+            className="text-uppercase"
               style={{
+                position: "absolute",
                 color: "#75BF3A",
                 fontWeight: "bold",
                 textAlign: "center",
+                width: "100%",
+                left: "0px",
+                fontSize: "20px"
               }}
             >
               Free
-            </span>
+            </p>
             <span
               onClick={setOfferProductItem}
               role="button"
