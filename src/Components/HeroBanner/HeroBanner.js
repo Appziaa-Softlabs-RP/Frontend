@@ -23,9 +23,11 @@ export const HeroBanner = ({ allBanner }) => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
 
-  const openBannerProd = (verticalId, subCatId, prodId, categoryId) => {
+  const openBannerProd = (verticalId, subCatId, prodId, categoryId, siteLink) => {
     let category = 'Banner';
-    if(prodId !== null) {
+    if(siteLink !== null) {
+      navigate(siteLink);
+    }else if(prodId !== null) {
       const payload = {
           product_id: prodId,
           company_id: parseInt(enviroment.COMPANY_ID),
@@ -87,7 +89,7 @@ export const HeroBanner = ({ allBanner }) => {
               return (
                 <React.Fragment key={index}>
                   {item?.mobile_image !== '' &&
-                    <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id)}>
+                    <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id, item?.site_link)}>
                       <img
                         src={item?.mobile_image}
                         alt={item?.name}
@@ -118,7 +120,7 @@ export const HeroBanner = ({ allBanner }) => {
                   return (
                     <React.Fragment key={index}>
                       {item?.image !== '' &&
-                        <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id)}>
+                        <div className={styles.item} onClick={() => openBannerProd(item?.vertical_id, item?.subcategory_id, item?.product_id, item?.category_id, item?.site_link)}>
                           <img src={item?.image}
                             alt={item?.name}
                             className="object-fit-cover col-12 d-inline-block"
