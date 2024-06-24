@@ -47,6 +47,7 @@ export const ProductCard = ({ item, index }) => {
       quantity: 1,
       deal_type_id: dealId,
     };
+
     if (cartInfo === null) {
       cartInfo = [cardObj];
     } else {
@@ -55,6 +56,24 @@ export const ProductCard = ({ item, index }) => {
         cartInfo.push(cardObj);
       }
     }
+
+    // validating if the item has is_hot_deals=1, if the same item exists and the no. of items in cart are greater than item?.no_of_quantity_allowed then send error limit exceeds
+    if (dealType === 1) {
+      let cartDealItems = cartInfo.filter((obj) => obj.is_hot_deals === 1);
+      let cartDealItemsQty = cartDealItems.reduce(
+        (a, b) => a + (b["quantity"] || 0),
+        0
+      );
+      if (cartDealItemsQty > noQty) {
+        AppNotification(
+          "Error",
+          "You have reached the product quantity limit.",
+          "danger"
+        );
+        return false;
+      }
+    }
+
     appData.setAppData({
       ...appData.appData,
       cartData: cartInfo,
@@ -213,14 +232,27 @@ export const ProductCard = ({ item, index }) => {
         role="button"
         key={index}
       >
-        {parseFloat(item.mrp) > parseFloat(item.selling_price) && (
-          <span
-            className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
-          >
-            {Math.ceil(((item?.mrp - item?.selling_price) * 100) / item?.mrp)}%
-            OFF
-          </span>
-        )}
+        {item?.is_deal
+          ? parseFloat(item.mrp) > parseFloat(item.deals_price) && (
+              <span
+                className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
+              >
+                {Math.ceil(
+                  ((item?.mrp - item?.deals_price) * 100) / item?.mrp
+                )}
+                % OFF
+              </span>
+            )
+          : parseFloat(item.mrp) > parseFloat(item.selling_price) && (
+              <span
+                className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
+              >
+                {Math.ceil(
+                  ((item?.mrp - item?.selling_price) * 100) / item?.mrp
+                )}
+                % OFF
+              </span>
+            )}
 
         <Link
           to={`/product/${item?.name_url}`}
@@ -236,7 +268,7 @@ export const ProductCard = ({ item, index }) => {
           ) : (
             ""
           )}
-          <div
+                    <div
             className={`d-flex align-items-center  justify-content-center ${styles.productImgContainer}`}
           >
             <img
@@ -272,15 +304,24 @@ export const ProductCard = ({ item, index }) => {
         </Link>
         <div>
           <Link
-          to={`/product/${item?.name_url}`}
-          style={{
+            to={`/product/${item?.name_url}`}
+            style={{
               textDecoration: "none",
             }}
             className={`${styles.offerItemName} col-12 p-0 mb-1`}
           >
             {item.name}
           </Link>
-          {item.mrp > item.selling_price ? (
+          {item?.is_deal === 1 && item.deals_price != 0 ? (
+            <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
+              <span className={`${styles.offerPrice} d-inline-flex`}>
+                <b>₹{item.deals_price}</b>
+              </span>
+              <del className={`${styles.offerDiscountPrice} d-inline-flex`}>
+                ₹{item.mrp}
+              </del>
+            </div>
+          ) : item.mrp > item.selling_price ? (
             <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
               <span className={`${styles.offerPrice} d-inline-flex`}>
                 <b>₹{item.selling_price}</b>
@@ -296,6 +337,7 @@ export const ProductCard = ({ item, index }) => {
               >
                 <b>₹{item.mrp}</b>
               </span>
+              
             </div>
           )}
           {item.stock > 0 && (
@@ -355,6 +397,14 @@ export const ProductCard = ({ item, index }) => {
                 </div>
               )}
             </React.Fragment>
+          )}
+          {item.stock <= 0 && (
+            <span
+              role="button"
+              className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}
+            >
+              Sold out!
+            </span>
           )}
         </div>
       </div>

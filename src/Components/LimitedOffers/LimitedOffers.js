@@ -63,11 +63,13 @@ export const LimitedOffers = () => {
                                         </ReactOwlCarousel>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     ): ('')}
                 </React.Fragment>
             }
+
         </React.Fragment>
     )
 }
