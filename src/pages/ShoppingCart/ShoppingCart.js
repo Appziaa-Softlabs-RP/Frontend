@@ -39,10 +39,18 @@ export const ShoppingCart = () => {
       allPrice = 0;
     if (cartData?.length) {
       cartData?.map((item) => {
-        let qtyTotal = item?.quantity * item?.selling_price;
+
+        let itemPrice = item?.is_hot_deals ? item?.deal_price : item?.selling_price !== item?.mrp ? item?.selling_price : item?.mrp;
+
+        let qtyTotal = item?.quantity * itemPrice;
         allTotal = allTotal + qtyTotal;
-        let saveTotal = (item?.mrp - item?.selling_price) * item.quantity;
+        let saveTotal = (item?.mrp - itemPrice) * item.quantity;
         allSaving = allSaving + saveTotal;
+
+        // if is_hot_deal then add deal_price
+        // if selling_price is less than mrp then mrp
+        // else mrp
+        // let qtyTotal = item?.quantity * item?.selling_price;
       });
       allPrice = allTotal + allSaving;
       setCartPriceTotal((cartPriceTotal) => ({

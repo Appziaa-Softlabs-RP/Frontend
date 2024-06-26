@@ -26,27 +26,8 @@ export const CartSummery = ({
   const [cartSummryData, setCartSummyData] = useState(cartData);
   const windowWidth = appData.appData.windowWidth;
 
-  const showProductDetail = (id) => {
-    const payload = {
-      product_id: id,
-      company_id: parseInt(enviroment.COMPANY_ID),
-      store_id: parseInt(enviroment.STORE_ID),
-    };
-    ApiService.productDetails(payload)
-      .then((res) => {
-        if (res.message === "Product Detail") {
-          navigate(`/product?id=${id}`, { state: { product: res.payload } });
-        } else {
-          AppNotification(
-            "Error",
-            "Sorry, Product detail not found.",
-            "danger"
-          );
-        }
-      })
-      .catch((err) => {
-        AppNotification("Error", "Sorry, Product detail not found.", "danger");
-      });
+  const showProductDetail = (name_url) => {
+    navigate(`/product/${name_url}`);
   };
 
   const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
@@ -253,7 +234,7 @@ export const CartSummery = ({
                 >
                   <div
                     className="d-inline-flex align-items-center col-3 gap-1"
-                    onClick={() => showProductDetail(item.product_id)}
+                    onClick={() => showProductDetail(item.name_url)}
                   >
                     <span
                       className={`${styles.itemImage} d-inline-flex flex-shrink-0`}
@@ -266,14 +247,27 @@ export const CartSummery = ({
                   </div>
                   <div className="col-2 d-inline-flex flex-column">
                     <span className={`${styles.productPrice} d-inline-flex`}>
-                      ₹{item.selling_price}
+                      ₹
+                      {item.is_hot_deals && item.deal_price !== 0
+                        ? item.deal_price
+                        : item.mrp > item.selling_price
+                        ? item.selling_price
+                        : item.mrp}
                     </span>
-                    {item.selling_price !== item.mrp && (
+                    {item.is_hot_deals && item.deal_price !== 0 ? (
                       <del
                         className={`${styles.productMrpPrice} d-inline-flex`}
                       >
                         ₹{item?.mrp}
                       </del>
+                    ) : (
+                      item.selling_price !== item.mrp && (
+                        <del
+                          className={`${styles.productMrpPrice} d-inline-flex`}
+                        >
+                          ₹{item?.mrp}
+                        </del>
+                      )
                     )}
                   </div>
                   <div className="col-2 d-inline-flex align-items-center">
@@ -321,16 +315,24 @@ export const CartSummery = ({
                   <div className="col-2 d-inline-flex flex-column">
                     <span className={`${styles.productPrice} d-inline-flex`}>
                       ₹
-                      {parseFloat(item.selling_price * item.quantity).toFixed(
-                        2
-                      )}
+                      {parseFloat(
+                        (item.is_hot_deals && item.deal_price !== 0
+                          ? item.deal_price
+                          : item.mrp > item.selling_price
+                          ? item.selling_price
+                          : item.mrp) * item.quantity
+                      ).toFixed(2)}
                     </span>
                   </div>
                   <div className="col-2 d-inline-flex flex-column">
                     <span className={`${styles.savingPrice} d-inline-flex`}>
-                      ₹
+                      ₹{" "}
                       {parseFloat(
-                        (item.mrp - item.selling_price) * item.quantity
+                        (item.is_hot_deals && item.deal_price !== 0
+                          ? item.mrp - item.deal_price
+                          : item.mrp > item.selling_price
+                          ? item.mrp - item.selling_price
+                          : 0) * item.quantity
                       ).toFixed(2)}
                     </span>
                   </div>
@@ -353,38 +355,48 @@ export const CartSummery = ({
               No Product Added into the Cart
             </div>
           )}
-          {
-            (offers && offers?.products?.length > 0) ?
-            <div className={`${styles.featuredProductBox} col-12 d-inline-flex flex-column py-4`}>
-            <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
-                <h5 className={`${styles.availSizeTitle} font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${windowWidth === "mobile" && 'px-4'}`}>
-                Applicable Offer - {offers?.name}
+          {offers && offers?.products?.length > 0 ? (
+            <div
+              className={`${styles.featuredProductBox} col-12 d-inline-flex flex-column py-4`}
+            >
+              <div className={`${windowWidth === "mobile" && "p-0"} container`}>
+                <h5
+                  className={`${
+                    styles.availSizeTitle
+                  } font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${
+                    windowWidth === "mobile" && "px-4"
+                  }`}
+                >
+                  Applicable Offer - {offers?.name}
                 </h5>
                 {/* <ReactOwlCarousel className={`${styles.allFeaturedProduct} ${windowWidth === "mobile" && 'px-3'} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}> */}
-                <div style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap"
-                }}>
-                    {offers?.products?.map((item, index) => {
-                        return (<div key={index}>
-                          <ProductOfferCard
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {offers?.products?.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <ProductOfferCard
                           offer_id={offers?.id}
                           setSelectedOfferProductId={setSelectedOfferProductId}
                           selectedOfferId={selectedOfferId}
                           setSelectedOfferId={setSelectedOfferId}
                           key={index}
                           item={item}
-                            index={index} />
-                          </div>    
-                        )
-                    })}
-            </div>
+                          index={index}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
                 {/* </ReactOwlCarousel> */}
+              </div>
             </div>
-        </div>
-            : null
-          }
+          ) : null}
           {cartSummryData?.length > 0 && (
             <div
               className={`${styles.placeOrderBtnBox} col-12 p-3 d-inline-flex align-items-center justify-content-end gap-3`}

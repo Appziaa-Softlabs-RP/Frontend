@@ -30,8 +30,10 @@ export const ProductCard = ({ item, index }) => {
     let stockQTY = item?.stock;
     let Quantity = 1;
     let noQty = item?.no_of_quantity_allowed;
-    let dealType = item?.deal_type ? item?.deal_type : 0;
+    let dealType = item?.is_deal ? item?.is_deal : 0;
     let dealId = item?.deal_type_id;
+    let dealPrice = item?.deals_price;
+    let nameUrl = item?.name_url;
 
     let cardObj = {
       company_id: parseInt(enviroment.COMPANY_ID),
@@ -46,6 +48,8 @@ export const ProductCard = ({ item, index }) => {
       selling_price: sellingPrice,
       quantity: 1,
       deal_type_id: dealId,
+      deal_price: dealPrice,
+      name_url: nameUrl
     };
 
     if (cartInfo === null) {
@@ -99,6 +103,8 @@ export const ProductCard = ({ item, index }) => {
         deal_type_id: dealId,
         company_id: parseInt(enviroment.COMPANY_ID),
         store_id: parseInt(enviroment.STORE_ID),
+        deal_price: dealPrice,
+        name_url: nameUrl
       },
     ];
 
