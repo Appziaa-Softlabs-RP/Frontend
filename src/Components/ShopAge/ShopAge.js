@@ -65,9 +65,9 @@ export const ShopAge = () => {
                 <ReactOwlCarousel
                   className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
                   margin={10}
-                  dots={false}
+                  dots={true}
                   items={responsiveItems}
-                  loop={false}
+                  loop={true}
                   nav={true}
                 >
                   {categAge.map((item, index) => {
