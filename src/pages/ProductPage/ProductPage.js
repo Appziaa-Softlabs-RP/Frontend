@@ -523,6 +523,39 @@ export const ProductPage = () => {
               dots={true}
               items={1}
             >
+                <div
+                    className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+                  >
+                    {prodMainImg ? (
+                      <img
+                        src={ProductData?.image}
+                        alt={ProductData?.name}
+                        className="col-12 d-inline-block"
+                        style={{
+                          maxHeight: "500px",
+                          width: "auto",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                        style={{
+                          height: "500px",
+                        }}
+                      >
+                        <ThreeDots
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="#CF102E"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      </div>
+                    )}
+                  </div>
               {ProductData?.gallery_images?.map((item, index) => {
                 return (
                   <div

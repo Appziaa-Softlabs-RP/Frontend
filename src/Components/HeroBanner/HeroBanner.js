@@ -26,7 +26,7 @@ export const HeroBanner = ({ allBanner }) => {
   const openBannerProd = (verticalId, subCatId, prodId, categoryId, siteLink) => {
     let category = 'Banner';
     if(siteLink !== null) {
-      navigate(siteLink);
+      if (window !== undefined) window.open(siteLink, "_blank");
     }else if(prodId !== null) {
       const payload = {
           product_id: prodId,
