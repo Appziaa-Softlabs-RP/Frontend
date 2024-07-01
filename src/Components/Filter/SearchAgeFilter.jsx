@@ -115,17 +115,17 @@ export const SearchAgeFilter = ({
   const searchBrandName = (val) => {
     setSearchBrand(val);
     if (val?.length > 0) {
-      var result = allBrandLen.allBrands.filter(searchByFirstName);
-      //   setAllBrands(result);
+      var result = allBrands?.filter(searchByFirstName);
+        setAllBrands(result);
     } else {
-      //   setAllBrands(allBrandLen.allBrands);
+        setAllBrands(brands);
     }
   };
 
   const searchByFirstName = (item) => {
     return (
-      item.name.toLowerCase().substring(0, searchBrand?.length) ==
-      searchBrand.toLowerCase()
+      item?.name?.toLowerCase().substring(0, searchBrand?.length) ==
+      searchBrand?.toLowerCase()
     );
   };
 
@@ -182,8 +182,8 @@ export const SearchAgeFilter = ({
                   onChange={(e) => searchBrandName(e.target.value)}
                 />
               </li>
-              {brands?.length > 0 &&
-                brands?.map((item, index) => {
+              {allBrands?.length > 0 &&
+                allBrands?.map((item, index) => {
                   return (
                     <li
                       className={`${styles.filterRow} col-12 d-inline-flex align-items-center`}
