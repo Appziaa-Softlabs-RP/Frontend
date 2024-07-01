@@ -115,7 +115,7 @@ export const SearchAgeFilter = ({
   const searchBrandName = (val) => {
     setSearchBrand(val);
     if (val?.length > 0) {
-      var result = allBrands?.filter(searchByFirstName);
+      var result = brands?.filter(searchByFirstName);
         setAllBrands(result);
     } else {
         setAllBrands(brands);

@@ -12,7 +12,8 @@ export const SearchFilter = ({
     setProductDataLen,
     keyword = null
 }) => {
-    const [allBrands, setAllBrands] = useState("");
+    const [allBrands, setAllBrands] = useState([]);
+    const [brandData, setBrandData] = useState([]);
     const [allBrandLen, setAllBrandLen] = useState({
         length: 0,
         allBrands: [],
@@ -28,6 +29,26 @@ export const SearchFilter = ({
         genderName: "",
         ageGroup: "",
     });
+
+
+    const searchBrandName = (val) => {
+        setSearchBrand(val);
+        if (val?.length > 0) {
+            var result = allBrands?.filter(searchByFirstName);
+            setBrandData(result);
+        } else {
+            setBrandData(allBrands);
+        }
+    };
+
+
+    const searchByFirstName = (item) => {
+        return (
+            item?.brand_name?.toLowerCase().substring(0, searchBrand?.length) ==
+            searchBrand?.toLowerCase()
+        );
+    };
+
 
     const filterBrand = (id) => {
         setFilterVal((prevState) => {
@@ -125,12 +146,11 @@ export const SearchFilter = ({
     }, [filterCatg]);
 
     const fetchFilterProd = () => {
-        console.log('workign')
         const payload = {
             store_id: enviroment.STORE_ID,
             vertical_id: filterVert,
             keyword: keyword,
-            gender: (allfilterVal?.genderName && allfilterVal?.genderName)!='' ? allfilterVal?.genderName : null,
+            gender: (allfilterVal?.genderName && allfilterVal?.genderName) != '' ? allfilterVal?.genderName : null,
             price_to: allfilterVal.priceMax ? allfilterVal.priceMax : null,
             price_from: allfilterVal.priceMin ? allfilterVal.priceMin : null,
             age: allfilterVal.ageGroup ? allfilterVal.ageGroup : null,
@@ -156,6 +176,11 @@ export const SearchFilter = ({
         fetchFilterProd();
     }, [allfilterVal]);
 
+
+    useEffect(() => {
+        setBrandData(allBrands)
+    }, [allBrands]);
+
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column gap-3">
@@ -174,13 +199,13 @@ export const SearchFilter = ({
                             <input
                                 type="search"
                                 placeholder="Search Brand"
-                                // value={searchBrand}
+                                value={searchBrand}
                                 className={`${styles.filterSearchInput} col-12 d-inline-flex p-3`}
-                            // onChange={(e) => searchBrandName(e.target.value)}
+                                onChange={(e) => searchBrandName(e.target.value)}
                             />
                         </li>
-                        {allBrands.length > 0 &&
-                            allBrands?.map((item, index) => {
+                        {brandData.length > 0 &&
+                            brandData?.map((item, index) => {
                                 return (
                                     <li
                                         className={`${styles.filterRow} col-12 d-inline-flex align-items-center`}
