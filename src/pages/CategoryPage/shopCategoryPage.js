@@ -21,7 +21,6 @@ import styles from "./CategoryPage.module.css";
 export const ShopCategoryPage = () => {
   const { categorySlug, verticalSlug } = useParams();
 
-  const locationState = useLocation();
   const [ProductData, setProductData] = useState([]);
   const [ProductActualData, setProductActualData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,11 +71,11 @@ export const ShopCategoryPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    ApiService.CategoryByProd(data)
+    ApiService.StoreCategoryProd(data)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
-          setProductData(res.payload_CategoryByProduct);
-          setProductActualData(res.payload_CategoryByProduct);
+          setProductData(res.payload_VerticalByProduct);
+          setProductActualData(res.payload_VerticalByProduct);
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
         }
@@ -87,12 +86,12 @@ export const ShopCategoryPage = () => {
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
-    ApiService.CategoryByProd(apiPayload)
+    ApiService.StoreCategoryProd(apiPayload)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
           let prevProdArr = [];
           prevProdArr = ProductData;
-          let newProd = res.payload_CategoryByProduct;
+          let newProd = res.payload_VerticalByProduct;
           for (let i = 0; i < newProd.length; i++) {
             prevProdArr.push(newProd[i]);
           }
@@ -110,17 +109,16 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      category_slug: categorySlug,
+      vertical_slug: categorySlug,
     };
     setFilterVert(verticalSlug);
     setFilterCatg(categorySlug);
     payload.page = 1;
     payload.result_per_page = 10;
     console.log(payload);
-    console.log(locationState);
     setApiPayload(payload);
     fetchProductsList(payload);
-  }, [locationState]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -138,7 +136,7 @@ export const ShopCategoryPage = () => {
         }`}
       >
         <div className="container">
-          {locationState?.state?.banner !== "" &&
+          {/* {locationState?.state?.banner !== "" &&
             locationState?.state?.banner !== null &&
             locationState?.state?.banner !== undefined && (
               <div
@@ -150,7 +148,7 @@ export const ShopCategoryPage = () => {
                   className="col-12 d-inline-block"
                 />
               </div>
-            )}
+            )} */}
           {loading && <ProductListLoader />}
           {loading === false && (
             <div
