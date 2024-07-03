@@ -170,62 +170,72 @@ export const Footer = () => {
               <ul
                 className={`${styles.footerMenu} d-inline-flex flex-column gap-2 list-unstyled`}
               >
-                <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
-                >
-                  <Link
-                    to={enviroment.INSTAGRAM_LINK}
-                    className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    target="_blank"
-                    rel="noopener"
-                    title={`${enviroment.BUSINESS_NAME} on Instagram`}
+                {enviroment.INSTAGRAM_LINK &&
+                  enviroment.INSTAGRAM_LINK !== "" && (
+                    <li
+                      className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                    >
+                      <Link
+                        to={enviroment.INSTAGRAM_LINK}
+                        className="d-inline-flex align-items-center text-decoration-none gap-1"
+                        target="_blank"
+                        rel="noopener"
+                        title={`${enviroment.BUSINESS_NAME} on Instagram`}
+                      >
+                        <InstagramIcon />
+                        <span className="icon__fallback-text">Instagram</span>
+                      </Link>
+                    </li>
+                  )}
+                {enviroment.FACEBOOK_LINK &&
+                  enviroment.FACEBOOK_LINK !== "" && (
+                    <li
+                      className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                    >
+                      <Link
+                        to={enviroment.FACEBOOK_LINK}
+                        className="d-inline-flex align-items-center text-decoration-none gap-1"
+                        target="_blank"
+                        rel="noopener"
+                        title={`${enviroment.BUSINESS_NAME} on Facebook`}
+                      >
+                        <FacebookIcon />
+                        <span className="icon__fallback-text">Facebook</span>
+                      </Link>
+                    </li>
+                  )}
+                {enviroment.TWITTER_LINK && enviroment.TWITTER_LINK !== "" && (
+                  <li
+                    className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
                   >
-                    <InstagramIcon />
-                    <span className="icon__fallback-text">Instagram</span>
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
-                >
-                  <Link
-                    to={enviroment.FACEBOOK_LINK}
-                    className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    target="_blank"
-                    rel="noopener"
-                    title={`${enviroment.BUSINESS_NAME} on Facebook`}
+                    <Link
+                      to={enviroment.TWITTER_LINK}
+                      className="d-inline-flex align-items-center text-decoration-none gap-1"
+                      target="_blank"
+                      rel="noopener"
+                      title={`${enviroment.BUSINESS_NAME}  on Twitter`}
+                    >
+                      <TwitterIcon />
+                      <span className="icon__fallback-text">Twitter</span>
+                    </Link>
+                  </li>
+                )}
+                {enviroment.TWITTER_LINK && enviroment.BUSINESS_NAME !== "" && (
+                  <li
+                    className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
                   >
-                    <FacebookIcon />
-                    <span className="icon__fallback-text">Facebook</span>
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
-                >
-                  <Link
-                    to={enviroment.TWITTER_LINK}
-                    className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    target="_blank"
-                    rel="noopener"
-                    title={`${enviroment.BUSINESS_NAME}  on Twitter`}
-                  >
-                    <TwitterIcon />
-                    <span className="icon__fallback-text">Twitter</span>
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
-                >
-                  <Link
-                    to={enviroment.LINKEDIN_LINK}
-                    className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    target="_blank"
-                    rel="noopener"
-                    title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
-                  >
-                    <LinkedInIcon />
-                    <span className="icon__fallback-text">LinkedIn</span>
-                  </Link>
-                </li>
+                    <Link
+                      to={enviroment.LINKEDIN_LINK}
+                      className="d-inline-flex align-items-center text-decoration-none gap-1"
+                      target="_blank"
+                      rel="noopener"
+                      title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
+                    >
+                      <LinkedInIcon />
+                      <span className="icon__fallback-text">LinkedIn</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -417,38 +427,50 @@ export const Footer = () => {
                 >
                   <h5>Get social with us</h5>
                   <ul className="list-unstyled d-inline-flex align-items-center mb-3 gap-3">
-                    <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.FACEBOOK_LINK}
-                        target="_blank"
-                        className="text-decoration-none"
-                      >
-                        <FacebookIcon />
-                      </Link>
-                    </li>
-                    <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.TWITTER_LINK}
-                        target="_blank"
-                        className="text-decoration-none"
-                      >
-                        <TwitterIcon />
-                      </Link>
-                    </li>
-                    <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
-                        <InstagramIcon />
-                      </Link>
-                    </li>
-                    <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.YOUTUBE_LINK}
-                        target="_blank"
-                        className="text-decoration-none"
-                      >
-                        <YoutubeIcon />
-                      </Link>
-                    </li>
+                    {enviroment.FACEBOOK_LINK &&
+                      enviroment.FACEBOOK_LINK !== "" && (
+                        <li className={`${styles.socialIcon} list-unstyled`}>
+                          <Link
+                            to={enviroment.FACEBOOK_LINK}
+                            target="_blank"
+                            className="text-decoration-none"
+                          >
+                            <FacebookIcon />
+                          </Link>
+                        </li>
+                      )}
+                    {enviroment.TWITTER_LINK &&
+                      enviroment.TWITTER_LINK !== "" && (
+                        <li className={`${styles.socialIcon} list-unstyled`}>
+                          <Link
+                            to={enviroment.TWITTER_LINK}
+                            target="_blank"
+                            className="text-decoration-none"
+                          >
+                            <TwitterIcon />
+                          </Link>
+                        </li>
+                      )}
+                    {enviroment.INSTAGRAM_LINK &&
+                      enviroment.INSTAGRAM_LINK !== "" && (
+                        <li className={`${styles.socialIcon} list-unstyled`}>
+                          <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
+                            <InstagramIcon />
+                          </Link>
+                        </li>
+                      )}
+                    {enviroment.YOUTUBE_LINK &&
+                      enviroment.YOUTUBE_LINK !== "" && (
+                        <li className={`${styles.socialIcon} list-unstyled`}>
+                          <Link
+                            to={enviroment.YOUTUBE_LINK}
+                            target="_blank"
+                            className="text-decoration-none"
+                          >
+                            <YoutubeIcon />
+                          </Link>
+                        </li>
+                      )}
                   </ul>
                   <h5 className="mb-2">Contact Us</h5>
                   <div className="d-inline-flex align-items-center mb-3">
