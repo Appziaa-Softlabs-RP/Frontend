@@ -27,7 +27,6 @@ import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
 import { Terms } from "../pages/Terms/Terms";
 import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { SubCategory } from "../Components/SubCategory/SubCategory";
 
 export const PublicRoutes = () => {
   return (
@@ -38,7 +37,7 @@ export const PublicRoutes = () => {
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
-      <Route path="/store/:categorySlug" element={<SubCategory />} />
+      <Route path="/store/:categorySlug" element={<ShopCategoryPage />} />
       <Route path="/store-product/:category" element={<StoreProductCategory />} />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
