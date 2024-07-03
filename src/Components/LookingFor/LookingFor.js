@@ -46,7 +46,6 @@ export const LookingFor = () => {
               <ReactOwlCarousel
                 className={`carousel-looking-for col-12 d-inline-block owl-theme`}
                 margin={10}
-                loop={true}
                 dots={false}
                 items={8}
                 stagePadding={0}
