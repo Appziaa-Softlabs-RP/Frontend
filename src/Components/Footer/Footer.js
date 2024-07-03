@@ -451,6 +451,7 @@ export const Footer = () => {
                           </Link>
                         </li>
                       )}
+                      
                     {enviroment.INSTAGRAM_LINK &&
                       enviroment.INSTAGRAM_LINK !== "" && (
                         <li className={`${styles.socialIcon} list-unstyled`}>
