@@ -162,6 +162,22 @@ ApiService.updateCart = function (data) {
   });
 };
 
+ApiService.offers = function (data) {
+  return fetch({
+    url: "store/offers",
+    method: "post",
+    data: data,
+  });
+};
+
+ApiService.applicableOffers = function (data) {
+  return fetch({
+    url: "store/applicable-offer",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.addMultipleCart = function (data) {
   return fetch({
     url: "store/addTocartMultiple",
@@ -389,6 +405,14 @@ ApiService.storeFilter = function (data) {
 ApiService.storeFilterNew = function (data) {
   return fetch({
     url: "store/FilterByProductNew",
+    method: "post",
+    data: data,
+  });
+};
+
+ApiService.storeFilterAge = function (data) {
+  return fetch({
+    url: "store/FilterByProductAge",
     method: "post",
     data: data,
   });
