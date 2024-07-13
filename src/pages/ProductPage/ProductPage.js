@@ -296,7 +296,7 @@ export const ProductPage = () => {
     if (val.length > 5) {
       axios
         .post(`${enviroment.DELIVERY_URL}/pincode-status`, {
-          store_email: "hello@milltoo.in",
+          store_email: "milltoo7002@gmail.com",
           pincode: val,
         })
         .then(function (res) {

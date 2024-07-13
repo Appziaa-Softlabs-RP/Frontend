@@ -73,8 +73,8 @@ export const Cancellation = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <a className="c17" href="mailto:hello@milltoo.in">
-                  hello@milltoo.in
+                <a className="c17" href="mailto:milltoo7002@gmail.com">
+                  milltoo7002@gmail.com
                 </a>
               </span>
               <span className="c8">&nbsp;</span>
@@ -169,8 +169,8 @@ export const Cancellation = () => {
               contact us at{" "}
             </span>
             <span className="c15">
-              <a className="c17" href="mailto:hello@milltoo.in">
-                hello@milltoo.in
+              <a className="c17" href="mailto:milltoo7002@gmail.com">
+                milltoo7002@gmail.com
               </a>
             </span>
             <span className="c8">&nbsp;or by phone at</span>
