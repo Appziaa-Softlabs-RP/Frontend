@@ -145,7 +145,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               >
                 <Link
                   className="d-inline-flex align-items-center text-decoration-none"
-                  href="mailto:milltoo7002@gmail.com"
+                  href="mailto:awdheshkumar.jha@gmail.com"
                 >
                   <span className="icon-and-text">
                     <svg viewBox="0 0 512 512">
@@ -157,7 +157,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                         ></path>
                       </g>
                     </svg>
-                    <span>milltoo7002@gmail.com</span>
+                    <span>awdheshkumar.jha@gmail.com</span>
                   </span>
                 </Link>
               </li>

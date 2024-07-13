@@ -278,7 +278,7 @@ selectedOfferId,
         currency: "INR",
         name: enviroment.BUSINESS_NAME,
         description: "Order Purchase",
-        image: "https://milltoo.in/favicon.ico",
+        image: "https://pujapath.co.in/favicon.ico",
         order_id: orderId,
         handler: (res) => {
           onlinePaymentSuccess(
