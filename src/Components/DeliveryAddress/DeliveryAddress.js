@@ -278,7 +278,7 @@ selectedOfferId,
         currency: "INR",
         name: enviroment.BUSINESS_NAME,
         description: "Order Purchase",
-        image: "https://pujapath.co.in/favicon.ico",
+        image: "https://poojapath.co.in/favicon.ico",
         order_id: orderId,
         handler: (res) => {
           onlinePaymentSuccess(
