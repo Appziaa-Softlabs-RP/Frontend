@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Aside.module.css";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
 
 export const Aside = ({ asideOpen, setAsideOpen }) => {
   const navigate = useNavigate();
@@ -144,7 +145,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               >
                 <Link
                   className="d-inline-flex align-items-center text-decoration-none"
-                  href="mailto:hello@knickknack.online"
+                  href="mailto:hello@milltoo.in"
                 >
                   <span className="icon-and-text">
                     <svg viewBox="0 0 512 512">
@@ -156,7 +157,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                         ></path>
                       </g>
                     </svg>
-                    <span>hello@knickknack.online</span>
+                    <span>hello@milltoo.in</span>
                   </span>
                 </Link>
               </li>
@@ -172,7 +173,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                 className={`${styles.listSocialLink} d-inline-flex align-items-center`}
               >
                 <Link
-                  href="https://www.facebook.com/knickknacktoys42"
+                  to={enviroment.FACEBOOK_LINK}
                   className="d-inline-flex text-decoration-none list-social__link link"
                 >
                   <svg className="icon icon-facebook" viewBox="0 0 18 18">
@@ -187,7 +188,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                 className={`${styles.listSocialLink} d-inline-flex align-items-center`}
               >
                 <Link
-                  href="https://www.instagram.com/knickknacktoys42/"
+                  to={enviroment.FACEBOOK_LINK}
                   className="d-inline-flex text-decoration-none list-social__link link"
                 >
                   <svg className="icon icon-instagram" viewBox="0 0 18 18">
