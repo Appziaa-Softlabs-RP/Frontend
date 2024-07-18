@@ -8,10 +8,10 @@ import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
 import {
-    BackArrowIcon,
-    FilterIcon,
-    OrderIcon,
-    SortByIcon,
+  BackArrowIcon,
+  FilterIcon,
+  OrderIcon,
+  SortByIcon,
 } from "../../Components/siteIcons";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
@@ -109,7 +109,7 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: categorySlug,
+      vertical_slug: verticalSlug,
     };
     setFilterVert(verticalSlug);
     setFilterCatg(categorySlug);
