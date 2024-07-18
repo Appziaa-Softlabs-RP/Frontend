@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./sitemap.css"; // Create a CSS file to style your sitemap
+import { Header } from "../Header/Header";
+import { Footer } from "../Footer/Footer";
 
 const Sitemap = () => {
   const [data, setData] = useState({
@@ -8,11 +10,18 @@ const Sitemap = () => {
     verticals: [],
     products: [],
     staticRoutes: [],
+    ageGroupList: [],
   });
 
   useEffect(() => {
     const fetchData = async () => {
       const storeId = process.env.REACT_APP_STORE_ID;
+
+      // Fetch age Group List
+      const ageGroupResponse = await axios.post(
+        "https://rewardsplus.in/api/store/ageGroupList",
+        { store_id: storeId }
+      );
 
       // Fetch brands
       const brandResponse = await axios.post(
@@ -64,6 +73,7 @@ const Sitemap = () => {
         verticals: verticalsWithCat,
         products,
         staticRoutes,
+        ageGroupList: ageGroupResponse?.data?.payload_ageGroupList?.age_group,
       });
     };
 
@@ -71,67 +81,83 @@ const Sitemap = () => {
   }, []);
 
   return (
-    <div className="sitemap">
-      <h1>Sitemap</h1>
+    <>
+      <Header />
+      <div className="sitemap">
+        <h1>Sitemap</h1>
 
-      <div className="sitemap-section">
-        <h2>Static Routes</h2>
-        <ul>
-          {data.staticRoutes.map((route, index) => (
-            <li key={index}>
-              <a href={route}>{route}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="sitemap-section">
-        <h2>Brands</h2>
-        <ul>
-          {data.brands.map((brand, index) => (
-            <li key={index}>
-              <a href={`/store-product/brand/${brand.brand_id}`}>
-                {brand.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="sitemap-section">
-        <h2>Verticals</h2>
-        {data.verticals.map((vertical, index) => (
-          <div key={index}>
-            <h3>{vertical.name}</h3>
-            <ul>
-              <li>
+        <div className="sitemap-section">
+          <h2>Verticals</h2>
+          {data.verticals.map((vertical, index) => (
+            <div key={index}>
+              <h3>
                 <a href={`/store/${vertical.name_url}`}>{vertical.name}</a>
-              </li>
-              {vertical.catList.map((cat, catIndex) => (
-                <li key={catIndex}>
-                  <a
-                    href={`/store-product/vertical/${vertical.name_url}/category/${cat.name_url}`}
-                  >
-                    {cat.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="sitemap-section">
-        <h2>Products</h2>
-        <ul>
-          {data.products.map((product, index) => (
-            <li key={index}>
-              <a href={`/product/${product.name_url}`}>{product.name}</a>
-            </li>
+              </h3>
+              <ul>
+                {vertical.catList.map((cat, catIndex) => (
+                  <li key={catIndex}>
+                    <a
+                      href={`/store-product/vertical/${vertical.name_url}/category/${cat.name_url}`}
+                    >
+                      {cat.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
+
+        <div className="sitemap-section">
+          <h2>Brands</h2>
+          <ul>
+            {data.brands.map((brand, index) => (
+              <li key={index}>
+                <a href={`/store-product/brand/${brand.brand_id}`}>
+                  {brand.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sitemap-section">
+          <h2>Age Groups</h2>
+          <ul>
+            {data.ageGroupList?.map((ageGroup, index) => (
+              <li key={index}>
+                <a href={`/store/age/${ageGroup.name_url}`}>
+                  {ageGroup.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sitemap-section">
+          <h2>Static Routes</h2>
+          <ul>
+            {data.staticRoutes.map((route, index) => (
+              <li key={index}>
+                <a href={route}>{route}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sitemap-section">
+          <h2>Products</h2>
+          <ul>
+            {data.products.map((product, index) => (
+              <li key={index}>
+                <a href={`/product/${product.name_url}`}>{product.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

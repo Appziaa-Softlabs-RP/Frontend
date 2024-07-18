@@ -16,13 +16,26 @@
   margin-bottom: 10px;
 }
 
+h3{
+  font-size: 20px;
+  margin: 5px;
+}
+
+h3 a{
+  font-weight: 600;
+  text-decoration: none;
+}
+
 .sitemap-section ul {
   list-style-type: none;
   padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .sitemap-section ul li {
-  margin-bottom: 5px;
+  margin: 10px;
 }
 
 .sitemap-section ul li a {
