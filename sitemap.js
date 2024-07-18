@@ -9,6 +9,20 @@ const sitemap = async () => {
   const storeId = process.env.REACT_APP_STORE_ID;
   const appUrl = process.env.REACT_APP_URL;
 
+  // get age group list
+  const ageGroupResponse = await axios.post(
+    "https://rewardsplus.in/api/store/ageGroupList",
+    {
+      store_id: storeId,
+    }
+  );
+  const ageGroupList = ageGroupResponse?.data?.payload_ageGroupList?.age_group;
+
+  const ageGroups = ageGroupList?.map(
+    (ageGroup) => `/store/age/${ageGroup.name_url}`
+  );
+
+
   // get all Brands
   const brandResponse = await axios.post(
     "https://rewardsplus.in/api/store/getAllBrands",
@@ -62,13 +76,6 @@ const sitemap = async () => {
     (product) => `/product/${product.name_url}`
   );
 
-  // Website routes
-  const app = fs.readFileSync(
-    path.join("./src/routes/PublicRoutes.js"),
-    "utf8"
-  );
-  const routes = app.match(/<Route path=".*" element={.*} \/>/g);
-
   const urls = [
     "/home",
     "/login",
@@ -100,6 +107,7 @@ ${[
   ...categoryUrls,
   ...verticalCatUrls,
   ...brandsUrls,
+  ...ageGroups
 ]
   .map(
     (url) => `
@@ -123,6 +131,7 @@ ${[
   ...categoryUrls,
   ...verticalCatUrls,
   ...brandsUrls,
+  ...ageGroups
 ]
   .map(
     (url) => `
