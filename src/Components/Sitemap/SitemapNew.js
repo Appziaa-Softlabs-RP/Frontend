@@ -3,8 +3,11 @@ import axios from "axios";
 import "./sitemap.css"; // Create a CSS file to style your sitemap
 import { Header } from "../Header/Header";
 import { Footer } from "../Footer/Footer";
+import { Aside } from "../Aside/Aside";
 
 const Sitemap = () => {
+  const [asideOpen, setAsideOpen] = useState(false);
+
   const [data, setData] = useState({
     brands: [],
     verticals: [],
@@ -82,7 +85,8 @@ const Sitemap = () => {
 
   return (
     <>
-      <Header />
+      <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
+      <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
       <div className="sitemap">
         <h1>Sitemap</h1>
 
@@ -126,9 +130,7 @@ const Sitemap = () => {
           <ul>
             {data.ageGroupList?.map((ageGroup, index) => (
               <li key={index}>
-                <a href={`/store/age/${ageGroup.name_url}`}>
-                  {ageGroup.name}
-                </a>
+                <a href={`/store/age/${ageGroup.name_url}`}>{ageGroup.name}</a>
               </li>
             ))}
           </ul>
