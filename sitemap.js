@@ -137,7 +137,7 @@ ${[
   .join("\n")}
 </urlset>`;
 
-  fs.writeFileSync(path.join("./public/sitemap.xml"), sitemap1);
+  fs.writeFileSync(path.join("./public/sitemap1.xml"), sitemap1);
   fs.writeFileSync(path.join("./public/sitemap2.xml"), sitemap2);
 };
 
