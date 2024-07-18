@@ -1,0 +1,35 @@
+.sitemap {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.sitemap h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sitemap-section {
+  margin-bottom: 20px;
+}
+
+.sitemap-section h2 {
+  margin-bottom: 10px;
+}
+
+.sitemap-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.sitemap-section ul li {
+  margin-bottom: 5px;
+}
+
+.sitemap-section ul li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.sitemap-section ul li a:hover {
+  text-decoration: underline;
+}

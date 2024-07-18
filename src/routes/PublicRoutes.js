@@ -27,6 +27,7 @@ import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
 import { Terms } from "../pages/Terms/Terms";
 import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import Sitemap from "../Components/Sitemap/SitemapNew";
 
 export const PublicRoutes = () => {
   return (
@@ -80,6 +81,8 @@ export const PublicRoutes = () => {
       <Route path="/faq" element={<Faq />} />
       <Route path="/Cancellation-policy" element={<Cancellation />} />
       <Route path="/press" element={<Press />} />
+      <Route path="/sitemap" element={<Sitemap />} />
+      <Route path="/sitemap2" element={<Sitemap />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
