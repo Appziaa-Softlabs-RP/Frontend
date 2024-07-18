@@ -67,10 +67,27 @@ const sitemap = async () => {
   );
   const routes = app.match(/<Route path=".*" element={.*} \/>/g);
 
-  const urls = routes.map((route) => {
-    const url = route.match(/path="(.*)"/)[1];
-    return url;
-  });
+  const urls = [
+    '/home',
+    '/login',
+    '/register',
+    '/verify',
+    '/shop-offers',
+    '/offers',
+    '/checkout',
+    '/my-account',
+    '/my-orders',
+    '/order-details',
+    '/my-address',
+    '/privacy',
+    '/terms',
+    '/return-policy',
+    '/about-us',
+    '/faq',
+    '/payments',
+    '/Cancellation-policy',
+    '/press'
+  ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
