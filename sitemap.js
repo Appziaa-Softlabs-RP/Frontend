@@ -137,9 +137,8 @@ ${[
   .join("\n")}
 </urlset>`;
 
-  const sitemap = sitemap1 + sitemap2;
-
-  fs.writeFileSync(path.join("./public/sitemap.xml"), sitemap);
+  fs.writeFileSync(path.join("./public/sitemap.xml"), sitemap1);
+  fs.writeFileSync(path.join("./public/sitemap2.xml"), sitemap2);
 };
 
 sitemap();
