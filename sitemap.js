@@ -42,7 +42,9 @@ const sitemap = async () => {
     verticalUrls.push(`/store/${element.name_url}`);
     element.catList.forEach((cat) => {
       categoryUrls.push(`/store-product/${cat.name_url}`);
-      verticalCatUrls.push(`/store-product/vertical/${element.name_url}/category/${cat.name_url}`);
+      verticalCatUrls.push(
+        `/store-product/vertical/${element.name_url}/category/${cat.name_url}`
+      );
     });
   });
 
@@ -68,30 +70,37 @@ const sitemap = async () => {
   const routes = app.match(/<Route path=".*" element={.*} \/>/g);
 
   const urls = [
-    '/home',
-    '/login',
-    '/register',
-    '/verify',
-    '/shop-offers',
-    '/offers',
-    '/checkout',
-    '/my-account',
-    '/my-orders',
-    '/order-details',
-    '/my-address',
-    '/privacy',
-    '/terms',
-    '/return-policy',
-    '/about-us',
-    '/faq',
-    '/payments',
-    '/Cancellation-policy',
-    '/press'
-  ]
+    "/home",
+    "/login",
+    "/register",
+    "/verify",
+    "/shop-offers",
+    "/offers",
+    "/checkout",
+    "/my-account",
+    "/my-orders",
+    "/order-details",
+    "/my-address",
+    "/privacy",
+    "/terms",
+    "/return-policy",
+    "/about-us",
+    "/faq",
+    "/payments",
+    "/Cancellation-policy",
+    "/press",
+  ];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap1 = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...urls, ...productUrls, ...verticalUrls, ...categoryUrls, ...verticalCatUrls, ...brandsUrls]
+${[
+  ...urls,
+  ...productUrls,
+  ...verticalUrls,
+  ...categoryUrls,
+  ...verticalCatUrls,
+  ...brandsUrls,
+]
   .map(
     (url) => `
 <url>
@@ -104,6 +113,32 @@ ${[...urls, ...productUrls, ...verticalUrls, ...categoryUrls, ...verticalCatUrls
   )
   .join("\n")}
 </urlset>`;
+
+  const sitemap2 = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${[
+  ...urls,
+  ...productUrls,
+  ...verticalUrls,
+  ...categoryUrls,
+  ...verticalCatUrls,
+  ...brandsUrls,
+]
+  .map(
+    (url) => `
+<url>
+<loc>https://knickknack.in${url}</loc>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+<lastmod>${new Date().toISOString()}</lastmod>
+</url>
+`
+  )
+  .join("\n")}
+</urlset>`;
+
+  const sitemap = sitemap1 + sitemap2;
+
   fs.writeFileSync(path.join("./public/sitemap.xml"), sitemap);
 };
 
