@@ -9,22 +9,62 @@ const sitemap = async () => {
   const storeId = process.env.REACT_APP_STORE_ID;
   const appUrl = process.env.REACT_APP_URL;
 
+  // get all Brands
+  const brandResponse = await axios.post(
+    "https://rewardsplus.in/api/store/getAllBrands",
+    {
+      store_id: storeId,
+    }
+  );
+
+  const brands = brandResponse?.data?.payload_getAllBrands;
+
+  const brandsUrls = brands?.map(
+    (brand) => `/store-product/brand/${brand?.brand_id}`
+  );
+
+  // Vertical Response
+  const verticalWithCatResponse = await axios.post(
+    "https://rewardsplus.in/api/store/verticalWithCatList",
+    {
+      store_id: storeId,
+    }
+  );
+
+  const verticalsWithCat =
+    verticalWithCatResponse?.data?.payload_verticalWithCatList?.vertical;
+
+  let verticalUrls = [];
+  let categoryUrls = [];
+  let verticalCatUrls = [];
+
+  verticalsWithCat.forEach((element) => {
+    verticalUrls.push(`/store/${element.name_url}`);
+    element.catList.forEach((cat) => {
+      categoryUrls.push(`/store-product/${cat.name_url}`);
+      verticalCatUrls.push(`/store-product/vertical/${element.name_url}/category/${cat.name_url}`);
+    });
+  });
+
   // Product Routes
-  const response = await axios.post(
+  const productResponse = await axios.post(
     "https://rewardsplus.in/api/store/getAllProduct",
     {
       store_id: storeId,
     }
   );
 
-  const products = response?.data?.payload_getAllProducts;
+  const products = productResponse?.data?.payload_getAllProducts;
 
   const productUrls = products?.map(
     (product) => `/product/${product.name_url}`
   );
 
   // Website routes
-  const app = fs.readFileSync(path.join("./src/routes/PublicRoutes.js"), "utf8");
+  const app = fs.readFileSync(
+    path.join("./src/routes/PublicRoutes.js"),
+    "utf8"
+  );
   const routes = app.match(/<Route path=".*" element={.*} \/>/g);
 
   const urls = routes.map((route) => {
@@ -34,7 +74,7 @@ const sitemap = async () => {
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...urls, ...productUrls]
+${[...urls, ...productUrls, ...verticalUrls, ...categoryUrls, ...verticalCatUrls, ...brandsUrls]
   .map(
     (url) => `
 <url>
