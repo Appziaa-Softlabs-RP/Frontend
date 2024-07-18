@@ -123,6 +123,15 @@ export const Footer = () => {
                     Return Policies
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/sitemap"
+                    target="_blank"
+                    className="text-decoration-none d-inline-flex"
+                  >
+                    Sitemap
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -408,6 +417,15 @@ export const Footer = () => {
                         target="_blank"
                       >
                         Return Policies
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="text-decoration-none"
+                        to="/sitemap"
+                        target="_blank"
+                      >
+                        Sitemap
                       </Link>
                     </li>
                   </ul>
