@@ -418,6 +418,14 @@ ApiService.storeFilterAge = function (data) {
   });
 };
 
+ApiService.storeFilterCategory = function (data) {
+  return fetch({
+    url: "store/FilterByProductCategory",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.storeFilterBrand = function (data) {
   return fetch({
     url: "store/categoryByBrand",
@@ -429,6 +437,13 @@ ApiService.storeFilterBrand = function (data) {
 ApiService.storeFilterOption = function (data) {
   return fetch({
     url: "store/filterOption",
+    method: "post",
+    data: data,
+  });
+};
+ApiService.storeFilterOptionVerticalSlug = function (data) {
+  return fetch({
+    url: "store/filterOptionVerticalSlug",
     method: "post",
     data: data,
   });
