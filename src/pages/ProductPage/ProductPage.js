@@ -493,6 +493,15 @@ export const ProductPage = () => {
             name="description"
             content={removeHtmlAndTruncate(ProductData?.description)}
           />
+          {/* Product OG */}
+          <meta property="og:title" content={ProductData?.name} />
+          <meta
+            property="og:description"
+            content={removeHtmlAndTruncate(ProductData?.description)}
+          />
+          <meta property="og:image" content={ProductData?.image} />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:type" content="product" />
         </Helmet>
       )}
       {windowWidth === "mobile" ? (
