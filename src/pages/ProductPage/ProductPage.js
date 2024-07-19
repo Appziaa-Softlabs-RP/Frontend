@@ -422,11 +422,7 @@ export const ProductPage = () => {
         }
       })
       .catch((err) => {
-        AppNotification(
-          "Error",
-          "Sorry, Product detail not found.",
-          "danger"
-        );
+        AppNotification("Error", "Sorry, Product detail not found.", "danger");
       });
   }, [slug, navigate, searchParams]);
 
@@ -523,39 +519,39 @@ export const ProductPage = () => {
               dots={true}
               items={1}
             >
-                <div
-                    className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+              <div
+                className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+              >
+                {prodMainImg ? (
+                  <img
+                    src={ProductData?.image}
+                    alt={ProductData?.name}
+                    className="col-12 d-inline-block"
+                    style={{
+                      maxHeight: "500px",
+                      width: "auto",
+                    }}
+                  />
+                ) : (
+                  <div
+                    className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                    style={{
+                      height: "500px",
+                    }}
                   >
-                    {prodMainImg ? (
-                      <img
-                        src={ProductData?.image}
-                        alt={ProductData?.name}
-                        className="col-12 d-inline-block"
-                        style={{
-                          maxHeight: "500px",
-                          width: "auto",
-                        }}
-                      />
-                    ) : (
-                      <div
-                        className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                        style={{
-                          height: "500px",
-                        }}
-                      >
-                        <ThreeDots
-                          visible={true}
-                          height="80"
-                          width="80"
-                          color="#CF102E"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      </div>
-                    )}
+                    <ThreeDots
+                      visible={true}
+                      height="80"
+                      width="80"
+                      color="#CF102E"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
                   </div>
+                )}
+              </div>
               {ProductData?.gallery_images?.map((item, index) => {
                 return (
                   <div
@@ -712,6 +708,7 @@ export const ProductPage = () => {
                 }}
               >
                 <button
+                  aria-label="About product"
                   style={{
                     borderRadius: "4px",
                     border: "none",
@@ -722,6 +719,7 @@ export const ProductPage = () => {
                   <span>About product</span>&nbsp;
                 </button>
                 <button
+                  aria-label="About product"
                   style={{
                     borderRadius: "4px",
                     border: "none",
@@ -754,6 +752,7 @@ export const ProductPage = () => {
                   }}
                 >
                   <button
+                    aria-label="Other Info"
                     style={{
                       borderRadius: "4px",
                       border: "none",
@@ -764,6 +763,7 @@ export const ProductPage = () => {
                     <span>Other Info</span>&nbsp;
                   </button>
                   <button
+                    aria-label="Other Info"
                     style={{
                       borderRadius: "4px",
                       border: "none",
@@ -1008,30 +1008,24 @@ export const ProductPage = () => {
                       dots={false}
                       items={6}
                     >
-                      
                       <div
-                            className={`${styles.galleryBox} ${
-                              activeImg === -1 ? styles.activeGallery : ""
-                            } col-12 d-inline-flex align-items-center justify-content-center`}
-                            onClick={() =>
-                              setMainImage(
-                                ProductData?.image,
-                                -1
-                              )
-                            }
-                          >
-                            <img
-                              src={ProductData?.image}
-                              alt={ProductData?.name}
-                              className=""
-                              style={{
-                                height: "80px",
-                                maxHeight: "80px",
-                                maxWidth: "100%",
-                                objectFit: "contain",
-                              }}
-                            />
-                          </div>
+                        className={`${styles.galleryBox} ${
+                          activeImg === -1 ? styles.activeGallery : ""
+                        } col-12 d-inline-flex align-items-center justify-content-center`}
+                        onClick={() => setMainImage(ProductData?.image, -1)}
+                      >
+                        <img
+                          src={ProductData?.image}
+                          alt={ProductData?.name}
+                          className=""
+                          style={{
+                            height: "80px",
+                            maxHeight: "80px",
+                            maxWidth: "100%",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </div>
 
                       {ProductData?.gallery_images?.map((item, index) => {
                         return (
@@ -1489,6 +1483,7 @@ export const ProductPage = () => {
                           value={pincode || ""}
                         />
                         <button
+                          aria-label="Check Delivery"
                           onClick={() => getDeliveyInfo(pincode)}
                           type="button"
                           className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}

@@ -279,6 +279,7 @@ export const ShopCategoryPage = () => {
                 Sort By
               </div>
               <button
+                aria-label="Price: Low to High"
                 onClick={() => {
                   priceDescending();
                   setSortPopup(false);
@@ -288,6 +289,7 @@ export const ShopCategoryPage = () => {
                 Price: Low to High
               </button>
               <button
+                aria-label="Price: High to Low"
                 onClick={() => {
                   priceAscending();
                   setSortPopup(false);
@@ -297,6 +299,7 @@ export const ShopCategoryPage = () => {
                 Price: High to Low
               </button>
               <button
+                aria-label="Clear All"
                 onClick={() => {
                   resetSortFilter();
                   setSortPopup(false);
@@ -307,6 +310,7 @@ export const ShopCategoryPage = () => {
               </button>
             </div>
             <button
+              aria-label="Cancel"
               onClick={() => setSortPopup(false)}
               className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}
             >

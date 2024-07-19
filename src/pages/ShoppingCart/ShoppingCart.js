@@ -215,6 +215,7 @@ export const ShoppingCart = () => {
                       </span>
                     </div>
                     <button
+                      aria-label="Place Order"
                       className={`${styles.checkoutBtn} d-inline-flex align-items-center justify-content-center col-6 text-uppercase`}
                       onClick={() => placeOrder()}
                     >
