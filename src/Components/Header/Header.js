@@ -172,12 +172,21 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             >
               <MenuIcons color={enviroment.SECONDARY_COLOR} />
             </span>
-            <span
+            <h1
               onClick={() => routeHome()}
+              style={{ cursor: "pointer" }}
+              itemtype="http://schema.org/Organization"
               className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}
             >
-              <img src={siteLogo} alt="Logo" className="object-fit-contain" />
-            </span>
+              <span class="visually-hidden">
+                {enviroment.REACT_APP_BUSINESS_NAME}
+              </span>
+              <img
+                src={siteLogo}
+                alt={enviroment.REACT_APP_BUSINESS_NAME}
+                className="object-fit-contain"
+              />
+            </h1>
             <span
               className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`}
               onClick={() => openCart()}
@@ -259,17 +268,21 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <div
                 className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}
               >
-                <span
-                  className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}
-                  role="button"
+                <h1
                   onClick={() => routeHome()}
+                  itemtype="http://schema.org/Organization"
+                  style={{ cursor: "pointer" }}
+                  className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}
                 >
+                  <span class="visually-hidden">
+                    {enviroment.REACT_APP_BUSINESS_NAME}
+                  </span>
                   <img
                     src={siteLogo}
-                    alt="Logo"
+                    alt={enviroment.REACT_APP_BUSINESS_NAME}
                     className="object-fit-contain"
                   />
-                </span>
+                </h1>
                 <div
                   className={`d-inline-flex col-6 position-relative align-items-center`}
                 >
