@@ -364,11 +364,13 @@ export const StoreProductCategory = () => {
                                     </label>
                                 </div>
                             </div>
-                            <Filter
+                            <SearchCategoryFilter
+                                categorySlug={category}
                                 filterVert={filterVert}
                                 filterCatg={filterCatg}
                                 setProductData={setProductData}
                                 setProductActualData={setProductActualData}
+                                brands={brands}
                             />
                             <div
                                 className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
