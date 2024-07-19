@@ -126,7 +126,7 @@ export default function Reviews() {
         <div className={`${styles.sliderContainer}`}>
 
             <div className="col-md-3">
-                <img src="/review/Group.png" alt="" style={{
+                <img src="/review/Group.png" alt="rewview" style={{
                     width: "60px",
                     marginBottom: "-20px"
                 }} />
@@ -136,7 +136,7 @@ export default function Reviews() {
                 <p className="text-sm mt-3" style={{
                     color: "#1a1a1a"
                 }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with Knickknack.</p>
-                <a href="https://g.page/r/CYF-YBA6SelvEBM/review" target="_blank">
+                <a href="https://g.page/r/CYF-YBA6SelvEBM/review" rel='noreferrer' target="_blank">
                     <button className="text-white py-2 px-3 mt-3 mb-2" style={{
                         background: "#cf102e",
                         border: "none",
@@ -155,17 +155,17 @@ export default function Reviews() {
                     }}>
                         <div className="d-flex justify-content-between" style={{ alignItems: "center" }}>
                             <div className="d-flex" style={{ alignItems: "center" }}>
-                                <img src={review.image} alt="" style={{ width: "50px" }} />
+                                <img src={review.image} alt="rewview" style={{ width: "50px" }} />
                                 <div className="px-2">
                                     <p className="mb-0"><b>{review.name}</b></p>
                                     <p className="mb-0">{review.date}</p>
                                 </div>
                             </div>
-                            <img src="/review/gimg.png" alt="" style={{ maxWidth: "30px" }} />
+                            <img src="/review/gimg.png" alt="rewview" style={{ maxWidth: "30px" }} />
                         </div>
                         <div className="d-flex my-2">
                             {Array(review.rating).fill(0).map((_, index) => (
-                                <img key={index} src="/review/star-solid.png" alt="" style={{ maxWidth: "30px" }} />
+                                <img key={index} src="/review/star-solid.png" alt="rewview" style={{ maxWidth: "30px" }} />
                             ))}
                         </div>
                         <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>

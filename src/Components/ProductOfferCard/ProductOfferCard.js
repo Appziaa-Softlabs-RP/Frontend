@@ -80,7 +80,7 @@ export const ProductOfferCard = ({
               return (
                 <img
                   src={enviroment.API_IMAGE_GALLERY_URL + imagesrc}
-                  alt=""
+                  alt="gallery"
                   className={`${styles.galleryImage} position-absolute h-100 col-12 p-0`}
                   key={index}
                 />

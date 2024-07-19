@@ -74,7 +74,7 @@ export const BrandFocus = () => {
                       >
                         <img
                           src={item.offer_image}
-                          alt=""
+                          alt="offer"
                           className="object-contain p-0 col-12 d-inline-block position-absolute h-100 start-0 top-0"
                         />
                       </span>
@@ -83,7 +83,7 @@ export const BrandFocus = () => {
                       >
                         <img
                           src={item.brand_icon}
-                          alt=""
+                          alt="offer"
                           className="object-contain p-0 col-12 d-inline-block"
                         />
                         <label

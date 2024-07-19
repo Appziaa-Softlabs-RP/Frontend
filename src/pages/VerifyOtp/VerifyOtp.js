@@ -166,7 +166,7 @@ export const VerifyOtp = () => {
                     <span className='d-inline-flex flex-shrink-0' onClick={() => navigate(-1)}>
                         <BackArrowIcon color="#000" />
                     </span>
-                    <img src={OtpImg} alt="OTP Image" className={`${styles.OtpImgIcon} object-fit-contain`} />
+                    <img src={OtpImg} alt="img" className={`${styles.OtpImgIcon} object-fit-contain`} />
                     <div className="col-12 d-inline-flex align-items-center">
                         <span className={`${styles.verifyTxt} d-inline-flex`}>Verify</span>
                         <span className={`${styles.otpTxt} d-inline-flex`}>OTP</span>
