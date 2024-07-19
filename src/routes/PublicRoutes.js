@@ -82,8 +82,7 @@ export const PublicRoutes = () => {
       <Route path="/Cancellation-policy" element={<Cancellation />} />
       <Route path="/press" element={<Press />} />
       <Route path="/sitemap" element={<Sitemap />} />
-      <Route path="/sitemap2" element={<Sitemap />} />
-      <Route path="*" element={<Home />} />
+      <Route path="/" element={<Home />} />
     </Routes>
   );
 };
