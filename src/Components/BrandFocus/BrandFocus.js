@@ -42,7 +42,7 @@ export const BrandFocus = () => {
                 windowWidth === "mobile" ? "p-3" : "mt-3"
               } d-inline-flex flex-column`}
             >
-              <h6
+              <h2
                 className={`${styles.brandInTitle} col-12 ${
                   windowWidth === "desktop" ? "mb-4" : "mb-3"
                 } mt-0 fs-2`}
@@ -50,7 +50,7 @@ export const BrandFocus = () => {
                 {windowWidth === "mobile"
                   ? "Brands in Focus"
                   : "✨ Brands in Focus ✨"}
-              </h6>
+              </h2>
               <ReactOwlCarousel
                 className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
                 margin={10}
