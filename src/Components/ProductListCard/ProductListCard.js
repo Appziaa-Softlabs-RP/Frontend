@@ -191,7 +191,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                     <div className="col-12 p-0 d-inline-flex align-items-center">
                         <div className={`${styles.offerImgContainer} flex-shrink-0 text-decoration-none position-relative d-inline-block`}>
                             {Product?.image !== '' ? (
-                                <img src={Product?.image} alt={Product?.name} className="object-fit-contain"/>
+                                <img src={Product?.image} alt={Product?.name ?? 'product'} className="object-fit-contain"/>
                             ) : (   
                                 <img src={notAvail} alt={Product?.name} className="object-fit-contain"/>
                             )}

@@ -183,7 +183,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               </span>
               <img
                 src={siteLogo}
-                alt={enviroment.REACT_APP_BUSINESS_NAME}
+                alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
                 className="object-fit-contain"
               />
             </h1>
@@ -279,7 +279,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   </span>
                   <img
                     src={siteLogo}
-                    alt={enviroment.REACT_APP_BUSINESS_NAME}
+                    alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
                     className="object-fit-contain"
                   />
                 </h1>
