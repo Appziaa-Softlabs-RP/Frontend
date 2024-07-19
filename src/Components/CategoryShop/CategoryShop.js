@@ -29,11 +29,11 @@ export const CategoryShop = () => {
           <div
             className={`${styles.categoryBox} col-12 d-inline-flex flex-column p-3`}
           >
-            <h5
+            <h2
               className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex fs-2`}
             >
               Shop by Category
-            </h5>
+            </h2>
             <div
               className={`${styles.lookingContainer} col-12 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}
             >

@@ -36,11 +36,11 @@ export const LookingFor = () => {
               windowWidth === "mobile" && "p-0"
             } container d-flex flex-column m-auto`}
           >
-            <h5
+            <h2
               className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}
             >
               ✨ Shop by Category ✨
-            </h5>
+            </h2>
             <div className="col-12 d-inline-flex">
               <ReactOwlCarousel
                 className={`carousel-looking-for col-12 d-inline-block owl-theme`}
