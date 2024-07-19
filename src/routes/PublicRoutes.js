@@ -39,7 +39,10 @@ export const PublicRoutes = () => {
       <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
       <Route path="/store/:categorySlug" element={<ShopCategoryPage />} />
-      <Route path="/store-product/:category" element={<StoreProductCategory />} />
+      <Route
+        path="/store-product/:category"
+        element={<StoreProductCategory />}
+      />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
         element={<ShopCategoryPage />}
@@ -81,8 +84,8 @@ export const PublicRoutes = () => {
       <Route path="/faq" element={<Faq />} />
       <Route path="/Cancellation-policy" element={<Cancellation />} />
       <Route path="/press" element={<Press />} />
-      <Route path="/sitemap" element={<Sitemap />} />
-      <Route path="*" element={<Home />} />
+      <Route path="/sitemap" strict element={<Sitemap />} />
+      <Route path="/" element={<Home />} />
     </Routes>
   );
 };
