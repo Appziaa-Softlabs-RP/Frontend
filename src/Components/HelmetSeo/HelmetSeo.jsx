@@ -31,10 +31,10 @@ export default function HelmentSeo() {
                 property="og:image"
                 content="https://knickknack.online/logo.png"
             />
-            <meta
+            {/* <meta
                 property="og:secure_url"
                 content="https://knickknack.online/logo.png"
-            />
+            /> */}
         </Helmet>
     </>
 }
