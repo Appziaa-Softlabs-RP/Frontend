@@ -6,6 +6,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductCard.module.css";
 import noImage from "../../assets/images/image-not-available.jpg";
+import { ProductPage } from "../../pages/ProductPage/ProductPage";
 
 export const ProductCard = ({ item, index }) => {
   const [prodAdded, setProdAdded] = useState(false);
@@ -294,6 +295,11 @@ export const ProductCard = ({ item, index }) => {
           >
             <img
               onError={(e) => setNoImage(e)}
+              style={{
+                height: "100%",
+                width: "100%",
+                objectFit: "contain",
+              }}
               src={
                 item?.image
                   ? item.image?.replace(
