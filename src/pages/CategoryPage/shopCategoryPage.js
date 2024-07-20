@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Filter } from "../../Components/Filter/Filter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
@@ -17,7 +17,6 @@ import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const ShopCategoryPage = () => {
   const { categorySlug, verticalSlug } = useParams();
@@ -123,7 +122,6 @@ export const ShopCategoryPage = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (

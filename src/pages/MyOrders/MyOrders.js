@@ -1,18 +1,16 @@
 import React from "react";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { MyOrdersBox } from "../../Components/MyOrdersBox/MyOrdersBox";
+import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { MyOrdersBox } from "../../Components/MyOrdersBox/MyOrdersBox";
+import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { MyAccountMenu } from "../MyAccount/MyAccount";
-import { Footer } from "../../Components/Footer/Footer";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const MyOrders = () => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="My Orders" />

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { SavedAddress } from "../../Components/SavedAddress/SavedAddress";
-import styles from "./MyAddress.module.css";
-import { enviroment } from "../../enviroment";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
-import { useNavigate } from "react-router-dom";
-import { Header } from "../../Components/Header/Header";
 import { MyAccountMenu } from "../MyAccount/MyAccount";
-import { Footer } from "../../Components/Footer/Footer";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import styles from "./MyAddress.module.css";
 
 const UserAddressTab = ({ allAddress }) => {
   const navigate = useNavigate();
@@ -67,7 +66,6 @@ export const MyAddress = () => {
   }, []);
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="My Address" />

@@ -1,11 +1,10 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { SubCategory } from "../../Components/SubCategory/SubCategory";
-import { useLocation } from "react-router-dom";
-import { Header } from "../../Components/Header/Header";
-import { Footer } from "../../Components/Footer/Footer";
 import { useApp } from "../../context/AppContextProvider";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const SubCategoryPage = () => {
   const locationState = useLocation();
@@ -15,7 +14,6 @@ export const SubCategoryPage = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="Explore Categroy" />

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CategoryPage.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
+import { Filter } from "../../Components/Filter/Filter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
-import { ProductListLoader } from "../../Components/Loader/Loader";
-import { Filter } from "../../Components/Filter/Filter";
 import {
   BackArrowIcon,
   FilterIcon,
   OrderIcon,
   SortByIcon,
 } from "../../Components/siteIcons";
-import InfiniteScroll from "react-infinite-scroll-component";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import { useApp } from "../../context/AppContextProvider";
+import ApiService from "../../services/ApiService";
+import styles from "./CategoryPage.module.css";
 
 export const CategoryPage = () => {
   const locationState = useLocation();
@@ -181,7 +180,6 @@ export const CategoryPage = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
 import { MyOrdersDetail } from "../../Components/MyOrdersDetail/MyOrdersDetail";
 import { OrderAddress } from "../../Components/OrderAddress/OrderAddress";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import ApiService from "../../services/ApiService";
-import { useLocation } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
-import { Header } from "../../Components/Header/Header";
-import { Footer } from "../../Components/Footer/Footer";
+import ApiService from "../../services/ApiService";
 import { MyAccountMenu } from "../MyAccount/MyAccount";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const OrderDetails = () => {
   const location = useLocation();
@@ -26,7 +25,6 @@ export const OrderDetails = () => {
   }, []);
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="Order Detail" />

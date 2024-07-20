@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styles from "./ShoppingCart.module.css";
+import { useNavigate } from "react-router-dom";
 import { CartSummery } from "../../Components/CartSummery/CartSummery";
+import { DeliveryAddress } from "../../Components/DeliveryAddress/DeliveryAddress";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { OrderSummery } from "../../Components/OrderSummery/OrderSummery";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { useApp } from "../../context/AppContextProvider";
-import { DeliveryAddress } from "../../Components/DeliveryAddress/DeliveryAddress";
-import ApiService from "../../services/ApiService";
-import { enviroment } from "../../enviroment";
 import { ProductListCard } from "../../Components/ProductListCard/ProductListCard";
-import { AppNotification } from "../../utils/helper";
-import { useNavigate } from "react-router-dom";
 import { BuildingIcon, CartIcon, TimeIcon } from "../../Components/siteIcons";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import { AppNotification } from "../../utils/helper";
+import styles from "./ShoppingCart.module.css";
 
 export const ShoppingCart = () => {
   const appData = useApp();
@@ -174,7 +173,6 @@ export const ShoppingCart = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="Personal Cart" hide={true} />

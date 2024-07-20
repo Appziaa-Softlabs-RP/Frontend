@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Filter } from "../../Components/Filter/Filter";
 import { SearchCategoryFilter } from "../../Components/Filter/SearchCategoryFilter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
@@ -18,7 +17,6 @@ import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const StoreProductCategory = () => {
     const locationState = useLocation();
@@ -129,7 +127,6 @@ export const StoreProductCategory = () => {
 
     return (
         <React.Fragment>
-            <HelmentSeo />
             {windowWidth === "mobile" ? (
                 <PageHeader title="Explore Category" />
             ) : windowWidth === "desktop" ? (

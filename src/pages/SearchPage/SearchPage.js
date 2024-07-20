@@ -6,16 +6,15 @@ import { Header } from "../../Components/Header/Header";
 import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import { enviroment } from "../../enviroment";
-import ApiService from "../../services/ApiService";
-import styles from "./SearchPage.module.css";
 import {
   BackArrowIcon,
   FilterIcon,
   SortByIcon,
 } from "../../Components/siteIcons";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import styles from "./SearchPage.module.css";
 
 export const SearchPage = () => {
   const locationState = useLocation();
@@ -93,7 +92,6 @@ export const SearchPage = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (

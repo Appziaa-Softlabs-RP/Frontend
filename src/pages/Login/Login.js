@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import styles from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 import siteLogo from "../../assets/images/site_logo.png";
 import { enviroment } from "../../enviroment";
-import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import styles from "./Login.module.css";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -39,7 +38,6 @@ export const Login = () => {
   };
   return (
     <React.Fragment>
-      <HelmentSeo />
       <div className="min-vh-100 col-12 d-inline-flex flex-column">
         <div
           className={`${styles.loginTitle} col-12 d-inline-flex flex-column`}

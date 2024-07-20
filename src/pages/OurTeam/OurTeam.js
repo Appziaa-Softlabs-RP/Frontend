@@ -3,7 +3,6 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const OurTeam = () => {
   const appData = useApp();
@@ -14,7 +13,6 @@ export const OurTeam = () => {
   }, []);
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Our Team" hide={true} />
       ) : (

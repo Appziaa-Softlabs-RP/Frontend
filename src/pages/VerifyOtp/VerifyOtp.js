@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./VerifyOtp.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BackArrowIcon } from "../../Components/siteIcons";
 import OtpImg from "../../assets/images/mobile-otp.png";
-import { enviroment } from "../../enviroment";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import styles from "./VerifyOtp.module.css";
 
 let mobileOTPId = "",
   mobileNum = "";
@@ -212,7 +211,6 @@ export const VerifyOtp = () => {
   }, [optInput.otpInput4]);
   return (
     <React.Fragment>
-      <HelmentSeo />
       <div className={`d-inline-flex flex-column col-12 align-items-start p-3`}>
         <div
           className={`${styles.optHeader} col-12 p-3 d-inline-flex flex-column align-items-start gap-4`}

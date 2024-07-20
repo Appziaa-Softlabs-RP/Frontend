@@ -1,12 +1,11 @@
 import React from "react";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { useApp } from "../../context/AppContextProvider";
-import { Header } from "../../Components/Header/Header";
-import { MyAccountMenu } from "../MyAccount/MyAccount";
-import { Footer } from "../../Components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import { AddAddressForm } from "../../Components/AddAddressForm/AddAddressForm";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
+import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import { useApp } from "../../context/AppContextProvider";
+import { MyAccountMenu } from "../MyAccount/MyAccount";
 
 export const AddAddress = () => {
   const appData = useApp();
@@ -16,7 +15,6 @@ export const AddAddress = () => {
 
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader

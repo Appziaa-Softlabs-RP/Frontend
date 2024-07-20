@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 
@@ -14,7 +13,6 @@ export const AboutUs = () => {
   }, []);
   return (
     <React.Fragment>
-     <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="About Us" hide={true} />
       ) : (

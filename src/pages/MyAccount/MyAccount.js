@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
-import styles from "./MyAccount.module.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import {
-  OrderIcon,
-  UserIcon,
   LocationIcon,
   LogoutIcon,
+  OrderIcon,
+  UserIcon,
 } from "../../Components/siteIcons";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Footer } from "../../Components/Footer/Footer";
-import { Header } from "../../Components/Header/Header";
 import { AppNotification } from "../../utils/helper";
-import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
+import styles from "./MyAccount.module.css";
 
 const userMenu = [
   {
@@ -122,7 +121,6 @@ export const MyAccount = () => {
   }, []);
   return (
     <React.Fragment>
-      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="My Account" />
