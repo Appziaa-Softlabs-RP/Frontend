@@ -26,4 +26,8 @@
   .sliderContainer {
     flex-direction: row;
   }
+
+  .carousalBody{
+    padding: 25px;
+  }
 }

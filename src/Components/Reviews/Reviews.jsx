@@ -84,14 +84,6 @@ export default function Reviews() {
             review: "Knickknack is a dream come true for toy lovers like me! They've got an incredible selection of top brands like Hot Wheels and LEGO, all at prices that won't break the bank. The staff was super friendly and helpful, making my shopping experience a delight. Knickknack has definitely earned my loyalty as the go-to spot for quality toys!"
         },
         {
-            id: 4,
-            name: "Roman Khan",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a-/ALV-UjWSGqej9V4kFr0axsItP5kXh2O2w4l_D0PqoscsWy8DR0fGWZs=w36-h36-p-rp-mo-br100",
-            rating: 5,
-            review: "Absolutely thrilled with my Knickknack experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze. Online ordering was a snap, and my delivery arrived right on time. Knickknack is now my go-to for top-quality toys!"
-        },
-        {
             id: 5,
             name: "Zaid Khan",
             date: "1 day ago",
@@ -162,9 +154,8 @@ export default function Reviews() {
                 </a>
             </div>
 
-            <div style={{
+            <div className={`${styles.carousalBody}`} style={{
                 position: "relative",
-                padding: "25px",
                 overflow: "hidden",
             }}>
                 <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`} {...settings}>
