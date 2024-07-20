@@ -506,12 +506,12 @@ export const ProductPage = () => {
             property="og:description"
             content={
               // only 100 chars
-              ProductData?.description.length > 70
+              ProductData?.description.length > 320
                 ? ProductData?.description
                     .replace(/<[^>]*>?/gm, "")
                     .replace(/\s+/g, " ")
                     .trim()
-                    .substring(0, 70) + "..."
+                    .substring(0, 320) + "..."
                 : ProductData?.description
                     .replace(/<[^>]*>?/gm, "")
                     .replace(/\s+/g, " ")
