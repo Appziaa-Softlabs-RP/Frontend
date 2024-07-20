@@ -16,6 +16,9 @@ export default function Reviews() {
             0: {
                 items: 1,
             },
+            390: {
+                items: 1.1,
+            },
             500: {
                 items: 1.3,
             },
