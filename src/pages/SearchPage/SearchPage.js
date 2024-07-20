@@ -15,10 +15,11 @@ import {
   FilterIcon,
   SortByIcon,
 } from "../../Components/siteIcons";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const SearchPage = () => {
   const locationState = useLocation();
-  const {keyword} = useParams();
+  const { keyword } = useParams();
   const [ProductData, setProductData] = useState([]);
   const [ProductDataLen, setProductDataLen] = useState("");
   const [ProductActualData, setProductActualData] = useState([]);
@@ -92,6 +93,7 @@ export const SearchPage = () => {
 
   return (
     <React.Fragment>
+      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (
@@ -109,8 +111,7 @@ export const SearchPage = () => {
           <div className={`d-inline-flex flex-wrap col-12`}>
             {ProductDataLen > 0 && (
               <h4 className={`${styles.searchProdTitle} col-12 d-inline-flex`}>
-                Showing {ProductDataLen} Results for{" "}
-                {keyword}
+                Showing {ProductDataLen} Results for {keyword}
               </h4>
             )}
             {loading && <ProductListLoader />}
@@ -282,48 +283,48 @@ export const SearchPage = () => {
         )}
 
         {windowWidth === "mobile" && (
+          <div
+            className={`${
+              styles.filterPopup
+            } top-0 start-0 h-100 col-12 position-fixed ${
+              filterPopup === true ? "d-inline-flex" : "d-none"
+            } flex-column overflow-y-auto`}
+          >
             <div
-              className={`${
-                styles.filterPopup
-              } top-0 start-0 h-100 col-12 position-fixed ${
-                filterPopup === true ? "d-inline-flex" : "d-none"
-              } flex-column overflow-y-auto`}
+              className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}
             >
               <div
-                className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}
+                className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}
+                onClick={() => setFilterPopup(false)}
               >
-                <div
-                  className={`${styles.backBox} d-inline-flex align-items-center justify-content-center flex-shrink-0`}
-                  onClick={() => setFilterPopup(false)}
-                >
-                  <BackArrowIcon color="#FFF" />
-                </div>
-                <div className="d-inline-flex align-items-center mw-100 flex-shrink-1 col-6 me-auto">
-                  <label
-                    className={`${styles.currentName} text-truncate col-12 d-inline-block`}
-                  >
-                    Filter
-                  </label>
-                </div>
+                <BackArrowIcon color="#FFF" />
               </div>
-              <SearchFilter
-                filterVert={filterVert}
-                filterCatg={filterCatg}
-                setProductData={setProductData}
-                setProductActualData={setProductActualData}
-              />
-              <div
-                className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
-              >
-                <span
-                  className={`${styles.saveFilterBtn} position-relative col-12 d-inline-flex align-items-center justify-content-center gap-2`}
-                  onClick={() => setFilterPopup(false)}
+              <div className="d-inline-flex align-items-center mw-100 flex-shrink-1 col-6 me-auto">
+                <label
+                  className={`${styles.currentName} text-truncate col-12 d-inline-block`}
                 >
-                  Apply Filter
-                </span>
+                  Filter
+                </label>
               </div>
             </div>
-          )}
+            <SearchFilter
+              filterVert={filterVert}
+              filterCatg={filterCatg}
+              setProductData={setProductData}
+              setProductActualData={setProductActualData}
+            />
+            <div
+              className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+            >
+              <span
+                className={`${styles.saveFilterBtn} position-relative col-12 d-inline-flex align-items-center justify-content-center gap-2`}
+                onClick={() => setFilterPopup(false)}
+              >
+                Apply Filter
+              </span>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </React.Fragment>

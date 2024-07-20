@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const Cancellation = () => {
   const appData = useApp();
@@ -13,6 +14,7 @@ export const Cancellation = () => {
   }, []);
   return (
     <React.Fragment>
+      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Cancellation Policy" hide={true} />
       ) : (

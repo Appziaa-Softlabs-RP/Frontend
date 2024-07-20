@@ -5,28 +5,30 @@ import { useLocation } from "react-router-dom";
 import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
 import { useApp } from "../../context/AppContextProvider";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const SubCategoryPage = () => {
-    const locationState = useLocation();
-    const categoryID = locationState?.state?.cat;
-    const appData = useApp();
-    let windowWidth = appData.appData.windowWidth;
+  const locationState = useLocation();
+  const categoryID = locationState?.state?.cat;
+  const appData = useApp();
+  let windowWidth = appData.appData.windowWidth;
 
-    return (
+  return (
+    <React.Fragment>
+      <HelmentSeo />
+      {windowWidth === "mobile" ? (
         <React.Fragment>
-            {windowWidth === "mobile" ? (
-                <React.Fragment>
-                    <PageHeader title="Explore Categroy" />
-                        <SubCategory categoryID={categoryID}/>
-                    <Footer />
-                </React.Fragment>
-            ) : ( 
-                <React.Fragment>
-                    <Header />
-                        <SubCategory categoryID={categoryID}/>
-                    <Footer />
-                </React.Fragment>
-            )}
+          <PageHeader title="Explore Categroy" />
+          <SubCategory categoryID={categoryID} />
+          <Footer />
         </React.Fragment>
-    )
-}
+      ) : (
+        <React.Fragment>
+          <Header />
+          <SubCategory categoryID={categoryID} />
+          <Footer />
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};

@@ -18,6 +18,7 @@ import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const StoreProductCategory = () => {
     const locationState = useLocation();
@@ -128,6 +129,7 @@ export const StoreProductCategory = () => {
 
     return (
         <React.Fragment>
+            <HelmentSeo />
             {windowWidth === "mobile" ? (
                 <PageHeader title="Explore Category" />
             ) : windowWidth === "desktop" ? (

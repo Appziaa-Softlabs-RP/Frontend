@@ -18,6 +18,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import { enviroment } from "../../enviroment";
 import { Helmet } from "react-helmet";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const BrandCategoryPage = () => {
   const { brandId } = useParams();
@@ -125,6 +126,7 @@ export const BrandCategoryPage = () => {
 
   return (
     <React.Fragment>
+      <HelmentSeo />
       <Helmet>
         <meta charSet="utf-8" />
         <title>

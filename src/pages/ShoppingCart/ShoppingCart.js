@@ -13,6 +13,7 @@ import { ProductListCard } from "../../Components/ProductListCard/ProductListCar
 import { AppNotification } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import { BuildingIcon, CartIcon, TimeIcon } from "../../Components/siteIcons";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const ShoppingCart = () => {
   const appData = useApp();
@@ -39,8 +40,11 @@ export const ShoppingCart = () => {
       allPrice = 0;
     if (cartData?.length) {
       cartData?.map((item) => {
-
-        let itemPrice = item?.is_hot_deals ? item?.deal_price : item?.selling_price !== item?.mrp ? item?.selling_price : item?.mrp;
+        let itemPrice = item?.is_hot_deals
+          ? item?.deal_price
+          : item?.selling_price !== item?.mrp
+          ? item?.selling_price
+          : item?.mrp;
 
         let qtyTotal = item?.quantity * itemPrice;
         allTotal = allTotal + qtyTotal;
@@ -168,9 +172,9 @@ export const ShoppingCart = () => {
     setUserInfo(appData.appData.user);
   }, [appData?.appData]);
 
-
   return (
     <React.Fragment>
+      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="Personal Cart" hide={true} />
@@ -185,11 +189,11 @@ export const ShoppingCart = () => {
                     {cartData?.map((item, index) => {
                       return (
                         <ProductListCard
-                        offers={applicableOffers}
-                        setSelectedOfferProductId={setSelectedOfferProductId}
-                        selectedOfferId={selectedOfferId}
-                        setSelectedOfferId={setSelectedOfferId}
-                        setOrderStatus={setOrderStatus}
+                          offers={applicableOffers}
+                          setSelectedOfferProductId={setSelectedOfferProductId}
+                          selectedOfferId={selectedOfferId}
+                          setSelectedOfferId={setSelectedOfferId}
+                          setOrderStatus={setOrderStatus}
                           Product={item}
                           key={index}
                           index={index}
@@ -251,13 +255,13 @@ export const ShoppingCart = () => {
                     );
                   })}
               </div>
-               <DeliveryAddress
-                    selectedOfferProductId={selectedOfferProductId}
-                      selectedOfferId={selectedOfferId}
-                      cartPriceTotal={cartPriceTotal}
-                      shopcartID={shopcartID}
-                      setOrderStatus={setOrderStatus}
-                    />
+              <DeliveryAddress
+                selectedOfferProductId={selectedOfferProductId}
+                selectedOfferId={selectedOfferId}
+                cartPriceTotal={cartPriceTotal}
+                shopcartID={shopcartID}
+                setOrderStatus={setOrderStatus}
+              />
               <OrderSummery cartPriceTotal={cartPriceTotal} />
               <div className={`${styles.cancelPolicyBox} col-12 mt-3 p-3`}>
                 <h5
@@ -312,7 +316,7 @@ export const ShoppingCart = () => {
                     </>
                   ) : orderStatus === "Place Order" ? (
                     <DeliveryAddress
-                    selectedOfferProductId={selectedOfferProductId}
+                      selectedOfferProductId={selectedOfferProductId}
                       selectedOfferId={selectedOfferId}
                       cartPriceTotal={cartPriceTotal}
                       shopcartID={shopcartID}

@@ -13,6 +13,7 @@ import { DealShop } from "../../Components/DealShop/DealShop";
 import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
 import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import Reviews from "../../Components/Reviews/Reviews";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -21,6 +22,7 @@ export const Home = () => {
 
   return (
     <React.Fragment>
+      <HelmentSeo />
       <div className="col-12 d-inline-flex flex-column">
         <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />

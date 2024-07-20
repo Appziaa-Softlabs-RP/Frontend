@@ -488,8 +488,6 @@ export const ProductPage = () => {
           <meta charSet="utf-8" />
           <title>
             {
-              // ProductData?.name
-              // only 100 chars
               ProductData?.name.length > 70
                 ? ProductData?.name.substring(0, 70) + "..."
                 : ProductData?.name
@@ -498,7 +496,7 @@ export const ProductPage = () => {
           </title>
           <meta
             name="description"
-            content={removeHtmlAndTruncate(ProductData?.description)}
+            content={removeHtmlAndTruncate(ProductData?.description).trim()}
           />
           {/* Product OG */}
           <meta property="og:title" content={ProductData?.name} />

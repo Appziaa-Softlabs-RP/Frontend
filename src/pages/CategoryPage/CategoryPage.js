@@ -16,6 +16,7 @@ import {
   SortByIcon,
 } from "../../Components/siteIcons";
 import InfiniteScroll from "react-infinite-scroll-component";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const CategoryPage = () => {
   const locationState = useLocation();
@@ -180,6 +181,7 @@ export const CategoryPage = () => {
 
   return (
     <React.Fragment>
+      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />
       ) : windowWidth === "desktop" ? (

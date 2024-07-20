@@ -5,18 +5,20 @@ import { Header } from "../../Components/Header/Header";
 import { useApp } from "../../context/AppContextProvider";
 import { MyAccountMenu } from "../MyAccount/MyAccount";
 import { Footer } from "../../Components/Footer/Footer";
+import HelmentSeo from "../../Components/HelmetSeo/HelmetSeo";
 
 export const MyOrders = () => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
   return (
     <React.Fragment>
+      <HelmentSeo />
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="My Orders" />
           <MyOrdersBox />
-        </React.Fragment> 
-      ) : ( 
+        </React.Fragment>
+      ) : (
         <React.Fragment>
           <Header />
           <div className="col-12 d-inline-flex mt-4">
@@ -33,5 +35,5 @@ export const MyOrders = () => {
         </React.Fragment>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
