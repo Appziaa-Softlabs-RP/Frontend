@@ -109,7 +109,7 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: verticalSlug,
+      vertical_slug: categorySlug,
     };
     setFilterVert(verticalSlug);
     setFilterCatg(categorySlug);
