@@ -487,7 +487,14 @@ export const ProductPage = () => {
         <Helmet>
           <meta charSet="utf-8" />
           <title>
-            Buy {ProductData?.name} Online - {ProductData?.store_name}
+            {
+              // ProductData?.name
+              // only 100 chars
+              ProductData?.name.length > 100
+                ? ProductData?.name.substring(0, 100) + "..."
+                : ProductData?.name
+            }{" "}
+            Online - {ProductData?.store_name}
           </title>
           <meta
             name="description"
@@ -498,10 +505,17 @@ export const ProductPage = () => {
           <meta
             property="og:description"
             content={
-              ProductData?.description
-                .replace(/<[^>]*>?/gm, "")
-                .replace(/\s+/g, " ")
-                .trim()
+              // only 100 chars
+              ProductData?.description.length > 100
+                ? ProductData?.description
+                    .replace(/<[^>]*>?/gm, "")
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .substring(0, 100) + "..."
+                : ProductData?.description
+                    .replace(/<[^>]*>?/gm, "")
+                    .replace(/\s+/g, " ")
+                    .trim()
             }
           />
           <meta property="og:image" content={ProductData?.image} />
