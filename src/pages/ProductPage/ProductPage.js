@@ -62,6 +62,7 @@ export const ProductPage = () => {
   );
   const [isAboutProductDesc, setIsAboutProductDesc] = useState(true);
   const [isOtherProductDesc, setIsOtherProductDesc] = useState(false);
+  const [isSpecilization, setIsSpecilization] = useState(false);
   const userInfo = appData?.appData?.user;
   let windowWidth = appData.appData.windowWidth;
   const pageCurrentURL = encodeURIComponent(window.location.href);
@@ -481,17 +482,35 @@ export const ProductPage = () => {
       : cleanText;
   }
 
+  const isSpecializationDetail = !(
+    ProductData?.specifications?.type == "" &&
+    ProductData?.specifications?.model_name == "" &&
+    ProductData?.specifications?.shelf_life == null &&
+    ProductData?.specifications?.container_type == "" &&
+    ProductData?.specifications?.shelf_life_month_years == null &&
+    ProductData?.specifications?.organic == null &&
+    ProductData?.specifications?.polished == null &&
+    ProductData?.specifications?.package_dimension_length == null &&
+    ProductData?.specifications?.manufactured_by == undefined &&
+    ProductData?.specifications?.packed_by == undefined &&
+    ProductData?.specifications?.exp_date == null
+  );
+
+  const isOtherDetail = !(
+    ProductData?.other_information?.country_origin == "" &&
+    ProductData?.other_information?.manufactured_by == "" &&
+    ProductData?.other_information?.marketed_by == ""
+  );
+
   return (
     <React.Fragment>
       {ProductData && (
         <Helmet>
           <meta charSet="utf-8" />
           <title>
-            {
-              ProductData?.name.length > 70
-                ? ProductData?.name.substring(0, 70) + "..."
-                : ProductData?.name
-            }{" "}
+            {ProductData?.name.length > 70
+              ? ProductData?.name.substring(0, 70) + "..."
+              : ProductData?.name}{" "}
             Online - {ProductData?.store_name}
           </title>
           <meta
@@ -663,33 +682,36 @@ export const ProductPage = () => {
             <h2 className={`${styles.productDetailName} col-12 mb-1`}>
               {ProductData?.name}
             </h2>
-            <span className="ml-3 mb-2">
-              Item Code: {ProductData?.barcode}{" "}
-            </span>
-            <div
-              className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
-            >
-              {ProductData?.selling_price === ProductData?.mrp ? (
-                <span className={`${styles.offerPrice}`}>
-                  <b>₹{ProductData?.mrp}</b>
-                </span>
-              ) : (
-                <React.Fragment>
+
+            <div className="ms-2">
+              <span className="mb-2">Item Code: {ProductData?.barcode} </span>
+              <div
+                className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
+              >
+                {ProductData?.selling_price === ProductData?.mrp ? (
                   <span className={`${styles.offerPrice}`}>
-                    <b>₹{ProductData?.selling_price}</b>{" "}
-                    <del>₹{ProductData?.mrp}</del>
+                    <b>₹{ProductData?.mrp}</b>
                   </span>
-                  {prodDiscount !== "" && (
-                    <span className={`${styles.offerPercentage} d-inline-flex`}>
-                      {prodDiscount}% &nbsp;OFF
+                ) : (
+                  <React.Fragment>
+                    <span className={`${styles.offerPrice}`}>
+                      <b>₹{ProductData?.selling_price}</b>{" "}
+                      <del>₹{ProductData?.mrp}</del>
                     </span>
-                  )}
-                </React.Fragment>
-              )}
+                    {prodDiscount !== "" && (
+                      <span
+                        className={`${styles.offerPercentage} d-inline-flex`}
+                      >
+                        {prodDiscount}% &nbsp;OFF
+                      </span>
+                    )}
+                  </React.Fragment>
+                )}
+              </div>
+              <span className={`${styles.inclusivTax} col-12 d-inline-block`}>
+                (Inclusive of all taxes)
+              </span>
             </div>
-            <span className={`${styles.inclusivTax} col-12 d-inline-block`}>
-              (Inclusive of all taxes)
-            </span>
           </div>
 
           {ProductData?.bank_offer !== null &&
@@ -718,187 +740,285 @@ export const ProductPage = () => {
               </div>
             )}
 
-          <div
-            className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}
-          >
-            <h2
-              className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}
-            >
-              Product Details
-            </h2>
-            <div
-              className={`${styles.productCollapseBox} mb-4 active col-12 d-inline-block p-0`}
-              onClick={openProductColpse(this)}
-            >
+          {isSpecializationDetail &&
+            isOtherDetail &&
+            ProductData?.description !== "Not available" && (
               <div
-                className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
-                style={{
-                  height: "fit-content",
-                }}
+                className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}
               >
-                <button
-                  aria-label="About product"
-                  style={{
-                    borderRadius: "4px",
-                    border: "none",
-                    outline: "none",
-                    boxShadow: "none",
-                  }}
+                <h2
+                  className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}
                 >
-                  <span>About product</span>&nbsp;
-                </button>
-                <button
-                  aria-label="About product"
-                  style={{
-                    borderRadius: "4px",
-                    border: "none",
-                    outline: "none",
-                    boxShadow: "none",
-                  }}
-                  onClick={() => setIsAboutProductDesc(!isAboutProductDesc)}
-                >
-                  +
-                </button>
-              </div>
-              <div
-                className={`${styles.productDetailText} col-12 p-0 ${
-                  !isAboutProductDesc && "visually-hidden"
-                }`}
-              >
-                {ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}
-              </div>
-            </div>
-
-            {otherInfo === true && (
-              <div
-                className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
-                onClick={openProductColpse(this)}
-              >
-                <div
-                  className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
-                  style={{
-                    height: "fit-content",
-                  }}
-                >
-                  <button
-                    aria-label="Other Info"
-                    style={{
-                      borderRadius: "4px",
-                      border: "none",
-                      outline: "none",
-                      boxShadow: "none",
-                    }}
-                  >
-                    <span>Other Info</span>&nbsp;
-                  </button>
-                  <button
-                    aria-label="Other Info"
-                    style={{
-                      borderRadius: "4px",
-                      border: "none",
-                      outline: "none",
-                      boxShadow: "none",
-                    }}
-                    onClick={() => setIsOtherProductDesc(!isOtherProductDesc)}
-                  >
-                    +
-                  </button>
-                </div>
-                {isOtherProductDesc && (
+                  Product Details
+                </h2>
+                {ProductData?.description !== "Not available" && (
                   <div
-                    className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                    className={`${styles.productCollapseBox} active col-12 d-inline-block p-0`}
+                    onClick={openProductColpse(this)}
                   >
-                    {ProductData?.specifications?.type && (
-                      <p className="col-12 d-inline-flex gap-2  m-0">
-                        <strong>Type: </strong>
-                        {ProductData?.specifications?.type}
-                      </p>
-                    )}
+                    <div
+                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                      style={{
+                        height: "fit-content",
+                        background: "rgba(207, 16, 46, 0.12)"
+                      }}
+                    >
+                      <button
+                        aria-label="About product"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                      >
+                        <span>About product</span>&nbsp;
+                      </button>
+                      <button
+                        aria-label="About product"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                        onClick={() =>
+                          setIsAboutProductDesc(!isAboutProductDesc)
+                        }
+                      >
+                        {isAboutProductDesc ? "-" : "+"}
+                      </button>
+                    </div>
+                    <div
+                      className={`${styles.productDetailText} col-12 p-0 ${
+                        !isAboutProductDesc && "visually-hidden"
+                      }`}
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: ProductData?.description,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+                {otherInfo === true && isOtherDetail && (
+                  <div
+                    className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
+                    onClick={openProductColpse(this)}
+                  >
+                    <div
+                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                      style={{
+                        height: "fit-content",
+                        background: "rgba(207, 16, 46, 0.12)"
+                      }}
+                    >
+                      <button
+                        aria-label="specifications"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                      >
+                        <span>Specifications</span>&nbsp;
+                      </button>
+                      <button
+                        aria-label="specifications"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                        onClick={() => setIsSpecilization(!isSpecilization)}
+                      >
+                        {isSpecilization ? "-" : "+"}
+                      </button>
+                    </div>
+                    {isSpecilization && (
+                      <div
+                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                      >
+                        {ProductData?.specifications?.type && (
+                          <p className="col-12 d-inline-flex gap-2  m-0">
+                            <strong>Type: </strong>
+                            {ProductData?.specifications?.type}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.model_name && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Model Name: </strong>
-                        {ProductData?.specifications?.model_name}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.model_name && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Model Name: </strong>
+                            {ProductData?.specifications?.model_name}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.shelf_life && (
-                      <p className="col-12 d-none gap-2 m-0">
-                        <strong>Shelf Life: </strong>
-                        {ProductData?.specifications?.shelf_life}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.shelf_life && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Shelf Life: </strong>
+                            {ProductData?.specifications?.shelf_life}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.shelf_life_month_years && (
-                      <p className="col-12 d-none gap-2 m-0">
-                        <strong>Shelf Life Month Years: </strong>
-                        {
-                          ProductData?.specifications?.shelf_life_month_years
-                        }{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications
+                          ?.shelf_life_month_years && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Shelf Life Month Years: </strong>
+                            {
+                              ProductData?.specifications
+                                ?.shelf_life_month_years
+                            }{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.container_type && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Container Type: </strong>
-                        {ProductData?.specifications?.container_type}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.container_type && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Container Type: </strong>
+                            {ProductData?.specifications?.container_type}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.organic && (
-                      <p className="col-12 d-none gap-2 m-0">
-                        <strong>Organic: </strong>
-                        {ProductData?.specifications?.organic}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.organic && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Organic: </strong>
+                            {ProductData?.specifications?.organic}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.polished && (
-                      <p className="col-12 d-none gap-2 m-0">
-                        <strong>Polished: </strong>
-                        {ProductData?.specifications?.polished}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.polished && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Polished: </strong>
+                            {ProductData?.specifications?.polished}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.package_dimension_length && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Dimension: </strong>
-                        {"L " +
-                          ProductData?.specifications
-                            ?.package_dimension_length +
-                          " x B " +
-                          ProductData?.specifications?.package_dimension_width +
-                          " x H " +
-                          ProductData?.specifications
-                            ?.package_dimension_height}{" "}
-                        cm{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications
+                          ?.package_dimension_length && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Dimension: </strong>
+                            {"L " +
+                              ProductData?.specifications
+                                ?.package_dimension_length +
+                              " x B " +
+                              ProductData?.specifications
+                                ?.package_dimension_width +
+                              " x H " +
+                              ProductData?.specifications
+                                ?.package_dimension_height}{" "}
+                            cm{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.manufactured_by && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Manufactured By: </strong>
-                        {ProductData?.specifications?.manufactured_by}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.manufactured_by && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Manufactured By: </strong>
+                            {ProductData?.specifications?.manufactured_by}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.packed_by && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Packed By: </strong>
-                        {ProductData?.specifications?.packed_by}{" "}
-                      </p>
-                    )}
+                        {ProductData?.specifications?.packed_by && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Packed By: </strong>
+                            {ProductData?.specifications?.packed_by}{" "}
+                          </p>
+                        )}
 
-                    {ProductData?.specifications?.exp_date && (
-                      <p className="col-12 d-inline-flex gap-2 m-0">
-                        <strong>Exp Date: </strong>
-                        {ProductData?.specifications?.exp_date}{" "}
-                      </p>
+                        {ProductData?.specifications?.exp_date && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Exp Date: </strong>
+                            {ProductData?.specifications?.exp_date}{" "}
+                          </p>
+                        )}
+                      </div>
                     )}
+                  </div>
+                )}
+                {isOtherDetail && (
+                  <div
+                    className={`${styles.productCollapseBox} mb-4 mt-3 active col-12 d-inline-block p-0`}
+                    onClick={openProductColpse(this)}
+                  >
+                    <div
+                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                      style={{
+                        height: "fit-content",
+                        background: "rgba(207, 16, 46, 0.12)"
+
+                      }}
+                    >
+                      <button
+                        aria-label="About product"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                      >
+                        <span>Other Info</span>&nbsp;
+                      </button>
+                      <button
+                        aria-label="About product"
+                        style={{
+                          borderRadius: "4px",
+                          border: "none",
+                          outline: "none",
+                          boxShadow: "none",
+                          background: "none"
+                        }}
+                        onClick={() =>
+                          setIsOtherProductDesc(!isOtherProductDesc)
+                        }
+                      >
+                        {isOtherProductDesc ? "-" : "+"}
+                      </button>
+                    </div>
+                    <div
+                      className={`${styles.productDetailText} col-12 p-0 ${
+                        !isOtherProductDesc && "visually-hidden"
+                      }`}
+                    >
+                      <div
+                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                      >
+                        {ProductData?.other_information?.country_origin && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Country Of Origin: </strong>
+                            {ProductData?.other_information?.country_origin}
+                            <br />
+                          </p>
+                        )}
+
+                        {ProductData?.other_information?.manufactured_by && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Manufactured By: </strong>
+                            {
+                              ProductData?.other_information?.manufactured_by
+                            }{" "}
+                            <br />
+                          </p>
+                        )}
+
+                        {ProductData?.other_information?.marketed_by && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Marketed By: </strong>
+                            {ProductData?.other_information?.marketed_by} <br />
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
             )}
-          </div>
           <div className={`col-12 d-inline-block mb-5`}>
             <FeaturedProducts product={ProductData?.featured} />
             <SimilarProduct product={ProductData?.similar} />

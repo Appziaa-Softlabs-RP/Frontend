@@ -1,16 +1,16 @@
 .featuredProductBox{
 	margin-top: 20px;
-	background: #14273E;
+	background: var(--MENU_HOVER_COLOR);
 }
 .availSizeTitle{
     font-size: 16px;
 	line-height: 18px;
-	color: #FFF;
+	color: #000;
     margin-bottom: 0px;
 }
 .smallTitle{
     font-size: 12px;
-	color: #FFF;
+	color: #000;
 }
 /* Desktop CSS */
 @media screen and (min-width:568px) {
