@@ -98,6 +98,7 @@ export const HeroBanner = ({ allBanner }) => {
       })
       .catch((err) => {});
   }, []);
+
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
@@ -145,7 +146,7 @@ export const HeroBanner = ({ allBanner }) => {
         loading ? (
           <HeroBannerLoader />
         ) : (
-          <div className={`col-12 d-inline-flex mb-4`}>
+          <div className={`col-12 d-inline-flex`}>
             <ReactOwlCarousel
               className={`${styles.desktopBanner} heroBanner col-12 d-inline-block owl-theme`}
               margin={0}
@@ -162,9 +163,9 @@ export const HeroBanner = ({ allBanner }) => {
                     {item?.image !== "" && (
                       <div
                         className={styles.item}
-                        style={{ 
-                          'cursor': 'pointer',
-                         }}
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() =>
                           openBannerProd(
                             item?.vertical_id,
