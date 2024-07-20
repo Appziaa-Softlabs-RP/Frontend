@@ -32,9 +32,11 @@ export default function HelmentSeo() {
                 content="https://knickknack.online/logo.png"
             />
             <meta
-                property="og:secure_url"
+                property="og:image:secure_url"
                 content="https://knickknack.online/logo.png"
             />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
         </Helmet>
     </>
 }
