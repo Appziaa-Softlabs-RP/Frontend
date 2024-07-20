@@ -649,7 +649,7 @@ export const ProductPage = () => {
                     alt={ProductData?.name}
                     className="col-12 d-inline-block"
                     style={{
-                      maxHeight: "500px",
+                      maxHeight: "100px",
                       width: "auto",
                     }}
                   />
@@ -760,7 +760,7 @@ export const ProductPage = () => {
                       className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                       style={{
                         height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)"
+                        background: "rgba(207, 16, 46, 0.12)",
                       }}
                     >
                       <button
@@ -770,7 +770,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                       >
                         <span>About product</span>&nbsp;
@@ -782,7 +782,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                         onClick={() =>
                           setIsAboutProductDesc(!isAboutProductDesc)
@@ -813,7 +813,7 @@ export const ProductPage = () => {
                       className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                       style={{
                         height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)"
+                        background: "rgba(207, 16, 46, 0.12)",
                       }}
                     >
                       <button
@@ -823,7 +823,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                       >
                         <span>Specifications</span>&nbsp;
@@ -835,7 +835,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                         onClick={() => setIsSpecilization(!isSpecilization)}
                       >
@@ -949,8 +949,7 @@ export const ProductPage = () => {
                       className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                       style={{
                         height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)"
-
+                        background: "rgba(207, 16, 46, 0.12)",
                       }}
                     >
                       <button
@@ -960,7 +959,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                       >
                         <span>Other Info</span>&nbsp;
@@ -972,7 +971,7 @@ export const ProductPage = () => {
                           border: "none",
                           outline: "none",
                           boxShadow: "none",
-                          background: "none"
+                          background: "none",
                         }}
                         onClick={() =>
                           setIsOtherProductDesc(!isOtherProductDesc)
