@@ -17,16 +17,19 @@ export default function Reviews() {
                 items: 1,
             },
             390: {
+                items: 1.01,
+            },
+            460: {
                 items: 1.1,
             },
-            500: {
+            510: {
+                items: 1.2,
+            },
+            550: {
                 items: 1.3,
             },
-            580: {
-                items: 1.5,
-            },
             620: {
-                items: 2
+                items: 1.7
             },
             700: {
                 items: 1,
@@ -38,11 +41,20 @@ export default function Reviews() {
                 items: 1.7,
             },
             1000: {
-                items: 2.5,
+                items: 1.8,
             },
             1100: {
-                items: 3,
+                items: 2.3,
             },
+            1200: {
+                items: 2.5,
+            },
+            1300: {
+                items: 2.7,
+            },
+            1400: {
+                items: 3,
+            }
         },
     };
 
@@ -128,7 +140,9 @@ export default function Reviews() {
     }}>
         <div className={`${styles.sliderContainer}`}>
 
-            <div className="col-md-3">
+            <div className="col-md-3" style={{
+                minWidth: "300px",
+            }} >
                 <img src="/review/Group.png" alt="rewview" style={{
                     width: "60px",
                     marginBottom: "-20px"
@@ -148,35 +162,40 @@ export default function Reviews() {
                 </a>
             </div>
 
-
-            <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`} {...settings}>
-                {reviews.map((review) => (
-                    <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                        background: "#ebd4d4",
-                        color: "#291845",
-                        borderRadius: "5px"
-                    }}>
-                        <div className="d-flex justify-content-between" style={{ alignItems: "center" }}>
-                            <div className="d-flex" style={{ alignItems: "center" }}>
-                                <img src={review.image} alt="rewview" style={{ width: "50px" }} />
-                                <div className="px-2">
-                                    <p className="mb-0"><b>{review.name}</b></p>
-                                    <p className="mb-0">{review.date}</p>
+            <div style={{
+                position: "relative",
+                padding: "25px",
+                overflow: "hidden",
+            }}>
+                <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`} {...settings}>
+                    {reviews.map((review) => (
+                        <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
+                            background: "#ebd4d4",
+                            color: "#291845",
+                            borderRadius: "5px"
+                        }}>
+                            <div className="d-flex justify-content-between" style={{ alignItems: "center" }}>
+                                <div className="d-flex" style={{ alignItems: "center" }}>
+                                    <img src={review.image} alt="rewview" style={{ width: "50px" }} />
+                                    <div className="px-2">
+                                        <p className="mb-0"><b>{review.name}</b></p>
+                                        <p className="mb-0">{review.date}</p>
+                                    </div>
                                 </div>
+                                <img src="/review/gimg.png" alt="rewview" style={{ maxWidth: "30px" }} />
                             </div>
-                            <img src="/review/gimg.png" alt="rewview" style={{ maxWidth: "30px" }} />
+                            <div className="d-flex my-2">
+                                {Array(review.rating).fill(0).map((_, index) => (
+                                    <img key={index} src="/review/star-solid.png" alt="rewview" style={{ maxWidth: "30px" }} />
+                                ))}
+                            </div>
+                            <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
+                                <ShowReview review={review?.review} />
+                            </p>
                         </div>
-                        <div className="d-flex my-2">
-                            {Array(review.rating).fill(0).map((_, index) => (
-                                <img key={index} src="/review/star-solid.png" alt="rewview" style={{ maxWidth: "30px" }} />
-                            ))}
-                        </div>
-                        <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
-                            <ShowReview review={review?.review} />
-                        </p>
-                    </div>
-                ))}
-            </ReactOwlCarousel>
+                    ))}
+                </ReactOwlCarousel>
+            </div>
         </div>
     </div>
 }

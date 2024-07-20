@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function Specials() {
 
@@ -78,7 +77,9 @@ export default function Specials() {
         fetchData();
     }, []);
 
-    return <div>
+    return <div style={{
+        fontSize: "16px"
+    }}>
         {/* <!-- Popular Searches Section --> */}
         {
             verticalsWithCat?.length > 0 &&
@@ -87,7 +88,8 @@ export default function Specials() {
                     margin: "auto"
                 }}>
                     <h2 className="h4 mb-4" style={{
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        fontSize: "22px"
                     }}>POPULAR SEARCHES</h2>
                     <p className="text-muted p-1">
                         {verticalsWithCat?.map((vertical, index) => (
@@ -115,7 +117,8 @@ export default function Specials() {
                 margin: "auto"
             }}>
                 <h2 className="h4 mb-4" style={{
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    fontSize: "22px"
                 }}>POPULAR TOY BRANDS</h2>
                 <p className="text-muted p-1">
                     {topBrands.map((brand, index) => (
@@ -139,19 +142,21 @@ export default function Specials() {
                     margin: "auto"
                 }}
             >
-                <h1 className="display-4 mb-5"
+                <h1 className="mb-5"
                     style={{
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        fontSize: "28px"
                     }}
                 >
-                    knickknack' s Toy Store - India's most loved place to buy toys for children!
+                    knickknack's Toy Store - India's most loved place to buy toys for children!
                 </h1>
                 <p className="lead mb-5 p-1">
                     Knickknack's Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
                 </p>
                 <h2 className="h3 mb-4"
                     style={{
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        fontSize: "22px"
                     }}
                 >Why Knickknack's Toy Store?</h2>
                 <ul>
