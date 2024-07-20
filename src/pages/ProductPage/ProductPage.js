@@ -497,7 +497,12 @@ export const ProductPage = () => {
           <meta property="og:title" content={ProductData?.name} />
           <meta
             property="og:description"
-            content={removeHtmlAndTruncate(ProductData?.description)}
+            content={
+              ProductData?.description
+                .replace(/<[^>]*>?/gm, "")
+                .replace(/\s+/g, " ")
+                .trim()
+            }
           />
           <meta property="og:image" content={ProductData?.image} />
           <meta property="og:url" content={window.location.href} />
