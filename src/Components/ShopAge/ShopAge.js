@@ -42,7 +42,7 @@ export const ShopAge = () => {
   return (
     <React.Fragment>
       {categAge?.length > 0 && (
-        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}>
+        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
           <div className={`${windowWidth === "mobile" && "p-0"} container`}>
             {windowWidth === "desktop" && (
               <h2
@@ -51,7 +51,7 @@ export const ShopAge = () => {
                 ✨ Shop By Age ✨
               </h2>
             )}
-            <div className={`${styles.shopAgeContainer} col-12 pb-4 pl-0 pr-0`}>
+            <div className={`${styles.shopAgeContainer} col-12 pl-0 pr-0`}>
               {windowWidth === "mobile" && (
                 <h2
                   className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}
@@ -73,7 +73,7 @@ export const ShopAge = () => {
                   {categAge.map((item, index) => {
                     return (
                       <div
-                        className={`${styles.ageBlock} d-inline-block p-0 flex-shrink-0 mouse-cursor`}
+                        className={`${styles.ageBlock} my-3 d-inline-block p-0 flex-shrink-0 mouse-cursor`}
                         key={index}
                         style={{
                           minWidth:
@@ -105,7 +105,7 @@ export const ShopAge = () => {
                             />
                           </div>
                           <h6
-                            className={`${styles.shopAgeNumber} text-center col-12 p-0 mb-0 text-black fs-5 `}
+                            className={`${styles.shopAgeNumber} text-center col-12 p-0 mb-0 text-black fs-6 `}
                           >
                             {item.name}
                           </h6>

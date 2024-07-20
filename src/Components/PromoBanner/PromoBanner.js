@@ -45,7 +45,7 @@ export const PromoBanner = ({ type }) => {
       {windowWidth === "mobile" ? (
         <React.Fragment>
           {allBanner?.length > 0 && (
-            <div className={`col-12 d-inline-flex flex-column p-3`}>
+            <div className={`col-12 d-inline-flex flex-column px-3 pb-3`}>
               <div
                 className={`${
                   type === "Promo Banner"
@@ -53,11 +53,11 @@ export const PromoBanner = ({ type }) => {
                     : type === "Offers"
                     ? styles.offersBox
                     : ""
-                } col-12 d-inline-flex flex-column p-3`}
+                } col-12 d-inline-flex flex-column`}
               >
                 {type === "Promo Banner" && (
                   <h2
-                    className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex mt-0 mb-3 fs-2`}
+                    className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex mt-0 mb-3 fs-3`}
                   >
                     Promo for you
                   </h2>
@@ -66,7 +66,7 @@ export const PromoBanner = ({ type }) => {
                   className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
                   margin={10}
                   loop={false}
-                  dots={false}
+                  dots={true}
                   items={1}
                   stagePadding={15}
                 >
@@ -81,6 +81,9 @@ export const PromoBanner = ({ type }) => {
                           src={item?.image}
                           alt={item?.name}
                           className="object-fit-cover col-12 d-inline-block"
+                          style={{
+                            width: "100%",
+                          }}
                         />
                       </div>
                     );

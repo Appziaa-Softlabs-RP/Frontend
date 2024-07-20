@@ -102,7 +102,7 @@ export const HeroBanner = ({ allBanner }) => {
     <React.Fragment>
       {windowWidth === "mobile" ? (
         <div
-          className={`${styles.heroBannerContainer} col-12 d-inline-flex p-3`}
+          className={`${styles.heroBannerContainer} col-12 d-inline-flex px-3`}
         >
           <ReactOwlCarousel
             className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}

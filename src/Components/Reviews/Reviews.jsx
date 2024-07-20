@@ -16,8 +16,14 @@ export default function Reviews() {
             0: {
                 items: 1,
             },
-            390: {
+            300: {
                 items: 1.01,
+            },
+            380: {
+                items: 1.08,
+            },
+            400: {
+                items: 1.1,
             },
             460: {
                 items: 1.1,
@@ -158,7 +164,7 @@ export default function Reviews() {
                 position: "relative",
                 overflow: "hidden",
             }}>
-                <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`} {...settings}>
+                <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`}  {...settings}>
                     {reviews.map((review) => (
                         <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
                             background: "#ebd4d4",

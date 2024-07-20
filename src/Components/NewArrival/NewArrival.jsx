@@ -30,7 +30,7 @@ export const NewArrival = () => {
                 <div className={`col-12 ${windowWidth === "desktop" && 'p-3 mt-2'} d-inline-flex`}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
                         <div className={`col-12 ${windowWidth === 'mobile' ? 'p-3' : 'mt-3'} d-inline-flex flex-column`}>
-                            <h2 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4' : 'mb-3'} mt-0 fs-2`}>{windowWidth === 'mobile' ? 'New Arrivals!' : '✨ New Arrivals! ✨'}</h2>
+                            <h2 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4 fs-2' : 'mb-3 fs-3'} mt-0 fs-2`}>{windowWidth === 'mobile' ? 'New Arrivals!' : '✨ New Arrivals! ✨'}</h2>
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 1 : 4}`} loop={false} nav={true} stagePadding={`${windowWidth === 'mobile' ? 50 : 0}`}>
                                 {/* {productData?.map((item, index) => { */}
                                 {/* show in descending order according sort by stock */}

@@ -44,8 +44,8 @@ export const BrandFocus = () => {
             >
               <h2
                 className={`${styles.brandInTitle} col-12 ${
-                  windowWidth === "desktop" ? "mb-4" : "mb-3"
-                } mt-0 fs-2`}
+                  windowWidth === "desktop" ? "mb-4 fs-2" : "mb-3 fs-3"
+                } mt-0`}
               >
                 {windowWidth === "mobile"
                   ? "Brands in Focus"

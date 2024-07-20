@@ -49,7 +49,7 @@ export const ProductCard = ({ item, index }) => {
       quantity: 1,
       deal_type_id: dealId,
       deal_price: dealPrice,
-      name_url: nameUrl
+      name_url: nameUrl,
     };
 
     if (cartInfo === null) {
@@ -104,7 +104,7 @@ export const ProductCard = ({ item, index }) => {
         company_id: parseInt(enviroment.COMPANY_ID),
         store_id: parseInt(enviroment.STORE_ID),
         deal_price: dealPrice,
-        name_url: nameUrl
+        name_url: nameUrl,
       },
     ];
 
@@ -243,20 +243,35 @@ export const ProductCard = ({ item, index }) => {
               <span
                 className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
               >
-                {Math.ceil(
-                  ((item?.mrp - item?.deals_price) * 100) / item?.mrp
-                )}
+                {Math.ceil(((item?.mrp - item?.deals_price) * 100) / item?.mrp)}
                 % OFF
               </span>
             )
           : parseFloat(item.mrp) > parseFloat(item.selling_price) && (
               <span
                 className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
+                style={{
+                  borderRadius: '100px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: "7px",
+                  width: "40px",
+                  height: "40px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                {Math.ceil(
-                  ((item?.mrp - item?.selling_price) * 100) / item?.mrp
-                )}
-                % OFF
+                <span style={{
+                  margin: "1px"
+                }}>
+                  {Math.ceil(
+                    ((item?.mrp - item?.selling_price) * 100) / item?.mrp
+                  )}
+                  %
+                </span>{" "}
+                <span style={{
+                  margin: "1px"
+                }}>OFF</span>
               </span>
             )}
 
@@ -274,7 +289,7 @@ export const ProductCard = ({ item, index }) => {
           ) : (
             ""
           )}
-                    <div
+          <div
             className={`d-flex align-items-center  justify-content-center ${styles.productImgContainer}`}
           >
             <img
@@ -312,7 +327,16 @@ export const ProductCard = ({ item, index }) => {
           <Link
             to={`/product/${item?.name_url}`}
             style={{
+              margin: "15px 0px",
               textDecoration: "none",
+              minHeight: "30px",
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "normal",
+              lineHeight: "15px",
             }}
             className={`${styles.offerItemName} col-12 p-0 mb-1`}
           >
@@ -328,7 +352,12 @@ export const ProductCard = ({ item, index }) => {
               </del>
             </div>
           ) : item.mrp > item.selling_price ? (
-            <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
+            <div
+              style={{
+                margin: "10px 0px",
+              }}
+              className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap"
+            >
               <span className={`${styles.offerPrice} d-inline-flex`}>
                 <b>₹{item.selling_price}</b>
               </span>
@@ -337,13 +366,17 @@ export const ProductCard = ({ item, index }) => {
               </del>
             </div>
           ) : (
-            <div className="col-12 float-left p-0 d-inline-block">
+            <div
+              style={{
+                margin: "5px 0px",
+              }}
+              className="col-12 float-left p-0 d-inline-block"
+            >
               <span
                 className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}
               >
                 <b>₹{item.mrp}</b>
               </span>
-              
             </div>
           )}
           {item.stock > 0 && (

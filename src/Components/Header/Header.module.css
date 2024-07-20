@@ -5,6 +5,7 @@
 .menuIconBox, .cartIconBox{
     height: 50px;
     width: 50px;
+    margin: 0px 10px;
 }
 .menuIconBox svg, .cartIconBox svg{
     height: 25px;

@@ -35,7 +35,11 @@ export const Footer = () => {
           data-section-type="footer-section"
         >
           <div
-            className={`${styles.footerBlocks} d-inline-flex flex-wrap col-12 p-0`}
+            className={`${styles.footerBlock} col-12 p-0`}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+            }}
           >
             <div className={`${styles.footerBlock}`} data-type="menu">
               <div className={`${styles.footerTitle}`}>About Us</div>
@@ -94,6 +98,15 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
+          </div>
+          <div
+            className={`${styles.footerBlock} mt-4 col-12 p-0`}
+            data-type="contact"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+            }}
+          >
             <div className={`${styles.footerBlock}`} data-type="menu">
               <div className={`${styles.footerTitle}`}>Policies</div>
               <ul className={`${styles.footerMenu} list-unstyled`}>
@@ -135,11 +148,6 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
-          </div>
-          <div
-            className={`${styles.footerBlock} mt-4 col-12 p-0 d-inline-flex flex-column`}
-            data-type="contact"
-          >
             <div
               className={`${styles.footerBlockMobile} col-12 p-0 d-inline-block`}
             >
@@ -173,15 +181,26 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
+          </div>
+          <div
+            className={`${styles.footerBlock} mt-4 col-12 p-0 d-inline-flex flex-column`}
+            data-type="contact"
+          >
             <div
-              className={`${styles.footerBlockMobile} col-12 p-0 mt-4 d-inline-block`}
+              className={`${styles.footerBlockMobile} col-12 p-0 d-inline-block`}
             >
               <div className={`${styles.footerTitle}`}>Follow us</div>
               <ul
-                className={`${styles.footerMenu} d-inline-flex flex-column gap-2 list-unstyled`}
+                className={`${styles.footerMenu} gap-2 list-unstyled`}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                }}
               >
                 <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
                   <Link
                     to={enviroment.INSTAGRAM_LINK}
@@ -191,11 +210,11 @@ export const Footer = () => {
                     title={`${enviroment.BUSINESS_NAME} on Instagram`}
                   >
                     <InstagramIcon />
-                    <span className="icon__fallback-text">Instagram</span>
+                    {/* <span>Instagram</span> */}
                   </Link>
                 </li>
                 <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
                   <Link
                     to={enviroment.FACEBOOK_LINK}
@@ -205,11 +224,11 @@ export const Footer = () => {
                     title={`${enviroment.BUSINESS_NAME} on Facebook`}
                   >
                     <FacebookIcon />
-                    <span className="icon__fallback-text">Facebook</span>
+                    {/* <span className="icon__fallback-text">Facebook</span> */}
                   </Link>
                 </li>
                 <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
                   <Link
                     to={enviroment.TWITTER_LINK}
@@ -219,11 +238,11 @@ export const Footer = () => {
                     title={`${enviroment.BUSINESS_NAME}  on Twitter`}
                   >
                     <TwitterIcon />
-                    <span className="icon__fallback-text">Twitter</span>
+                    {/* <span className="icon__fallback-text">Twitter</span> */}
                   </Link>
                 </li>
                 <li
-                  className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
+                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
                   <Link
                     to={enviroment.LINKEDIN_LINK}
@@ -233,7 +252,21 @@ export const Footer = () => {
                     title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
                   >
                     <LinkedInIcon />
-                    <span className="icon__fallback-text">LinkedIn</span>
+                    {/* <span className="icon__fallback-text">LinkedIn</span> */}
+                  </Link>
+                </li>
+                <li
+                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
+                >
+                  <Link
+                    to={enviroment.YOUTUBE_LINK}
+                    className="d-inline-flex align-items-center text-decoration-none gap-1"
+                    target="_blank"
+                    rel="noopener"
+                    title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
+                  >
+                    <YoutubeIcon />
+                    {/* <span className="icon__fallback-text">LinkedIn</span> */}
                   </Link>
                 </li>
               </ul>
@@ -457,6 +490,17 @@ export const Footer = () => {
                     <li className={`${styles.socialIcon} list-unstyled`}>
                       <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
                         <InstagramIcon />
+                      </Link>
+                    </li>
+                    <li className={`${styles.socialIcon} list-unstyled`}>
+                      <Link
+                        to={enviroment.LINKEDIN_LINK}
+                        target="_blank"
+                        rel="noopener"
+                        className="text-decoration-none"
+                        title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
+                      >
+                        <LinkedInIcon />
                       </Link>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
