@@ -848,7 +848,7 @@ export const ProductPage = () => {
                       >
                         {ProductData?.specifications?.type && (
                           <p className="col-12 d-inline-flex gap-2  m-0">
-                            <strong>Type: </strong>
+                            <strong>Type:</strong>{" "}
                             {ProductData?.specifications?.type}
                           </p>
                         )}
@@ -1263,8 +1263,8 @@ export const ProductPage = () => {
                         className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
                       >
                         {ProductData?.specifications?.type && (
-                          <p className="col-12 d-inline-flex m-0">
-                            <strong>Type: </strong>
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Type:</strong>{" "}
                             {ProductData?.specifications?.type}
                           </p>
                         )}
