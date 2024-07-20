@@ -142,7 +142,7 @@ export default function Specials() {
                     margin: "auto"
                 }}
             >
-                <h1 className="mb-5"
+                <h1 className=""
                     style={{
                         fontWeight: "bold",
                         fontSize: "28px"
@@ -150,7 +150,9 @@ export default function Specials() {
                 >
                     knickknack's Toy Store - India's most loved place to buy toys for children!
                 </h1>
-                <p className="lead mb-5 p-1">
+                <p className="mb-5 p-1" style={{
+                    fontSize: "16px"
+                }}>
                     Knickknack's Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
                 </p>
                 <h2 className="h3 mb-4"
@@ -160,27 +162,37 @@ export default function Specials() {
                     }}
                 >Why Knickknack's Toy Store?</h2>
                 <ul>
-                    <li className="lead mb-3">
+                    <li className="mb-3" style={{
+                        fontSize: "16px"
+                    }}>
                         <span style={{
                             fontWeight: "bold"
                         }}>Quality Assurance:</span> Our toys undergo rigorous testing to ensure they are safe, durable, and meet the highest quality standards.
                     </li>
-                    <li className="lead mb-3">
+                    <li className="mb-3" style={{
+                        fontSize: "16px"
+                    }}>
                         <span style={{
                             fontWeight: "bold"
                         }}>Expertise:</span> Our team consists of toy enthusiasts and professionals who bring years of experience to provide the best play experiences for your children.
                     </li>
-                    <li className="lead mb-3">
+                    <li className="mb-3" style={{
+                        fontSize: "16px"
+                    }}>
                         <span style={{
                             fontWeight: "bold"
                         }}>Innovative Solutions:</span> From interactive toys to educational games, we offer a wide selection of products designed to keep your kids engaged, learning, and having fun.
                     </li>
-                    <li className="lead mb-3">
+                    <li className="mb-3" style={{
+                        fontSize: "16px"
+                    }}>
                         <span style={{
                             fontWeight: "bold"
                         }}>Customer Satisfaction:</span> Your satisfaction is our priority. We strive to provide exceptional service and support, ensuring that every shopping experience is enjoyable for both you and your children.
                     </li>
-                    <li className="lead mb-3">
+                    <li className="mb-3" style={{
+                        fontSize: "16px"
+                    }}>
                         <span style={{
                             fontWeight: "bold"
                         }}>Convenience:</span> Shop online or visit our store by searching for a toy store near me. We offer the best toy solutions for your convenience.
