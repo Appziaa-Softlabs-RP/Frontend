@@ -490,8 +490,8 @@ export const ProductPage = () => {
             {
               // ProductData?.name
               // only 100 chars
-              ProductData?.name.length > 100
-                ? ProductData?.name.substring(0, 100) + "..."
+              ProductData?.name.length > 70
+                ? ProductData?.name.substring(0, 70) + "..."
                 : ProductData?.name
             }{" "}
             Online - {ProductData?.store_name}
@@ -506,12 +506,12 @@ export const ProductPage = () => {
             property="og:description"
             content={
               // only 100 chars
-              ProductData?.description.length > 100
+              ProductData?.description.length > 70
                 ? ProductData?.description
                     .replace(/<[^>]*>?/gm, "")
                     .replace(/\s+/g, " ")
                     .trim()
-                    .substring(0, 100) + "..."
+                    .substring(0, 70) + "..."
                 : ProductData?.description
                     .replace(/<[^>]*>?/gm, "")
                     .replace(/\s+/g, " ")
