@@ -21,7 +21,7 @@ export const OrderDetails = () => {
       .then((res) => {
         setOrderDetail(res.payload_orderDetails);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
   return (
     <React.Fragment>

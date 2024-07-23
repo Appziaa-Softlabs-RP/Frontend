@@ -28,6 +28,7 @@ import { Terms } from "../pages/Terms/Terms";
 import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import Sitemap from "../Components/Sitemap/SitemapNew";
+import { ShopVerticalPage } from "../pages/CategoryPage/shopVerticalPage";
 
 export const PublicRoutes = () => {
   return (
@@ -42,7 +43,7 @@ export const PublicRoutes = () => {
       <Route path="/store-product/:category" element={<StoreProductCategory />} />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
-        element={<ShopCategoryPage />}
+        element={<ShopVerticalPage />}
       />
       <Route
         path="/store-product/brand/:brandId"

@@ -90,11 +90,23 @@
 .continueShop, .placeOrderBtn {
     height: 45px;
     border: 1px solid var(--ADD_BUTTON_COLOR);
+    border-radius: 5px;
     color: var(--ADD_BUTTON_COLOR);
     font-size: 16px;
     font-weight: 500;
     background: #FFF;
-    border-radius: 2px;
+}
+
+.shoppingBtn {
+    height: 45px;
+    border: 1px solid var(--ADD_BUTTON_COLOR);
+    border-radius: 5px;
+    padding: 0 20px;
+    color: var(--ADD_BUTTON_COLOR);
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFF;
+    background: var(--ADD_BUTTON_COLOR)
 }
 
 .placeOrderBtn {

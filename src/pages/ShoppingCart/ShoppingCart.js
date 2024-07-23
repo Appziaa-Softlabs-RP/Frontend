@@ -4,10 +4,11 @@ import { CartSummery } from "../../Components/CartSummery/CartSummery";
 import { DeliveryAddress } from "../../Components/DeliveryAddress/DeliveryAddress";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { LoginPopup } from "../../Components/LoginPopup/LoginPopup";
 import { OrderSummery } from "../../Components/OrderSummery/OrderSummery";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductListCard } from "../../Components/ProductListCard/ProductListCard";
-import { BuildingIcon, CartIcon, TimeIcon } from "../../Components/siteIcons";
+import { BuildingIcon, TimeIcon } from "../../Components/siteIcons";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
@@ -19,12 +20,14 @@ export const ShoppingCart = () => {
   const windowWidth = appData.appData.windowWidth;
   const [cartData, setCartData] = useState([]);
   const [userInfo, setUserInfo] = useState({});
+  const [loginPop, setLoginPop] = useState(false);
   const [cartPriceTotal, setCartPriceTotal] = useState({
     price: 0,
     discount: 0,
     subTotal: 0,
     delivery: 0,
     saving: 0,
+    deliveryUpTo: 0,
   });
   const [orderStatus, setOrderStatus] = useState("Cart");
   const [shopcartID, setShopCartId] = useState("");
@@ -37,56 +40,54 @@ export const ShoppingCart = () => {
     let allTotal = 0,
       allSaving = 0,
       allPrice = 0;
-    if (cartData?.length) {
-      cartData?.map((item) => {
-        let itemPrice = item?.is_hot_deals
-          ? item?.deal_price
-          : item?.selling_price !== item?.mrp
-          ? item?.selling_price
-          : item?.mrp;
 
-        let qtyTotal = item?.quantity * itemPrice;
-        allTotal = allTotal + qtyTotal;
-        let saveTotal = (item?.mrp - itemPrice) * item.quantity;
-        allSaving = allSaving + saveTotal;
+    cartData.forEach((item) => {
+      const itemPrice = item.is_hot_deals
+        ? item.deal_price
+        : item.selling_price !== item.mrp
+          ? item.selling_price
+          : item.mrp;
 
-        // if is_hot_deal then add deal_price
-        // if selling_price is less than mrp then mrp
-        // else mrp
-        // let qtyTotal = item?.quantity * item?.selling_price;
-      });
-      allPrice = allTotal + allSaving;
-      setCartPriceTotal((cartPriceTotal) => ({
-        ...cartPriceTotal,
-        saving: allSaving,
-        subTotal: allTotal,
-        price: allPrice,
-      }));
+      const qtyTotal = item.quantity * itemPrice;
+      allTotal += qtyTotal;
+      const saveTotal = (item.mrp - itemPrice) * item.quantity;
+      allSaving += saveTotal;
+    });
 
-      if (
-        userInfo?.customer_id !== undefined &&
-        userInfo?.customer_id !== null
-      ) {
-        const payload = {
-          company_id: parseInt(enviroment.COMPANY_ID),
-          store_id: parseInt(enviroment.STORE_ID),
-          customer_id: userInfo?.customer_id,
-          sub_total: allTotal,
-        };
-        ApiService.getDeliveryCost(payload)
-          .then((res) => {
-            if (res.message === "Delivery Details.") {
-              let deliveryCost = res?.payload_deliveryCharge?.delivery_charge;
-              setCartPriceTotal((cartPriceTotal) => ({
-                ...cartPriceTotal,
-                delivery: deliveryCost,
-              }));
-            }
-          })
-          .catch((err) => {});
-      }
+    allPrice = allTotal + allSaving;
+
+    setCartPriceTotal((prevCartPriceTotal) => ({
+      ...prevCartPriceTotal,
+      saving: allSaving,
+      subTotal: allTotal,
+      price: allPrice,
+    }));
+
+    if (userInfo.customer_id) {
+      const payload = {
+        company_id: parseInt(enviroment.COMPANY_ID),
+        store_id: parseInt(enviroment.STORE_ID),
+        customer_id: userInfo.customer_id,
+        sub_total: allTotal,
+      };
+      ApiService.getDeliveryCost(payload)
+        .then((res) => {
+          if (res.message === "Delivery Details.") {
+            const deliveryCost = res.payload_deliveryCharge.delivery_charge;
+            const deliveryUpToCost = res.payload_deliveryCharge.delivery_upto;
+            setCartPriceTotal((prevCartPriceTotal) => ({
+              ...prevCartPriceTotal,
+              delivery: deliveryCost,
+              deliveryUpTo: deliveryUpToCost,
+            }));
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   };
+
 
   const placeOrder = () => {
     let cartType = appData.appData.cartSaved;
@@ -169,16 +170,19 @@ export const ShoppingCart = () => {
     setCartTotal(appData?.appData?.cartData);
     setCartData(appData?.appData?.cartData);
     setUserInfo(appData.appData.user);
-  }, [appData?.appData]);
+  }, [appData, setCartPriceTotal, userInfo]);
 
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
         <React.Fragment>
           <PageHeader title="Personal Cart" hide={true} />
-          <h1 className={`${styles.cartTitle} col-12 px-3 mt-3 d-inline-flex`}>
-            My Cart ({appData?.appData?.cartCount})
-          </h1>
+          {
+            cartPriceTotal.subTotal > 0 &&
+            <h1 className={`${styles.cartTitle} col-12 px-3 mt-3 d-inline-flex`}>
+              My Cart ({appData?.appData?.cartCount})
+            </h1>
+          }
           {orderStatus === "Cart" ? (
             <React.Fragment>
               {cartData?.length ? (
@@ -229,12 +233,59 @@ export const ShoppingCart = () => {
                 <div
                   className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 col-12 p-4`}
                 >
-                  <CartIcon color="#888" />
-                  <label
-                    className={`${styles.emptyProductText} col-12 text-center`}
-                  >
-                    No Products added
-                  </label>
+                  {cartPriceTotal?.subTotal >= 0 && (
+                    <div
+                      className={`${styles.emtpyCartText} col-12 d-inline-flex align-items-center justify-content-center p-5`}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: "1.5rem",
+                          fontWeight: "bold",
+                          color: "#000",
+                          textAlign: "center",
+                        }}
+                      >
+                        Your cart is empty
+                      </p>
+                      <a href="/">
+                        <button className={`${styles.shoppingBtn}`}>Continue Shopping</button>
+                      </a>
+                      <p style={{
+                        fontSize: "0.8rem",
+                        marginTop: "20px",
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                      }}>
+                        <span style={{
+                          fontSize: "1rem",
+                        }}>Have an account?</span>
+                        <span style={{
+                          display: "flex",
+                          flexDirection: "row",
+                        }}>
+                          <span
+                            className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                            role="button"
+                          >
+                            <a  href='/login' className={`${styles.supportText} d-inline-flex m-1`} style={{
+                              color: "black",
+                              textDecoration: "underline",
+                            }}>
+                              Log in
+                            </a>
+                          </span>{" "}
+                          <span className="my-1">
+                            to checkout faster
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
             </React.Fragment>
@@ -260,7 +311,10 @@ export const ShoppingCart = () => {
                 shopcartID={shopcartID}
                 setOrderStatus={setOrderStatus}
               />
-              <OrderSummery cartPriceTotal={cartPriceTotal} />
+              {
+                cartPriceTotal.subTotal > 0 &&
+                <OrderSummery cartPriceTotal={cartPriceTotal} />
+              }
               <div className={`${styles.cancelPolicyBox} col-12 mt-3 p-3`}>
                 <h5
                   className={`${styles.policyHeader} col-12 d-inline-flex mb-3`}
@@ -288,6 +342,8 @@ export const ShoppingCart = () => {
                   </div>
                 </div>
               </div>
+              {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
+
             </React.Fragment>
           )}
           <Footer />
@@ -323,7 +379,10 @@ export const ShoppingCart = () => {
                   ) : null}
                 </div>
                 <div className="col-3 flex-shrink-0">
-                  <OrderSummery cartPriceTotal={cartPriceTotal} />
+                  {
+                    cartPriceTotal.subTotal > 0 &&
+                    <OrderSummery cartPriceTotal={cartPriceTotal} />
+                  }
                 </div>
               </div>
             </div>

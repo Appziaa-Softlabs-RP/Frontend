@@ -7,7 +7,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import { LoginPopup } from "../LoginPopup/LoginPopup";
 import { ProductOfferCard } from "../ProductOfferCard/ProductOfferCard";
-import { DeleteIcon } from "../siteIcons";
+import { DeleteIcon, UserIcon } from "../siteIcons";
 import styles from "./CartSummery.module.css";
 
 export const CartSummery = ({
@@ -201,30 +201,36 @@ export const CartSummery = ({
       <div
         className={`${styles.cartSummryBox} col-12 d-inline-flex flex-column`}
       >
-        <h1 className={`${styles.cartTitle} col-12 p-3 d-inline-flex`}>
-          My Cart ({appData?.appData?.cartCount})
-        </h1>
+        {
+          cartSummryData.length > 0 &&
+          <h1 className={`${styles.cartTitle} col-12 p-3 d-inline-flex`}>
+            My Cart ({appData?.appData?.cartCount})
+          </h1>
+        }
         <div className="col-12 d-inline-flex flex-column">
-          <div className="col-12 d-inline-flex align-items-center p-2">
-            <label className={`${styles.detailTitle} d-inline-flex col-3`}>
-              Item Descriptions
-            </label>
-            <label className={`${styles.detailTitle} d-inline-flex col-2`}>
-              Unit Price
-            </label>
-            <label className={`${styles.detailTitle} d-inline-flex col-2`}>
-              Quantity
-            </label>
-            <label className={`${styles.detailTitle} d-inline-flex col-2`}>
-              SubTotal
-            </label>
-            <label className={`${styles.detailTitle} d-inline-flex col-2`}>
-              Savings
-            </label>
-            <label
-              className={`${styles.detailTitle} d-inline-flex col-1`}
-            ></label>
-          </div>
+          {
+            cartSummryData?.length > 0 &&
+            <div className="col-12 d-inline-flex align-items-center p-2">
+              <label className={`${styles.detailTitle} d-inline-flex col-3`}>
+                Item Descriptions
+              </label>
+              <label className={`${styles.detailTitle} d-inline-flex col-2`}>
+                Unit Price
+              </label>
+              <label className={`${styles.detailTitle} d-inline-flex col-2`}>
+                Quantity
+              </label>
+              <label className={`${styles.detailTitle} d-inline-flex col-2`}>
+                SubTotal
+              </label>
+              <label className={`${styles.detailTitle} d-inline-flex col-2`}>
+                Savings
+              </label>
+              <label
+                className={`${styles.detailTitle} d-inline-flex col-1`}
+              ></label>
+            </div>
+          }
           {cartSummryData?.length > 0 &&
             cartSummryData?.map((item, idx) => {
               return (
@@ -251,8 +257,8 @@ export const CartSummery = ({
                       {item.is_hot_deals && item.deal_price !== 0
                         ? item.deal_price
                         : item.mrp > item.selling_price
-                        ? item.selling_price
-                        : item.mrp}
+                          ? item.selling_price
+                          : item.mrp}
                     </span>
                     {item.is_hot_deals && item.deal_price !== 0 ? (
                       <del
@@ -319,8 +325,8 @@ export const CartSummery = ({
                         (item.is_hot_deals && item.deal_price !== 0
                           ? item.deal_price
                           : item.mrp > item.selling_price
-                          ? item.selling_price
-                          : item.mrp) * item.quantity
+                            ? item.selling_price
+                            : item.mrp) * item.quantity
                       ).toFixed(2)}
                     </span>
                   </div>
@@ -331,8 +337,8 @@ export const CartSummery = ({
                         (item.is_hot_deals && item.deal_price !== 0
                           ? item.mrp - item.deal_price
                           : item.mrp > item.selling_price
-                          ? item.mrp - item.selling_price
-                          : 0) * item.quantity
+                            ? item.mrp - item.selling_price
+                            : 0) * item.quantity
                       ).toFixed(2)}
                     </span>
                   </div>
@@ -351,8 +357,54 @@ export const CartSummery = ({
           {cartSummryData?.length === 0 && (
             <div
               className={`${styles.emtpyCartText} col-12 d-inline-flex align-items-center justify-content-center p-5`}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
             >
-              No Product Added into the Cart
+              <p
+                style={{
+                  fontSize: "1.8rem",
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
+                Your cart is empty
+              </p>
+              <a href="/">
+                <button className={`${styles.shoppingBtn}`}>Continue Shopping</button>
+              </a>
+              <p style={{
+                fontSize: "0.8rem",
+                marginTop: "20px",
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+              }}>
+                <span style={{
+                  fontSize: "1rem",
+                }}>Have an account?</span>
+                <span style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}>
+                <span
+                  className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                  onClick={() => setLoginPop(true)}
+                  role="button"
+                >
+                  <span className={`${styles.supportText} d-inline-flex m-1`} style={{
+                    color: "black",
+                    textDecoration: "underline",
+                  }}>
+                    Log in
+                  </span>
+                </span>{" "}
+                <span className="my-1">
+                  to checkout faster
+                </span>
+                </span>
+              </p>
             </div>
           )}
           {offers && offers?.products?.length > 0 ? (
@@ -361,11 +413,9 @@ export const CartSummery = ({
             >
               <div className={`${windowWidth === "mobile" && "p-0"} container`}>
                 <h5
-                  className={`${
-                    styles.availSizeTitle
-                  } font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${
-                    windowWidth === "mobile" && "px-4"
-                  }`}
+                  className={`${styles.availSizeTitle
+                    } font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${windowWidth === "mobile" && "px-4"
+                    }`}
                 >
                   Applicable Offer - {offers?.name}
                 </h5>
@@ -408,6 +458,7 @@ export const CartSummery = ({
               >
                 Continue Shopping
               </Link>
+
               <span
                 role="button"
                 className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`}

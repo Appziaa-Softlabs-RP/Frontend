@@ -21,6 +21,8 @@ export const VerifyOtp = () => {
   const [mobileLast, setMobileLast] = useState("");
   const appData = useApp();
 
+const [btnDisable, setBtnDisable] = useState(true);
+
   const optInput1 = useRef();
   const optInput2 = useRef();
   const optInput3 = useRef();
@@ -182,6 +184,8 @@ export const VerifyOtp = () => {
     }
   };
 
+ 
+
   useEffect(() => {
     if (optInput.otpInput1 !== "") {
       optInput2.current.focus();
@@ -206,9 +210,23 @@ export const VerifyOtp = () => {
 
   useEffect(() => {
     if (optInput.otpInput4 === "") {
-      optInput3.current.focus();
+      optInput1.current.focus();
     }
   }, [optInput.otpInput4]);
+
+  useEffect(() => {
+    if (
+      optInput.otpInput1 !== "" &&
+      optInput.otpInput2 !== "" &&
+      optInput.otpInput3 !== "" &&
+      optInput.otpInput4 !== ""
+    ) {
+      setBtnDisable(false);
+    } else {
+      setBtnDisable(true);
+    }
+  }, [optInput]);
+
   return (
     <React.Fragment>
       <div className={`d-inline-flex flex-column col-12 align-items-start p-3`}>
@@ -223,8 +241,8 @@ export const VerifyOtp = () => {
           </span>
           <img src={OtpImg} alt="img" className={`${styles.OtpImgIcon} `} />
           <div className="col-12 d-inline-flex align-items-center">
-            <span className={`${styles.verifyTxt} d-inline-flex`}>Verify</span>
-            <span className={`${styles.otpTxt} d-inline-flex`}>OTP</span>
+            <span className={`${styles.verifyTxt} d-inline-flex m-1`}>Verify</span>
+            <span className={`${styles.otpTxt} d-inline-flex my-1`}>OTP</span>
           </div>
           <div className="col-12 p-0 d-inline-flex align-items-center justify-content-between">
             <input
@@ -285,13 +303,16 @@ export const VerifyOtp = () => {
             </span>
           </div>
           <div className="col-12 p-0 d-inline-block">
-            <span
-              role="button"
+            <button
+              disabled={btnDisable}
               className={`${styles.verifyBtn}  d-inline-flex align-items-center justify-content-center col-12`}
+              style={{
+                opacity: btnDisable ? "0.5" : "1",
+              }}
               onClick={() => proceedVerify()}
             >
               Verify &amp; Proceed
-            </span>
+            </button>
           </div>
         </div>
       </div>

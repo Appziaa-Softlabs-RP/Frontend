@@ -23,16 +23,23 @@
     color: #000;
     left: 10px;
 }
+
 .formInput{
     padding-left: 50px;
     font-size: 20px;
+    background-color: white;
     color: #000;
     border-radius: 6px;
     box-shadow: none;
-    border: 1px solid var(--PRIMARY_COLOR);
+    border: 1px solid;
     height: 60px;
     padding-bottom: 3px;
 }
+
+.formInput:active{
+    border: 1px solid var(--PRIMARY_COLOR);
+}
+
 .formInput::-webkit-input-placeholder{
     opacity: 0.5;
 }
@@ -43,6 +50,7 @@
 .formLoginBtn{
     background: var(--PRIMARY_COLOR);
     border-radius: 6px;
+    border: none;
     height: 50px;
     font-size: 16px;
     font-weight: 500;

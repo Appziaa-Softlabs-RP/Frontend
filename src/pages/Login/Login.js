@@ -88,12 +88,17 @@ export const Login = () => {
                 }
               />
             </div>
-            <span
+            <button
               className={`${styles.formLoginBtn} col-12 d-inline-flex justify-content-center align-items-center mt-2`}
+              style={{
+                opacity: mobileVal.length !== 10 ? "0.5" : "1",
+
+              }}
               onClick={() => sendMobileOtp()}
+                disabled={mobileVal.length !== 10}
             >
               Continue
-            </span>
+            </button>
           </div>
         </div>
       </div>

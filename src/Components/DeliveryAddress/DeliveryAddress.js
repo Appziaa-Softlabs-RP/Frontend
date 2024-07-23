@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { AppNotification } from "../../utils/helper";
 import { AddAddressPopup } from "../AddAddressPopup/AddAddressPopup";
 import useRazorpay from "react-razorpay";
+import { EditAddressPopup } from "../EditAddressPopup/EditAddressPopup";
+import { DeleteAddressPopup } from "../DeleteAddressPopup/DeleteAddressPopup";
 
 const AddressDelivery = ({
   allAddress,
@@ -20,14 +22,12 @@ const AddressDelivery = ({
   const navigate = useNavigate();
   const [selectAddress, setSelectAddress] = useState({});
   const [openAdressPop, setOpenAdressPop] = useState(false);
+  const [openEditAdressPop, setOpenEditAdressPop] = useState(false);
+  const [openDeleteAdressPop, setOpenDeleteAdressPop] = useState(false);
+  const [editAddressId, setEditAddressId] = useState(null);
+  const [deleteAddressId, setDeleteAddressId] = useState(null);
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
-
-  const editAddress = (id) => {
-    navigate("/add-new-address", {
-      state: { addressEdit: true, addressId: id, routePopup: true },
-    });
-  };
 
   const chooseSelectAddr = () => {
     if (Object.keys(selectAddress).length === 0) {
@@ -46,6 +46,24 @@ const AddressDelivery = ({
   const addNewAddress = () => {
     setOpenAdressPop(true);
   };
+
+  const editNewAddress = ({addressId}) => {
+    setOpenEditAdressPop(true);
+    setEditAddressId(addressId)
+  };
+
+  const deleteAddress = ({addressId}) => {
+    setOpenDeleteAdressPop(true);
+    setDeleteAddressId(addressId)
+  };
+
+  useEffect(() => {
+    if (allAddress?.length > 0) {
+      setSelectAddress(allAddress[0]);
+      setSelectAddrDetail(allAddress[0]);
+      setAddressId(allAddress[0].address_id);
+    }
+  }, [allAddress]);
 
   return (
     <div
@@ -95,6 +113,9 @@ const AddressDelivery = ({
                       <div
                         className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`}
                         role="button"
+                        style={{
+                          height: "100px",
+                         }}
                         onClick={(e) =>
                           seletThisAddress(e, item, item.address_id)
                         }
@@ -103,6 +124,7 @@ const AddressDelivery = ({
                           className={`${styles.deliveryRadio} position-absolute d-inline-block`}
                           id={`delivery${idx}`}
                           type="radio"
+                          checked={selectAddress.address_id === item.address_id}
                           name="delivery"
                         />
                         <label
@@ -126,7 +148,15 @@ const AddressDelivery = ({
                             {item.contact}
                           </label>
                           <label
-                            className={`${styles.addressdetail} col-12 d-inline-flex mb-0`}
+                            className={`${styles.addressdetail} col-12 d-inline-flex mb-0 `}
+                            style={{
+                              position: "relative",
+                              whiteSpace: "nowrap",
+                              maxWidth: "100%",
+                              width: "100%",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
                           >
                             {item.house_no}, {item?.street}, {item?.city},{" "}
                             {item?.state} - {item.pincode}
@@ -135,13 +165,19 @@ const AddressDelivery = ({
                         <div className="position-absolute p-3 top-0 end-0 d-inline-flex justify-content-end gap-3">
                           <span
                             role="button"
+                            onClick={
+                              () => deleteAddress({addressId: item.address_id})
+                            }
                             className={`${styles.deleteBtn} d-inline-flex align-items-center px-2`}
                           >
                             <DeleteIcon />
                           </span>
                           <span
                             role="button"
-                            onClick={() => editAddress(item.address_id)}
+                            onClick={() => editNewAddress({
+                              addressId: item.address_id,
+                            })}
+                            // onClick={() => editAddress(item.address_id)}
                             className={`${styles.editBtn} d-inline-flex align-items-center px-2`}
                           >
                             <EditIcon color="#FF0000" />
@@ -222,13 +258,28 @@ const AddressDelivery = ({
           setAddressSaved={setAddressSaved}
         />
       )}
+      {(openEditAdressPop === true && editAddressId) && (
+        <EditAddressPopup
+          addressId={editAddressId}
+          setOpenAdressPop={setOpenEditAdressPop}
+          setAddressSaved={setAddressSaved}
+        />
+      )}
+      {(openDeleteAdressPop === true && deleteAddressId) && (
+        <DeleteAddressPopup
+          addressId={deleteAddressId}
+          setAddressId={setDeleteAddressId}
+          setOpenAdressPop={setOpenDeleteAdressPop}
+          setAddressSaved={setAddressSaved}
+        />
+      )}
     </div>
   );
 };
 
 const PaymentMode = ({
-    selectedOfferProductId,
-selectedOfferId,
+  selectedOfferProductId,
+  selectedOfferId,
   checkoutType,
   userInfo,
   addressId,
@@ -308,13 +359,18 @@ selectedOfferId,
     [Razorpay]
   );
 
-  const onlinePaymentSuccess = (orderId, transID, selectedOfferProductId, selectedOfferId) => {
+  const onlinePaymentSuccess = (
+    orderId,
+    transID,
+    selectedOfferProductId,
+    selectedOfferId
+  ) => {
     const payload = {
       company_id: parseInt(enviroment.COMPANY_ID),
       store_id: parseInt(enviroment.STORE_ID),
       customer_id: userInfo.customer_id,
       offer_id: selectedOfferProductId,
-      offer_product_id: selectedOfferId, 
+      offer_product_id: selectedOfferId,
       order_id: orderId,
       transection_id: transID,
       cart_id: shopcartID,
@@ -352,7 +408,7 @@ selectedOfferId,
       });
   };
 
-  const proceedPayment = ({selectedOfferProductId, selectedOfferId}) => {
+  const proceedPayment = ({ selectedOfferProductId, selectedOfferId }) => {
     if (
       paymentType === "" ||
       paymentType === null ||
@@ -467,12 +523,14 @@ selectedOfferId,
             className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}
           >
             <span
-              onClick={() => proceedPayment({
-                selectedOfferProductId,
-                selectedOfferId,
-                selectedOfferProductId,
-                selectedOfferId
-              })}
+              onClick={() =>
+                proceedPayment({
+                  selectedOfferProductId,
+                  selectedOfferId,
+                  selectedOfferProductId,
+                  selectedOfferId,
+                })
+              }
               role="button"
               className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
             >
@@ -487,8 +545,8 @@ selectedOfferId,
 };
 
 export const DeliveryAddress = ({
-    selectedOfferProductId,
-    selectedOfferId,
+  selectedOfferProductId,
+  selectedOfferId,
   cartPriceTotal,
   shopcartID,
   setOrderStatus,
@@ -555,8 +613,8 @@ export const DeliveryAddress = ({
         setSelectAddrDetail={setSelectAddrDetail}
       />
       <PaymentMode
-      selectedOfferProductId={selectedOfferProductId}
-       selectedOfferId={selectedOfferId}
+        selectedOfferProductId={selectedOfferProductId}
+        selectedOfferId={selectedOfferId}
         checkoutType={checkoutType}
         userInfo={userInfo}
         addressId={addressId}

@@ -28,21 +28,8 @@ export const ProductListCard = ({ setSelectedOfferProductId,
         discountOff = Math.ceil(discountOff);
     }
 
-    const showProductDetail = (id) => {
-        const payload = {
-            product_id: id,
-            company_id: parseInt(enviroment.COMPANY_ID),
-            store_id: parseInt(enviroment.STORE_ID)
-        }
-        ApiService.productDetails(payload).then((res) => {
-            if (res.message === "Product Detail") {
-                navigate(`/product?id=${id}`, { state: { product: res.payload } })
-            } else {
-                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-            }
-        }).catch((err) => {
-            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-        });
+    const showProductDetail = (name_url) => {
+        navigate(`/product/${name_url}`);
     }
 
     const addToCart = (e, item) => {
@@ -187,7 +174,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
     return (
         <React.Fragment>
             <div className="col-12 d-inline-flex flex-column px-3" key={index}>
-                <div className={`${styles.productsGlance} col-12 d-inline-block position-relative`} onClick={() => showProductDetail(Product.product_id)}>
+                <div className={`${styles.productsGlance} col-12 d-inline-block position-relative`} onClick={() => showProductDetail(Product.name_url)}>
                     <div className="col-12 p-0 d-inline-flex align-items-center">
                         <div className={`${styles.offerImgContainer} flex-shrink-0 text-decoration-none position-relative d-inline-block`}>
                             {Product?.image !== '' ? (

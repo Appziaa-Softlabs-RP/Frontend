@@ -7,6 +7,8 @@ import { AppNotification } from "../../utils/helper";
 import styles from "./AddAddressForm.module.css";
 // Addaddress form
 export const AddAddressForm = ({
+  isEdit=false,
+  addressId=null,
   stopNavigate,
   setOpenAdressPop,
   setAddressSaved,
@@ -28,7 +30,7 @@ export const AddAddressForm = ({
     house_no: "",
     street: "",
     landmark: "",
-    address_type: "",
+    address_type: "Home",
   });
 
   const saveNewAddress = () => {
@@ -60,9 +62,11 @@ export const AddAddressForm = ({
     } else if (addressObj.address_type === "") {
       AppNotification("Error", "Please choose your address type.", "danger");
     } else {
-      if (addresState?.addressEdit === true) {
-        setAddressObj({ ...addressObj, address_id: addresState?.addressId });
-        ApiService.updateAddress(addressObj)
+      if (addresState?.addressEdit === true || isEdit) {
+        ApiService.updateAddress({
+          ...addressObj,
+          address_id: addressId===null ? addresState?.addressId : addressId,
+        })
           .then((res) => {
             if (res.message === "Update successfully.") {
               AppNotification(
@@ -126,11 +130,11 @@ export const AddAddressForm = ({
   };
 
   useEffect(() => {
-    if (addresState?.addressEdit === true) {
+    if (addresState?.addressEdit === true || isEdit) {
       const payload = {
         store_id: parseInt(enviroment.STORE_ID),
         customer_id: userInfo.customer_id,
-        address_id: addresState?.addressId,
+        address_id: addressId===null ? addresState?.addressId : addressId,
       };
       ApiService.getAddressDetail(payload)
         .then((res) => {
@@ -153,7 +157,7 @@ export const AddAddressForm = ({
         })
         .catch((err) => {});
     }
-  }, []);
+  }, [addresState, addressId, isEdit]);
 
   return (
     <React.Fragment>
@@ -163,7 +167,7 @@ export const AddAddressForm = ({
         <h2
           className={`${styles.savedAddress} col-12 d-inline-flex gap-2 mb-3`}
         >
-          {addresState?.addressEdit === true
+          {addresState?.addressEdt === true || isEdit
             ? "Edit this Address"
             : "Add new address"}
         </h2>
@@ -367,6 +371,7 @@ export const AddAddressForm = ({
                 className={`${styles.address_option}`}
                 value="Home"
                 name="address_type"
+                checked={addressObj.address_type === "Home"}
               />
               <div
                 className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
@@ -420,7 +425,7 @@ export const AddAddressForm = ({
           className={`${styles.saveAddrsBtn} d-inline-flex align-items-center justify-content-center col-12`}
           onClick={() => saveNewAddress()}
         >
-          {addresState?.addressEdit === true
+          {addresState?.addressEdit === true || isEdit
             ? "Update Address"
             : "Save Address"}
         </span>

@@ -47,7 +47,7 @@
     font-weight: 700;
 }
 .saveAddrsBtn{
-    background: #EE6F12;
+    background: var(--PRIMARY_COLOR);
     height: 60px;
     font-size: 18px;
     color: #FFF;
