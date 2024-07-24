@@ -10,6 +10,12 @@
   margin: 10px 50px;
 }
 
+.reviewBtn{
+  background: var(--PRIMARY_COLOR);
+  border: none;
+  border-radius: 5px;
+}
+
 .brandSilder {
   display: grid;
   /* overflow: hidden; */
