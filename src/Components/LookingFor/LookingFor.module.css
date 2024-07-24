@@ -4,19 +4,19 @@
 }
 
 .thumbItem img{
-    height: 220px;
+    height: 300px;
+    max-width: 250px;
     padding: 10px 0px;
     border-radius: 6px;
     object-fit: cover;
 }
 .thumbName{
-    color: #000;
+    color: white;
+    font-weight: 600;
     font-size: 15px;
 }
 
-.thumbName:hover {
-    color: blue;
-}
 .shopAgeBox{
-    background-color: white;
+    background-color: #2A1000;
+    color: white
 }

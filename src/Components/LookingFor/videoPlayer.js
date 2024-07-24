@@ -2,7 +2,7 @@ import React from 'react';
 import video from '../../assets/video/monbold.mp4';
 const VideoPlayer = () => {
     return (
-        <div className="col-12 d-inline-flex justify-content-center mt-4"
+        <div className="col-12 d-inline-flex justify-content-center"
         >
             <div className="col-12 d-inline-flex justify-content-center">
                 <video

@@ -47,11 +47,11 @@ export const LookingFor = () => {
               overflow: "visible",
             }}>
               <ReactOwlCarousel
-                className={`carousel-looking-for col-12 d-inline-block owl-theme `}
+                className={`carousel-looking-for `}
                 margin={10}
-                loop={true}
-                dots={false}
-                items={8}
+                // loop={true}
+                dots={true}
+                items={5}
                 stagePadding={0}
                 nav={true}
               >
@@ -68,7 +68,7 @@ export const LookingFor = () => {
                       }
                       style={{
                         transform: (idx % 2 === 0) ? 'translateY(-10px)' : 'translateY(10px)',
-                        height: "280px"
+                        height: "350px"
                       }}
                     >
                       <img
