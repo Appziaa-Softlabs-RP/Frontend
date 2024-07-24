@@ -5,8 +5,8 @@ export const AppNotification = (title, message, type) => {
     title: title,
     message: message,
     type: type,
-    insert: "top",
-    container: "top-right",
+    insert: "bottom",
+    container: "bottom-center",
     animationIn: ["animate__animated", "animate__fadeIn"],
     animationOut: ["animate__animated", "animate__fadeOut"],
     dismiss: {

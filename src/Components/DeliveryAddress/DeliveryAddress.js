@@ -47,12 +47,12 @@ const AddressDelivery = ({
     setOpenAdressPop(true);
   };
 
-  const editNewAddress = ({addressId}) => {
+  const editNewAddress = ({ addressId }) => {
     setOpenEditAdressPop(true);
     setEditAddressId(addressId)
   };
 
-  const deleteAddress = ({addressId}) => {
+  const deleteAddress = ({ addressId }) => {
     setOpenDeleteAdressPop(true);
     setDeleteAddressId(addressId)
   };
@@ -105,17 +105,16 @@ const AddressDelivery = ({
                 {allAddress?.map((item, idx) => {
                   return (
                     <div
-                      className={`${
-                        windowWidth === "mobile" ? "col-12" : "col-6"
-                      } p-3`}
+                      className={`${windowWidth === "mobile" ? "col-12" : "col-6"
+                        } p-3`}
                       key={idx}
                     >
                       <div
                         className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`}
                         role="button"
                         style={{
-                          height: "100px",
-                         }}
+                          height: "120px",
+                        }}
                         onClick={(e) =>
                           seletThisAddress(e, item, item.address_id)
                         }
@@ -134,6 +133,12 @@ const AddressDelivery = ({
                         >
                           <h6
                             className={`${styles.addressName} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}
+                            style={{
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              maxWidth: "100%",
+                              overflow: "hidden",
+                            }}
                           >
                             {item.name}
                             <span
@@ -166,7 +171,7 @@ const AddressDelivery = ({
                           <span
                             role="button"
                             onClick={
-                              () => deleteAddress({addressId: item.address_id})
+                              () => deleteAddress({ addressId: item.address_id })
                             }
                             className={`${styles.deleteBtn} d-inline-flex align-items-center px-2`}
                           >
@@ -205,9 +210,8 @@ const AddressDelivery = ({
       )}
       {checkoutType === "Payment" && (
         <div
-          className={`col-12 d-inline-flex flex-column ${
-            windowWidth === "mobile" ? "p-2" : "p-4"
-          }`}
+          className={`col-12 d-inline-flex flex-column ${windowWidth === "mobile" ? "p-2" : "p-4"
+            }`}
         >
           <div
             className={`col-12 p-3 rounded d-inline-flex flex-column position-relative`}
@@ -571,7 +575,7 @@ export const DeliveryAddress = ({
           setAddressSaved(false);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const changeProducts = () => {

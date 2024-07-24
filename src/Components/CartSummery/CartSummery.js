@@ -175,15 +175,15 @@ export const CartSummery = ({
             AppNotification(
               "Error",
               "We are facing issue on shopping cart. Please try later.",
-              "error"
+              "danger"
             );
           }
         })
         .catch((err) => {
           AppNotification(
             "Error",
-            "We are facing issue on shopping cart. Please try later.",
-            "error"
+            err?.response?.data?.message ?? "We are facing issue on shopping cart. Please try later.",
+            "danger"
           );
         });
     } else {
@@ -240,10 +240,13 @@ export const CartSummery = ({
                 >
                   <div
                     className="d-inline-flex align-items-center col-3 gap-1"
+                    style={{
+                      cursor: "pointer",
+                    }}
                     onClick={() => showProductDetail(item.name_url)}
                   >
                     <span
-                      className={`${styles.itemImage} d-inline-flex flex-shrink-0`}
+                      className={`${styles.itemImage} d-inline-flex flex-shrink-0 me-1`}
                     >
                       <img src={item?.image} alt={item?.product_name} />
                     </span>

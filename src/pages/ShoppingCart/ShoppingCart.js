@@ -123,7 +123,7 @@ export const ShoppingCart = () => {
             AppNotification(
               "Error",
               "We are facing issue on shopping cart. Please try later.",
-              "error"
+              "danger"
             );
           }
         })
@@ -131,7 +131,7 @@ export const ShoppingCart = () => {
           AppNotification(
             "Error",
             "We are facing issue on shopping cart. Please try later.",
-            "error"
+            "danger"
           );
         });
     } else {
@@ -159,7 +159,7 @@ export const ShoppingCart = () => {
           AppNotification(
             "Error",
             "We are facing issue on shopping cart. Please try later.",
-            "error"
+            "danger"
           );
         });
     };

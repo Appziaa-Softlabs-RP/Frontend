@@ -147,7 +147,7 @@ const [btnDisable, setBtnDisable] = useState(true);
             AppNotification(
               "Error",
               "We are facing issue on shopping cart. Please try later.",
-              "error"
+              "danger"
             );
           }
         })
@@ -155,7 +155,7 @@ const [btnDisable, setBtnDisable] = useState(true);
           AppNotification(
             "Error",
             "We are facing issue on shopping cart. Please try later.",
-            "error"
+            "danger"
           );
         });
     } else {
