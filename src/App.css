@@ -1,8 +1,8 @@
 :root {
-  --PRIMARY_COLOR: #cf102e;
+  --PRIMARY_COLOR: #000;
   --SECONDARY_COLOR: #fff;
-  --MENU_HOVER_COLOR: rgba(207, 16, 46, 0.12);
-  --ADD_BUTTON_COLOR: #cf102e;
+  --MENU_HOVER_COLOR: rgba(71, 70, 70, 0.12);
+  --ADD_BUTTON_COLOR: #000;
 }
 body {
   background: #e7ecf2;

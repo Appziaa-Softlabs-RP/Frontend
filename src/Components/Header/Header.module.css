@@ -38,7 +38,7 @@
     outline: none;
 }
 .topHeaderSale{
-    background: #BA1C37;
+    background: var(--PRIMARY_COLOR);
     height: 30px;
 }
 .dealsLink{
@@ -148,7 +148,8 @@
     height: 50px;
 }
 .headerNavBox{
-    min-width: 240px;
+    /* min-width: 210px; */
+    white-space: nowrap;
 }
 .menuName, .subMenuName{
     font-size: 15px;

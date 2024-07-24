@@ -21,27 +21,64 @@ export const AboutUs = () => {
       <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
         <div className="container">
           <h1>About Us</h1>
-          <p className="c6">
-            <span className="c1">
-              About {process.env.REACT_APP_BUSINESS_NAME} &ndash; Your Premium Toy Destination
-            </span>
-          </p>
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+            marginTop: "20px",
+          }}>
+            Welcome to {process.env.REACT_APP_BUSINESS_NAME}
+          </h3>
           <p className="c6">
             <span className="c4">
-            {process.env.REACT_APP_BUSINESS_NAME} is where the joy of childhood comes alive. We&#39;re a
-              premium toy store dedicated to bringing the world&#39;s best
-              playthings to your doorstep. Whether you&#39;re searching for a
-              classic wooden puzzle, the latest tech-powered robot, or a beloved
-              character from your favorite story, you&#39;ll find it at
-              {process.env.REACT_APP_BUSINESS_NAME}.
+              At {process.env.REACT_APP_BUSINESS_NAME}, headquartered in the vibrant heart of Delhi, we specialize in delivering premium bags and corporate gifting solutions that blend functionality, style, and durability. With over two decades of experience in the industry, we have perfected the art of creating exceptional products that meet the diverse needs of our clients.
             </span>
           </p>
+
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+          }}>
+            Our Expertise
+          </h3>
           <p className="c6">
-            <span className="c1">The {process.env.REACT_APP_BUSINESS_NAME} Difference</span>
+            <span className="c4">
+              At {process.env.REACT_APP_BUSINESS_NAME}, headquartered in the vibrant heart of Delhi, we specialize in delivering premium bags and corporate gifting solutions that blend functionality, style, and durability. With over two decades of experience in the industry, we have perfected the art of creating exceptional products that meet the diverse needs of our clients.
+            </span>
           </p>
+
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+          }}>
+            Corporate Gifting Solutions
+          </h3>
+          <p className="c6">
+            <span className="c4">
+              In addition to our extensive range of bags, {process.env.REACT_APP_BUSINESS_NAME} offers bespoke corporate gifting solutions tailored to elevate your brand and leave a lasting impression. Whether you are looking to reward employees, thank clients, or celebrate milestones, our curated selection of corporate gifts is designed to reflect your company's values and enhance your brand identity.
+            </span>
+          </p>
+
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+          }}>
+            Trusted by Leading Brands
+          </h3>
+          <p className="c6">
+            <span className="c4">
+              Over the years, we have had the privilege of serving esteemed clients such as LIC, PhonePe, LG, L&T, Delhivery, Airtel, and Bata. Our commitment to quality and excellence has made us the preferred choice for these industry giants.
+            </span>
+          </p>
+
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+          }}>
+            Why Choose {process.env.REACT_APP_BUSINESS_NAME}?
+          </h3>
           <ul className="c10 lst-kix_ck63bwdhsg7q-0 start">
             <li className="c0 li-bullet-0">
-              <span className="c2">Curated Collection:</span>
+              <span className="c2"><b>Curated Collection:</b></span>
               <span className="c4">
                 &nbsp;We carefully handpick toys from around the world and
                 India, ensuring a mix of both internationally renowned brands
@@ -49,37 +86,37 @@ export const AboutUs = () => {
               </span>
             </li>
             <li className="c0 li-bullet-0">
-              <span className="c2">Premium Experience:</span>
+              <span className="c2"><b>Quality Assurance:</b></span>
               <span className="c4">
-                &nbsp;From the moment you explore our website to the day your
-                little one unwraps their new treasure, we strive to provide a
-                delightful and seamless shopping experience.
+                Our commitment to quality is unwavering. Each product undergoes rigorous quality checks to ensure it meets the highest standards.
               </span>
             </li>
             <li className="c0 li-bullet-0">
-              <span className="c2">Passion for Play:</span>
+              <span className="c2"><b>Customization:</b></span>
               <span className="c4">
-                &nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His
-                dynamic vision drives {process.env.REACT_APP_BUSINESS_NAME}&#39;s mission to make us the
-                preferred destination for all things toys in India.
+                We understand that every client is unique. Our customization options allow you to create products that truly represent your brand.
+              </span>
+            </li>
+            <li className="c0 li-bullet-0">
+              <span className="c2"><b>Sustainability:</b></span>
+              <span className="c4">
+                We are dedicated to sustainable practices, ensuring our processes and materials are environmentally friendly.
               </span>
             </li>
           </ul>
-          <p className="c6">
-            <span className="c1">Discover the Wonders of Play</span>
-          </p>
+
+          <h3 className="c6" style={{
+            marginLeft: "0px",
+            fontWeight: "bold",
+          }}>
+            Why Choose {process.env.REACT_APP_BUSINESS_NAME}?
+          </h3>
           <p className="c6">
             <span className="c4">
-              Come explore the endless possibilities of imagination and
-              creativity at {process.env.REACT_APP_BUSINESS_NAME}.
+              Our mission is to provide exceptional products and services that exceed our clients' expectations. We strive to build long-lasting relationships based on trust, quality, and innovation.
             </span>
           </p>
-          <p className="c6">
-            <span className="c1">
-              Let us help you find the perfect toy that will spark joy and
-              wonder in your child&#39;s life!
-            </span>
-          </p>
+
         </div>
       </div>
       <Footer />

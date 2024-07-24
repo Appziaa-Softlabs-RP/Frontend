@@ -226,6 +226,9 @@ export const CartAside = ({ setCartPop }) => {
                     >
                       <span
                         className={`${styles.cartItemLink} position-absolute d-inline-block`}
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => showProductDetail(item.name_url)}
                       >
                         <img

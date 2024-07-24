@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BackArrowIcon, CartIcon, CrossIcon, SearchIcon } from "../siteIcons";
 import styles from "./PageHeader.module.css";
 import { useNavigate } from "react-router-dom";
@@ -83,6 +83,39 @@ export const PageHeader = ({ title, hide }) => {
   const closeSearchBox = () => {
     setSeacrhPop(false);
   };
+
+  const searchTexts = [
+    'Laptop Bags',
+    'Sling Bags',
+    'Handbags',
+    'Tote',
+    'Wallets',
+    'Purse'
+  ];
+
+    const [placeholderText, setPlaceholderText] = useState('');
+    const [currentItem, setCurrentItem] = useState(0);
+    const [currentChar, setCurrentChar] = useState(0);
+
+    useEffect(() => {
+      if (currentItem < searchTexts.length) {
+        if (currentChar < searchTexts[currentItem].length) {
+          const timeoutId = setTimeout(() => {
+            setPlaceholderText((prev) => prev + searchTexts[currentItem][currentChar]);
+            setCurrentChar((prev) => prev + 1);
+          }, 100); // Adjust the typing speed here
+          return () => clearTimeout(timeoutId);
+        } else {
+          const timeoutId = setTimeout(() => {
+            setPlaceholderText('');
+            setCurrentChar(0);
+            setCurrentItem((prev) => (prev + 1) % searchTexts.length); // Loop through items
+          }, 1000); // Adjust the delay between items here
+          return () => clearTimeout(timeoutId);
+        }
+      }
+    }, [currentChar, currentItem]);
+
   return (
     <React.Fragment>
       <div
@@ -134,7 +167,7 @@ export const PageHeader = ({ title, hide }) => {
           <div className="col-12 d-inline-flex align-items-center position-relative">
             <input
               type="text"
-              placeholder={enviroment.SEARCH_PLACEHOLDER}
+              placeholder={'Search For '+placeholderText}
               className={`${styles.searchProdInput} col-12 flex-shrink-1 d-inline-block`}
               value={searchProd}
               onChange={(e) => searchShopProd(e, e.target.value)}

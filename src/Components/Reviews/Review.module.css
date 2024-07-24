@@ -16,6 +16,12 @@
   margin: 10px 0px;
 }
 
+.reviewBtn{
+  background: var(--PRIMARY_COLOR);
+  border: none;
+  border-radius: 5px;
+}
+
 .sliderItem {
   min-width: 280px;
   max-width: 280px;
