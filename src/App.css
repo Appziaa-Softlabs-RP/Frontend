@@ -1,7 +1,7 @@
 :root {
   --PRIMARY_COLOR: #000;
   --SECONDARY_COLOR: #fff;
-  --MENU_HOVER_COLOR: rgba(71, 70, 70, 0.12);
+  --MENU_HOVER_COLOR: #63d6c5a0;
   --ADD_BUTTON_COLOR: #000;
 }
 body {

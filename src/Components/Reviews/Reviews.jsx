@@ -67,43 +67,60 @@ export default function Reviews() {
     const reviews = [
         {
             id: 1,
-            name: "Manav Verma",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a/ACg8ocJatwL8_irMwuyHBScTSXIWOA_NHugzs6gImgXAM5OmO4pq9Q=w36-h36-p-rp-mo-br100",
+            name: "kashif kamran",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjWikNpdMSwoHlUH64J3KEHqY2-3gOSsczlT3JE8aTg52x9XF4Pz=w72-h72-p-rp-mo-ba3-br100",
             rating: 5,
-            review: `${process.env.REACT_APP_BUSINESS_NAME} is the ultimate toy store! From Barbie to LEGO, they have it all. Friendly staff, eazy shopping, and quick delivery. Highly recommend for quality toys at great prices!`
+            review: `I visited Montbold last week and I was very impressed by their selection and quality of bags. They had a variety of styles, colors and sizes to suit every occasion and budget.
+The staff was friendly and helpful, and they offered me a discount on my purchase. I love my new bag and I would definitely recommend Bag store to anyone looking for a great deal on bags. ⭐⭐⭐⭐⭐`
         },
         {
             id: 2,
-            name: "Nisha Rawat",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a/ACg8ocKaL_Ty63cRYIBQH3t0WyWpl8zO8YfXeKdOl4AXfvi6ZBuc5Q=w36-h36-p-rp-mo-br100",
+            name: "Md Amir",
+            date: "11 months ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjVNXbnKrPJh6qMB4fUYIPekK07lteW9fM6k8d-TO9-G637csPXn=w72-h72-p-rp-mo-br100",
             rating: 5,
-            review: `${process.env.REACT_APP_BUSINESS_NAME} is simply fantastic! I found all my favorite toy brands. The staff was incredibly welcoming and knowledgeable, making my shopp experience a breeze.`
+            review: `I recently had the pleasure of purchasing bags from this incredible manufacturing company, and I must say, I am thoroughly impressed with the quality and service I received. From start to finish, my experience with this company has been exceptional.`
         },
         {
             id: 3,
-            name: "kiran. rawat_194",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a-/ALV-UjXhFLJ4YJvqfTseY6mP4jFhLFRz_-5Hy7VftJz8m7YQGIeLTHY=w36-h36-p-rp-mo-br100",
+            name: "Asha Pandey",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a/ACg8ocIlP2BV_zznvFA-_bd-CnDxV4wVSoL_8gxD3nDf0SPf_ILXgQ=w72-h72-p-rp-mo-br100",
             rating: 5,
-            review: `${process.env.REACT_APP_BUSINESS_NAME} is a dream come true for toy lovers like me! They've got an incredible selection of top brands like Hot Wheels and LEGO, all at prices that won't break the bank. The staff was super friendly and helpful, making my shopping experience a delight. ${process.env.REACT_APP_BUSINESS_NAME} has definitely earned my loyalty as the go-to spot for quality toys!`
+            review: `Montbold bags are simply fantastic! The craftsmanship is exceptional, and they never compromise on quality. I highly recommend them for anyone in need of a reliable bag. #QualityMatters`
         },
         {
             id: 5,
-            name: "Zaid Khan",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a-/ALV-UjVwBqMVy_pcC1Anf5NP2I0i0UT8lPfzQho172ODNXPdQsnLGQ9I=w36-h36-p-rp-mo-br100",
+            name: "Arham Javed",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a/ACg8ocKMt3DuMigU5nvkDFSmi0wW_NiETR8ltyFsDUhnkNepkFzSww=w72-h72-p-rp-mo-br100",
             rating: 5,
-            review: `Absolutely thrilled with my ${process.env.REACT_APP_BUSINESS_NAME} experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze. Online ordering was a snap, and my delivery arrived right on time. ${process.env.REACT_APP_BUSINESS_NAME} is now my go-to for top-quality toys!`
+            review: `Montbold bags are very convenient. It can be used anywhere. There are multiple varieties. They are extremely comfortable, affordable and easy to use. Superb products..`
         },
         {
             id: 6,
-            name: "avinash Jha",
-            date: "1 day ago",
-            image: "https://lh3.googleusercontent.com/a-/ALV-UjVCGA_5Ye68OglcKE_ClzE6i7ajS_93JV_IGLPlsWrjJQelpRwu=w36-h36-p-rp-mo-ba4-br100",
+            name: "Sahil Dhawan",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjUTjt6dYcqIs6nduycOaeuLS0K8uocBtY6ecpk8D9fNjMr5_Cs=w72-h72-p-rp-mo-br100",
             rating: 5,
-            review: `${process.env.REACT_APP_BUSINESS_NAME} is an absolute treasure trove for toy enthusiasts of all ages! As a parent, I'm always on the lookout for high-quality toys that spark creativity and keep my kids entertained for hours. ${process.env.REACT_APP_BUSINESS_NAME} exceeded all my expectations with its extensive collection of branded toys, including favorites like Barbie, LEGO, Hot Wheels, and PlayShifu.`
+            review: `Montbold bags are the epitome of elegance. Their timeless designs add a touch of class to any outfit. I feel like a fashion icon with their bags! #TimelessBeauty #FashionElegance`
+        },
+        {
+            id: 7,
+            name: "INDIAN RAILWAY 4U",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a-/ALV-UjW8LlHGEGw6VKcwex3ZUedP0ic_oFwIzy1tV7POByoDftzIr0Mt=w72-h72-p-rp-mo-br100",
+            rating: 5,
+            review: `Montbold bags are a great investment. I've been using mine for months, and it still looks brand new. Worth every penny! #LongLastingQuality #SmartBuy`
+        },
+        {
+            id: 8,
+            name: "Dinesh Pandey",
+            date: "a year ago",
+            image: "https://lh3.googleusercontent.com/a/ACg8ocK1xgB_0Hjq5yVusNo-wZVa_faONy6tgfV_q5W6_ASUF9hLyQ=w72-h72-p-rp-mo-br100",
+            rating: 5,
+            review: `I can't express how much I adore Montbold bags! They have a wide range of options that cater to different tastes. Their attention to detail is commendable. #FashionistaApproved`
         },
     ];
 
@@ -151,7 +168,7 @@ export default function Reviews() {
                 <p className="text-sm mt-3" style={{
                     color: "#1a1a1a"
                 }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
-                <a href="https://g.page/r/CYF-YBA6SelvEBM/review" rel='noreferrer' target="_blank">
+                <a href="https://g.page/r/CQOe4UmBZqDbEBM/review" rel='noreferrer' target="_blank">
                     <button className={`${styles.reviewBtn} text-white py-2 px-3 mt-3 mb-2`}>Write a Review</button>
                 </a>
             </div>
@@ -163,7 +180,6 @@ export default function Reviews() {
                 <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`}  {...settings}>
                     {reviews.map((review) => (
                         <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                            background: "#ebd4d4",
                             color: "#291845",
                             borderRadius: "5px"
                         }}>
@@ -179,8 +195,9 @@ export default function Reviews() {
                             </div>
                             <div className="d-flex my-2">
                                 {Array(review.rating).fill(0).map((_, index) => (
-                                    <img key={index} src="/review/star-solid.png" alt="rewview" style={{ maxWidth: "30px" }} />
-                                ))}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="orange" class="bi bi-star-fill" viewBox="0 0 20 20">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                    </svg>))}
                             </div>
                             <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
                                 <ShowReview review={review?.review} />

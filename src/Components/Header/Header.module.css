@@ -38,7 +38,7 @@
     outline: none;
 }
 .topHeaderSale{
-    background: var(--PRIMARY_COLOR);
+    background: rgb(34, 34, 34);
     height: 30px;
 }
 .dealsLink{
@@ -152,7 +152,7 @@
     white-space: nowrap;
 }
 .menuName, .subMenuName{
-    font-size: 15px;
+    font-size: 17px;
     color: #000;
 }
 .menuName{
@@ -264,5 +264,11 @@
     .cartCount{
         top: -8px;
         right: -8px;
+    }
+}
+
+@media screen and (max-width:1070px) {
+    .supportHideOnMobile{
+        display: none;
     }
 }

@@ -45,7 +45,7 @@ export const PromoBanner = ({ type }) => {
       {windowWidth === "mobile" ? (
         <React.Fragment>
           {allBanner?.length > 0 && (
-            <div className={`col-12 d-inline-flex flex-column px-3 pb-3`}>
+            <div className={`col-12 d-inline-flex flex-column p-3`} >
               <div
                 className={`${
                   type === "Promo Banner"
@@ -53,7 +53,7 @@ export const PromoBanner = ({ type }) => {
                     : type === "Offers"
                     ? styles.offersBox
                     : ""
-                } col-12 d-inline-flex flex-column`}
+                } col-12 d-inline-flex flex-column p-3`}
               >
                 {type === "Promo Banner" && (
                   <h2

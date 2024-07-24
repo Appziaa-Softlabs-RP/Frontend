@@ -126,7 +126,7 @@ export const BrandCategoryPage = () => {
   return (
     <React.Fragment>
       <Helmet>
-        <meta charSet="utf-8" />
+        {/* <meta charSet="utf-8" />
         <title>
           Shop the latest&nbsp;
           {ProductData ? (ProductData[0] ? ProductData[0].brand_name : "") : ""}
@@ -135,7 +135,7 @@ export const BrandCategoryPage = () => {
         <meta
           name="description"
           content={`From action figures to musical instruments, ${process.env.REACT_APP_URL} has all the official <Band Name> toys to inspire creativity and rockstar dreams!`}
-        />
+        /> */}
       </Helmet>
       {windowWidth === "mobile" ? (
         <PageHeader title="Explore Category" />

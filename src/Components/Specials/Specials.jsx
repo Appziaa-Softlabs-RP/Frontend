@@ -112,7 +112,7 @@ export default function Specials() {
         }
 
         {/* <!-- Shop by Breed Section --> */}
-        <div className="bg-white">
+        {/* <div className="bg-white">
             <div className="py-4 container" style={{
                 margin: "auto"
             }}>
@@ -133,7 +133,7 @@ export default function Specials() {
                     ))}
                 </p>
             </div>
-        </div>
+        </div> */}
 
         {/* <!-- Main Content --> */}
         <div className="bg-light">
@@ -145,59 +145,22 @@ export default function Specials() {
                 <h1 className=""
                     style={{
                         fontWeight: "bold",
-                        fontSize: "28px"
+                        fontSize: "20px"
                     }}
                 >
-                    {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store - India's most loved place to buy toys for children!
+                    {process.env.REACT_APP_BUSINESS_NAME}: Crafting Excellence in Premium Bags and Corporate Gifting Solutions
+
                 </h1>
-                <p className="mb-5 p-1" style={{
+                <p className="mb-2" style={{
                     fontSize: "16px"
                 }}>
-                    {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
+                    {process.env.REACT_APP_BUSINESS_NAME}, excels in crafting premium bags and corporate gifting solutions. With over two decades of experience, we offer a range of products, including laptop bags, sling bags, handbags, tote bags, wallets, and purses. Our meticulous craftsmanship and high-quality materials ensure durability and style in every piece.
                 </p>
-                <h2 className="h3 mb-4"
-                    style={{
-                        fontWeight: "bold",
-                        fontSize: "22px"
-                    }}
-                >Why {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store?</h2>
-                <ul>
-                    <li className="mb-3" style={{
-                        fontSize: "16px"
-                    }}>
-                        <span style={{
-                            fontWeight: "bold"
-                        }}>Quality Assurance:</span> Our toys undergo rigorous testing to ensure they are safe, durable, and meet the highest quality standards.
-                    </li>
-                    <li className="mb-3" style={{
-                        fontSize: "16px"
-                    }}>
-                        <span style={{
-                            fontWeight: "bold"
-                        }}>Expertise:</span> Our team consists of toy enthusiasts and professionals who bring years of experience to provide the best play experiences for your children.
-                    </li>
-                    <li className="mb-3" style={{
-                        fontSize: "16px"
-                    }}>
-                        <span style={{
-                            fontWeight: "bold"
-                        }}>Innovative Solutions:</span> From interactive toys to educational games, we offer a wide selection of products designed to keep your kids engaged, learning, and having fun.
-                    </li>
-                    <li className="mb-3" style={{
-                        fontSize: "16px"
-                    }}>
-                        <span style={{
-                            fontWeight: "bold"
-                        }}>Customer Satisfaction:</span> Your satisfaction is our priority. We strive to provide exceptional service and support, ensuring that every shopping experience is enjoyable for both you and your children.
-                    </li>
-                    <li className="mb-3" style={{
-                        fontSize: "16px"
-                    }}>
-                        <span style={{
-                            fontWeight: "bold"
-                        }}>Convenience:</span> Shop online or visit our store by searching for a toy store near me. We offer the best toy solutions for your convenience.
-                    </li>
-                </ul>
+                <p className="mb-5" style={{
+                    fontSize: "16px"
+                }}>
+                    We are trusted by leading brands such as LIC, PhonePe, LG, L&T, Delhivery, Airtel, and Bata. Montbold's corporate gifting solutions are tailored to reflect your brand&apos;s values and make a lasting impression. Choose Montbold for unparalleled quality, innovation, and sustainability.
+                </p>
             </main>
         </div>
     </div >

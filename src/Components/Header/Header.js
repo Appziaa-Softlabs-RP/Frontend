@@ -296,9 +296,19 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             <div
               className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}
             >
-              <div className="container h-100 d-flex align-items-stretch">
+              <div className="h-100 d-flex align-items-stretch"  style={{
+                position: 'relative',
+                width: '100%',
+              }}>
                 <div
                   className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}
+                  style={{
+                    display: 'flex',
+                    width: '100%',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0 20px',
+                  }}
                 >
                   <h1
                     onClick={() => routeHome()}
@@ -316,7 +326,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     />
                   </h1>
                   <div
-                    className={`d-inline-flex col-6 position-relative align-items-center`}
+                    className={`d-inline-flex col-6 position-relative align-items-center mx-1`}
                   >
                     <span
                       className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}
@@ -358,7 +368,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       role="button"
                     >
                       <SupportIcon color="#FFF" />
-                      <span className={`${styles.supportText} d-inline-flex`}>
+                      <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
                         Support
                       </span>
                       <div
@@ -483,7 +493,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         role="button"
                       >
                         <UserIcon color="#FFF" />
-                        <span className={`${styles.supportText} d-inline-flex`}>
+                        <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
                           Account
                         </span>
                       </div>
@@ -503,7 +513,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           </span>
                         )}
                       </span>
-                      <span className={`${styles.supportText} d-inline-flex`}>
+                      <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
                         Cart
                       </span>
                     </div>

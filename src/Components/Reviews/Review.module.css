@@ -23,6 +23,7 @@
 }
 
 .sliderItem {
+  background-color: var(--MENU_HOVER_COLOR);
   min-width: 280px;
   max-width: 280px;
   height: 330px;

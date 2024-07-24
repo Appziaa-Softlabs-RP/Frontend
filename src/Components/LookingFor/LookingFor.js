@@ -5,8 +5,8 @@ import { useApp } from "../../context/AppContextProvider";
 import styles from "./LookingFor.module.css";
 
 import { useAppStore } from "../../store";
-import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
+import VideoPlayer from "./videoPlayer";
 
 export const LookingFor = () => {
   const categories = useAppStore((state) => state.categories);
@@ -30,20 +30,24 @@ export const LookingFor = () => {
       {loading ? (
         <LookingForBannerLoader />
       ) : (
-        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
+        <div className={`${styles.shopAgeBox} col-12 d-inline-flex mb-3`}>
           <div
-            className={`${
-              windowWidth === "mobile" && "p-0"
-            } container d-flex flex-column m-auto`}
+            className={`${windowWidth === "mobile" && "p-0"
+              } d-flex flex-column m-auto`}
+              style={{
+                maxWidth: '100dvw'
+            }}
           >
             <h2
               className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}
             >
               ✨ Shop by Category ✨
             </h2>
-            <div className="col-12 d-inline-flex">
+            <div className="col-12 d-inline-flex px-4" style={{
+              overflow: "visible",
+            }}>
               <ReactOwlCarousel
-                className={`carousel-looking-for col-12 d-inline-block owl-theme`}
+                className={`carousel-looking-for col-12 d-inline-block owl-theme `}
                 margin={10}
                 loop={true}
                 dots={false}
@@ -62,6 +66,10 @@ export const LookingFor = () => {
                           item?.verticalSlug
                         )
                       }
+                      style={{
+                        transform: (idx % 2 === 0) ? 'translateY(-10px)' : 'translateY(10px)',
+                        height: "280px"
+                      }}
                     >
                       <img
                         src={item?.category?.image}
@@ -78,6 +86,8 @@ export const LookingFor = () => {
                 })}
               </ReactOwlCarousel>
             </div>
+            {/* Video */}
+            <VideoPlayer />
           </div>
         </div>
       )}

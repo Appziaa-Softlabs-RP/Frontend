@@ -4,6 +4,7 @@ import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
+import VideoPlayer from "../LookingFor/videoPlayer";
 
 export const CategoryShop = () => {
   const [shopCategory, setShopCategory] = useState([]);
@@ -29,9 +30,9 @@ export const CategoryShop = () => {
   return (
     <React.Fragment>
       {shopCategory.length > 0 && (
-        <div className="col-12 d-inline-flex flex-column p-3">
+        <div className="col-12 d-inline-flex flex-column my-3">
           <div
-            className={`${styles.categoryBox} col-12 d-inline-flex flex-column py-2`}
+            className={`${styles.categoryBox} col-12 d-inline-flex flex-column`}
           >
             {windowWidth === "desktop" && (
               <h2
@@ -48,7 +49,7 @@ export const CategoryShop = () => {
               </h2>
             )}
             <div
-              className={`${styles.lookingContainer} col-12 px-2 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}
+              className={`${styles.lookingContainer} col-12 p-3 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}
             >
               {shopCategory.map((item, index) => {
                 return (
@@ -63,6 +64,10 @@ export const CategoryShop = () => {
                       <img
                         src={item.image}
                         alt={item?.name}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/alt.png";
+                        }}
                         className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0"
                       />
                     </div>
@@ -75,6 +80,7 @@ export const CategoryShop = () => {
                 );
               })}
             </div>
+            <VideoPlayer />
           </div>
         </div>
       )}

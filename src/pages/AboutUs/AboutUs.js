@@ -77,18 +77,16 @@ export const AboutUs = () => {
             Why Choose {process.env.REACT_APP_BUSINESS_NAME}?
           </h3>
           <ul className="c10 lst-kix_ck63bwdhsg7q-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c2"><b>Curated Collection:</b></span>
-              <span className="c4">
-                &nbsp;We carefully handpick toys from around the world and
-                India, ensuring a mix of both internationally renowned brands
-                and exceptional local craftsmanship.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
+          <li className="c0 li-bullet-0">
               <span className="c2"><b>Quality Assurance:</b></span>
               <span className="c4">
                 Our commitment to quality is unwavering. Each product undergoes rigorous quality checks to ensure it meets the highest standards.
+              </span>
+            </li>
+            <li className="c0 li-bullet-0">
+              <span className="c2"><b>Innovative Designs:</b></span>
+              <span className="c4">
+              We stay ahead of industry trends to offer contemporary designs that cater to the modern consumer.
               </span>
             </li>
             <li className="c0 li-bullet-0">
