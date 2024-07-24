@@ -148,19 +148,19 @@ export default function Specials() {
                         fontSize: "28px"
                     }}
                 >
-                    knickknack's Toy Store - India's most loved place to buy toys for children!
+                    {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store - India's most loved place to buy toys for children!
                 </h1>
                 <p className="mb-5 p-1" style={{
                     fontSize: "16px"
                 }}>
-                    Knickknack's Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
+                    {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
                 </p>
                 <h2 className="h3 mb-4"
                     style={{
                         fontWeight: "bold",
                         fontSize: "22px"
                     }}
-                >Why Knickknack's Toy Store?</h2>
+                >Why {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store?</h2>
                 <ul>
                     <li className="mb-3" style={{
                         fontSize: "16px"

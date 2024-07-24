@@ -31,7 +31,7 @@ export const Payments = () => {
           <p className="c6">
             <span className="c4">
               This Payments Policy describes the payment methods available for
-              purchases on KnickKnack.online (&quot;the Site&quot;).
+              purchases on {process.env.REACT_APP_URL} (&quot;the Site&quot;).
             </span>
           </p>
           <p className="c6">
@@ -166,8 +166,8 @@ export const Payments = () => {
               <span className="c2">Email:</span>
               <span className="c8">&nbsp;</span>
               <span className="c15">
-                <a className="c17" href="mailto:knickk8@gmail.com">
-                  knickk8@gmail.com
+                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                {process.env.REACT_APP_EMAIL_ADDRESS}
                 </a>
               </span>
             </li>
@@ -186,7 +186,7 @@ export const Payments = () => {
           </ul>
           <p className="c6">
             <span className="c1">
-              By using the KnickKnack.online website, you acknowledge and agree
+              By using the {process.env.REACT_APP_URL} website, you acknowledge and agree
               to this Payments Policy.
             </span>
           </p>

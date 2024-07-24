@@ -23,21 +23,21 @@ export const AboutUs = () => {
           <h1>About Us</h1>
           <p className="c6">
             <span className="c1">
-              About KnickKnack &ndash; Your Premium Toy Destination
+              About {process.env.REACT_APP_BUSINESS_NAME} &ndash; Your Premium Toy Destination
             </span>
           </p>
           <p className="c6">
             <span className="c4">
-              KnickKnack is where the joy of childhood comes alive. We&#39;re a
+            {process.env.REACT_APP_BUSINESS_NAME} is where the joy of childhood comes alive. We&#39;re a
               premium toy store dedicated to bringing the world&#39;s best
               playthings to your doorstep. Whether you&#39;re searching for a
               classic wooden puzzle, the latest tech-powered robot, or a beloved
               character from your favorite story, you&#39;ll find it at
-              KnickKnack.
+              {process.env.REACT_APP_BUSINESS_NAME}.
             </span>
           </p>
           <p className="c6">
-            <span className="c1">The KnickKnack Difference</span>
+            <span className="c1">The {process.env.REACT_APP_BUSINESS_NAME} Difference</span>
           </p>
           <ul className="c10 lst-kix_ck63bwdhsg7q-0 start">
             <li className="c0 li-bullet-0">
@@ -60,7 +60,7 @@ export const AboutUs = () => {
               <span className="c2">Passion for Play:</span>
               <span className="c4">
                 &nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His
-                dynamic vision drives KnickKnack&#39;s mission to make us the
+                dynamic vision drives {process.env.REACT_APP_BUSINESS_NAME}&#39;s mission to make us the
                 preferred destination for all things toys in India.
               </span>
             </li>
@@ -71,7 +71,7 @@ export const AboutUs = () => {
           <p className="c6">
             <span className="c4">
               Come explore the endless possibilities of imagination and
-              creativity at KnickKnack.
+              creativity at {process.env.REACT_APP_BUSINESS_NAME}.
             </span>
           </p>
           <p className="c6">

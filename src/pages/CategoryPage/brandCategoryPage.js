@@ -130,11 +130,11 @@ export const BrandCategoryPage = () => {
         <title>
           Shop the latest&nbsp;
           {ProductData ? (ProductData[0] ? ProductData[0].brand_name : "") : ""}
-          &nbsp;merchandise at knickknack.online, their official store!
+          &nbsp;merchandise at {process.env.REACT_APP_URL}, their official store!
         </title>
         <meta
           name="description"
-          content="From action figures to musical instruments, knickknack.online has all the official <Band Name> toys to inspire creativity and rockstar dreams!"
+          content={`From action figures to musical instruments, ${process.env.REACT_APP_URL} has all the official <Band Name> toys to inspire creativity and rockstar dreams!`}
         />
       </Helmet>
       {windowWidth === "mobile" ? (

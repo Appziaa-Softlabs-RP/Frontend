@@ -20,7 +20,7 @@ export const Privacy = () => {
       )}
       <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
         <div className="container">
-          <h1>KnickKnack Privacy Policy</h1>
+          <h1>{process.env.REACT_APP_BUSINESS_NAME} Privacy Policy</h1>
           <p className="c13">
             <span className="c6">Effective Date:</span>
             <span className="c2">&nbsp;2024-02-29</span>
@@ -30,10 +30,10 @@ export const Privacy = () => {
           </p>
           <p className="c0">
             <span className="c2">
-              This Privacy Policy describes how KnickKnack (&quot;we,&quot;
+              This Privacy Policy describes how {process.env.REACT_APP_BUSINESS_NAME} (&quot;we,&quot;
               &quot;us,&quot; or &quot;our&quot;) collects, uses, and discloses
               your personal information when you visit our website at
-              knickknack.online (the &quot;Site&quot;) or make purchases at our
+              {process.env.REACT_APP_URL} (the &quot;Site&quot;) or make purchases at our
               physical store located at 42, Cycle Market, Jhandewalan Extension,
               New Delhi 110055. (the &quot;Store&quot;).
             </span>
@@ -172,7 +172,7 @@ export const Privacy = () => {
               in any email we send you. You can also access, update, or delete
               your personal information by contacting us at{" "}
             </span>
-            <span className="c1">knickk8@gmail.com</span>
+            <span className="c1">{process.env.REACT_APP_EMAIL_ADDRESS}</span>
           </p>
           <p className="c0">
             <span className="c1">Data Retention</span>
@@ -227,8 +227,8 @@ export const Privacy = () => {
               contact us at{" "}
             </span>
             <span className="c15 c16">
-              <a className="c7" href="mailto:knickk8@gmail.com">
-                knickk8@gmail.com
+              <a className="c7" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+              {process.env.REACT_APP_EMAIL_ADDRESS}
               </a>
             </span>
             <span className="c6">&nbsp;</span>

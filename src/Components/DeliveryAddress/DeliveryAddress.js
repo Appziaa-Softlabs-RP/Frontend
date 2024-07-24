@@ -333,7 +333,7 @@ const PaymentMode = ({
         currency: "INR",
         name: enviroment.BUSINESS_NAME,
         description: "Order Purchase",
-        image: "https://knickknack.online/favicon.ico",
+        image: `${process.env.REACT_APP_URL}/favicon.ico`,
         order_id: orderId,
         handler: (res) => {
           onlinePaymentSuccess(

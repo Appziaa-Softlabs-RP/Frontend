@@ -22,7 +22,7 @@ export const Cancellation = () => {
         <div className="container">
           <h1>Cancellation Policy</h1>
           <p className="c6">
-            <span className="c7">KnickKnack Cancellation Policy</span>
+            <span className="c7">{process.env.REACT_APP_BUSINESS_NAME} Cancellation Policy</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
@@ -32,7 +32,7 @@ export const Cancellation = () => {
             <span className="c1">Cancellation Window:</span>
           </p>
           <p className="c6">
-            <span className="c8">KnickKnack offers a </span>
+            <span className="c8">{process.env.REACT_APP_BUSINESS_NAME} offers a </span>
             <span className="c2">7-day Cancellation policy</span>
             <span className="c4">
               &nbsp;for all online and in-store purchases. This means you have 7
@@ -73,8 +73,8 @@ export const Cancellation = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <a className="c17" href="mailto:knickk8@gmail.com">
-                  knickk8@gmail.com
+                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                  {process.env.REACT_APP_EMAIL_ADDRESS}
                 </a>
               </span>
               <span className="c8">&nbsp;</span>
@@ -113,7 +113,7 @@ export const Cancellation = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 You are responsible for the cost of shipping the Cancellationed
-                item(s) back to KnickKnack.
+                item(s) back to {process.env.REACT_APP_BUSINESS_NAME}.
               </span>
             </li>
             <li className="c0 li-bullet-0">
@@ -148,7 +148,7 @@ export const Cancellation = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 This Cancellation policy applies only to purchases made from
-                KnickKnack. Items purchased from other retailers or through
+                {process.env.REACT_APP_BUSINESS_NAME}. Items purchased from other retailers or through
                 third-party marketplaces may have different Cancellation
                 policies.
               </span>
@@ -169,8 +169,8 @@ export const Cancellation = () => {
               contact us at{" "}
             </span>
             <span className="c15">
-              <a className="c17" href="mailto:knickk8@gmail.com">
-                knickk8@gmail.com
+              <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                {process.env.REACT_APP_EMAIL_ADDRESS}
               </a>
             </span>
             <span className="c8">&nbsp;or by phone at</span>

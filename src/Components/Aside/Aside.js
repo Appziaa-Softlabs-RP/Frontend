@@ -144,7 +144,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               >
                 <Link
                   className="d-inline-flex align-items-center text-decoration-none"
-                  href="mailto:hello@knickknack.online"
+                  href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}
                 >
                   <span className="icon-and-text">
                     <svg viewBox="0 0 512 512">
@@ -156,7 +156,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                         ></path>
                       </g>
                     </svg>
-                    <span>hello@knickknack.online</span>
+                    <span>{process.env.REACT_APP_EMAIL_ADDRESS}</span>
                   </span>
                 </Link>
               </li>
@@ -166,13 +166,12 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
             </h6>
             <ul
               className={`${styles.listSocial} col-12 p-0 d-inline-flex flex-wrap list-unstyled`}
-              role="list"
             >
               <li
                 className={`${styles.listSocialLink} d-inline-flex align-items-center`}
               >
                 <Link
-                  href="https://www.facebook.com/knickknacktoys42"
+                  href={process.env.REACT_APP_FACEBOOK_LINK}
                   className="d-inline-flex text-decoration-none list-social__link link"
                 >
                   <svg className="icon icon-facebook" viewBox="0 0 18 18">
@@ -187,7 +186,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                 className={`${styles.listSocialLink} d-inline-flex align-items-center`}
               >
                 <Link
-                  href="https://www.instagram.com/knickknacktoys42/"
+                  href={process.env.REACT_APP_INSTAGRAM_LINK}
                   className="d-inline-flex text-decoration-none list-social__link link"
                 >
                   <svg className="icon icon-instagram" viewBox="0 0 18 18">

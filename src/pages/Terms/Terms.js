@@ -24,12 +24,12 @@ export const Terms = () => {
           <p className="c6">
             <span className="c4">
               Here&#39;s a comprehensive Terms &amp; Conditions document for
-              KnickKnack.online, covering important aspects for an online toy
+              {process.env.REACT_APP_URL}, covering important aspects for an online toy
               store operating in India.
             </span>
           </p>
           <p className="c6">
-            <span className="c1">KnickKnack.online Terms &amp; Conditions</span>
+            <span className="c1">{process.env.REACT_APP_URL} Terms &amp; Conditions</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
@@ -37,9 +37,9 @@ export const Terms = () => {
           </p>
           <p className="c6">
             <span className="c2">
-              Welcome to KnickKnack.online (&quot;the Site&quot;). These Terms
+              Welcome to {process.env.REACT_APP_URL} (&quot;the Site&quot;). These Terms
               &amp; Conditions (&quot;Terms&quot;) govern your use of the Site
-              and the purchase of products from KnickKnack.
+              and the purchase of products from {process.env.REACT_APP_BUSINESS_NAME}.
             </span>
             <span className="c8">&nbsp;</span>
             <span className="c1">
@@ -150,7 +150,7 @@ export const Terms = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 All content on the Site, including text, graphics, logos,
-                images, and software is the property of KnickKnack or its
+                images, and software is the property of {process.env.REACT_APP_BUSINESS_NAME} or its
                 licensors and is protected by copyright and trademark laws.
               </span>
             </li>
@@ -214,7 +214,7 @@ export const Terms = () => {
           <ul className="c10 lst-kix_28a2ovzdh5yk-0 start">
             <li className="c0 li-bullet-0">
               <span className="c4">
-                You agree to indemnify and hold KnickKnack harmless from any
+                You agree to indemnify and hold {process.env.REACT_APP_BUSINESS_NAME} harmless from any
                 claims or damages that arise from your use of the Site or your
                 violation of these Terms.
               </span>
@@ -259,8 +259,8 @@ export const Terms = () => {
             <li className="c0 li-bullet-0">
               <span className="c2">Email:</span>
               <span className="c15">
-                <a className="c17" href="mailto:knickk8@gmail.com">
-                  knickk8@gmail.com
+                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                {process.env.REACT_APP_EMAIL_ADDRESS}
                 </a>
               </span>
             </li>
@@ -279,7 +279,7 @@ export const Terms = () => {
           </ul>
           <p className="c6">
             <span className="c1">
-              By using the KnickKnack.online website, you acknowledge and agree
+              By using the {process.env.REACT_APP_URL} website, you acknowledge and agree
               to these Terms &amp; Conditions.
             </span>
           </p>

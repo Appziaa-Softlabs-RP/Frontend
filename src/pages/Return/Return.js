@@ -22,7 +22,7 @@ export const Return = () => {
         <div className="container">
           <h1>Return Policy</h1>
           <p className="c6">
-            <span className="c7">KnickKnack Return Policy</span>
+            <span className="c7">{process.env.REACT_APP_BUSINESS_NAME} Return Policy</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
@@ -32,7 +32,7 @@ export const Return = () => {
             <span className="c1">Return Window:</span>
           </p>
           <p className="c6">
-            <span className="c8">KnickKnack offers a </span>
+            <span className="c8">{process.env.REACT_APP_BUSINESS_NAME} offers a </span>
             <span className="c2">7-day return policy</span>
             <span className="c4">
               &nbsp;for all online and in-store purchases. This means you have 7
@@ -73,8 +73,8 @@ export const Return = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <a className="c17" href="mailto:knickk8@gmail.com">
-                  knickk8@gmail.com
+                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                  {process.env.REACT_APP_EMAIL_ADDRESS}
                 </a>
               </span>
               <span className="c8">&nbsp;</span>
@@ -112,7 +112,7 @@ export const Return = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 You are responsible for the cost of shipping the returned
-                item(s) back to KnickKnack.
+                item(s) back to {process.env.REACT_APP_BUSINESS_NAME}.
               </span>
             </li>
             <li className="c0 li-bullet-0">
@@ -147,7 +147,7 @@ export const Return = () => {
             <li className="c0 li-bullet-0">
               <span className="c4">
                 This return policy applies only to purchases made from
-                KnickKnack. Items purchased from other retailers or through
+                {process.env.REACT_APP_BUSINESS_NAME}. Items purchased from other retailers or through
                 third-party marketplaces may have different return policies.
               </span>
             </li>
@@ -167,8 +167,8 @@ export const Return = () => {
               us at{" "}
             </span>
             <span className="c15">
-              <a className="c17" href="mailto:knickk8@gmail.com">
-                knickk8@gmail.com
+              <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                {process.env.REACT_APP_EMAIL_ADDRESS}
               </a>
             </span>
             <span className="c8">&nbsp;or by phone at</span>
