@@ -503,7 +503,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                               alignItems: "center",
                               justifyContent: "center",
                               gap: "0.5rem",
-                              minWidth: '170px',
+                              minWidth: '195px',
                               maxWidth: '150px',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
