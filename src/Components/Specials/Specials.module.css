@@ -1,0 +1,29 @@
+.anchorHoverEffect {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.anchorHoverEffect{
+	color: #6c757d;
+}
+
+.anchorHoverEffect:hover{
+	color: #0000EE;
+}
+
+.anchorHoverEffect::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #0000EE;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Hover state */
+.anchorHoverEffect:hover::after {
+  width: 100%;
+}

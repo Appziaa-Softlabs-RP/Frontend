@@ -289,7 +289,7 @@ export const Footer = () => {
       ) : windowWidth === "desktop" ? (
         <React.Fragment>
           <footer
-            className={`${styles.footerContainer} col-12 d-inline-flex pt-5`}
+            className={`${styles.footerContainer} col-12 d-inline-flex py-5`}
           >
             <div className="container">
               <div className="col-md-12 p-0 d-inline-flex">
@@ -544,7 +544,7 @@ export const Footer = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
-                          fill="currentColor"
+                          fill="red"
                           class="bi bi-heart-fill"
                           viewBox="0 0 16 16"
                         >

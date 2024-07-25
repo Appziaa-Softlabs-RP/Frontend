@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import styles from "./Specials.module.css";
 
 export default function Specials() {
 
@@ -87,23 +88,26 @@ export default function Specials() {
                 <div className="py-4 container" style={{
                     margin: "auto"
                 }}>
-                    <h2 className="h4 mb-4" style={{
+                    <h2 className="h4 mb-2" style={{
                         fontWeight: "bold",
                         fontSize: "22px"
-                    }}>POPULAR SEARCHES</h2>
+                    }}>Popular Searches</h2>
                     <p className="text-muted p-1">
                         {verticalsWithCat?.map((vertical, index) => (
                             vertical.catList?.map((cat, catIndex) => (
-                                <a href={`/store-product/${cat?.name_url}`}
-                                    className={`text-muted ${(catIndex === 0 && index === 0) ? 'me-1' : 'm-1'}`}
-                                    style={{
-                                        textDecoration: "none",
-                                    }}
-                                    key={catIndex}>
-                                    {cat?.name} {
+                                <>
+                                    <a href={`/store-product/${cat?.name_url}`}
+                                        className={`${styles.anchorHoverEffect} ${(catIndex === 0 && index === 0) ? 'me-1' : 'm-1'}`}
+                                        style={{
+                                            textDecoration: "none",
+                                        }}
+                                        key={catIndex}>
+                                        {cat?.name}
+                                    </a>
+                                    {
                                         index === verticalsWithCat.length - 1 && catIndex === vertical.catList.length - 1 ? "" : "|"
                                     }
-                                </a>
+                                </>
                             ))
                         ))}
                     </p>
@@ -116,20 +120,23 @@ export default function Specials() {
             <div className="py-4 container" style={{
                 margin: "auto"
             }}>
-                <h2 className="h4 mb-4" style={{
+                <h2 className="h4 mb-2" style={{
                     fontWeight: "bold",
                     fontSize: "22px"
-                }}>POPULAR TOY BRANDS</h2>
+                }}>Popular Toy Brands</h2>
                 <p className="text-muted p-1">
                     {topBrands.map((brand, index) => (
-                        <a href={brand.url}
-                            className={`text-muted ${index === 0 ? 'me-1' : 'm-1'}`}
-                            style={{
-                                textDecoration: "none",
-                            }}
-                            key={index}>
-                            {brand.name} {index === topBrands.length - 1 ? "" : "|"}
-                        </a>
+                        <>
+                            <a href={brand.url}
+                                className={` ${styles.anchorHoverEffect}  ${index === 0 ? 'me-1' : 'm-1'}`}
+                                style={{
+                                    textDecoration: "none",
+                                }}
+                                key={index}>
+                                {brand.name}
+                            </a>
+                            {index === topBrands.length - 1 ? "" : "|"}
+                        </>
                     ))}
                 </p>
             </div>
@@ -142,7 +149,7 @@ export default function Specials() {
                     margin: "auto"
                 }}
             >
-                <h1 className=""
+                <h1 className="mb-2"
                     style={{
                         fontWeight: "bold",
                         fontSize: "28px"
@@ -155,13 +162,15 @@ export default function Specials() {
                 }}>
                     {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.
                 </p>
-                <h2 className="h3 mb-4"
+                <h2 className="h3 mb-2"
                     style={{
                         fontWeight: "bold",
                         fontSize: "22px"
                     }}
                 >Why {process.env.REACT_APP_BUSINESS_NAME}'s Toy Store?</h2>
-                <ul>
+                <ul style={{
+                    padding: "0px 1rem",
+                }}>
                     <li className="mb-3" style={{
                         fontSize: "16px"
                     }}>

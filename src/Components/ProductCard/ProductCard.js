@@ -352,10 +352,10 @@ export const ProductCard = ({ item, index }) => {
           {item?.is_deal === 1 && item.deals_price != 0 ? (
             <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
               <span className={`${styles.offerPrice} d-inline-flex`}>
-                <b>₹{item.deals_price}</b>
+                <b>₹{Math.round(item.deals_price)}</b>
               </span>
               <del className={`${styles.offerDiscountPrice} d-inline-flex`}>
-                ₹{item.mrp}
+                ₹{Math.round(item.mrp)}
               </del>
             </div>
           ) : item.mrp > item.selling_price ? (
@@ -366,10 +366,10 @@ export const ProductCard = ({ item, index }) => {
               className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap"
             >
               <span className={`${styles.offerPrice} d-inline-flex`}>
-                <b>₹{item.selling_price}</b>
+                <b>₹{Math.round(item.selling_price)}</b>
               </span>
               <del className={`${styles.offerDiscountPrice} d-inline-flex`}>
-                ₹{item.mrp}
+                ₹{Math.round(item.mrp)}
               </del>
             </div>
           ) : (
@@ -382,7 +382,7 @@ export const ProductCard = ({ item, index }) => {
               <span
                 className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}
               >
-                <b>₹{item.mrp}</b>
+                <b>₹{Math.round(item.mrp)}</b>
               </span>
             </div>
           )}
