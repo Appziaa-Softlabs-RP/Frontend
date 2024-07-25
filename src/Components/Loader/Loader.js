@@ -6,14 +6,24 @@ import styles from './Loader.module.css';
 
 export const HeaderNavLoader = () => {
   return (
-    <div className={styles.headerNavWrapper}>
-      <div className='container d-flex justify-content-around'>
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+      <div className='p-1 pb-2 d-flex justify-content-around'>
+        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+          minWidth: '180px',
+          margin: '0px'
+        }} />
+        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+          minWidth: '180px',
+          margin: '0px'
+        }} />
+        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+          minWidth: '180px',
+          margin: '0px'
+        }} />
+        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+          minWidth: '180px',
+          margin: '0px'
+        }} />
       </div>
-    </div>
   )
 }
 
@@ -59,7 +69,7 @@ export const ProductListLoader = () => {
 export const HeroBannerLoader = () => {
   return (
     <div className={styles.heroBannerLoader}>
-      <div className='container'>
+      <div className='h-100 w-100 py-3'>
         <Skeleton containerClassName='h-100 w-100' height={250} width={"100%"} />
       </div>
     </div>

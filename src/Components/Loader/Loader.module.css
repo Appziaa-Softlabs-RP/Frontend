@@ -5,6 +5,7 @@
   min-height: 200px;
   column-count: 4;
 }
+
 .loaderItem {
   display: flex;
   border-radius: 10px;
