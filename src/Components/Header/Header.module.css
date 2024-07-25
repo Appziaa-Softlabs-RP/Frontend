@@ -54,12 +54,17 @@
 .supportDrop svg{
 	height: 20px;
 	width: 20px;
-  color: #FFF;
+  /* color: #FFF; */
 }
 .supportDrop .supportText{
 	font-size: 16px;
-	color: #FFF;
 	font-weight: 500;
+}
+.supportDrop{
+	color: #FFF;
+}
+.supportDrop:hover{
+	color: #FAC100;
 }
 .supportDropDown{
 	opacity: 0;
@@ -205,7 +210,7 @@
 }
 .subMenuName:hover{
     font-weight: 500;
-    background: var(--MENU_HOVER_COLOR);
+    background: #FAC100;
 }
 .userAccountDrop{
     background: #FFF;
