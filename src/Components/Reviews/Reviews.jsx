@@ -113,7 +113,8 @@ export default function Reviews() {
         if (showMore) {
             return <div style={{
                 maxHeight: "200px",
-                overflow: "auto"
+                overflow: "auto",
+                paddingRight: "20px"
             }}>
                 <p className="mb-0">{review}</p>
                 <button onClick={() => setShowMore(false)} className="text-sm text-primary" style={{ background: "none", border: "none" }}>Show Less</button>
@@ -145,15 +146,17 @@ export default function Reviews() {
                     width: "60px",
                     marginBottom: "-20px"
                 }} />
-                <p style={{
-                    fontSize: "1.125rem"
-                }}><b>The {process.env.REACT_APP_BUSINESS_NAME} Testimonials</b></p>
-                <p className="text-sm mt-3" style={{
-                    color: "#1a1a1a"
-                }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
-                <a href="https://g.page/r/CYF-YBA6SelvEBM/review" rel='noreferrer' target="_blank">
-                    <button className={`${styles.reviewBtn} text-white py-2 px-3 mt-3 mb-2`}>Write a Review</button>
-                </a>
+                <div className="ms-4">
+                    <p style={{
+                        fontSize: "1.125rem"
+                    }}><b>The {process.env.REACT_APP_BUSINESS_NAME} Testimonials</b></p>
+                    <p className="text-sm mt-3" style={{
+                        color: "#1a1a1a"
+                    }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
+                    <a href="https://g.page/r/CYF-YBA6SelvEBM/review" rel='noreferrer' target="_blank">
+                        <button className={`${styles.reviewBtn} text-white py-2 px-3 mt-3 mb-2`}>Write a Review</button>
+                    </a>
+                </div>
             </div>
 
             <div className={`${styles.carousalBody}`} style={{
@@ -163,7 +166,7 @@ export default function Reviews() {
                 <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`}  {...settings}>
                     {reviews.map((review) => (
                         <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                            background: "#ebd4d4",
+                            background: "rgb(242 236 236)",
                             color: "#291845",
                             borderRadius: "5px"
                         }}>
@@ -179,8 +182,14 @@ export default function Reviews() {
                             </div>
                             <div className="d-flex my-2">
                                 {Array(review.rating).fill(0).map((_, index) => (
-                                    <img key={index} src="/review/star-solid.png" alt="rewview" style={{ maxWidth: "30px" }} />
-                                ))}
+                                    <p style={{
+                                        margin: '2px'
+                                    }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                    </svg>
+                                    </p>
+                                    ))}
                             </div>
                             <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
                                 <ShowReview review={review?.review} />

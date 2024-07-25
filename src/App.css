@@ -4,14 +4,21 @@
   --MENU_HOVER_COLOR: rgba(207, 16, 45, 0.101);
   --ADD_BUTTON_COLOR: #cf102e;
 }
+
 body {
   background: #e7ecf2;
 }
+
 img {
   max-width: 100%;
 }
+
 .owl-carousel .owl-stage-outer .owl-stage {
   padding: 0 !important;
+}
+
+.owl-next, .owl-prev {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
 }
 
 .owl-dots {

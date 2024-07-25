@@ -296,6 +296,7 @@ export const ProductCard = ({ item, index }) => {
             <img
               onError={(e) => setNoImage(e)}
               style={{
+                opacity: item.stock <= 0 ? "0.5" : "1",
                 height: "100%",
                 width: "100%",
                 objectFit: "contain",
@@ -444,12 +445,16 @@ export const ProductCard = ({ item, index }) => {
             </React.Fragment>
           )}
           {item.stock <= 0 && (
-            <span
-              role="button"
+            <button
+              type="button"
               className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}
+              style={{
+                cursor: "not-allowed",
+                opacity: "0.5",
+              }}
             >
               Sold out!
-            </span>
+            </button>
           )}
         </div>
       </div>

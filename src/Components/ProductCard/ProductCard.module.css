@@ -38,7 +38,7 @@
   text-transform: uppercase;
   font-weight: bold;
   color: #fff;
-  font-size: 11px;
+  font-size: 16px;
   text-align: center;
   padding: 4px 5px;
   z-index: 2;
@@ -80,6 +80,7 @@
 }
 .addCartBtn {
   background: var(--ADD_BUTTON_COLOR);
+  border: none;
   padding: 0 15px;
   color: #fff;
   border-radius: 10px;

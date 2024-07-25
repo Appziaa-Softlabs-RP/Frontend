@@ -84,7 +84,11 @@ export const BrandFocus = () => {
                         <img
                           src={item.brand_icon}
                           alt="offer"
-                          className="object-contain p-0 col-12 d-inline-block"
+                          className={`${styles.brand_icon}`}
+                          style={{
+                            width: 'fit-content',
+                            borderRadius: "10px",
+                          }}
                         />
                         <label
                           className={`${styles.productPromoteText} col-12 p-0 text-center mb-2`}
@@ -92,11 +96,11 @@ export const BrandFocus = () => {
                           {item.brand_offer}
                         </label>
                         <div className="col-12 p-0 d-inline-flex justify-content-center mb-4">
-                          <span
+                          <button
                             className={`${styles.productShopText} text-uppercase d-inline-block text-center`}
                           >
                             Shop Now
-                          </span>
+                          </button>
                         </div>
                       </div>
                     </div>

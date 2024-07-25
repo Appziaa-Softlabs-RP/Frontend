@@ -32,9 +32,8 @@ export const LookingFor = () => {
       ) : (
         <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
           <div
-            className={`${
-              windowWidth === "mobile" && "p-0"
-            } container d-flex flex-column m-auto`}
+            className={`${windowWidth === "mobile" && "p-0"
+              } container d-flex flex-column m-auto`}
           >
             <h2
               className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}
@@ -43,12 +42,11 @@ export const LookingFor = () => {
             </h2>
             <div className="col-12 d-inline-flex">
               <ReactOwlCarousel
-                className={`carousel-looking-for col-12 d-inline-block owl-theme`}
+                className={`carousel-looking-for col-12 brandSilder owl-theme`}
                 margin={10}
-                loop={true}
+                loop={false}
                 dots={false}
-                items={8}
-                stagePadding={0}
+                items={6}
                 nav={true}
               >
                 {categories?.map((item, idx) => {
@@ -63,11 +61,13 @@ export const LookingFor = () => {
                         )
                       }
                     >
-                      <img
-                        src={item?.category?.image}
-                        alt={item?.category?.name}
-                        className="object-fit-cover col-12 d-inline-block"
-                      />
+                      <div className={`${styles.lookingForContainer}`}>
+                        <img
+                          src={item?.category?.image}
+                          alt={item?.category?.name}
+                          className="object-fit-fill col-12 d-inline-block"
+                        />
+                      </div>
                       <p
                         className={`${styles.thumbName} text-truncate col-12 text-center mb-0`}
                       >
