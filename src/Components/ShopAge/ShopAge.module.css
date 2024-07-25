@@ -2,16 +2,23 @@
 .shopAgeContainer .ageBlock{
 	width: calc(50% - 10px);
 }
+
+.ageBlock{
+	cursor: pointer;
+}
+
 .ageBlock:hover .shopAgeNumber{
 	font-weight: bold;
 }
-.ageBlock:hover img{
-	transform: scale(1.4);
-	transition-duration: 200ms;
-	transition-property: all;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 150ms;
+.ageBlock img {
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.ageBlock:hover img {
+    transform: scale(1.4);
+    cursor: pointer;
+}
+
 .ageBlockIcon{
 	padding-top: 100%;
 	border-radius: 100%;
