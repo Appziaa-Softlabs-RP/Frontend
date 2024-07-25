@@ -102,7 +102,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               setSearchProdList(res.payload_searchAI);
             }
           })
-          .catch((err) => {});
+          .catch((err) => { });
       }, 500);
     }
   };
@@ -327,7 +327,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   >
                     <SupportIcon color="#FFF" />
                     <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                    Support
+                      Support
                     </span>
                     <div
                       className={`${styles.supportDropDown} position-absolute d-inline-block`}
@@ -400,7 +400,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       <div className="d-inline-flex align-items-center gap-2">
                         <UserIcon color="#FFF" />
                         <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                        Account
+                          Account
                         </span>
                       </div>
                       {userInfo?.name !== "" && (
@@ -472,7 +472,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       )}
                     </span>
                     <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                    Cart
+                      Cart
                     </span>
                   </div>
                 </div>
@@ -493,7 +493,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     navItems.map((item, index) => {
                       return (
                         <div
-                          className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-3`}
+                          className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
                           key={index}
                         >
                           <span

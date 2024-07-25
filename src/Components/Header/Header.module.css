@@ -153,12 +153,16 @@
     height: 50px;
 }
 .headerNavBox{
-    /* min-width: 240px; */
+    margin: 0px 20px;
+    cursor: pointer;
     white-space: nowrap;
 }
 .menuName, .subMenuName{
     font-size: 15px;
     color: #000;
+}
+.headerNavBox:hover .menuName {
+    font-weight: bold;
 }
 .menuName{
     font-weight: 500;
@@ -272,8 +276,21 @@
     }
 }
 
+@media screen and (min-width:568px) {
+    .cartCount{
+        top: -8px;
+        right: -8px;
+    }
+}
+
 @media screen and (max-width:1070px) {
     .supportHideOnMobile{
         display: none;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .headerNavBox{
+        margin: 0px 10px;
     }
 }
