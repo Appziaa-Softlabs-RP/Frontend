@@ -496,12 +496,49 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
                           key={index}
                         >
-                          <span
-                            className={`${styles.menuName} d-inline-flex align-items-center gap-2`}
+                          <div
+                            className={`${styles.menuName}`}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "0.5rem",
+                              minWidth: '170px',
+                              maxWidth: '150px',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}
                           >
-                            {item.name}{" "}
-                            <BackArrowIcon color="#000" role="button" />
-                          </span>
+                            <span
+                              className={`${styles.menuNameText}`}
+                              style={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                display: 'inline-block',
+                                verticalAlign: 'middle'
+                              }}
+                            >
+                              {item.name}
+                            </span>
+                            <p style={{
+                              position: 'absolute',
+                              right: '0',
+                              transform: 'translateX(-4px) translateY(7px)',
+                              minWidth: '20px',
+                              height: 'fit-content',
+                            }}>
+                            <BackArrowIcon
+                              color="#000"
+                              role="button"
+                              style={{
+                                display: 'inline-block',
+                                verticalAlign: 'middle'
+                              }}
+                            />
+                            </p>
+                          </div>
                           {item.catList?.length > 0 && (
                             <div
                               className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}
