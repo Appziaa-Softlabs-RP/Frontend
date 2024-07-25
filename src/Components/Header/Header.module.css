@@ -271,3 +271,9 @@
         right: -8px;
     }
 }
+
+@media screen and (max-width:1070px) {
+    .supportHideOnMobile{
+        display: none;
+    }
+}

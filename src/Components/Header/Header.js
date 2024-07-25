@@ -326,8 +326,8 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     role="button"
                   >
                     <SupportIcon color="#FFF" />
-                    <span className={`${styles.supportText} d-inline-flex`}>
-                      Support
+                    <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
+                    Support
                     </span>
                     <div
                       className={`${styles.supportDropDown} position-absolute d-inline-block`}
@@ -399,8 +399,8 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     >
                       <div className="d-inline-flex align-items-center gap-2">
                         <UserIcon color="#FFF" />
-                        <span className={`${styles.supportText} d-inline-flex`}>
-                          Account
+                        <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
+                        Account
                         </span>
                       </div>
                       {userInfo?.name !== "" && (
@@ -451,7 +451,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       role="button"
                     >
                       <UserIcon color="#FFF" />
-                      <span className={`${styles.supportText} d-inline-flex`}>
+                      <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
                         Account
                       </span>
                     </div>
@@ -471,8 +471,8 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         </span>
                       )}
                     </span>
-                    <span className={`${styles.supportText} d-inline-flex`}>
-                      Cart
+                    <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
+                    Cart
                     </span>
                   </div>
                 </div>

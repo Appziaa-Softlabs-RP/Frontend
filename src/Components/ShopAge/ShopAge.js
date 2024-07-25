@@ -67,7 +67,7 @@ export const ShopAge = () => {
                   margin={10}
                   dots={true}
                   items={responsiveItems}
-                  loop={true}
+                  loop={false}
                   nav={true}
                 >
                   {categAge.map((item, index) => {
