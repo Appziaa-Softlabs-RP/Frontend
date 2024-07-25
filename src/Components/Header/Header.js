@@ -522,13 +522,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             >
                               {item.name}
                             </span>
-                            <p style={{
-                              position: 'absolute',
-                              right: '0',
-                              transform: 'translateX(-4px) translateY(7px)',
-                              minWidth: '20px',
-                              height: 'fit-content',
-                            }}>
                             <BackArrowIcon
                               color="#000"
                               role="button"
@@ -537,7 +530,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                                 verticalAlign: 'middle'
                               }}
                             />
-                            </p>
                           </div>
                           {item.catList?.length > 0 && (
                             <div
