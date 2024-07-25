@@ -487,7 +487,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 <HeaderNavLoader />
               ) : (
                 <div
-                  className={`${styles.headerMenuRow} d-inline-flex justify-content-between align-items-stretch col-12`}
+                  className={`${styles.headerMenuRow} d-inline-flex justify-content-center align-items-stretch col-12`}
                 >
                   {navItems.length > 0 &&
                     navItems.map((item, index) => {
