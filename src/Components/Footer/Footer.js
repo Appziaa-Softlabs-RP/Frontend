@@ -45,13 +45,15 @@ export const Footer = () => {
               <div className={`${styles.footerTitle}`}>About Us</div>
               <ul className={`${styles.footerMenu} list-unstyled`}>
                 <li>
-                  <Link
-                    to="/about-us"
+                  <a
+                    href="/about-us"
                     target="_blank"
+                    rel="noopener"
+
                     className="text-decoration-none d-inline-flex"
                   >
                     About Us
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <Link className="text-decoration-none d-inline-flex">
@@ -74,22 +76,24 @@ export const Footer = () => {
               <div className={`${styles.footerTitle}`}>Get Help</div>
               <ul className={`${styles.footerMenu} list-unstyled`}>
                 <li>
-                  <Link
-                    to="/Cancellation-policy"
+                  <a
+                    href="/Cancellation-policy"
                     target="_blank"
+                    rel="noopener"
                     className="text-decoration-none d-inline-flex"
                   >
                     Cancellation
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
-                    to="/payments"
+                  <a
+                    href="/payments"
                     target="_blank"
+                    rel="noopener"
                     className="text-decoration-none d-inline-flex"
                   >
                     Payments
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <Link className="text-decoration-none d-inline-flex">
@@ -111,40 +115,44 @@ export const Footer = () => {
               <div className={`${styles.footerTitle}`}>Policies</div>
               <ul className={`${styles.footerMenu} list-unstyled`}>
                 <li>
-                  <Link
-                    to="/privacy-policy"
+                  <a
+                    href="/privacy-policy"
                     target="_blank"
+                    rel="noopener"
                     className="text-decoration-none d-inline-flex"
                   >
                     Privacy
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
-                    to="/terms"
+                  <a
+                    href="/terms"
+                    rel="noopener noreferrer"
                     target="_blank"
                     className="text-decoration-none d-inline-flex"
                   >
                     Terms &amp; Conditions
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
-                    to="/return-policy"
+                  <a
+                    href="/return-policy"
                     target="_blank"
+                    rel="noopener"
                     className="text-decoration-none d-inline-flex"
                   >
                     Return Policies
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
-                    to="/sitemap"
+                  <a
+                    href="/sitemap"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="text-decoration-none d-inline-flex"
                   >
                     Sitemap
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -158,26 +166,28 @@ export const Footer = () => {
                 <li
                   className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
                 >
-                  <Link
+                  <a
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    to={`tel:${enviroment.PHONE_NUMBER}`}
+                    href={`tel:${enviroment.PHONE_NUMBER}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <PhoneIcon />
                     <span>{enviroment.PHONE_NUMBER}</span>
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`${styles.footerIconLink} d-inline-flex col-12 p-0 align-items-center`}
                 >
-                  <Link
+                  <a
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    to={`mailto:${enviroment?.EMAIL_ADDRESS}`}
+                    href={`mailto:${enviroment?.EMAIL_ADDRESS}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <EmailIcon />
                     <span>{enviroment?.EMAIL_ADDRESS}</span>
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -202,72 +212,72 @@ export const Footer = () => {
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
-                  <Link
-                    to={enviroment.INSTAGRAM_LINK}
+                  <a
+                    href={enviroment.INSTAGRAM_LINK}
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title={`${enviroment.BUSINESS_NAME} on Instagram`}
                   >
                     <InstagramIcon />
                     {/* <span>Instagram</span> */}
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
-                  <Link
-                    to={enviroment.FACEBOOK_LINK}
+                  <a
+                    href={enviroment.FACEBOOK_LINK}
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title={`${enviroment.BUSINESS_NAME} on Facebook`}
                   >
                     <FacebookIcon />
                     {/* <span className="icon__fallback-text">Facebook</span> */}
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
-                  <Link
-                    to={enviroment.TWITTER_LINK}
+                  <a
+                    href={enviroment.TWITTER_LINK}
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title={`${enviroment.BUSINESS_NAME}  on Twitter`}
                   >
                     <TwitterIcon />
                     {/* <span className="icon__fallback-text">Twitter</span> */}
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
-                  <Link
-                    to={enviroment.LINKEDIN_LINK}
+                  <a
+                    href={enviroment.LINKEDIN_LINK}
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
                   >
                     <LinkedInIcon />
                     {/* <span className="icon__fallback-text">LinkedIn</span> */}
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >
-                  <Link
-                    to={enviroment.YOUTUBE_LINK}
+                  <a
+                    href={enviroment.YOUTUBE_LINK}
                     className="d-inline-flex align-items-center text-decoration-none gap-1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
                   >
                     <YoutubeIcon />
                     {/* <span className="icon__fallback-text">LinkedIn</span> */}
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -366,13 +376,14 @@ export const Footer = () => {
                   <h5>About Us</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <Link
-                        to="/about-us"
+                      <a
+                        href="/about-us"
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-decoration-none"
                       >
                         About Us
-                      </Link>
+                      </a>
                     </li>
                     <li>
                       <Link className="text-decoration-none" to="">
@@ -397,22 +408,24 @@ export const Footer = () => {
                   <h5>Get Help</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/Cancellation-policy"
+                        href="/Cancellation-policy"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Cancellation
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/payments"
+                        href="/payments"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Payments
-                      </Link>
+                      </a>
                     </li>
                     <li>
                       <Link className="text-decoration-none" to="">
@@ -427,40 +440,44 @@ export const Footer = () => {
                   <h5>Policies</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/privacy-policy"
+                        href="/privacy-policy"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Privacy
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/terms"
+                        href="/terms"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Terms & Conditions
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/return-policy"
+                        href="/return-policy"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Return Policies
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
+                      <a
                         className="text-decoration-none"
-                        to="/sitemap"
+                        href="/sitemap"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Sitemap
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -470,59 +487,67 @@ export const Footer = () => {
                   <h5>Get social with us</h5>
                   <ul className="list-unstyled d-inline-flex align-items-center mb-3 gap-3">
                     <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.FACEBOOK_LINK}
+                      <a
+                        href={enviroment.FACEBOOK_LINK}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-decoration-none"
                       >
                         <FacebookIcon />
-                      </Link>
+                      </a>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.TWITTER_LINK}
+                      <a
+                        href={enviroment.TWITTER_LINK}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-decoration-none"
                       >
                         <TwitterIcon />
-                      </Link>
+                      </a>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
-                        <InstagramIcon />
-                      </Link>
-                    </li>
-                    <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.LINKEDIN_LINK}
+                      <a
+                        href={enviroment.INSTAGRAM_LINK}
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
+                      >
+                        <InstagramIcon />
+                      </a>
+                    </li>
+                    <li className={`${styles.socialIcon} list-unstyled`}>
+                      <a
+                        href={enviroment.LINKEDIN_LINK}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-decoration-none"
                         title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
                       >
                         <LinkedInIcon />
-                      </Link>
+                      </a>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
-                      <Link
-                        to={enviroment.YOUTUBE_LINK}
+                      <a
+                        href={enviroment.YOUTUBE_LINK}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-decoration-none"
                       >
                         <YoutubeIcon />
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                   <h5 className="mb-2">Contact Us</h5>
                   <div className="d-inline-flex align-items-center mb-3">
-                    <Link
-                      to={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`}
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=${enviroment.PHONE_NUMBER}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className={`text-decoration-none d-inline-flex align-items-center ${styles.whatsAppLink}`}
                     >
                       <i className="fa fa-whatsapp"></i>&nbsp;
                       <span>{enviroment.PHONE_NUMBER}</span>
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -554,13 +579,14 @@ export const Footer = () => {
                           />
                         </svg>
                         <i className="fa fa-heart" aria-hidden="true"></i> by{" "}
-                        <Link
+                        <a
                           className={`${styles.copyrightReward} text-decoration-none`}
-                          to="https://rewardsplus.in"
+                          href="https://rewardsplus.in"
                           target="_blank"
+                          rel="noopener noreferrer"
                         >
                           RewardsPlus
-                        </Link>
+                        </a>
                       </small>
                     </p>
                   </div>

@@ -19,7 +19,7 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
             AppNotification('Error', 'Please enter mobile number or E-mail ID.', 'danger');
         } else if (mobileNumberPattern.test(mobileVal) === false && emailPattern.test(mobileVal) === false) {
             AppNotification('Error', 'Enter mobile number and email Address is not valid.', 'danger');
-        }else if (mobilePass === '') {
+        } else if (mobilePass === '') {
             AppNotification('Error', 'Please enter your password', 'danger');
         } else if (mobileNumberPattern.test(mobileVal) === true || emailPattern.test(mobileVal) === true) {
             let registrationType = '';
@@ -35,15 +35,15 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                 password: mobilePass
             }
             ApiService.signIn(payload).then((res) => {
-                if(res.message === "Login successfully."){
+                if (res.message === "Login successfully.") {
                     localStorage.setItem('user', JSON.stringify(res.payload));
                     appData.setAppData({ ...appData.appData, user: res.payload, loggedIn: true });
                     localStorage.setItem('loggedIn', true);
                     AppNotification('Welcome', 'You have been logged-In successfully.', 'success');
                     setLoginPop(false);
                     getAddCartList(res.payload);
-                }else {
-                    AppNotification('Error', 'Username or password is incorret.', 'danger');    
+                } else {
+                    AppNotification('Error', 'Username or password is incorret.', 'danger');
                 }
             }).catch((err) => {
                 AppNotification('Error', 'Username or password is incorret.', 'danger');
@@ -61,14 +61,14 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                 cartJson: JSON.stringify(appData?.appData?.cartData)
             }
             ApiService.addMultipleCart(payload).then((res) => {
-                if(res.message === "Add successfully."){
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                if (res.message === "Add successfully.") {
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id });
                     localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartSaved', true);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
                     window.location.reload();
-                }else{
-                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
+                } else {
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
                 }
             }).catch((err) => {
                 AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
@@ -111,7 +111,10 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy-policy" target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</a> and <a className="text-decoration-none" href="/terms" target="_blank" rel="noopener noreferrer"
+                        >T&amp;C</a></div>
                 </div>
             </div>
         </React.Fragment>
@@ -152,7 +155,9 @@ const LoginOTP = ({ setLoginType, mobileVal, setMobileVal, setOTPObj }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</a></div>
                 </div>
             </div>
         </React.Fragment>
@@ -219,14 +224,14 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                 cartJson: JSON.stringify(appData?.appData?.cartData)
             }
             ApiService.addMultipleCart(payload).then((res) => {
-                if(res.message === "Add successfully."){
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                if (res.message === "Add successfully.") {
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id });
                     localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartSaved', true);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
                     window.location.reload();
-                }else{
-                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
+                } else {
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
                 }
             }).catch((err) => {
                 AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
@@ -270,7 +275,9 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</a></div>
                 </div>
             </div>
         </React.Fragment>
@@ -306,7 +313,7 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
                     }
                     setOTPObj({ otpID: res.payload.otp_id });
                     setLoginType('RegVerifyOTP');
-                }else if (res.message === "You are already registered. Please login."){
+                } else if (res.message === "You are already registered. Please login.") {
                     AppNotification('Error', res.message, 'danger');
                 }
             }).catch((err) => {
@@ -329,7 +336,9 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</a></div>
                 </div>
             </div>
         </React.Fragment>
@@ -418,14 +427,14 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
                 cartJson: JSON.stringify(appData?.appData?.cartData)
             }
             ApiService.addMultipleCart(payload).then((res) => {
-                if(res.message === "Add successfully."){
-                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id  });
+                if (res.message === "Add successfully.") {
+                    appData.setAppData({ ...appData.appData, cartSaved: true, cartData: res.payload_cartList_items, cartCount: res.payload_cartList_items?.length, cartID: res.payload_cartList_id });
                     localStorage.setItem('cartID', res.payload_cartList_id);
                     localStorage.setItem('cartSaved', true);
                     localStorage.setItem('cartData', JSON.stringify(res.payload_cartList_items));
                     window.location.reload();
-                }else{
-                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.','error');
+                } else {
+                    AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
                 }
             }).catch((err) => {
                 AppNotification('Error', 'We are facing issue on shopping cart. Please try later.', 'error');
@@ -492,7 +501,9 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" className="text-decoration-none">T&amp;C</Link></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</a></div>
                 </div>
             </div>
         </React.Fragment>
@@ -536,16 +547,16 @@ export const LoginPopup = ({ setLoginPop }) => {
                     <div className="col-8 p-4 position-relative">
                         <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
                         {loginType === 'Login' ?
-                                <LoginPassword setLoginType={setLoginType} setLoginPop={setLoginPop} />
+                            <LoginPassword setLoginType={setLoginType} setLoginPop={setLoginPop} />
                             : loginType === 'LoginOTP' ?
                                 <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
-                            : loginType === 'Register' ?
-                                <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
-                            : loginType === 'VerifyOTP' ?
-                                <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
-                            : loginType === 'RegVerifyOTP' ?
-                                <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
-                            : ''}
+                                : loginType === 'Register' ?
+                                    <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
+                                    : loginType === 'VerifyOTP' ?
+                                        <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
+                                        : loginType === 'RegVerifyOTP' ?
+                                            <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
+                                            : ''}
                     </div>
                 </div>
             </div>
