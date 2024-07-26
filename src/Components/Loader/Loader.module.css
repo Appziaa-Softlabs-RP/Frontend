@@ -53,6 +53,8 @@
 
 .ageBody {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
   background-color: var(--MENU_HOVER_COLOR);
   margin-top: 10px;
   padding: 40px 10px;

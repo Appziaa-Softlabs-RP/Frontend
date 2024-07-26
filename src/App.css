@@ -17,8 +17,67 @@ img {
   padding: 0 !important;
 }
 
-.owl-next, .owl-prev {
+.swiper-button-next:hover{
+  background: var(--PRIMARY_COLOR) !important;
+}
+
+.swiper-button-prev:hover{
+  background: var(--PRIMARY_COLOR) !important;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: white !important; /* Change this to your desired color */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background: white  !important;
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 200px !important;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+
+/* 560 below buttons are hidden */
+@media screen and (max-width: 560px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
+
+.swiper-button-disabled{
+  display: none !important;
+}
+
+/* chaning icon size */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 15px !important;
+  font-weight: bold !important;
+  color: red !important;
+}
+
+.owl-next,
+.owl-prev {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+
+.swiper-wrapper {
+  padding-bottom: 20px !important;
+}
+
+.swiper-pagination-bullets {
+  width: fit-content !important;
+  transform: translateX(-50%) !important;
+  left: 50% !important;
+  margin: auto;
+  padding: 0px !important;
+  background-color: rgba(255, 255, 255, 0.767) !important;
+  border-radius: 40px !important;
+  transform: translateY(10px);
+  height: 15px;
 }
 
 .owl-dots {
@@ -28,7 +87,12 @@ img {
   background-color: rgba(255, 255, 255, 0.767) !important;
   border-radius: 40px !important;
   transform: translateY(-5px);
-  height: 15px ;
+  height: 15px;
+}
+
+.swiper-pagination-bullet {
+  margin: 5px !important;
+  padding: 0px !important;
 }
 
 .owl-dot {
@@ -41,6 +105,10 @@ img {
   width: 6px !important;
   margin: 0px 6px !important;
   transform: translateY(-7px);
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--PRIMARY_COLOR) !important;
 }
 
 .owl-dot.active span {

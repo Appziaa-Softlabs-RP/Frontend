@@ -6,22 +6,29 @@ import styles from './Loader.module.css';
 
 export const HeaderNavLoader = () => {
   return (
-      <div className='p-1 pb-2 d-flex justify-content-around'>
+      <div className='p-1 pb-2 d-flex justify-content-around' style={{
+        maxWidth: "100dvw",
+        overflowX: "hidden",
+      }}>
         <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
           minWidth: '180px',
-          margin: '0px'
+          margin: '0px 80px',
+          width: '200px'
         }} />
         <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
           minWidth: '180px',
-          margin: '0px'
+          margin: '0px 80px',
+          width: '200px'
         }} />
         <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
           minWidth: '180px',
-          margin: '0px'
+          margin: '0px 80px',
+          width: '200px'
         }} />
         <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
           minWidth: '180px',
-          margin: '0px'
+          margin: '0px 80px',
+          width: '200px'
         }} />
       </div>
   )
@@ -76,6 +83,17 @@ export const HeroBannerLoader = () => {
   );
 }
 
+const responsiveItems =
+window.innerWidth >= 1450
+  ? 6
+  : window.innerWidth >= 1400
+    ? 5
+    : window.innerWidth >= 992
+      ? 4
+      : window.innerWidth >= 768
+        ? 3
+        : 2.5;
+
 export const ShopAgeLoader = () => {
   return (
     <div className={styles.ageLoader}>
@@ -88,16 +106,24 @@ export const ShopAgeLoader = () => {
           />
         </div>
         <div className={styles.ageBody}>
-          {Array.apply(null, { length: 5 }).map((e, i) => (
-            <div className={styles.smallBox} key={i}>
+          {Array.apply(null, { length: responsiveItems }).map((e, i) => (
+            <div className={styles.smallBox} key={i} style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
               <Skeleton style={{
                 borderRadius: '200px',
                 height: '180px',
                 width: '180px',
+                margin: '0 auto',
               }} />
               <Skeleton style={{
                 borderRadius: '5px',
                 height: '30px',
+                position: 'relative',
+                minWidth: '150px',
                 width: '100%',
               }} />
             </div>

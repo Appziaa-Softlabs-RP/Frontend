@@ -26,16 +26,16 @@ export const NewArrival = () => {
     }, []);
 
     const responsiveItems =
-    window.innerWidth >= 1300
-      ? 4
-      : window.innerWidth >= 1100
-      ? 4
-      : window.innerWidth >= 1000
-      ? 3
-      : window.innerWidth >= 500
-      ? 2
-      : 1;
-  
+        window.innerWidth >= 1300
+            ? 4
+            : window.innerWidth >= 1100
+                ? 4
+                : window.innerWidth >= 1000
+                    ? 3
+                    : window.innerWidth >= 500
+                        ? 2
+                        : 1;
+
 
     return (
         <React.Fragment>
@@ -47,7 +47,6 @@ export const NewArrival = () => {
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
                                 margin={10}
                                 dots={false}
-                                // items={`${windowWidth === 'mobile' ? 1 : 4}`}
                                 items={responsiveItems}
                                 loop={false}
                                 nav={true}
