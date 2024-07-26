@@ -38,10 +38,10 @@
     outline: none;
 }
 .topHeaderSale{
-    background: var(--PRIMARY_COLOR);
+    background: #93071c;
     height: 30px;
 }
-.dealsLink{
+.dealsLink{ 
     font-size: 16px;
     line-height: 16px;
     color: #FFF;
@@ -159,6 +159,7 @@
 }
 .menuName, .subMenuName{
     font-size: 15px;
+    min-width: 250px;
     color: #000;
 }
 .menuName{
@@ -189,23 +190,6 @@
     border-radius: 5px;
     padding: 12px;
     min-width: 240px;
-    left: 0px;
-    opacity: 0;
-    visibility: hidden;
-}
-.headerNavBox:hover .SubMenuList:after{
-    content: '';
-    position: absolute;
-    left: 50%;
-    margin-left: -5px;
-    background: #FFF;
-    height: 10px;
-    width: 10px;
-    position: absolute;
-    top: -5px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    display: inline-block;
 }
 .headerNavBox:hover .SubMenuList{
     opacity: 1;

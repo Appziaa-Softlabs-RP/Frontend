@@ -76,6 +76,33 @@ export const HeroBannerLoader = () => {
   );
 }
 
+export const ShopAgeLoader = () => {
+  return (
+    <div className={styles.bannerLoader}>
+      <div className='container py-5'>
+        <div className={styles.bannerTitle}>
+          <Skeleton
+            containerClassName='h-100 w-100 mt-4'
+            height={40}
+            width={"40%"}
+          />
+        </div>
+        <div className={styles.bannerBody}>
+          {Array.apply(null, { length: 5 }).map((e, i) => (
+            <div className={styles.smallBox} key={i}>
+              <Skeleton style={{
+                borderRadius: '200px',
+                height: '180px',
+                width: '180px',
+              }} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export const LookingForBannerLoader = () => {
   return (
     <div className={styles.bannerLoader}>

@@ -37,6 +37,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   const [accountOptn, setAccountOptn] = useState(false);
   const [cartPop, setCartPop] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+
+  const [hoveredItem, setHoveredItem] = useState([]);
+  const [hoveredPosition, setHoveredPosition] = useState({});
+
   const navigate = useNavigate();
   let windowWidth = appData.appData.windowWidth;
 
@@ -159,6 +163,35 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     setUserInfo(appData.appData.user);
   }, [appData?.appData]);
 
+  const handleMouseEnter = (item, index) => {
+    // if index is smae then set hoveredItem to null
+    if (hoveredItem === item) {
+      return handleMouseLeave();
+    }
+    const element = document.getElementById(`menu-${index}`);
+    setHoveredItem(item);
+    let pos = element.getBoundingClientRect();
+    
+    setHoveredPosition({
+      left: `${[pos.left]}px`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+    setHoveredPosition({});
+  };
+
+  // if click outside of headerNavBox or SubMenuList then call handleMouseLeave
+  useEffect(() => {
+    // document.addEventListener("click", handleMouseLeave);
+    // if click inside of headerNavBox or SubMenuList then don't do any thing
+    // if click outside of headerNavBox or SubMenuList or leavethen call handleMouseLeave
+    return () => {
+      document.removeEventListener("click", handleMouseLeave);
+    };
+  }, []);
+
   return (
     <React.Fragment>
       {windowWidth === "mobile" ? (
@@ -229,7 +262,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           </div>
         </div>
       ) : windowWidth === "desktop" ? (
-        <div className="col-12 d-inline-flex flex-column">
+        <div className="col-12 d-inline-flex flex-column" style={{
+          position: 'relative'
+        }}>
           <ReactOwlCarousel
             className={`${styles.topHeaderSale} col-12 owl-theme`}
             margin={0}
@@ -482,82 +517,95 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           <div
             className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}
           >
-            <div className="container">
+            <div style={{
+              width: 'fit-content',
+              margin: '0 auto'
+            }}>
               {loading ? (
                 <HeaderNavLoader />
               ) : (
                 <div
-                  className={`${styles.headerMenuRow} d-inline-flex justify-content-center align-items-stretch col-12`}
+                  className={`${styles.headerMenuRow} d-inline-flex align-items-stretch col-12`}
+                  style={{
+                    maxWidth: '100dvw',
+                    overflowX: "auto"
+                  }}
                 >
                   {navItems.length > 0 &&
-                    navItems.map((item, index) => {
-                      return (
+                    navItems.map((item, index) => (
+                      <div
+                        id={`menu-${index}`}
+                        className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
+                        key={index}
+                        onMouseEnter={() => handleMouseEnter(item, index)}
+                        onClick={() => handleMouseEnter(item, index)}
+                      >
                         <div
-                          className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
-                          key={index}
+                          className={`${styles.menuName}`}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            minWidth: '220px',
+                            maxWidth: '150px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
                         >
-                          <div
-                            className={`${styles.menuName}`}
+                          <span
+                            className={`${styles.menuNameText}`}
                             style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              gap: "0.5rem",
-                              minWidth: '220px',
-                              maxWidth: '150px',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
+                              whiteSpace: 'nowrap',
+                              display: 'inline-block',
+                              verticalAlign: 'middle',
                             }}
                           >
-                            <span
-                              className={`${styles.menuNameText}`}
-                              style={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                display: 'inline-block',
-                                verticalAlign: 'middle'
-                              }}
-                            >
-                              {item.name}
-                            </span>
-                            <BackArrowIcon
-                              color="#000"
-                              role="button"
-                              style={{
-                                display: 'inline-block',
-                                verticalAlign: 'middle'
-                              }}
-                            />
-                          </div>
-                          {item.catList?.length > 0 && (
-                            <div
-                              className={`${styles.SubMenuList} d-inline-flex flex-column gap-1 position-absolute`}
-                            >
-                              {item.catList.map((subNme, subIdx) => {
-                                return (
-                                  <Link
-                                    to={`/store-product/${subNme?.name_url}`}
-                                    style={{
-                                      textDecoration: "none",
-                                    }}
-                                    key={subIdx}
-                                    className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
-                                  >
-                                    {subNme.name}
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          )}
+                            {item.name}
+                          </span>
+                          <BackArrowIcon
+                            color="#000"
+                            role="button"
+                            style={{
+                              display: 'inline-block',
+                              verticalAlign: 'middle',
+                            }}
+                          />
                         </div>
-                      );
-                    })}
+                      </div>
+                    ))}
                 </div>
               )}
             </div>
           </div>
+          {hoveredItem?.catList?.length > 0 && (
+            <div
+              className={`${styles.SubMenuList} d-inline-flex flex-column gap-1`}
+              style={{
+                position: 'absolute',
+                top: '150px',
+                left: hoveredPosition.left,
+                zIndex: 999,
+              }}
+              onMouseEnter={() => setHoveredItem(hoveredItem)}
+              onClick={() => setHoveredItem(hoveredItem)}
+              onMouseLeave={handleMouseLeave}
+            >
+              {hoveredItem.catList.map((subNme, subIdx) => (
+                <Link
+                  to={`/store-product/${subNme?.name_url}`}
+                  style={{ textDecoration: 'none' }}
+                  key={subIdx}
+                  className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
+                >
+                  {subNme.name}
+                </Link>
+              ))}
+            </div>
+          )}
           {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
           {cartPop === true && <CartAside setCartPop={setCartPop} />}
         </div>

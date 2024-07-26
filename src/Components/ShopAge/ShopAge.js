@@ -5,9 +5,11 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./ShopAge.module.css";
 import ReactOwlCarousel from "react-owl-carousel";
+import { ShopAgeLoader } from "../Loader/Loader";
 
 export const ShopAge = () => {
   const [categAge, setCategAge] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
@@ -26,13 +28,16 @@ export const ShopAge = () => {
           setCategAge(res.payload_ageGroupList.age_group);
         }
       })
-      .catch((err) => {});
+      .catch((err) => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   //show 5 items when size is above 1200px, 4 items when size is above 992px, 3 items when size is above 768px, 2 items when size is above 576px, 1 item when size is below 576px
   const responsiveItems =
     window.innerWidth >= 1200
-      ? 5
+      ? 5.2
       : window.innerWidth >= 992
       ? 4
       : window.innerWidth >= 768
@@ -41,7 +46,11 @@ export const ShopAge = () => {
 
   return (
     <React.Fragment>
-      {categAge?.length > 0 && (
+      {
+        loading ? (
+          <ShopAgeLoader />
+        ) : (
+      categAge?.length > 0 && (
         <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
           <div className={`${windowWidth === "mobile" && "p-0"} container`}>
             {windowWidth === "desktop" && (
@@ -96,9 +105,9 @@ export const ShopAge = () => {
                               alt={item?.name}
                               style={{
                                 maxWidth:
-                                  window.innerWidth <= 500 ? "120px" : "180px",
+                                  window.innerWidth <= 500 ? "120px" : "200px",
                                 maxHeight:
-                                  window.innerWidth <= 500 ? "120px" : "180px",
+                                  window.innerWidth <= 500 ? "120px" : "200px",
                                 borderRadius: "100%",
                               }}
                               className="position-absolute col-12 h-100 d-inline-block p-0"
@@ -118,7 +127,7 @@ export const ShopAge = () => {
             </div>
           </div>
         </div>
-      )}
+      ))}
     </React.Fragment>
   );
 };
