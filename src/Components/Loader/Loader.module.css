@@ -33,6 +33,12 @@
   display: flex;
   flex-direction: column;
 }
+.agelLoader {
+  display: flex;
+  flex-direction: column;
+  background: var(--MENU_HOVER_COLOR);
+
+}
 
 .bannerTitle {
   display: flex;
@@ -43,6 +49,13 @@
 
 .bannerBody {
   display: flex;
+}
+
+.ageBody {
+  display: flex;
+  background-color: var(--MENU_HOVER_COLOR);
+  margin-top: 10px;
+  padding: 40px 10px;
 }
 
 .smallBox {

@@ -171,7 +171,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     const element = document.getElementById(`menu-${index}`);
     setHoveredItem(item);
     let pos = element.getBoundingClientRect();
-    
+
     setHoveredPosition({
       left: `${[pos.left]}px`,
     });

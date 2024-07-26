@@ -34,10 +34,11 @@ export const ShopAge = () => {
       });
   }, []);
 
-  //show 5 items when size is above 1200px, 4 items when size is above 992px, 3 items when size is above 768px, 2 items when size is above 576px, 1 item when size is below 576px
   const responsiveItems =
-    window.innerWidth >= 1200
-      ? 5.2
+    window.innerWidth >= 1450
+      ? 6
+      : window.innerWidth >= 1400
+      ? 5
       : window.innerWidth >= 992
       ? 4
       : window.innerWidth >= 768

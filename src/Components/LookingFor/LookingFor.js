@@ -25,6 +25,18 @@ export const LookingFor = () => {
     }
   }, [categories]);
 
+  const responsiveItems =
+  window.innerWidth >= 1300
+    ? 6
+    : window.innerWidth >= 1200
+    ? 5
+    : window.innerWidth >= 992
+    ? 4
+    : window.innerWidth >= 768
+    ? 3
+    : 2.5;
+
+
   return (
     <React.Fragment>
       {loading ? (
@@ -46,7 +58,7 @@ export const LookingFor = () => {
                 margin={10}
                 loop={false}
                 dots={false}
-                items={6}
+                items={responsiveItems}
                 nav={true}
               >
                 {categories?.map((item, idx) => {

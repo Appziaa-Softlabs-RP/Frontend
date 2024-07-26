@@ -78,8 +78,8 @@ export const HeroBannerLoader = () => {
 
 export const ShopAgeLoader = () => {
   return (
-    <div className={styles.bannerLoader}>
-      <div className='container py-5'>
+    <div className={styles.ageLoader}>
+      <div className='container'>
         <div className={styles.bannerTitle}>
           <Skeleton
             containerClassName='h-100 w-100 mt-4'
@@ -87,13 +87,18 @@ export const ShopAgeLoader = () => {
             width={"40%"}
           />
         </div>
-        <div className={styles.bannerBody}>
+        <div className={styles.ageBody}>
           {Array.apply(null, { length: 5 }).map((e, i) => (
             <div className={styles.smallBox} key={i}>
               <Skeleton style={{
                 borderRadius: '200px',
                 height: '180px',
                 width: '180px',
+              }} />
+              <Skeleton style={{
+                borderRadius: '5px',
+                height: '30px',
+                width: '100%',
               }} />
             </div>
           ))}
