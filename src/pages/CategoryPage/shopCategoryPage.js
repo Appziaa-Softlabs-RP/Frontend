@@ -320,8 +320,10 @@ export const ShopCategoryPage = () => {
         )}
 
         {windowWidth === "mobile" &&
-          filterVert !== null &&
-          filterVert !== undefined && (
+        filterCatg!=null &&
+          // filterVert !== null &&
+          // filterVert !== undefined &&
+           (
             <div
               className={`${
                 styles.filterPopup
