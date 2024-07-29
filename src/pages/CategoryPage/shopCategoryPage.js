@@ -111,7 +111,7 @@ export const ShopCategoryPage = () => {
       store_id: parseInt(enviroment.STORE_ID),
       vertical_slug: categorySlug,
     };
-    setFilterVert(verticalSlug);
+    setFilterVert(categorySlug);
     setFilterCatg(categorySlug);
     payload.page = 1;
     payload.result_per_page = 10;
@@ -320,9 +320,8 @@ export const ShopCategoryPage = () => {
         )}
 
         {windowWidth === "mobile" &&
-        filterCatg!=null &&
-          // filterVert !== null &&
-          // filterVert !== undefined &&
+          filterVert !== null &&
+          filterVert !== undefined &&
            (
             <div
               className={`${

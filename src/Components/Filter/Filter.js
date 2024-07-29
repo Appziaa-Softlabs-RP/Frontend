@@ -40,7 +40,7 @@ export const Filter = ({
           gender: genderFilter,
           age: ageFilter,
           allBrands: brands,
-          length: brands.length,
+          length: brands?.length,
         }));
       })
       .catch((err) => {});
@@ -53,7 +53,7 @@ export const Filter = ({
     ApiService.storeFilterBrand(payload)
       .then((res) => {
         let allBrand = res.payload_categoryByBrand;
-        if (allBrand.length) {
+        if (allBrand?.length) {
           allBrand.sort(function (a, b) {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
               return -1;
@@ -67,9 +67,9 @@ export const Filter = ({
           getAgeBrandOption(allBrand);
         }
       })
-      .catch((err) => {
-        getAgeBrandOption();
-      });
+     
+      getAgeBrandOption();
+
   }, [filterCatg]);
 
   const filterBrand = (id) => {
@@ -121,7 +121,7 @@ export const Filter = ({
 
   const searchBrandName = (val) => {
     setSearchBrand(val);
-    if (val.length > 0) {
+    if (val?.length > 0) {
       var result = allBrandLen.allBrands.filter(searchByFirstName);
       setAllBrands(result);
     } else {
@@ -131,7 +131,7 @@ export const Filter = ({
 
   const searchByFirstName = (item) => {
     return (
-      item.name.toLowerCase().substring(0, searchBrand.length) ==
+      item.name.toLowerCase().substring(0, searchBrand?.length) ==
       searchBrand.toLowerCase()
     );
   };
@@ -144,7 +144,7 @@ export const Filter = ({
       to_price: allfilterVal.priceMax,
       brand_id: allfilterVal.brandId ? allfilterVal.brandId : null,
       gender: allfilterVal.genderId ? [allfilterVal.genderId] : null,
-      age: allfilterVal.ageGroup,
+      age: [allfilterVal.ageGroup],
       page: 1,
       result_per_page: 1000,
     };
@@ -187,7 +187,7 @@ export const Filter = ({
                   onChange={(e) => searchBrandName(e.target.value)}
                 />
               </li>
-              {allBrands.length > 0 &&
+              {allBrands?.length > 0 &&
                 allBrands?.map((item, index) => {
                   return (
                     <li
@@ -248,7 +248,7 @@ export const Filter = ({
             <ul
               className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
             >
-              {allBrandLen.age.length > 0 &&
+              {allBrandLen.age?.length > 0 &&
                 allBrandLen.age?.map((item, index) => {
                   return (
                     <li
@@ -308,7 +308,7 @@ export const Filter = ({
             <ul
               className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
             >
-              {allBrandLen.gender.length > 0 &&
+              {allBrandLen.gender?.length > 0 &&
                 allBrandLen.gender?.map((item, index) => {
                   return (
                     <li
