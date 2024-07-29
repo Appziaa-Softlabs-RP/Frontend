@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CategoryPage.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { SearchCategoryFilter } from "../../Components/Filter/SearchCategoryFilter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
-import { ProductListLoader } from "../../Components/Loader/Loader";
-import { Filter } from "../../Components/Filter/Filter";
 import {
     BackArrowIcon,
     FilterIcon,
     OrderIcon,
     SortByIcon,
 } from "../../Components/siteIcons";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import styles from "./CategoryPage.module.css";
 
 export const StoreProductCategory = () => {
     const locationState = useLocation();
@@ -32,6 +32,7 @@ export const StoreProductCategory = () => {
     const [apiPayload, setApiPayload] = useState(null);
     const [isDescendingOrder, setIsDscendingOrder] = useState(false);
     const [isAscendingOrder, setIsAscendingOrder] = useState(false);
+    const [brands, setBrands] = useState([]);
 
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
@@ -75,8 +76,9 @@ export const StoreProductCategory = () => {
         ApiService.CategoryByProd(data)
             .then((res) => {
                 if (res.message === "Fetch successfully.") {
-                    setProductData(res.payload_CategoryByProduct);
-                    setProductActualData(res.payload_CategoryByProduct);
+                    setProductData(res.payload_CategoryByProduct?.products);
+                    setProductActualData(res.payload_CategoryByProduct?.products)
+                    setBrands(res.payload_CategoryByProduct?.brands);
                     setLoading(false);
                     setApiPayload((prev) => ({ ...prev, page: 2 }));
                 }
@@ -112,6 +114,7 @@ export const StoreProductCategory = () => {
             store_id: parseInt(enviroment.STORE_ID),
             category_slug: category,
         };
+        setFilterVert(category)
         // setFilterVert(locationState?.state?.verticalId);
         // setFilterCatg(locationState?.state?.categoryId);
         payload.page = 1;
@@ -163,20 +166,22 @@ export const StoreProductCategory = () => {
                                         <div
                                             className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
                                         >
-                                            <Filter
+                                            <SearchCategoryFilter
+                                                categorySlug={category}
                                                 filterVert={filterVert}
                                                 filterCatg={filterCatg}
                                                 setProductData={setProductData}
                                                 setProductActualData={setProductActualData}
+                                                brands={brands}
                                             />
                                         </div>
                                     )}
                                 <div
                                     className={`${windowWidth === "mobile"
-                                            ? "col-12 pt-2"
-                                            : filterVert !== null && filterVert !== undefined
-                                                ? "col-9"
-                                                : "col-12"
+                                        ? "col-12 pt-2"
+                                        : filterVert !== null && filterVert !== undefined
+                                            ? "col-9"
+                                            : "col-12"
                                         } ${styles.productContainer
                                         } flex-shrink-1 d-inline-flex flex-wrap`}
                                 >
@@ -249,11 +254,11 @@ export const StoreProductCategory = () => {
                                                         {item.name !== "" && (
                                                             <div
                                                                 className={`${windowWidth === "mobile"
-                                                                        ? "col-6"
-                                                                        : filterVert !== null &&
-                                                                            filterVert !== undefined
-                                                                            ? "col-4"
-                                                                            : "col-3"
+                                                                    ? "col-6"
+                                                                    : filterVert !== null &&
+                                                                        filterVert !== undefined
+                                                                        ? "col-4"
+                                                                        : "col-3"
                                                                     } px-2 flex-shrink-0 mb-3`}
                                                                 key={index}
                                                                 role="button"
@@ -297,6 +302,7 @@ export const StoreProductCategory = () => {
                                 Sort By
                             </div>
                             <button
+                                aria-label="Price: Low to High"
                                 onClick={() => {
                                     priceDescending();
                                     setSortPopup(false);
@@ -306,6 +312,7 @@ export const StoreProductCategory = () => {
                                 Price: Low to High
                             </button>
                             <button
+                                aria-label="Price: High to Low"
                                 onClick={() => {
                                     priceAscending();
                                     setSortPopup(false);
@@ -315,6 +322,7 @@ export const StoreProductCategory = () => {
                                 Price: High to Low
                             </button>
                             <button
+                                aria-label="Clear All"
                                 onClick={() => {
                                     resetSortFilter();
                                     setSortPopup(false);
@@ -325,6 +333,7 @@ export const StoreProductCategory = () => {
                             </button>
                         </div>
                         <button
+                            aria-label="Cancel"
                             onClick={() => setSortPopup(false)}
                             className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}
                         >
@@ -358,11 +367,13 @@ export const StoreProductCategory = () => {
                                     </label>
                                 </div>
                             </div>
-                            <Filter
+                            <SearchCategoryFilter
+                                categorySlug={category}
                                 filterVert={filterVert}
                                 filterCatg={filterCatg}
                                 setProductData={setProductData}
                                 setProductActualData={setProductActualData}
+                                brands={brands}
                             />
                             <div
                                 className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}

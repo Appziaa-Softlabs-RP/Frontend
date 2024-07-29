@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CategoryPage.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
+import { Filter } from "../../Components/Filter/Filter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
+import { ProductListLoader } from "../../Components/Loader/Loader";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
-import { ProductListLoader } from "../../Components/Loader/Loader";
-import { Filter } from "../../Components/Filter/Filter";
 import {
   BackArrowIcon,
   FilterIcon,
   OrderIcon,
   SortByIcon,
 } from "../../Components/siteIcons";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useApp } from "../../context/AppContextProvider";
+import ApiService from "../../services/ApiService";
+import styles from "./CategoryPage.module.css";
 
 export const CategoryPage = () => {
   const locationState = useLocation();
@@ -359,6 +359,7 @@ export const CategoryPage = () => {
                 Sort By
               </div>
               <button
+                aria-label="Price: Low to High"
                 onClick={() => {
                   priceDescending();
                   setSortPopup(false);
@@ -368,6 +369,7 @@ export const CategoryPage = () => {
                 Price: Low to High
               </button>
               <button
+                aria-label="Price: High to Low"
                 onClick={() => {
                   priceAscending();
                   setSortPopup(false);
@@ -377,6 +379,7 @@ export const CategoryPage = () => {
                 Price: High to Low
               </button>
               <button
+                aria-label="Clear All"
                 onClick={() => {
                   resetSortFilter();
                   setSortPopup(false);
@@ -387,6 +390,7 @@ export const CategoryPage = () => {
               </button>
             </div>
             <button
+              aria-label="Cancel"
               onClick={() => setSortPopup(false)}
               className={`${styles.actionSheetCnclBtn} col-12 d-inline-flex align-items-center justify-content-center`}
             >
