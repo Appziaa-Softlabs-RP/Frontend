@@ -184,7 +184,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
 
   // if click outside of headerNavBox or SubMenuList then call handleMouseLeave
   useEffect(() => {
-    // document.addEventListener("click", handleMouseLeave);
+    document.addEventListener("click", handleMouseLeave);
     // if click inside of headerNavBox or SubMenuList then don't do any thing
     // if click outside of headerNavBox or SubMenuList or leavethen call handleMouseLeave
     return () => {
