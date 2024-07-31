@@ -25,6 +25,7 @@
 
 .heroBannerLoader {
   display: flex;
+  height: calc(100vw / 4.77);
   padding: 6px;
   background-color: #FFF;
 }

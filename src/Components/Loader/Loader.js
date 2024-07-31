@@ -6,31 +6,31 @@ import styles from './Loader.module.css';
 
 export const HeaderNavLoader = () => {
   return (
-      <div className='p-1 pb-2 d-flex justify-content-around' style={{
-        maxWidth: "100dvw",
-        overflowX: "hidden",
-      }}>
-        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
-          minWidth: '180px',
-          margin: '0px 80px',
-          width: '200px'
-        }} />
-        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
-          minWidth: '180px',
-          margin: '0px 80px',
-          width: '200px'
-        }} />
-        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
-          minWidth: '180px',
-          margin: '0px 80px',
-          width: '200px'
-        }} />
-        <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
-          minWidth: '180px',
-          margin: '0px 80px',
-          width: '200px'
-        }} />
-      </div>
+    <div className='p-1 pb-2 d-flex justify-content-around' style={{
+      maxWidth: "100dvw",
+      overflowX: "hidden",
+    }}>
+      <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+        minWidth: '180px',
+        margin: '0px 80px',
+        width: '200px'
+      }} />
+      <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+        minWidth: '180px',
+        margin: '0px 80px',
+        width: '200px'
+      }} />
+      <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+        minWidth: '180px',
+        margin: '0px 80px',
+        width: '200px'
+      }} />
+      <Skeleton height={40} width={"80%"} containerClassName='h-100' style={{
+        minWidth: '180px',
+        margin: '0px 80px',
+        width: '200px'
+      }} />
+    </div>
   )
 }
 
@@ -65,7 +65,7 @@ export const ProductListLoader = () => {
       <div className='container'>
         <div className='d-flex flex-wrap'>
           {Array.apply(null, { length: 10 }).map((e, i) => (
-            <ProductCardLoader key={i}/>
+            <ProductCardLoader key={i} />
           ))}
         </div>
       </div>
@@ -76,23 +76,26 @@ export const ProductListLoader = () => {
 export const HeroBannerLoader = () => {
   return (
     <div className={styles.heroBannerLoader}>
-      <div className='h-100 w-100'>
-        <Skeleton containerClassName='h-100 w-100' height={250} width={"100%"} />
-      </div>
+        <Skeleton containerClassName='h-100 w-100'
+        style={{
+          minHeight: '100%',
+        }}
+          height={250}
+          width={"100%"} />
     </div>
   );
 }
 
 const responsiveItems =
-window.innerWidth >= 1450
-  ? 6
-  : window.innerWidth >= 1400
-    ? 5
-    : window.innerWidth >= 992
-      ? 4
-      : window.innerWidth >= 768
-        ? 3
-        : 2.5;
+  window.innerWidth >= 1450
+    ? 6
+    : window.innerWidth >= 1400
+      ? 5
+      : window.innerWidth >= 992
+        ? 4
+        : window.innerWidth >= 768
+          ? 3
+          : 2.5;
 
 export const ShopAgeLoader = () => {
   return (
