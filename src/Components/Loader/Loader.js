@@ -76,7 +76,7 @@ export const ProductListLoader = () => {
 export const HeroBannerLoader = () => {
   return (
     <div className={styles.heroBannerLoader}>
-      <div className='h-100 w-100 py-3'>
+      <div className='h-100 w-100'>
         <Skeleton containerClassName='h-100 w-100' height={250} width={"100%"} />
       </div>
     </div>
