@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # Constants files
-/src/constants/data.js
+# /src/constants/data.js
