@@ -1034,9 +1034,9 @@ export const ProductPage = () => {
               <button
                 style={{
                   border: "none",
-                  background: "#cd1c25",
+                  background: "#ed1f29",
                   cursor: "not-allowed",
-                  opacity: "0.5",
+                  // opacity: "0.5",
                 }}
                 disabled={true}
                 className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
@@ -1123,6 +1123,19 @@ export const ProductPage = () => {
                   <div
                     className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
                   >
+                     {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
+                      <div
+                        className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100 top-0`}
+                      >
+                        <span
+                          className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
+                        >
+                          Sold Out
+                        </span>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <span
                       className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`}
                       role="button"
@@ -1134,6 +1147,9 @@ export const ProductPage = () => {
                       <img
                         src={prodMainImg}
                         alt={ProductData?.name}
+                        style={{
+                          opacity: (ProductData?.stock === 0 || ProductData?.stock < 0) ? "0.5" : "1",
+                        }}
                         className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
                       />
                     ) : (
