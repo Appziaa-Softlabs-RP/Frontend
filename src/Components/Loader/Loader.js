@@ -67,10 +67,7 @@ export const ProductListLoader = () => {
       <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
         <Skeleton
           height={200}
-          style={{
-            width: "100vw",
-            height: "200px",
-          }}
+          className={styles.productListBanner}
         />
       </div>
       <div className='d-flex w-full'
@@ -88,7 +85,8 @@ export const ProductListLoader = () => {
           height: "100vh",
           display: 'grid',
           gridTemplateColumns: '1fr',
-          minWidth: 'calc(100vw - 77%)',
+          // minWidth: 'calc(100vw - 77%)',
+          width: '25%',
           margin: '0px 10px',
         }}>
           <Skeleton
