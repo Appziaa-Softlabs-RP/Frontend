@@ -34,7 +34,7 @@ const sitemap = async () => {
   const brands = brandResponse?.data?.payload_getAllBrands;
 
   const brandsUrls = brands?.map(
-    (brand) => `/store-product/brand/${brand?.brand_id}`
+    (brand) => `/store-product/brand/${brand?.name_url}`
   );
 
   // Vertical Response
