@@ -1,20 +1,38 @@
-.siteHeader{
+.siteHeader {
     padding: 15px 0px 150px;
     background: var(--PRIMARY_COLOR);
 }
-.menuIconBox, .cartIconBox{
+
+.menuIconBox,
+.cartIconBox {
     height: 50px;
     width: 50px;
     margin: 0px 10px;
 }
-.menuIconBox svg, .cartIconBox svg{
+
+.menuIconBox svg,
+.cartIconBox svg {
     height: 25px;
     width: 25px;
 }
-.siteLogoBox img{
+
+.siteLogoBox img {
     height: 70px;
 }
-.cartCount{
+
+.cartCountMobile {
+    font-size: 10px;
+    line-height: 11px;
+    background: var(--SECONDARY_COLOR);
+    color: var(--PRIMARY_COLOR);
+    height: 15px;
+    padding: 0px 5px;
+    top: 0px;
+    right: 10px;
+    border-radius: 6px;
+}
+
+.cartCount {
     font-size: 10px;
     line-height: 11px;
     background: var(--SECONDARY_COLOR);
@@ -25,7 +43,8 @@
     right: -5px;
     border-radius: 6px;
 }
-.searchProdInput{
+
+.searchProdInput {
     height: 50px;
     border-radius: 10px;
     color: #212020;
@@ -35,110 +54,131 @@
     padding: 15px;
 }
 
-.searchProdInput::placeholder{
-    color:rgb(167, 165, 165);
+.searchProdInput::placeholder {
+    color: rgb(167, 165, 165);
     font-weight: 500;
 }
 
-.searchProdInput:focus{
+.searchProdInput:focus {
     outline: none;
 }
-.topHeaderSale{
+
+.topHeaderSale {
     background: #93071c;
     height: 30px;
 }
-.dealsLink{ 
+
+.dealsLink {
     font-size: 16px;
     line-height: 16px;
     color: #FFF;
 }
-.headerRow{
+
+.headerRow {
     background: var(--PRIMARY_COLOR);
     height: 74px;
 }
+
 /* Desktop CSS */
-.supportDrop svg{
-	height: 20px;
-	width: 20px;
-  /* color: #FFF; */
+.supportDrop svg {
+    height: 20px;
+    width: 20px;
+    /* color: #FFF; */
 }
-.supportDrop .supportText{
-	font-size: 16px;
-	font-weight: 500;
+
+.supportDrop .supportText {
+    font-size: 16px;
+    font-weight: 500;
 }
-.supportDrop{
-	color: #FFF;
+
+.supportDrop {
+    color: #FFF;
 }
-.supportDrop:hover{
-	color: #FAC100;
+
+.supportDrop:hover {
+    color: #FAC100;
 }
-.supportDropDown{
-	opacity: 0;
-	visibility: hidden;
-	background: #FFF;
-	left: 50%;
-	transition: all ease 400ms;
-	-webkit-transition: all ease 400ms;
-	-webkit-transform: translateX(-50%) translateY(200px);
-	transform: translateX(-50%) translateY(200px);
-	top: 70px;
-	width: 320px;
-	border-radius: 4px;
-	box-shadow: 1px 1px 0px 2px rgba(0,0,0,0.10);
-	z-index: 5;
-	padding: 20px;
+
+.supportDropDown {
+    opacity: 0;
+    visibility: hidden;
+    background: #FFF;
+    left: 50%;
+    transition: all ease 400ms;
+    -webkit-transition: all ease 400ms;
+    -webkit-transform: translateX(-50%) translateY(200px);
+    transform: translateX(-50%) translateY(200px);
+    top: 70px;
+    width: 320px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.10);
+    z-index: 5;
+    padding: 20px;
 }
-.supportDrop:hover .supportDropDown{
-	transform: translateX(-50%) translateY(0%);
-	-webkit-transform: translateX(-50%) translateY(0%);
-	opacity: 1;
-	visibility: visible;
+
+.supportDrop:hover .supportDropDown {
+    transform: translateX(-50%) translateY(0%);
+    -webkit-transform: translateX(-50%) translateY(0%);
+    opacity: 1;
+    visibility: visible;
 }
-.timingPhoneBox{
-	background: #fff7db;
-	padding: 10px;
-	border-radius: 10px;
+
+.timingPhoneBox {
+    background: #fff7db;
+    padding: 10px;
+    border-radius: 10px;
 }
+
 .timingPhoneBox .timingCallIcon {
     position: absolute;
     height: 25px;
     top: 50%;
     margin-top: -12px;
 }
-.supportTimings{
-	font-size: 14px;
-	color: #000;
-	line-height: 1.5;
+
+.supportTimings {
+    font-size: 14px;
+    color: #000;
+    line-height: 1.5;
 }
-.supportPhoneNumber, .mailtoEmail{
-	font-size: 18px;
-	color: #000;
-	font-weight: 600;
-	line-height: 2;
+
+.supportPhoneNumber,
+.mailtoEmail {
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+    line-height: 2;
 }
-.mailtoBox{
-	background: #f8f8f8;
-	border-radius: 5px;
-	padding: 10px;
-	margin: 10px 0px;
+
+.mailtoBox {
+    background: #f8f8f8;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0px;
 }
-.mailtoBox svg{
-	height: 25px;
-	width: 25px;
+
+.mailtoBox svg {
+    height: 25px;
+    width: 25px;
 }
-.supportLinks{
-	font-size: 14px;
-	color: #000;
+
+.supportLinks {
+    font-size: 14px;
+    color: #000;
 }
-.dotSymbol{
-	font-size: 20px;
-	color: #000;
+
+.dotSymbol {
+    font-size: 20px;
+    color: #000;
 }
-.searchIcon, .searchIcon svg{
+
+.searchIcon,
+.searchIcon svg {
     height: 20px;
     width: 20px;
 }
-.inputSearch{
+
+.inputSearch {
     height: 45px;
     border-radius: 6px;
     background: #FFF;
@@ -147,76 +187,92 @@
     border: none;
     box-shadow: none;
 }
-.inputSearch:focus{
+
+.inputSearch:focus {
     border: none;
     box-shadow: none;
     outline: none;
 }
-.headerNavList{
+
+.headerNavList {
     background: #FFF;
 }
-.headerMenuRow{
+
+.headerMenuRow {
     height: 50px;
 }
-.headerNavBox{
+
+.headerNavBox {
     margin: 0px 10px;
     cursor: pointer;
     white-space: nowrap;
 }
-.menuName, .subMenuName{
+
+.menuName,
+.subMenuName {
     font-size: 15px;
     min-width: 250px;
     color: #000;
 }
-.menuName{
+
+.menuName {
     min-width: 150px;
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .headerNavBox:hover .menuName {
     font-weight: bold;
 }
-.menuName{
+
+.menuName {
     font-weight: 500;
 }
-.menuName svg{
+
+.menuName svg {
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     height: 8px;
     width: 8px;
-    transition: transform .1s,-webkit-transform .1s;
+    transition: transform .1s, -webkit-transform .1s;
 }
-.SubMenuList{
+
+.SubMenuList {
     background: #FFF;
     z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
     top: 48px;
     border-radius: 5px;
     padding: 12px;
     min-width: 240px;
 }
-.headerNavBox:hover .SubMenuList{
+
+.headerNavBox:hover .SubMenuList {
     opacity: 1;
     visibility: visible;
 }
-.subMenuName{
+
+.subMenuName {
     min-height: 40px;
     border-radius: 4px;
 }
-.headerNavBox:hover .menuName svg{
+
+.headerNavBox:hover .menuName svg {
     transform: rotate(-90deg) scaleX(-1);
     -webkit-transform: rotate(-90deg) scaleX(-1);
 }
-.subMenuName:hover{
+
+.subMenuName:hover {
     font-weight: 500;
     background: #FAC100;
 }
-.userAccountDrop{
+
+.userAccountDrop {
     background: #FFF;
     z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
     top: 74px;
     border-radius: 5px;
     padding: 12px;
@@ -225,7 +281,8 @@
     opacity: 1;
     visibility: visible;
 }
-.accountOption{
+
+.accountOption {
     border-bottom: 1px solid #EDEDED;
     height: 45px;
     font-size: 15px;
@@ -234,55 +291,62 @@
     padding: 0 10px;
     transition: .1s;
 }
-.accountOption:last-child{
+
+.accountOption:last-child {
     border-bottom: none;
 }
-.accountOption:hover{
+
+.accountOption:hover {
     background: var(--MENU_HOVER_COLOR);
 }
-.userName{
+
+.userName {
     font-size: 12px;
     line-height: 12px;
     color: var(--SECONDARY_COLOR);
 }
-.showSearchList{
+
+.showSearchList {
     top: 55px;
     max-height: 230px;
     background: #FFF;
     z-index: 5;
-    box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.30);
+    box-shadow: 0px 16px 16px 0px rgba(0, 0, 0, 0.30);
 }
-.searchRow{
+
+.searchRow {
     font-size: 16px;
     color: #000;
     border-bottom: 1px solid #EEE;
     transition: .2s;
 }
-.searchRow:hover{
+
+.searchRow:hover {
     background: var(--MENU_HOVER_COLOR);
 }
-.showSearchListMobile.showSearchList{
+
+.showSearchListMobile.showSearchList {
     top: 40px;
-    box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
+    box-shadow: 0px 3px 7px 5px rgba(0, 0, 0, 0.20);
     border-radius: 10px;
 }
 
 @media screen and (max-width: 560px) {
-    .hideInMobile{
+    .hideInMobile {
         display: none !important;
     }
 }
 
 
 @media screen and (max-width:1070px) {
-    .supportHideOnMobile{
+    .supportHideOnMobile {
         display: none;
     }
 }
 
 
 @media screen and (max-width:900px) {
-    .headerNavBox{
+    .headerNavBox {
         margin: 0px 5px;
     }
 }

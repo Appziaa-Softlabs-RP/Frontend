@@ -224,7 +224,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             onClick={() => openCart()}
           >
             <span
-              className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
+              className={`${styles.cartCountMobile} position-absolute d-inline-flex align-items-center`}
             >
               {appData?.appData?.cartCount}
             </span>
