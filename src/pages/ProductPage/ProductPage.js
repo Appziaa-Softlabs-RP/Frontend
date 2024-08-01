@@ -1034,8 +1034,9 @@ export const ProductPage = () => {
               <button
                 style={{
                   border: "none",
-                  background: "#9d040c",
-                  cursor: "not-allowed"
+                  background: "#cd1c25",
+                  cursor: "not-allowed",
+                  opacity: "0.5",
                 }}
                 disabled={true}
                 className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
@@ -1450,8 +1451,9 @@ export const ProductPage = () => {
                     <button
                       style={{
                         border: "none",
-                        background: "#9d040c",
-                        cursor: "not-allowed"
+                        background: "#cd1c25",
+                        cursor: "not-allowed",
+                        opacity: "0.5",
                       }}
                       disabled={true}
                       type="button"
