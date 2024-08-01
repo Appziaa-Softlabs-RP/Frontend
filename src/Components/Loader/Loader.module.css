@@ -14,13 +14,70 @@
   margin: 10px;
 }
 
+.productCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  min-width: calc(100vw - 32% );
+  width: 70%;
+  background: #fff;
+}
+
 .productCardLoaderWrapper{
-  border: 1px solid #DDD;
   padding: 10px;
   background: #FFF;
+}
+
+.productCardLoaderWrapperBody{
+  border: 1px solid #DDD;
   border-radius: 10px;
-  width: calc(25% - 20px);
-  margin: 10px;
+  padding: 10px;
+}
+
+.productCardLoaderWrapper {
+  position: relative;
+  border-radius: 8px;
+  width: 33%;
+  background: #fff;
+}
+
+.superContainerCards{
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 560px) {
+  .productsContainer {
+      width: 50%;
+  }
+
+  .productCardLoaderWrapper {
+      width: 50%;
+  }
+
+  .superCardsContainer{
+      margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .productCardsContainer {
+      width: 100%;
+  }
+  .superCardsContainer{
+      margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .productCardLoaderWrapper {
+      width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .loaderContainer {
+    min-width: calc(50% - 10px);
+  }
 }
 
 .heroBannerLoader {

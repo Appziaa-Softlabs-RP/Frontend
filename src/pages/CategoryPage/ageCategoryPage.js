@@ -153,101 +153,101 @@ export const AgeCategoryPage = () => {
               />
             </div>
           )}
-          {loading && <ProductListLoader />}
-          {loading === false && (
-            <div
-              className={`d-inline-flex flex-column col-12 mb-3`}
-              id="scrollableDiv"
-            >
-              <div className={`d-inline-flex align-items-start col-12 gap-2`}>
-                <div
-                  className={`${styles.filterSticky} hideInMobile col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}                  >
-                  <SearchAgeFilter
-                    ageSlug={ageId}
-                    filterVert={filterVert}
-                    filterCatg={filterCatg}
-                    setProductData={setProductData}
-                    setProductActualData={setProductActualData}
-                    brands={brands}
-                  />
-                </div>
-                <div
-                  className={`${styles.productContainer
-                    } flex-shrink-1 d-inline-flex flex-wrap`}>
+          {loading ? <ProductListLoader /> :
+            (
+              <div
+                className={`d-inline-flex flex-column col-12 mb-3`}
+                id="scrollableDiv"
+              >
+                <div className={`d-inline-flex align-items-start col-12 gap-2`}>
                   <div
-                    className={`${styles.sortContainer} hideInMobile col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
-                  >
-                    <span
-                      onClick={() => resetSortFilter()}
-                      role="button"
-                      className={`${styles.clearAllBtn} d-inline-flex`}
-                    >
-                      Clear All
-                    </span>
-                    <div className="col-12 d-inline-flex justify-content-end align-items-center">
-                      <span className={`${styles.sortBy} d-inline-flex me-2`}>
-                        Sort By
-                      </span>
-                      <span
-                        onClick={() => priceDescending()}
-                        role="button"
-                        className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ""
-                          } d-inline-flex px-1`}
-                      >
-                        Price: Low to High
-                      </span>
-                      <span
-                        onClick={() => priceAscending()}
-                        role="button"
-                        className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ""
-                          }`}
-                      >
-                        Price: High to Low
-                      </span>
-                    </div>
+                    className={`${styles.filterSticky} hideInMobile col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}                  >
+                    <SearchAgeFilter
+                      ageSlug={ageId}
+                      filterVert={filterVert}
+                      filterCatg={filterCatg}
+                      setProductData={setProductData}
+                      setProductActualData={setProductActualData}
+                      brands={brands}
+                    />
                   </div>
-
-                  {ProductData?.length > 0 ? (
-                    <InfiniteScroll
-                      className="d-inline-flex col-12 flex-wrap"
-                      dataLength={ProductData.length}
-                      next={LoadMoreProducts}
-                      hasMore={true}
+                  <div
+                    className={`${styles.productContainer
+                      } flex-shrink-1 d-inline-flex flex-wrap`}>
+                    <div
+                      className={`${styles.sortContainer} hideInMobile col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
                     >
-                      {ProductData?.map((item, index) => {
-                        return (
-                          <React.Fragment key={index}>
-                            {item.name !== "" && (
-                              <div
-                                className={`${styles.productCardBox} px-2 flex-shrink-0 mb-3`}
-                                key={index}
-                                role="button"
-                              >
-                                <ProductCard item={item} index={index} />
-                              </div>
-                            )}
-                          </React.Fragment>
-                        );
-                      })}
-                    </InfiniteScroll>
-                  ) : (
-                    <React.Fragment>
-                      <div
-                        className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}
+                      <span
+                        onClick={() => resetSortFilter()}
+                        role="button"
+                        className={`${styles.clearAllBtn} d-inline-flex`}
                       >
-                        <OrderIcon color="#888" />
-                        <label
-                          className={`${styles.emptyProductText} col-12 text-center`}
+                        Clear All
+                      </span>
+                      <div className="col-12 d-inline-flex justify-content-end align-items-center">
+                        <span className={`${styles.sortBy} d-inline-flex me-2`}>
+                          Sort By
+                        </span>
+                        <span
+                          onClick={() => priceDescending()}
+                          role="button"
+                          className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ""
+                            } d-inline-flex px-1`}
                         >
-                          No Products Found
-                        </label>
+                          Price: Low to High
+                        </span>
+                        <span
+                          onClick={() => priceAscending()}
+                          role="button"
+                          className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ""
+                            }`}
+                        >
+                          Price: High to Low
+                        </span>
                       </div>
-                    </React.Fragment>
-                  )}
+                    </div>
+
+                    {ProductData?.length > 0 ? (
+                      <InfiniteScroll
+                        className="d-inline-flex col-12 flex-wrap"
+                        dataLength={ProductData.length}
+                        next={LoadMoreProducts}
+                        hasMore={true}
+                      >
+                        {ProductData?.map((item, index) => {
+                          return (
+                            <React.Fragment key={index}>
+                              {item.name !== "" && (
+                                <div
+                                  className={`${styles.productCardBox} px-2 flex-shrink-0 mb-3`}
+                                  key={index}
+                                  role="button"
+                                >
+                                  <ProductCard item={item} index={index} />
+                                </div>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </InfiniteScroll>
+                    ) : (
+                      <React.Fragment>
+                        <div
+                          className={`${styles.emptyProduct} d-inline-flex align-items-center justify-content-center flex-column gap-4 p-4 col-12`}
+                        >
+                          <OrderIcon color="#888" />
+                          <label
+                            className={`${styles.emptyProductText} col-12 text-center`}
+                          >
+                            No Products Found
+                          </label>
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         {sortPopup === true && (
           <div

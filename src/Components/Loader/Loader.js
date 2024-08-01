@@ -37,23 +37,25 @@ export const HeaderNavLoader = () => {
 export const ProductCardLoader = () => {
   return (
     <div className={styles.productCardLoaderWrapper}>
-      <div className='container'>
-        {/* images */}
-        <Skeleton
-          height={275}
-          width={"100%"}
-        />
+      <div className={styles.productCardLoaderWrapperBody}>
+        <div className='container'>
+          {/* images */}
+          <Skeleton
+            height={275}
+            width={"100%"}
+          />
 
-        <Skeleton
-          height={16}
-          count={2}
-        />
-        <Skeleton
-          height={16}
-          width={"40%"}
-        />
-        <div className='mt-10' />
-        <Skeleton height={50} />
+          <Skeleton
+            height={16}
+            count={2}
+          />
+          <Skeleton
+            height={16}
+            width={"40%"}
+          />
+          <div className='mt-10' />
+          <Skeleton height={50} />
+        </div>
       </div>
     </div>
   );
@@ -61,9 +63,57 @@ export const ProductCardLoader = () => {
 
 export const ProductListLoader = () => {
   return (
-    <div className='d-flex flex-wrap'>
-      <div className='container'>
-        <div className='d-flex flex-wrap'>
+    <div className='d-flex flex-column w-full'>
+      <div className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}>
+        <Skeleton
+          height={200}
+          style={{
+            width: "100vw",
+            height: "200px",
+          }}
+        />
+      </div>
+      <div className='d-flex w-full'
+        style={{
+          position: "relative",
+          maxWidth: "100vw",
+          overflowX: "hidden",
+        }}
+      >
+        <div className='hideInMobile' style={{
+          position: 'sticky',
+          borderRadius: '10px',
+          top: "10",
+          background: 'white',
+          height: "100vh",
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          minWidth: 'calc(100vw - 77%)',
+          margin: '0px 10px',
+        }}>
+          <Skeleton
+            style={{
+              borderRadius: '10px',
+              width: '90%',
+              margin: "5%",
+              height: '200px',
+            }} />
+          <Skeleton
+            style={{
+              borderRadius: '10px',
+              width: '90%',
+              margin: "5%",
+              height: '200px',
+            }} />
+          <Skeleton
+            style={{
+              borderRadius: '10px',
+              width: '90%',
+              margin: "5%",
+              height: '200px',
+            }} />
+        </div>
+        <div className={styles.productCardsContainer}>
           {Array.apply(null, { length: 10 }).map((e, i) => (
             <ProductCardLoader key={i} />
           ))}
@@ -76,12 +126,12 @@ export const ProductListLoader = () => {
 export const HeroBannerLoader = () => {
   return (
     <div className={styles.heroBannerLoader}>
-        <Skeleton containerClassName='h-100 w-100'
+      <Skeleton containerClassName='h-100 w-100'
         style={{
           minHeight: '100%',
         }}
-          height={250}
-          width={"100%"} />
+        height={250}
+        width={"100%"} />
     </div>
   );
 }
