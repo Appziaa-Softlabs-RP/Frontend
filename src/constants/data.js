@@ -53,47 +53,47 @@ export const specials = {
         },
         {
             "name": "Barbie",
-            "url": "/store-product/brand/2526"
+            "url": "/store-product/brand/barbie"
         },
         {
             "name": "Lego",
-            "url": "/store-product/brand/2507"
+            "url": "/store-product/brand/lego"
         },
         {
             "name": "Play Shifu",
-            "url": "/store-product/brand/2538"
+            "url": "/store-product/brand/playshifu"
         },
         {
             "name": "Smartivity",
-            "url": "/store-product/brand/2583"
+            "url": "/store-product/brand/smartivity"
         },
         {
             "name": "Miko",
-            "url": "/store-product/brand/3416"
+            "url": "/store-product/brand/miko"
         },
         {
             "name": "Funskool",
-            "url": "/store-product/brand/2491"
+            "url": "/store-product/brand/funskool"
         },
         {
             "name": "Sameo",
-            "url": "/store-product/brand/2815"
+            "url": "/store-product/brand/sameo"
         },
         {
             "name": "Hasbro",
-            "url": "/store-product/brand/2522"
+            "url": "/store-product/brand/hasbro"
         },
         {
             "name": "Giggles",
-            "url": "/store-product/brand/2758"
+            "url": "/store-product/brand/giggles"
         },
         {
             "name": "Majorette",
-            "url": "/store-product/brand/2509"
+            "url": "/store-product/brand/majorette"
         },
         {
             "name": "Jada Toys",
-            "url": "/store-product/brand/2492"
+            "url": "/store-product/brand/jada"
         },
     ],
 
