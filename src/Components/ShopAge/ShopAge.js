@@ -58,21 +58,23 @@ export const ShopAge = () => {
           categAge?.length > 0 && (
             <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
               <div className={`${windowWidth === "mobile" && "p-0"} container`}>
-                {windowWidth === "desktop" && (
-                  <h2
-                    className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2 `}
-                  >
-                    ✨ Shop By Age ✨
-                  </h2>
-                )}
+
+                {/* Desktop Structure */}
+                <h2
+                  className={`${styles.categoryHeaderTitle} hideInMobile col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2 `}
+                >
+                  ✨ Shop By Age ✨
+                </h2>
+
+                {/* Mobile Structure */}
                 <div className={`${styles.shopAgeContainer} col-12 pl-0 pr-0`}>
-                  {windowWidth === "mobile" && (
-                    <h2
-                      className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}
-                    >
-                      Shop By Age
-                    </h2>
-                  )}
+
+                  <h2
+                    className={`${styles.exploreByCategoryHeader} hideInDesktop mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}
+                  >
+                    Shop By Age
+                  </h2>
+
                   <div
                     className={`${styles.scrollAgeBox} col-12 d-inline-flex justify-content-center px-2 pb-0 `}
                   >

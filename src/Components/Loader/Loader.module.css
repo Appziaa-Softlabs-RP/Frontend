@@ -94,8 +94,14 @@
 .heroBannerLoader {
   display: flex;
   height: calc(100vw / 4.77);
-  padding: 6px;
-  background-color: #FFF;
+  width: 100%;
+  margin: 20px 0px;
+}
+
+@media screen and (max-width: 560px) {
+  .heroBannerLoader {
+    min-height: calc((100vw / 4.77)*1.6);
+  }
 }
 
 .bannerLoader {
@@ -124,6 +130,7 @@
 .ageBody {
   display: flex;
   width: 100%;
+  overflow: hidden;
   justify-content: space-between;
   background-color: var(--MENU_HOVER_COLOR);
   margin-top: 10px;
@@ -135,6 +142,41 @@
   width: 200px;
   border-radius: 10px;
   margin: 10px;
+}
+
+.ageCircleLoader{
+  border-radius: 200px;
+  height: 180px;
+  width: 180px;
+  margin: 0 auto;
+}
+
+.ageTextLoader{
+  border-radius: 5px;
+  height: 30px;
+  position: relative;
+  min-width: 150px;
+  width: 100%;
+}
+
+@media screen and (max-width: 560px) {
+  .smallBox {
+    height: 110px;
+    /* width: 110px; */
+  }
+  .ageCircleLoader{
+    border-radius: 200px;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+  }
+  .ageTextLoader{
+    border-radius: 5px;
+    height: 30px;
+    position: relative;
+    min-width: 100px;
+    width: 100%;
+  }
 }
 
 .promoBox {

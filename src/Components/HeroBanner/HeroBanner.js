@@ -101,42 +101,46 @@ export const HeroBanner = ({ allBanner }) => {
       <div
         className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex px-3`}
       >
-        <ReactOwlCarousel
-          className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
-          margin={5}
-          loop={true}
-          dots={true}
-          stagePadding={10}
-          items={1}
-        >
-          {heroBanners?.length > 0 &&
-            heroBanners.map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {item?.mobile_image !== "" && (
-                    <div
-                      className={styles.item}
-                      onClick={() =>
-                        openBannerProd(
-                          item?.vertical_id,
-                          item?.subcategory_id,
-                          item?.product_id,
-                          item?.category_id,
-                          item?.site_link
-                        )
-                      }
-                    >
-                      <img
-                        src={item?.mobile_image}
-                        alt={item?.name}
-                        className="object-fit-cover col-12 d-inline-block"
-                      />
-                    </div>
-                  )}
-                </React.Fragment>
-              );
-            })}
-        </ReactOwlCarousel>
+        {loading ? (
+          <HeroBannerLoader />
+        ) : (
+          <ReactOwlCarousel
+            className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
+            margin={5}
+            loop={true}
+            dots={true}
+            // stagePadding={10}
+            items={1}
+          >
+            {heroBanners?.length > 0 &&
+              heroBanners.map((item, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {item?.mobile_image !== "" && (
+                      <div
+                        className={styles.item}
+                        onClick={() =>
+                          openBannerProd(
+                            item?.vertical_id,
+                            item?.subcategory_id,
+                            item?.product_id,
+                            item?.category_id,
+                            item?.site_link
+                          )
+                        }
+                      >
+                        <img
+                          src={item?.mobile_image}
+                          alt={item?.name}
+                          className="object-fit-cover col-12 d-inline-block"
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+          </ReactOwlCarousel>
+        )}
       </div>
 
       {/* Desktop Structure */}

@@ -127,8 +127,9 @@ export const HeroBannerLoader = () => {
       <Skeleton containerClassName='h-100 w-100'
         style={{
           minHeight: '100%',
+          borderRadius: '10px',
         }}
-        height={250}
+        height={100}
         width={"100%"} />
     </div>
   );
@@ -141,9 +142,7 @@ const responsiveItems =
       ? 5
       : window.innerWidth >= 992
         ? 4
-        : window.innerWidth >= 768
-          ? 3
-          : 2.5;
+        : 3
 
 export const ShopAgeLoader = () => {
   return (
@@ -164,19 +163,8 @@ export const ShopAgeLoader = () => {
               justifyContent: "center",
               alignItems: "center",
             }}>
-              <Skeleton style={{
-                borderRadius: '200px',
-                height: '180px',
-                width: '180px',
-                margin: '0 auto',
-              }} />
-              <Skeleton style={{
-                borderRadius: '5px',
-                height: '30px',
-                position: 'relative',
-                minWidth: '150px',
-                width: '100%',
-              }} />
+              <Skeleton className={styles.ageCircleLoader} />
+              <Skeleton className={styles.ageTextLoader} />
             </div>
           ))}
         </div>
