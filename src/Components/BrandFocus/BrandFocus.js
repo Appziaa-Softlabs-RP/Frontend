@@ -14,8 +14,8 @@ export const BrandFocus = () => {
   let windowWidth = appData.appData.windowWidth;
   const [brandData, setBrandData] = useState([]);
 
-  const showBrandProd = (id, name) => {
-    navigate(`/store-product/brand/${id}`);
+  const showBrandProd = (name_url) => {
+    navigate(`/store-product/brand/${name_url}`);
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export const BrandFocus = () => {
                       key={index}
                       className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`}
                       onClick={() =>
-                        showBrandProd(item.brand_id, item.brand_offer)
+                        showBrandProd(item.name_url)
                       }
                     >
                       <span

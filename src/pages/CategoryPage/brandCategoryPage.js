@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation, useParams } from "react-router-dom";
-import { Filter } from "../../Components/Filter/Filter";
+import { SearchBrandFilter } from "../../Components/Filter/SearchBrandFilter";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { ProductListLoader } from "../../Components/Loader/Loader";
@@ -143,7 +143,6 @@ export const BrandCategoryPage = () => {
       <div className="hideInMobile">
         <Header />
       </div>
-
       <div
         className={`mt-4 col-12 d-inline-flex flex-column mt-4`}
       >
@@ -168,19 +167,20 @@ export const BrandCategoryPage = () => {
               id="scrollableDiv"
             >
               <div className={`d-inline-flex align-items-start col-12 gap-2`}>
-                {filterVert !== null &&
-                  filterVert !== undefined && (
-                    <div
-                      className={`${styles.filterSticky} hideInMobile col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
-                    >
-                      <Filter
-                        filterVert={filterVert}
-                        filterCatg={filterCatg}
-                        setProductData={setProductData}
-                        setProductActualData={setProductActualData}
-                      />
-                    </div>
-                  )}
+                {/* {filterVert !== null &&
+                  filterVert !== undefined && ( */}
+                <div
+                  className={`${styles.filterSticky} hideInMobile col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
+                >
+                  <SearchBrandFilter
+                    brandNameUrl={brandId}
+                    filterVert={filterVert}
+                    filterCatg={filterCatg}
+                    setProductData={setProductData}
+                    setProductActualData={setProductActualData}
+                  />
+                </div>
+                {/* )} */}
                 <div
                   className={`${styles.productContainer
                     } flex-shrink-1 d-inline-flex flex-wrap`}>
@@ -312,9 +312,6 @@ export const BrandCategoryPage = () => {
           </div>
         )}
 
-        {filterVert !== null &&
-          filterVert !== undefined &&
-          (
             <div
               className={`${styles.filterPopup
                 } hideInDesktop top-0 start-0 h-100 col-12 position-fixed ${filterPopup === true ? "d-inline-flex" : "d-none"
@@ -337,12 +334,13 @@ export const BrandCategoryPage = () => {
                   </label>
                 </div>
               </div>
-              <Filter
-                filterVert={filterVert}
-                filterCatg={filterCatg}
-                setProductData={setProductData}
-                setProductActualData={setProductActualData}
-              />
+              <SearchBrandFilter
+                    brandNameUrl={brandId}
+                    filterVert={filterVert}
+                    filterCatg={filterCatg}
+                    setProductData={setProductData}
+                    setProductActualData={setProductActualData}
+                  />
               <div
                 className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
               >
@@ -354,7 +352,7 @@ export const BrandCategoryPage = () => {
                 </span>
               </div>
             </div>
-          )}
+
         <div
           className={`${styles.productBtnBox} hideInDesktop d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
         >

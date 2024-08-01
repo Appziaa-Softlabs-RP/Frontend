@@ -20,8 +20,6 @@ const cacheFetch = async (url, options, cacheKey, ttl = 500000) => {
       data: options.body,
     });
 
-    console.log(data)
-
     // Store the response in the cache with an expiry time
     cache[cacheKey] = {
       response: JSON.stringify(data),
@@ -580,6 +578,19 @@ ApiService.storeFilterCategory = function (data) {
   const cacheKey = "/store/FilterByProductCategory" + JSON.stringify(data);
   return cacheFetch(
     "/store/FilterByProductCategory",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
+ApiService.storeFilterByBrand = function (data) {
+  const cacheKey = "/store/FilterByProducBrand" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/FilterByProducBrand",
     {
       method: "post",
       body: data,
