@@ -111,10 +111,10 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy-policy" target="_blank"
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank"
                         rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</a> and <a className="text-decoration-none" href="/terms" target="_blank" rel="noopener noreferrer"
-                        >T&amp;C</a></div>
+                        className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank" rel="noopener noreferrer"
+                        >T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -155,9 +155,9 @@ const LoginOTP = ({ setLoginType, mobileVal, setMobileVal, setOTPObj }) => {
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</a></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -275,9 +275,9 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</a></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -336,9 +336,9 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</a></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -501,9 +501,9 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
                 </div>
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
-                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <a href="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</a></div>
+                    <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>

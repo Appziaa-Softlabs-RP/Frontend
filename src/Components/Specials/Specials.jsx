@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./Specials.module.css";
 import { specials } from "../../constants/data";
+import { Link } from "react-router-dom";
 
 export default function Specials() {
 
@@ -42,14 +43,14 @@ export default function Specials() {
                         {verticalsWithCat?.map((vertical, index) => (
                             vertical.catList?.map((cat, catIndex) => (
                                 <>
-                                    <a href={`/store-product/${cat?.name_url}`}
+                                    <Link to={`/store-product/${cat?.name_url}`}
                                         className={`${styles.anchorHoverEffect} ${(catIndex === 0 && index === 0) ? 'me-1' : 'm-1'}`}
                                         style={{
                                             textDecoration: "none",
                                         }}
                                         key={catIndex}>
                                         {cat?.name}
-                                    </a>
+                                    </Link>
                                     {
                                         index === verticalsWithCat.length - 1 && catIndex === vertical.catList.length - 1 ? "" : "|"
                                     }
@@ -75,14 +76,14 @@ export default function Specials() {
                     <p className="text-muted p-1">
                         {specials?.topBrands.map((brand, index) => (
                             <>
-                                <a href={brand.url}
+                                <Link to={brand.url}
                                     className={` ${styles.anchorHoverEffect}  ${index === 0 ? 'me-1' : 'm-1'}`}
                                     style={{
                                         textDecoration: "none",
                                     }}
                                     key={index}>
                                     {brand.name}
-                                </a>
+                                </Link>
                                 {index === specials?.topBrands.length - 1 ? "" : "|"}
                             </>
                         ))}

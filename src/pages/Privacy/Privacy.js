@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
+import { Link } from "react-router-dom";
 
 export const Privacy = () => {
   const appData = useApp();
@@ -227,9 +228,9 @@ export const Privacy = () => {
               contact us at{" "}
             </span>
             <span className="c15 c16">
-              <a className="c7" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+              <Link className="c7" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
               {process.env.REACT_APP_EMAIL_ADDRESS}
-              </a>
+              </Link>
             </span>
             <span className="c6">&nbsp;</span>
             <span className="c9">or by phone at </span>

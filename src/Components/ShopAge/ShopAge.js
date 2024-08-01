@@ -133,15 +133,6 @@ export const ShopAge = () => {
                         );
                       })}
                     </Swiper>
-                    {/* <ReactOwlCarousel
-                  className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
-                  margin={10}
-                  dots={true}
-                  items={responsiveItems}
-                  loop={false}
-                  nav={true}
-                >
-                </ReactOwlCarousel> */}
                   </div>
                 </div>
               </div>

@@ -30,9 +30,6 @@ export const CategoryPage = () => {
   const [isDescendingOrder, setIsDscendingOrder] = useState(false);
   const [isAscendingOrder, setIsAscendingOrder] = useState(false);
 
-  const appData = useApp();
-  let windowWidth = appData.appData.windowWidth;
-
   const resetSortFilter = () => {
     let originalProduct = [...ProductActualData];
     setProductData(originalProduct);
@@ -46,8 +43,8 @@ export const CategoryPage = () => {
       parseInt(p1.mrp) < parseInt(p2.mrp)
         ? 1
         : parseInt(p1.mrp) > parseInt(p2.mrp)
-        ? -1
-        : 0
+          ? -1
+          : 0
     );
     setProductData(originalProduct);
     setIsAscendingOrder(true);
@@ -60,8 +57,8 @@ export const CategoryPage = () => {
       parseInt(p1.mrp) > parseInt(p2.mrp)
         ? 1
         : parseInt(p1.mrp) < parseInt(p2.mrp)
-        ? -1
-        : 0
+          ? -1
+          : 0
     );
     setProductData(originalProduct);
     setIsDscendingOrder(true);
@@ -79,7 +76,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: 2 }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else if (locationState.state.category === "Brand") {
       ApiService.brandProduct(data)
         .then((res) => {
@@ -90,7 +87,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: 2 }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else {
       ApiService.CategoryByProd(data)
         .then((res) => {
@@ -101,7 +98,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: 2 }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   };
 
@@ -125,7 +122,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: pageCount }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else if (locationState.state.category === "Brand") {
       ApiService.brandProduct(apiPayload)
         .then((res) => {
@@ -143,7 +140,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: pageCount }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else {
       ApiService.CategoryByProd(apiPayload)
         .then((res) => {
@@ -161,7 +158,7 @@ export const CategoryPage = () => {
             setApiPayload((prev) => ({ ...prev, page: pageCount }));
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   };
 
@@ -180,20 +177,20 @@ export const CategoryPage = () => {
 
   return (
     <React.Fragment>
-      {windowWidth === "mobile" ? (
+      {/* Mobile Structure */}
+      <div className="hideInDesktop">
         <PageHeader title="Explore Category" />
-      ) : windowWidth === "desktop" ? (
+      </div>
+
+      {/* Desktop Structure */}
+      <div className="hideInMobile">
         <Header />
-      ) : (
-        ""
-      )}
+      </div>
 
       <div
-        className={`col-12 d-inline-flex flex-column ${
-          windowWidth === "mobile" ? "mt-3" : "mt-5"
-        }`}
+        className={`mt-4 col-12 d-inline-flex flex-column mt-4`}
       >
-        <div className="container">
+        <div className="hero">
           {locationState?.state?.banner !== "" &&
             locationState?.state?.banner !== null &&
             locationState?.state?.banner !== undefined && (
@@ -214,8 +211,7 @@ export const CategoryPage = () => {
               id="scrollableDiv"
             >
               <div className={`d-inline-flex align-items-start col-12 gap-2`}>
-                {windowWidth === "desktop" &&
-                  filterVert !== null &&
+                {filterVert !== null &&
                   filterVert !== undefined && (
                     <div
                       className={`${styles.filterSticky} col-3 position-sticky flex-shrink-1 d-inline-flex overflow-y-auto`}
@@ -229,73 +225,58 @@ export const CategoryPage = () => {
                     </div>
                   )}
                 <div
-                  className={`${
-                    windowWidth === "mobile"
-                      ? "col-12 pt-2"
-                      : filterVert !== null && filterVert !== undefined
-                      ? "col-9"
-                      : "col-12"
-                  } ${
-                    styles.productContainer
-                  } flex-shrink-1 d-inline-flex flex-wrap`}
-                >
-                  {windowWidth === "desktop" && (
-                    <div
-                      className={`${styles.sortContainer} col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
+                  className={`${styles.productContainer
+                    } flex-shrink-1 d-inline-flex flex-wrap`}>
+                  <div
+                    className={`${styles.sortContainer} hideInMobile col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}>
+                    <span
+                      onClick={() => resetSortFilter()}
+                      role="button"
+                      className={`${styles.clearAllBtn} d-inline-flex`}
                     >
-                      <span
-                        onClick={() => resetSortFilter()}
-                        role="button"
-                        className={`${styles.clearAllBtn} d-inline-flex`}
-                      >
-                        Clear All
-                      </span>
-                      <div className="col-12 d-inline-flex justify-content-end align-items-center">
-                        <span className={`${styles.sortBy} d-inline-flex me-2`}>
-                          Sort By
-                        </span>
-                        <span
-                          onClick={() => priceDescending()}
-                          role="button"
-                          className={`${styles.priceLow} ${
-                            isDescendingOrder ? "fw-bold" : ""
-                          } d-inline-flex px-1`}
-                        >
-                          Price: Low to High
-                        </span>
-                        <span
-                          onClick={() => priceAscending()}
-                          role="button"
-                          className={`${styles.priceLow} d-inline-flex px-1 ${
-                            isAscendingOrder ? "fw-bold" : ""
-                          }`}
-                        >
-                          Price: High to Low
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {windowWidth === "mobile" && (
-                    <div
-                      className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 bottom-0 start-0`}
-                    >
-                      <span
-                        className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setSortPopup(true)}
-                      >
-                        {" "}
-                        <SortByIcon />
+                      Clear All
+                    </span>
+                    <div className="col-12 d-inline-flex justify-content-end align-items-center">
+                      <span className={`${styles.sortBy} d-inline-flex me-2`}>
                         Sort By
                       </span>
                       <span
-                        className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-                        onClick={() => setFilterPopup(true)}
+                        onClick={() => priceDescending()}
+                        role="button"
+                        className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ""
+                          } d-inline-flex px-1`}
                       >
-                        <FilterIcon /> Filters
+                        Price: Low to High
+                      </span>
+                      <span
+                        onClick={() => priceAscending()}
+                        role="button"
+                        className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ""
+                          }`}
+                      >
+                        Price: High to Low
                       </span>
                     </div>
-                  )}
+                  </div>
+
+                  <div
+                    className={`${styles.productBtnBox} hideInDesktop d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
+                  >
+                    <span
+                      className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+                      onClick={() => setSortPopup(true)}
+                    >
+                      {" "}
+                      <SortByIcon />
+                      Sort By
+                    </span>
+                    <span
+                      className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+                      onClick={() => setFilterPopup(true)}
+                    >
+                      <FilterIcon /> Filters
+                    </span>
+                  </div>
 
                   {ProductData?.length > 0 ? (
                     <InfiniteScroll
@@ -309,14 +290,7 @@ export const CategoryPage = () => {
                           <React.Fragment key={index}>
                             {item.name !== "" && (
                               <div
-                                className={`${
-                                  windowWidth === "mobile"
-                                    ? "col-6"
-                                    : filterVert !== null &&
-                                      filterVert !== undefined
-                                    ? "col-4"
-                                    : "col-3"
-                                } px-2 flex-shrink-0 mb-3`}
+                                className={`${styles.productCardBox} px-2 flex-shrink-0 mb-3`}
                                 key={index}
                                 role="button"
                               >
@@ -399,15 +373,12 @@ export const CategoryPage = () => {
           </div>
         )}
 
-        {windowWidth === "mobile" &&
-          filterVert !== null &&
+        {filterVert !== null &&
           filterVert !== undefined && (
             <div
-              className={`${
-                styles.filterPopup
-              } top-0 start-0 h-100 col-12 position-fixed ${
-                filterPopup === true ? "d-inline-flex" : "d-none"
-              } flex-column overflow-y-auto`}
+              className={`${styles.filterPopup
+                } hideInDesktop top-0 start-0 h-100 col-12 position-fixed ${filterPopup === true ? "d-inline-flex" : "d-none"
+                } flex-column overflow-y-auto`}
             >
               <div
                 className={`${styles.PageHeader} position-sticky top-0 start-0 col-12 d-inline-flex gap-2`}

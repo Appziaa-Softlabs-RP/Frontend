@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
+import { Link } from "react-router-dom";
 
 export const Terms = () => {
   const appData = useApp();
@@ -259,9 +260,9 @@ export const Terms = () => {
             <li className="c0 li-bullet-0">
               <span className="c2">Email:</span>
               <span className="c15">
-                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                 {process.env.REACT_APP_EMAIL_ADDRESS}
-                </a>
+                </Link>
               </span>
             </li>
             <li className="c0 li-bullet-0">

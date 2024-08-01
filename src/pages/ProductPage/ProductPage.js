@@ -64,7 +64,6 @@ export const ProductPage = () => {
   const [isOtherProductDesc, setIsOtherProductDesc] = useState(false);
   const [isSpecilization, setIsSpecilization] = useState(false);
   const userInfo = appData?.appData?.user;
-  let windowWidth = appData.appData.windowWidth;
   const pageCurrentURL = encodeURIComponent(window.location.href);
 
   const setMainImage = (image, count) => {
@@ -543,117 +542,43 @@ export const ProductPage = () => {
           <meta property="og:type" content="product" />
         </Helmet>
       )}
-      {windowWidth === "mobile" ? (
-        <React.Fragment>
-          <PageHeader title={ProductData?.name} />
-          <div className="col-12 d-inline-block position-relative">
-            {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
-              <div
-                className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}
-              >
-                <span
-                  className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
-                >
-                  Sold Out
-                </span>
-              </div>
-            ) : (
-              ""
-            )}
-            <ReactOwlCarousel
-              className={`${styles.bannerContainer} col-12 owl-theme`}
-              margin={0}
-              loop={false}
-              dots={true}
-              items={1}
+
+      <div className="hideInDesktop">
+        <PageHeader title={ProductData?.name} />
+        <div className="col-12 d-inline-block position-relative">
+          {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
+            <div
+              className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}
             >
-              <div
-                className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+              <span
+                className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
               >
-                {prodMainImg ? (
-                  <img
-                    src={ProductData?.image}
-                    alt={ProductData?.name}
-                    className="col-12 d-inline-block"
-                    style={{
-                      maxHeight: "500px",
-                      width: "auto",
-                    }}
-                  />
-                ) : (
-                  <div
-                    className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                    style={{
-                      height: "500px",
-                    }}
-                  >
-                    <ThreeDots
-                      visible={true}
-                      height="80"
-                      width="80"
-                      color="#CF102E"
-                      radius="9"
-                      ariaLabel="three-dots-loading"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                    />
-                  </div>
-                )}
-              </div>
-              {ProductData?.gallery_images?.map((item, index) => {
-                return (
-                  <div
-                    className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
-                    key={index}
-                  >
-                    {prodMainImg ? (
-                      <img
-                        src={enviroment.API_IMAGE_GALLERY_URL + item}
-                        alt={ProductData?.name}
-                        className="col-12 d-inline-block"
-                        style={{
-                          maxHeight: "500px",
-                          width: "auto",
-                        }}
-                      />
-                    ) : (
-                      <div
-                        className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                        style={{
-                          height: "500px",
-                        }}
-                      >
-                        <ThreeDots
-                          visible={true}
-                          height="80"
-                          width="80"
-                          color="#CF102E"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </ReactOwlCarousel>
-            {!ProductData?.gallery_images.length ? (
-              prodMainImg ? (
-                <div
-                  className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                >
-                  <img
-                    src={prodMainImg}
-                    alt={ProductData?.name}
-                    className="col-12 d-inline-block"
-                    style={{
-                      maxHeight: "100px",
-                      width: "auto",
-                    }}
-                  />
-                </div>
+                Sold Out
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
+          <ReactOwlCarousel
+            className={`${styles.bannerContainer} col-12 owl-theme`}
+            margin={0}
+            loop={false}
+            dots={true}
+            items={1}
+          >
+            <div
+              className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+            >
+              {prodMainImg ? (
+                <img
+                  src={ProductData?.image}
+                  alt={ProductData?.name}
+                  className="col-12 d-inline-block"
+                  style={{
+                    maxHeight: "500px",
+                    width: "auto",
+                  }}
+                />
               ) : (
                 <div
                   className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
@@ -672,1066 +597,1139 @@ export const ProductPage = () => {
                     wrapperClass=""
                   />
                 </div>
-              )
-            ) : null}
-          </div>
-
-          <div
-            className={`${styles.productAllDetail} col-12 d-inline-block p-4`}
-          >
-            <h2 className={`${styles.productDetailName} col-12 mb-1`}>
-              {ProductData?.name}
-            </h2>
-
-            <div className="ms-2">
-              <span className="mb-2">Item Code: {ProductData?.barcode} </span>
-              <div
-                className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
-              >
-                {ProductData?.selling_price === ProductData?.mrp ? (
-                  <span className={`${styles.offerPrice}`}>
-                    <b>₹{ProductData?.mrp}</b>
-                  </span>
-                ) : (
-                  <React.Fragment>
-                    <span className={`${styles.offerPrice}`}>
-                      <b>₹{ProductData?.selling_price}</b>{" "}
-                      <del>₹{ProductData?.mrp}</del>
-                    </span>
-                    {prodDiscount !== "" && (
-                      <span
-                        className={`${styles.offerPercentage} d-inline-flex`}
-                      >
-                        {prodDiscount}% &nbsp;OFF
-                      </span>
-                    )}
-                  </React.Fragment>
-                )}
-              </div>
-              <span className={`${styles.inclusivTax} col-12 d-inline-block`}>
-                (Inclusive of all taxes)
-              </span>
+              )}
             </div>
-          </div>
-
-          {ProductData?.bank_offer !== null &&
-            ProductData?.bank_offer?.length > 0 &&
-            ProductData?.bank_offer !== undefined && (
-              <div
-                className={`${styles.productDesciptionBox} mt-2 col-12 d-inline-flex flex-column gap-2 p-4`}
-              >
-                <h2
-                  className={`${styles.availSizeTitle} d-inline-flex mt-0 mb-1`}
-                >
-                  Offers
-                </h2>
-                {ProductData?.bank_offer.length > 0 &&
-                  ProductData?.bank_offer?.map((item, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
-                      >
-                        <img src={item.logo} alt={item.description} />
-                        {item.description}
-                      </span>
-                    );
-                  })}
-              </div>
-            )}
-
-          {isSpecializationDetail &&
-            isOtherDetail &&
-            ProductData?.description !== "Not available" && (
-              <div
-                className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}
-              >
-                <h2
-                  className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}
-                >
-                  Product Details
-                </h2>
-                {ProductData?.description !== "Not available" && (
-                  <div
-                    className={`${styles.productCollapseBox} active col-12 d-inline-block p-0`}
-                    onClick={openProductColpse(this)}
-                  >
-                    <div
-                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
-                      style={{
-                        height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)",
-                      }}
-                    >
-                      <button
-                        aria-label="About product"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                      >
-                        <span>About product</span>&nbsp;
-                      </button>
-                      <button
-                        aria-label="About product"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                        onClick={() =>
-                          setIsAboutProductDesc(!isAboutProductDesc)
-                        }
-                      >
-                        {isAboutProductDesc ? "-" : "+"}
-                      </button>
-                    </div>
-                    <div
-                      className={`${styles.productDetailText} col-12 p-0 ${!isAboutProductDesc && "visually-hidden"
-                        }`}
-                    >
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: ProductData?.description,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                )}
-                {otherInfo === true && isOtherDetail && (
-                  <div
-                    className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
-                    onClick={openProductColpse(this)}
-                  >
-                    <div
-                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
-                      style={{
-                        height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)",
-                      }}
-                    >
-                      <button
-                        aria-label="specifications"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                      >
-                        <span>Specifications</span>&nbsp;
-                      </button>
-                      <button
-                        aria-label="specifications"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                        onClick={() => setIsSpecilization(!isSpecilization)}
-                      >
-                        {isSpecilization ? "-" : "+"}
-                      </button>
-                    </div>
-                    {isSpecilization && (
-                      <div
-                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
-                      >
-                        {ProductData?.specifications?.type && (
-                          <p className="col-12 d-inline-flex gap-2  m-0">
-                            <strong>Type:</strong>{" "}
-                            {ProductData?.specifications?.type}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.model_name && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Model Name: </strong>
-                            {ProductData?.specifications?.model_name}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.shelf_life && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Shelf Life: </strong>
-                            {ProductData?.specifications?.shelf_life}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications
-                          ?.shelf_life_month_years && (
-                            <p className="col-12 d-none gap-2 m-0">
-                              <strong>Shelf Life Month Years: </strong>
-                              {
-                                ProductData?.specifications
-                                  ?.shelf_life_month_years
-                              }{" "}
-                            </p>
-                          )}
-
-                        {ProductData?.specifications?.container_type && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Container Type: </strong>
-                            {ProductData?.specifications?.container_type}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.organic && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Organic: </strong>
-                            {ProductData?.specifications?.organic}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.polished && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Polished: </strong>
-                            {ProductData?.specifications?.polished}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications
-                          ?.package_dimension_length && (
-                            <p className="col-12 d-inline-flex gap-2 m-0">
-                              <strong>Dimension: </strong>
-                              {"L " +
-                                ProductData?.specifications
-                                  ?.package_dimension_length +
-                                " x B " +
-                                ProductData?.specifications
-                                  ?.package_dimension_width +
-                                " x H " +
-                                ProductData?.specifications
-                                  ?.package_dimension_height}{" "}
-                              cm{" "}
-                            </p>
-                          )}
-
-                        {ProductData?.specifications?.manufactured_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Manufactured By: </strong>
-                            {ProductData?.specifications?.manufactured_by}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.packed_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Packed By: </strong>
-                            {ProductData?.specifications?.packed_by}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.exp_date && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Exp Date: </strong>
-                            {ProductData?.specifications?.exp_date}{" "}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-                {isOtherDetail && (
-                  <div
-                    className={`${styles.productCollapseBox} mb-4 mt-3 active col-12 d-inline-block p-0`}
-                    onClick={openProductColpse(this)}
-                  >
-                    <div
-                      className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
-                      style={{
-                        height: "fit-content",
-                        background: "rgba(207, 16, 46, 0.12)",
-                      }}
-                    >
-                      <button
-                        aria-label="About product"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                      >
-                        <span>Other Info</span>&nbsp;
-                      </button>
-                      <button
-                        aria-label="About product"
-                        style={{
-                          borderRadius: "4px",
-                          border: "none",
-                          outline: "none",
-                          boxShadow: "none",
-                          background: "none",
-                        }}
-                        onClick={() =>
-                          setIsOtherProductDesc(!isOtherProductDesc)
-                        }
-                      >
-                        {isOtherProductDesc ? "-" : "+"}
-                      </button>
-                    </div>
-                    <div
-                      className={`${styles.productDetailText} col-12 p-0 ${!isOtherProductDesc && "visually-hidden"
-                        }`}
-                    >
-                      <div
-                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
-                      >
-                        {ProductData?.other_information?.country_origin && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Country Of Origin: </strong>
-                            {ProductData?.other_information?.country_origin}
-                            <br />
-                          </p>
-                        )}
-
-                        {ProductData?.other_information?.manufactured_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Manufactured By: </strong>
-                            {
-                              ProductData?.other_information?.manufactured_by
-                            }{" "}
-                            <br />
-                          </p>
-                        )}
-
-                        {ProductData?.other_information?.marketed_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Marketed By: </strong>
-                            {ProductData?.other_information?.marketed_by} <br />
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          <div className={`col-12 d-inline-block mb-5`}>
-            <FeaturedProducts product={ProductData?.featured} />
-            <SimilarProduct product={ProductData?.similar} />
-          </div>
-          <div
-            className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}
-          >
-            <span
-              className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
-              onClick={() => showCheckoutPage()}
-            >
-              Go to Cart
-            </span>
-
-            {!prodAdded ? (
-              ProductData?.stock <= 0 ? (
-                <span
-                  className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
-                >
-                  Out of Stock
-                </span>
-              ) : (
-                <span
-                  className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0
-                      ? styles.disableCartBtn
-                      : ""
-                    } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
-                  onClick={(e) => addToCart(e, ProductData)}
-                >
-                  Add to Cart
-                </span>
-              )
-            ) : (
-              <div
-                className={`${styles.addedQuantityBtnBox} d-inline-flex align-items-center position-relative col-6 justify-content-evenly`}
-              >
-                <span
-                  role="button"
-                  onClick={(e) =>
-                    updateProdQty(
-                      e,
-                      ProductData?.product_id
-                        ? ProductData.product_id
-                        : ProductData.id,
-                      ProductData?.no_of_quantity_allowed,
-                      prodAddedQty,
-                      "minus",
-                      ProductData?.stock
-                    )
-                  }
-                  className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                >
-                  -
-                </span>
-                <span className="d-inline-flex flex-shrink-0">
-                  <input
-                    type="text"
-                    readOnly
-                    value={prodAddedQty}
-                    className={`${styles.countValue} d-inline-block text-center`}
-                  />
-                </span>
-                <span
-                  role="button"
-                  onClick={(e) =>
-                    updateProdQty(
-                      e,
-                      ProductData?.product_id
-                        ? ProductData.product_id
-                        : ProductData.id,
-                      ProductData?.no_of_quantity_allowed,
-                      prodAddedQty,
-                      "plus",
-                      ProductData?.stock
-                    )
-                  }
-                  className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-                >
-                  +
-                </span>
-              </div>
-            )}
-          </div>
-        </React.Fragment>
-      ) : windowWidth === "desktop" ? (
-        <React.Fragment>
-          <Header />
-          <div className="col-12 d-inline-flex">
-            <div className="container">
-              <div
-                className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}
-              >
+            {ProductData?.gallery_images?.map((item, index) => {
+              return (
                 <div
-                  className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}
+                  className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+                  key={index}
                 >
-                  <div
-                    className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
-                  >
-                    <div
-                      className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
-                    >
-                      <span
-                        className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`}
-                        role="button"
-                        onClick={() => setProdSharePop(true)}
-                      >
-                        <ShareIcon color="#CF112D" />
-                      </span>
-                      {prodMainImg ? (
-                        <img
-                          src={prodMainImg}
-                          alt={ProductData?.name}
-                          className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
-                        />
-                      ) : (
-                        <div className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
-                          <ThreeDots
-                            visible={true}
-                            height="80"
-                            width="80"
-                            color="#CF102E"
-                            radius="9"
-                            ariaLabel="three-dots-loading"
-                            wrapperStyle={{}}
-                            wrapperClass=""
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <ReactOwlCarousel
-                      key={activeImg}
-                      className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`}
-                      margin={10}
-                      loop={false}
-                      dots={false}
-                      items={6}
-                    >
-                      <div
-                        className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
-                          } col-12 d-inline-flex align-items-center justify-content-center`}
-                        onClick={() => setMainImage(ProductData?.image, -1)}
-                      >
-                        <img
-                          src={ProductData?.image}
-                          alt={ProductData?.name}
-                          className=""
-                          style={{
-                            height: "80px",
-                            maxHeight: "80px",
-                            maxWidth: "100%",
-                            objectFit: "contain",
-                          }}
-                        />
-                      </div>
-
-                      {ProductData?.gallery_images?.map((item, index) => {
-                        return (
-                          <div
-                            className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
-                              } col-12 d-inline-flex align-items-center justify-content-center`}
-                            onClick={() =>
-                              setMainImage(
-                                enviroment.API_IMAGE_GALLERY_URL + item,
-                                index
-                              )
-                            }
-                            key={index}
-                          >
-                            <img
-                              src={enviroment.API_IMAGE_GALLERY_URL + item}
-                              alt={ProductData?.name}
-                              className=""
-                              style={{
-                                height: "80px",
-                                maxHeight: "80px",
-                                maxWidth: "100%",
-                                objectFit: "contain",
-                              }}
-                            />
-                          </div>
-                        );
-                      })}
-                    </ReactOwlCarousel>
-                  </div>
-                  <div className={`col-12 d-inline-flex flex-column my-3`}>
-                    <div
-                      className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`}
-                    >
-                      {ProductData?.description !== "" &&
-                        ProductData?.description !== null &&
-                        ProductData?.description !== "Not available" && (
-                          <h3
-                            className={`${descActive === "Description" && styles.tabActive
-                              } ${styles.productDescTitle
-                              } col-4 d-inline-flex justify-content-center m-0`}
-                            onClick={() => setDescActive("Description")}
-                            role="button"
-                          >
-                            Product Description
-                          </h3>
-                        )}
-                      {otherInfo === true && (
-                        <h3
-                          className={`${descActive === "Specifications" && styles.tabActive
-                            } ${styles.productDescTitle
-                            } col-4 justify-content-center d-inline-flex m-0`}
-                          onClick={() => setDescActive("Specifications")}
-                          role="button"
-                        >
-                          Specifications
-                        </h3>
-                      )}
-                      {featuresInfo === true && (
-                        <h3
-                          className={`${descActive === "Features" && styles.tabActive
-                            } ${styles.productDescTitle
-                            } col-4 d-inline-flex justify-content-center m-0`}
-                          onClick={() => setDescActive("Features")}
-                          role="button"
-                        >
-                          Other Information
-                        </h3>
-                      )}
-                    </div>
-                    {descActive === "Description" && (
-                      <div
-                        className={`${styles.prodDescAnswer} d-inline-flex flex-column col-12`}
-                        dangerouslySetInnerHTML={prodDesc}
-                      ></div>
-                    )}
-                    {descActive === "Specifications" && (
-                      <div
-                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
-                      >
-                        {ProductData?.specifications?.type && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Type:</strong>{" "}
-                            {ProductData?.specifications?.type}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.model_name && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Model Name: </strong>
-                            {ProductData?.specifications?.model_name}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.shelf_life && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Shelf Life: </strong>
-                            {ProductData?.specifications?.shelf_life}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications
-                          ?.shelf_life_month_years && (
-                            <p className="col-12 d-none gap-2 m-0">
-                              <strong>Shelf Life Month Years: </strong>
-                              {
-                                ProductData?.specifications
-                                  ?.shelf_life_month_years
-                              }{" "}
-                            </p>
-                          )}
-
-                        {ProductData?.specifications?.container_type && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Container Type: </strong>
-                            {ProductData?.specifications?.container_type}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.organic && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Organic: </strong>
-                            {ProductData?.specifications?.organic}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.polished && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Polished: </strong>
-                            {ProductData?.specifications?.polished}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications
-                          ?.package_dimension_length && (
-                            <p className="col-12 d-inline-flex gap-2 m-0">
-                              <strong>Dimension: </strong>
-                              {"L " +
-                                ProductData?.specifications
-                                  ?.package_dimension_length +
-                                " x B " +
-                                ProductData?.specifications
-                                  ?.package_dimension_width +
-                                " x H " +
-                                ProductData?.specifications
-                                  ?.package_dimension_height}{" "}
-                              cm{" "}
-                            </p>
-                          )}
-
-                        {ProductData?.specifications?.manufactured_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Manufactured By: </strong>
-                            {ProductData?.specifications?.manufactured_by}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.packed_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Packed By: </strong>
-                            {ProductData?.specifications?.packed_by}{" "}
-                          </p>
-                        )}
-
-                        {ProductData?.specifications?.exp_date && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Exp Date: </strong>
-                            {ProductData?.specifications?.exp_date}{" "}
-                          </p>
-                        )}
-                      </div>
-                    )}
-
-                    {descActive === "Features" && (
-                      <div
-                        className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
-                      >
-                        {ProductData?.other_information?.country_origin && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Country Of Origin: </strong>
-                            {ProductData?.other_information?.country_origin}
-                            <br />
-                          </p>
-                        )}
-
-                        {ProductData?.other_information?.manufactured_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Manufactured By: </strong>
-                            {
-                              ProductData?.other_information?.manufactured_by
-                            }{" "}
-                            <br />
-                          </p>
-                        )}
-
-                        {ProductData?.other_information?.marketed_by && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Marketed By: </strong>
-                            {ProductData?.other_information?.marketed_by} <br />
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div
-                  className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
-                >
-                  {ProductData?.brand_name !== null && (
-                    <h6 className={`${styles.brandName} d-inline-flex m-0`}>
-                      {ProductData?.brand_name}
-                    </h6>
-                  )}
-                  <h2
-                    className={`${styles.productDetailName} col-12 mb-1 mt-0`}
-                  >
-                    {ProductData?.name}
-                  </h2>
-                  <div
-                    className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
-                  >
-                    {ProductData?.age_type ? ProductData?.age_type : ""}
-                    {ProductData?.age_type !== null &&
-                      ProductData?.gender_name !== null && (
-                        <span className={`${styles.spaceLine} d-inline-flex`}>
-                          |
-                        </span>
-                      )}
-                    {ProductData?.gender_name ? ProductData?.gender_name : ""}
-                    {ProductData?.category_name !== null &&
-                      ProductData?.gender_name !== null && (
-                        <span className={`${styles.spaceLine} d-inline-flex`}>
-                          |
-                        </span>
-                      )}
-                    {ProductData?.category_name
-                      ? ProductData?.category_name
-                      : ""}
-                  </div>
-                  <span className="ml-3 mb-0">
-                    Item Code: {ProductData?.barcode}{" "}
-                  </span>
-                  <div
-                    className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
-                  >
-                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      Special Price
-                    </h2>
-                    {ProductData?.selling_price === ProductData?.mrp ? (
-                      <span className={`${styles.offerPrice}`}>
-                        <b>₹{ProductData?.mrp}</b>
-                      </span>
-                    ) : (
-                      <div className="col-12 d-inline-flex align-items-center gap-3">
-                        <span
-                          className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}
-                        >
-                          <b>₹{ProductData?.selling_price}</b>
-                          <del>₹{ProductData?.mrp}</del>
-                        </span>
-                        {prodDiscount !== "" && (
-                          <span
-                            className={`${styles.offerPercentage} d-inline-flex`}
-                          >
-                            {prodDiscount}% &nbsp;OFF
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  {!prodAdded ? (
-                    ProductData?.stock <= 0 ? (
-                      <span
-                        role="button"
-                        className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
-                      >
-                        Out of stock
-                      </span>
-                    ) : (
-                      <span
-                        role="button"
-                        className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
-                            ? styles.disableCartBtn
-                            : ""
-                          } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
-                        onClick={(e) => addToCart(e, ProductData)}
-                      >
-                        Add to cart
-                      </span>
-                    )
+                  {prodMainImg ? (
+                    <img
+                      src={enviroment.API_IMAGE_GALLERY_URL + item}
+                      alt={ProductData?.name}
+                      className="col-12 d-inline-block"
+                      style={{
+                        maxHeight: "500px",
+                        width: "auto",
+                      }}
+                    />
                   ) : (
                     <div
-                      className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}
+                      className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                      style={{
+                        height: "500px",
+                      }}
                     >
-                      <span
-                        role="button"
-                        onClick={(e) =>
-                          updateProdQty(
-                            e,
-                            ProductData?.product_id
-                              ? ProductData.product_id
-                              : ProductData.id,
-                            ProductData?.no_of_quantity_allowed,
-                            prodAddedQty,
-                            "minus",
-                            ProductData?.stock
-                          )
-                        }
-                        className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                      >
-                        -
-                      </span>
-                      <span className="d-inline-flex flex-shrink-0">
-                        <input
-                          type="text"
-                          readOnly
-                          value={prodAddedQty}
-                          className={`${styles.countValue} d-inline-block text-center`}
+                      <ThreeDots
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#CF102E"
+                        radius="9"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </ReactOwlCarousel>
+          {!ProductData?.gallery_images.length ? (
+            prodMainImg ? (
+              <div
+                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+              >
+                <img
+                  src={prodMainImg}
+                  alt={ProductData?.name}
+                  className="col-12 d-inline-block"
+                  style={{
+                    maxHeight: "100px",
+                    width: "auto",
+                  }}
+                />
+              </div>
+            ) : (
+              <div
+                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                style={{
+                  height: "500px",
+                }}
+              >
+                <ThreeDots
+                  visible={true}
+                  height="80"
+                  width="80"
+                  color="#CF102E"
+                  radius="9"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              </div>
+            )
+          ) : null}
+        </div>
+
+        <div
+          className={`${styles.productAllDetail} col-12 d-inline-block p-4`}
+        >
+          <h2 className={`${styles.productDetailName} col-12 mb-1`}>
+            {ProductData?.name}
+          </h2>
+
+          <div className="ms-2">
+            <span className="mb-2">Item Code: {ProductData?.barcode} </span>
+            <div
+              className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
+            >
+              {ProductData?.selling_price === ProductData?.mrp ? (
+                <span className={`${styles.offerPrice}`}>
+                  <b>₹{ProductData?.mrp}</b>
+                </span>
+              ) : (
+                <React.Fragment>
+                  <span className={`${styles.offerPrice}`}>
+                    <b>₹{ProductData?.selling_price}</b>{" "}
+                    <del>₹{ProductData?.mrp}</del>
+                  </span>
+                  {prodDiscount !== "" && (
+                    <span
+                      className={`${styles.offerPercentage} d-inline-flex`}
+                    >
+                      {prodDiscount}% &nbsp;OFF
+                    </span>
+                  )}
+                </React.Fragment>
+              )}
+            </div>
+            <span className={`${styles.inclusivTax} col-12 d-inline-block`}>
+              (Inclusive of all taxes)
+            </span>
+          </div>
+        </div>
+
+        {ProductData?.bank_offer !== null &&
+          ProductData?.bank_offer?.length > 0 &&
+          ProductData?.bank_offer !== undefined && (
+            <div
+              className={`${styles.productDesciptionBox} mt-2 col-12 d-inline-flex flex-column gap-2 p-4`}
+            >
+              <h2
+                className={`${styles.availSizeTitle} d-inline-flex mt-0 mb-1`}
+              >
+                Offers
+              </h2>
+              {ProductData?.bank_offer.length > 0 &&
+                ProductData?.bank_offer?.map((item, index) => {
+                  return (
+                    <span
+                      key={index}
+                      className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
+                    >
+                      <img src={item.logo} alt={item.description} />
+                      {item.description}
+                    </span>
+                  );
+                })}
+            </div>
+          )}
+
+        {isSpecializationDetail &&
+          isOtherDetail &&
+          ProductData?.description !== "Not available" && (
+            <div
+              className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}
+            >
+              <h2
+                className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}
+              >
+                Product Details
+              </h2>
+              {ProductData?.description !== "Not available" && (
+                <div
+                  className={`${styles.productCollapseBox} active col-12 d-inline-block p-0`}
+                  onClick={openProductColpse(this)}
+                >
+                  <div
+                    className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                    style={{
+                      height: "fit-content",
+                      background: "rgba(207, 16, 46, 0.12)",
+                    }}
+                  >
+                    <button
+                      aria-label="About product"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                    >
+                      <span>About product</span>&nbsp;
+                    </button>
+                    <button
+                      aria-label="About product"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                      onClick={() =>
+                        setIsAboutProductDesc(!isAboutProductDesc)
+                      }
+                    >
+                      {isAboutProductDesc ? "-" : "+"}
+                    </button>
+                  </div>
+                  <div
+                    className={`${styles.productDetailText} col-12 p-0 ${!isAboutProductDesc && "visually-hidden"
+                      }`}
+                  >
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: ProductData?.description,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+              {otherInfo === true && isOtherDetail && (
+                <div
+                  className={`${styles.productCollapseBox} col-12 d-inline-block p-0`}
+                  onClick={openProductColpse(this)}
+                >
+                  <div
+                    className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                    style={{
+                      height: "fit-content",
+                      background: "rgba(207, 16, 46, 0.12)",
+                    }}
+                  >
+                    <button
+                      aria-label="specifications"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                    >
+                      <span>Specifications</span>&nbsp;
+                    </button>
+                    <button
+                      aria-label="specifications"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                      onClick={() => setIsSpecilization(!isSpecilization)}
+                    >
+                      {isSpecilization ? "-" : "+"}
+                    </button>
+                  </div>
+                  {isSpecilization && (
+                    <div
+                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                    >
+                      {ProductData?.specifications?.type && (
+                        <p className="col-12 d-inline-flex gap-2  m-0">
+                          <strong>Type:</strong>{" "}
+                          {ProductData?.specifications?.type}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.model_name && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Model Name: </strong>
+                          {ProductData?.specifications?.model_name}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.shelf_life && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Shelf Life: </strong>
+                          {ProductData?.specifications?.shelf_life}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications
+                        ?.shelf_life_month_years && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Shelf Life Month Years: </strong>
+                            {
+                              ProductData?.specifications
+                                ?.shelf_life_month_years
+                            }{" "}
+                          </p>
+                        )}
+
+                      {ProductData?.specifications?.container_type && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Container Type: </strong>
+                          {ProductData?.specifications?.container_type}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.organic && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Organic: </strong>
+                          {ProductData?.specifications?.organic}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.polished && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Polished: </strong>
+                          {ProductData?.specifications?.polished}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications
+                        ?.package_dimension_length && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Dimension: </strong>
+                            {"L " +
+                              ProductData?.specifications
+                                ?.package_dimension_length +
+                              " x B " +
+                              ProductData?.specifications
+                                ?.package_dimension_width +
+                              " x H " +
+                              ProductData?.specifications
+                                ?.package_dimension_height}{" "}
+                            cm{" "}
+                          </p>
+                        )}
+
+                      {ProductData?.specifications?.manufactured_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Manufactured By: </strong>
+                          {ProductData?.specifications?.manufactured_by}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.packed_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Packed By: </strong>
+                          {ProductData?.specifications?.packed_by}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.exp_date && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Exp Date: </strong>
+                          {ProductData?.specifications?.exp_date}{" "}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+              {isOtherDetail && (
+                <div
+                  className={`${styles.productCollapseBox} mb-4 mt-3 active col-12 d-inline-block p-0`}
+                  onClick={openProductColpse(this)}
+                >
+                  <div
+                    className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
+                    style={{
+                      height: "fit-content",
+                      background: "rgba(207, 16, 46, 0.12)",
+                    }}
+                  >
+                    <button
+                      aria-label="About product"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                    >
+                      <span>Other Info</span>&nbsp;
+                    </button>
+                    <button
+                      aria-label="About product"
+                      style={{
+                        borderRadius: "4px",
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                        background: "none",
+                      }}
+                      onClick={() =>
+                        setIsOtherProductDesc(!isOtherProductDesc)
+                      }
+                    >
+                      {isOtherProductDesc ? "-" : "+"}
+                    </button>
+                  </div>
+                  <div
+                    className={`${styles.productDetailText} col-12 p-0 ${!isOtherProductDesc && "visually-hidden"
+                      }`}
+                  >
+                    <div
+                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
+                    >
+                      {ProductData?.other_information?.country_origin && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Country Of Origin: </strong>
+                          {ProductData?.other_information?.country_origin}
+                          <br />
+                        </p>
+                      )}
+
+                      {ProductData?.other_information?.manufactured_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Manufactured By: </strong>
+                          {
+                            ProductData?.other_information?.manufactured_by
+                          }{" "}
+                          <br />
+                        </p>
+                      )}
+
+                      {ProductData?.other_information?.marketed_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Marketed By: </strong>
+                          {ProductData?.other_information?.marketed_by} <br />
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        <div className={`col-12 d-inline-block mb-5`}>
+          <FeaturedProducts product={ProductData?.featured} />
+          <SimilarProduct product={ProductData?.similar} />
+        </div>
+        <div
+          className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}
+        >
+          <span
+            className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+            onClick={() => showCheckoutPage()}
+          >
+            Go to Cart
+          </span>
+
+          {!prodAdded ? (
+            ProductData?.stock <= 0 ? (
+              <span
+                className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+              >
+                Out of Stock
+              </span>
+            ) : (
+              <span
+                className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0
+                  ? styles.disableCartBtn
+                  : ""
+                  } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                onClick={(e) => addToCart(e, ProductData)}
+              >
+                Add to Cart
+              </span>
+            )
+          ) : (
+            <div
+              className={`${styles.addedQuantityBtnBox} d-inline-flex align-items-center position-relative col-6 justify-content-evenly`}
+            >
+              <span
+                role="button"
+                onClick={(e) =>
+                  updateProdQty(
+                    e,
+                    ProductData?.product_id
+                      ? ProductData.product_id
+                      : ProductData.id,
+                    ProductData?.no_of_quantity_allowed,
+                    prodAddedQty,
+                    "minus",
+                    ProductData?.stock
+                  )
+                }
+                className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
+              >
+                -
+              </span>
+              <span className="d-inline-flex flex-shrink-0">
+                <input
+                  type="text"
+                  readOnly
+                  value={prodAddedQty}
+                  className={`${styles.countValue} d-inline-block text-center`}
+                />
+              </span>
+              <span
+                role="button"
+                onClick={(e) =>
+                  updateProdQty(
+                    e,
+                    ProductData?.product_id
+                      ? ProductData.product_id
+                      : ProductData.id,
+                    ProductData?.no_of_quantity_allowed,
+                    prodAddedQty,
+                    "plus",
+                    ProductData?.stock
+                  )
+                }
+                className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
+              >
+                +
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="hideInMobile">
+        <Header />
+        <div className="col-12 d-inline-flex">
+          <div className="container">
+            <div
+              className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}
+            >
+              <div
+                className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}
+              >
+                <div
+                  className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
+                >
+                  <div
+                    className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
+                  >
+                    <span
+                      className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`}
+                      role="button"
+                      onClick={() => setProdSharePop(true)}
+                    >
+                      <ShareIcon color="#CF112D" />
+                    </span>
+                    {prodMainImg ? (
+                      <img
+                        src={prodMainImg}
+                        alt={ProductData?.name}
+                        className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
+                      />
+                    ) : (
+                      <div className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
+                        <ThreeDots
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="#CF102E"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
                         />
-                      </span>
-                      <span
+                      </div>
+                    )}
+                  </div>
+                  <ReactOwlCarousel
+                    key={activeImg}
+                    className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`}
+                    margin={10}
+                    loop={false}
+                    dots={false}
+                    items={6}
+                  >
+                    <div
+                      className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
+                        } col-12 d-inline-flex align-items-center justify-content-center`}
+                      onClick={() => setMainImage(ProductData?.image, -1)}
+                    >
+                      <img
+                        src={ProductData?.image}
+                        alt={ProductData?.name}
+                        className=""
+                        style={{
+                          height: "80px",
+                          maxHeight: "80px",
+                          maxWidth: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </div>
+
+                    {ProductData?.gallery_images?.map((item, index) => {
+                      return (
+                        <div
+                          className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
+                            } col-12 d-inline-flex align-items-center justify-content-center`}
+                          onClick={() =>
+                            setMainImage(
+                              enviroment.API_IMAGE_GALLERY_URL + item,
+                              index
+                            )
+                          }
+                          key={index}
+                        >
+                          <img
+                            src={enviroment.API_IMAGE_GALLERY_URL + item}
+                            alt={ProductData?.name}
+                            className=""
+                            style={{
+                              height: "80px",
+                              maxHeight: "80px",
+                              maxWidth: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                  </ReactOwlCarousel>
+                </div>
+                <div className={`col-12 d-inline-flex flex-column my-3`}>
+                  <div
+                    className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`}
+                  >
+                    {ProductData?.description !== "" &&
+                      ProductData?.description !== null &&
+                      ProductData?.description !== "Not available" && (
+                        <h3
+                          className={`${descActive === "Description" && styles.tabActive
+                            } ${styles.productDescTitle
+                            } col-4 d-inline-flex justify-content-center m-0`}
+                          onClick={() => setDescActive("Description")}
+                          role="button"
+                        >
+                          Product Description
+                        </h3>
+                      )}
+                    {otherInfo === true && (
+                      <h3
+                        className={`${descActive === "Specifications" && styles.tabActive
+                          } ${styles.productDescTitle
+                          } col-4 justify-content-center d-inline-flex m-0`}
+                        onClick={() => setDescActive("Specifications")}
                         role="button"
-                        onClick={(e) =>
-                          updateProdQty(
-                            e,
-                            ProductData?.product_id
-                              ? ProductData.product_id
-                              : ProductData.id,
-                            ProductData?.no_of_quantity_allowed,
-                            prodAddedQty,
-                            "plus",
-                            ProductData?.stock
-                          )
-                        }
-                        className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
                       >
-                        +
-                      </span>
+                        Specifications
+                      </h3>
+                    )}
+                    {featuresInfo === true && (
+                      <h3
+                        className={`${descActive === "Features" && styles.tabActive
+                          } ${styles.productDescTitle
+                          } col-4 d-inline-flex justify-content-center m-0`}
+                        onClick={() => setDescActive("Features")}
+                        role="button"
+                      >
+                        Other Information
+                      </h3>
+                    )}
+                  </div>
+                  {descActive === "Description" && (
+                    <div
+                      className={`${styles.prodDescAnswer} d-inline-flex flex-column col-12`}
+                      dangerouslySetInnerHTML={prodDesc}
+                    ></div>
+                  )}
+                  {descActive === "Specifications" && (
+                    <div
+                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
+                    >
+                      {ProductData?.specifications?.type && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Type:</strong>{" "}
+                          {ProductData?.specifications?.type}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.model_name && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Model Name: </strong>
+                          {ProductData?.specifications?.model_name}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.shelf_life && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Shelf Life: </strong>
+                          {ProductData?.specifications?.shelf_life}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications
+                        ?.shelf_life_month_years && (
+                          <p className="col-12 d-none gap-2 m-0">
+                            <strong>Shelf Life Month Years: </strong>
+                            {
+                              ProductData?.specifications
+                                ?.shelf_life_month_years
+                            }{" "}
+                          </p>
+                        )}
+
+                      {ProductData?.specifications?.container_type && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Container Type: </strong>
+                          {ProductData?.specifications?.container_type}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.organic && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Organic: </strong>
+                          {ProductData?.specifications?.organic}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.polished && (
+                        <p className="col-12 d-none gap-2 m-0">
+                          <strong>Polished: </strong>
+                          {ProductData?.specifications?.polished}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications
+                        ?.package_dimension_length && (
+                          <p className="col-12 d-inline-flex gap-2 m-0">
+                            <strong>Dimension: </strong>
+                            {"L " +
+                              ProductData?.specifications
+                                ?.package_dimension_length +
+                              " x B " +
+                              ProductData?.specifications
+                                ?.package_dimension_width +
+                              " x H " +
+                              ProductData?.specifications
+                                ?.package_dimension_height}{" "}
+                            cm{" "}
+                          </p>
+                        )}
+
+                      {ProductData?.specifications?.manufactured_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Manufactured By: </strong>
+                          {ProductData?.specifications?.manufactured_by}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.packed_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Packed By: </strong>
+                          {ProductData?.specifications?.packed_by}{" "}
+                        </p>
+                      )}
+
+                      {ProductData?.specifications?.exp_date && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Exp Date: </strong>
+                          {ProductData?.specifications?.exp_date}{" "}
+                        </p>
+                      )}
                     </div>
                   )}
 
-                  {ProductData?.bank_offer !== null &&
-                    ProductData?.bank_offer?.length > 0 &&
-                    ProductData?.bank_offer !== undefined && (
-                      <div
-                        className={`${styles.bankOffer} mt-2 col-12 d-inline-flex flex-column gap-2`}
-                      >
-                        <h2
-                          className={`${styles.bankOfferTitle} d-inline-flex mt-0 mb-1`}
-                        >
-                          Offers
-                        </h2>
-                        {ProductData?.bank_offer.length > 0 &&
-                          ProductData?.bank_offer?.map((item, index) => {
-                            return (
-                              <span
-                                key={index}
-                                className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
-                              >
-                                <img src={item.logo} alt={item.description} />
-                                {item.description}
-                              </span>
-                            );
-                          })}
-                      </div>
-                    )}
+                  {descActive === "Features" && (
+                    <div
+                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
+                    >
+                      {ProductData?.other_information?.country_origin && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Country Of Origin: </strong>
+                          {ProductData?.other_information?.country_origin}
+                          <br />
+                        </p>
+                      )}
 
-                  <div
-                    className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}
-                  >
-                    <div
-                      className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                    >
-                      <img
-                        src={delivery}
-                        alt="delivery"
-                        className="object-fit-contain"
-                      />
-                      <h6
-                        className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                      >
-                        Free Home Delivery
-                      </h6>
-                      <p
-                        className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                      >
-                        More than 19,000 pincodes, seamlessly connected.
-                      </p>
-                    </div>
-                    <div
-                      className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                    >
-                      <img
-                        src={orignal}
-                        alt="orignal"
-                        className="object-fit-contain"
-                      />
-                      <h6
-                        className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                      >
-                        100% Original
-                      </h6>
-                      <p
-                        className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                      >
-                        Backed by manufacturer warranty.
-                      </p>
-                    </div>
-                    <div
-                      className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                    >
-                      <img
-                        src={replacement}
-                        alt="replacement"
-                        className="object-fit-contain"
-                      />
-                      <h6
-                        className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                      >
-                        7 Days Replacement
-                      </h6>
-                      <p
-                        className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                      >
-                        Shop risk-free with our 7-day return policy.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-12 d-inline-block mt-3 mb-3">
-                    <h3
-                      className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}
-                    >
-                      Delivery &amp; Services
-                    </h3>
-                    <div className={`col-12 d-inline-block`}>
-                      <div
-                        className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}
-                      >
-                        <LocationIcon color={enviroment.PRIMARY_COLOR} />
-                        <input
-                          type="number"
-                          className={`${styles.deliveryInput} col-12 d-inline-block position-relative`}
-                          maxLength="6"
-                          minLength="6"
-                          placeholder="Enter Delivery Pincode"
-                          onChange={(e) => getDeliveyPincode(e.target.value)}
-                          value={pincode || ""}
-                        />
-                        <button
-                          aria-label="Check Delivery"
-                          onClick={() => getDeliveyInfo(pincode)}
-                          type="button"
-                          className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}
-                        >
-                          Check
-                        </button>
-                      </div>
-                      <span
-                        className={`${styles.checkZiperror} col-12 d-inline-block`}
-                      ></span>
-                      {Object.keys(deliveryDetail)?.length > 0 && (
-                        <div
-                          className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}
-                        >
-                          {deliveryDetail.maxDays !== "" ||
-                            deliveryDetail.minDays !== "" ? (
-                            <p
-                              className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
-                            >
-                              <span
-                                className={`${styles.checkDeliveryLabel} d-inline-flex`}
-                              >
-                                Expected Delivery Date - &nbsp;
-                              </span>
-                              {deliveryDetail.minDays !== "" ? (
-                                <span>
-                                  <strong
-                                    className={`${styles.checkDeliveryDate} d-inline-flex`}
-                                  >
-                                    {deliveryDetail.minDays}
-                                  </strong>
-                                </span>
-                              ) : null}
-                              {deliveryDetail.maxDays !== "" &&
-                                deliveryDetail.min_days !== "" && (
-                                  <span>&nbsp;-&nbsp;</span>
-                                )}
-                              {deliveryDetail.maxDays !== "" ? (
-                                <span>
-                                  <strong
-                                    className={`${styles.checkDeliveryDate} d-inline-flex`}
-                                  >
-                                    {deliveryDetail.maxDays}
-                                  </strong>
-                                </span>
-                              ) : null}
-                            </p>
-                          ) : (
-                            ""
-                          )}
+                      {ProductData?.other_information?.manufactured_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Manufactured By: </strong>
+                          {
+                            ProductData?.other_information?.manufactured_by
+                          }{" "}
+                          <br />
+                        </p>
+                      )}
 
-                          <p
-                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
-                          >
-                            <span>Available for Pickup at: </span>
-                            <strong
-                              id="deliveryLoc"
-                              className={`${styles.checkDeliveryLabel} d-inline-flex`}
-                            >
-                              {enviroment.STORE_ADDRESS}
-                            </strong>
-                          </p>
-                          <p
-                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
-                          >
-                            <span>Store Contact: </span>
-                            <span
-                              className={`${styles.checkDeliveryLabel} d-inline-flex`}
-                            >
-                              <Link
-                                className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
-                                to={`tel:${enviroment.PHONE_NUMBER}`}
-                                id="storeTel"
-                              >
-                                {enviroment.PHONE_NUMBER}
-                              </Link>
-                            </span>
-                          </p>
-                          <p
-                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
-                          >
-                            <span>Locate Store: </span>
-                            <span
-                              className={`${styles.checkDeliveryLabel} d-inline-flex`}
-                            >
-                              <a
-                                href="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
-                              >
-                                Google Map
-                              </a>
-                            </span>
-                          </p>
-                        </div>
+                      {ProductData?.other_information?.marketed_by && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Marketed By: </strong>
+                          {ProductData?.other_information?.marketed_by} <br />
+                        </p>
                       )}
                     </div>
+                  )}
+                </div>
+              </div>
+              <div
+                className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
+              >
+                {ProductData?.brand_name !== null && (
+                  <h6 className={`${styles.brandName} d-inline-flex m-0`}>
+                    {ProductData?.brand_name}
+                  </h6>
+                )}
+                <h2
+                  className={`${styles.productDetailName} col-12 mb-1 mt-0`}
+                >
+                  {ProductData?.name}
+                </h2>
+                <div
+                  className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
+                >
+                  {ProductData?.age_type ? ProductData?.age_type : ""}
+                  {ProductData?.age_type !== null &&
+                    ProductData?.gender_name !== null && (
+                      <span className={`${styles.spaceLine} d-inline-flex`}>
+                        |
+                      </span>
+                    )}
+                  {ProductData?.gender_name ? ProductData?.gender_name : ""}
+                  {ProductData?.category_name !== null &&
+                    ProductData?.gender_name !== null && (
+                      <span className={`${styles.spaceLine} d-inline-flex`}>
+                        |
+                      </span>
+                    )}
+                  {ProductData?.category_name
+                    ? ProductData?.category_name
+                    : ""}
+                </div>
+                <span className="ml-3 mb-0">
+                  Item Code: {ProductData?.barcode}{" "}
+                </span>
+                <div
+                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
+                >
+                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                    Special Price
+                  </h2>
+                  {ProductData?.selling_price === ProductData?.mrp ? (
+                    <span className={`${styles.offerPrice}`}>
+                      <b>₹{ProductData?.mrp}</b>
+                    </span>
+                  ) : (
+                    <div className="col-12 d-inline-flex align-items-center gap-3">
+                      <span
+                        className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}
+                      >
+                        <b>₹{ProductData?.selling_price}</b>
+                        <del>₹{ProductData?.mrp}</del>
+                      </span>
+                      {prodDiscount !== "" && (
+                        <span
+                          className={`${styles.offerPercentage} d-inline-flex`}
+                        >
+                          {prodDiscount}% &nbsp;OFF
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+                {!prodAdded ? (
+                  ProductData?.stock <= 0 ? (
+                    <span
+                      role="button"
+                      className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                    >
+                      Out of stock
+                    </span>
+                  ) : (
+                    <span
+                      role="button"
+                      className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
+                        ? styles.disableCartBtn
+                        : ""
+                        } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                      onClick={(e) => addToCart(e, ProductData)}
+                    >
+                      Add to cart
+                    </span>
+                  )
+                ) : (
+                  <div
+                    className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}
+                  >
+                    <span
+                      role="button"
+                      onClick={(e) =>
+                        updateProdQty(
+                          e,
+                          ProductData?.product_id
+                            ? ProductData.product_id
+                            : ProductData.id,
+                          ProductData?.no_of_quantity_allowed,
+                          prodAddedQty,
+                          "minus",
+                          ProductData?.stock
+                        )
+                      }
+                      className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
+                    >
+                      -
+                    </span>
+                    <span className="d-inline-flex flex-shrink-0">
+                      <input
+                        type="text"
+                        readOnly
+                        value={prodAddedQty}
+                        className={`${styles.countValue} d-inline-block text-center`}
+                      />
+                    </span>
+                    <span
+                      role="button"
+                      onClick={(e) =>
+                        updateProdQty(
+                          e,
+                          ProductData?.product_id
+                            ? ProductData.product_id
+                            : ProductData.id,
+                          ProductData?.no_of_quantity_allowed,
+                          prodAddedQty,
+                          "plus",
+                          ProductData?.stock
+                        )
+                      }
+                      className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
+                    >
+                      +
+                    </span>
+                  </div>
+                )}
+
+                {ProductData?.bank_offer !== null &&
+                  ProductData?.bank_offer?.length > 0 &&
+                  ProductData?.bank_offer !== undefined && (
+                    <div
+                      className={`${styles.bankOffer} mt-2 col-12 d-inline-flex flex-column gap-2`}
+                    >
+                      <h2
+                        className={`${styles.bankOfferTitle} d-inline-flex mt-0 mb-1`}
+                      >
+                        Offers
+                      </h2>
+                      {ProductData?.bank_offer.length > 0 &&
+                        ProductData?.bank_offer?.map((item, index) => {
+                          return (
+                            <span
+                              key={index}
+                              className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
+                            >
+                              <img src={item.logo} alt={item.description} />
+                              {item.description}
+                            </span>
+                          );
+                        })}
+                    </div>
+                  )}
+
+                <div
+                  className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}
+                >
+                  <div
+                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
+                  >
+                    <img
+                      src={delivery}
+                      alt="delivery"
+                      className="object-fit-contain"
+                    />
+                    <h6
+                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
+                    >
+                      Free Home Delivery
+                    </h6>
+                    <p
+                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
+                    >
+                      More than 19,000 pincodes, seamlessly connected.
+                    </p>
+                  </div>
+                  <div
+                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
+                  >
+                    <img
+                      src={orignal}
+                      alt="orignal"
+                      className="object-fit-contain"
+                    />
+                    <h6
+                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
+                    >
+                      100% Original
+                    </h6>
+                    <p
+                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
+                    >
+                      Backed by manufacturer warranty.
+                    </p>
+                  </div>
+                  <div
+                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
+                  >
+                    <img
+                      src={replacement}
+                      alt="replacement"
+                      className="object-fit-contain"
+                    />
+                    <h6
+                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
+                    >
+                      7 Days Replacement
+                    </h6>
+                    <p
+                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
+                    >
+                      Shop risk-free with our 7-day return policy.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-12 d-inline-block mt-3 mb-3">
+                  <h3
+                    className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}
+                  >
+                    Delivery &amp; Services
+                  </h3>
+                  <div className={`col-12 d-inline-block`}>
+                    <div
+                      className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}
+                    >
+                      <LocationIcon color={enviroment.PRIMARY_COLOR} />
+                      <input
+                        type="number"
+                        className={`${styles.deliveryInput} col-12 d-inline-block position-relative`}
+                        maxLength="6"
+                        minLength="6"
+                        placeholder="Enter Delivery Pincode"
+                        onChange={(e) => getDeliveyPincode(e.target.value)}
+                        value={pincode || ""}
+                      />
+                      <button
+                        aria-label="Check Delivery"
+                        onClick={() => getDeliveyInfo(pincode)}
+                        type="button"
+                        className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}
+                      >
+                        Check
+                      </button>
+                    </div>
+                    <span
+                      className={`${styles.checkZiperror} col-12 d-inline-block`}
+                    ></span>
+                    {Object.keys(deliveryDetail)?.length > 0 && (
+                      <div
+                        className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}
+                      >
+                        {deliveryDetail.maxDays !== "" ||
+                          deliveryDetail.minDays !== "" ? (
+                          <p
+                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                          >
+                            <span
+                              className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                            >
+                              Expected Delivery Date - &nbsp;
+                            </span>
+                            {deliveryDetail.minDays !== "" ? (
+                              <span>
+                                <strong
+                                  className={`${styles.checkDeliveryDate} d-inline-flex`}
+                                >
+                                  {deliveryDetail.minDays}
+                                </strong>
+                              </span>
+                            ) : null}
+                            {deliveryDetail.maxDays !== "" &&
+                              deliveryDetail.min_days !== "" && (
+                                <span>&nbsp;-&nbsp;</span>
+                              )}
+                            {deliveryDetail.maxDays !== "" ? (
+                              <span>
+                                <strong
+                                  className={`${styles.checkDeliveryDate} d-inline-flex`}
+                                >
+                                  {deliveryDetail.maxDays}
+                                </strong>
+                              </span>
+                            ) : null}
+                          </p>
+                        ) : (
+                          ""
+                        )}
+
+                        <p
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                        >
+                          <span>Available for Pickup at: </span>
+                          <strong
+                            id="deliveryLoc"
+                            className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                          >
+                            {enviroment.STORE_ADDRESS}
+                          </strong>
+                        </p>
+                        <p
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                        >
+                          <span>Store Contact: </span>
+                          <span
+                            className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                          >
+                            <Link
+                              className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
+                              to={`tel:${enviroment.PHONE_NUMBER}`}
+                              id="storeTel"
+                            >
+                              {enviroment.PHONE_NUMBER}
+                            </Link>
+                          </span>
+                        </p>
+                        <p
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                        >
+                          <span>Locate Store: </span>
+                          <span
+                            className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                          >
+                            <a
+                              href="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
+                            >
+                              Google Map
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`col-12 d-inline-block mb-5`}>
-            <FeaturedProducts product={ProductData?.featured} />
-            <SimilarProduct product={ProductData?.similar} />
-          </div>
-          <Footer />
-        </React.Fragment>
-      ) : (
-        <React.Fragment></React.Fragment>
-      )}
+        </div>
+        <div className={`col-12 d-inline-block mb-5`}>
+          <FeaturedProducts product={ProductData?.featured} />
+          <SimilarProduct product={ProductData?.similar} />
+        </div>
+        <Footer />
+      </div>
+
+
       <div
         className={`${styles.productShare
           } position-fixed top-0 bottom-0 start-0 end-0 align-items-center justify-content-center ${prodSharePop === true ? "d-inline-flex" : "d-none"

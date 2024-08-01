@@ -4,6 +4,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from './MyOrdersDetail.module.css';
+import { Link } from "react-router-dom";
 
 export const MyOrdersDetail = ({ orderDetail }) => {
     const appData = useApp();
@@ -36,7 +37,7 @@ export const MyOrdersDetail = ({ orderDetail }) => {
                         return (
                             <div className={`${styles.orderBox} col-12 d-inline-flex flex-column rounded p-3 mb-3`} key={index}>
                                 <h1 className={`${styles.orderLabel} col-12 d-inline-flex mb-2`}>Order ID: {orderDetail.order_id}</h1>
-                                <a href={`/product/${item?.name_url}`}>
+                                <Link to={`/product/${item?.name_url}`}>
                                     <div className="d-inline-flex col-12 justify-content-between gap-3">
                                         <span className={`${styles.orderImag} flex-shrink-0 d-inline-flex`}>
                                             <img src={item?.image} alt={item?.name} className="h-100 w-100 object-fit-cover" />
@@ -57,7 +58,7 @@ export const MyOrdersDetail = ({ orderDetail }) => {
                                             <span className={`${styles.itemName} col-12 d-inline-flex gap-3`}><span>Qty:&nbsp;<b>({item?.quantity})</b></span><span>Item:&nbsp;<b>(1)</b></span></span>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                                 <div className={`d-inline-flex flex-wrap gap-2 ps-5 col-12 mb-3 mt-3`}>
                                     <span className={`${styles.assurityTabs} d-inline-flex align-items-center`}>Fastest Delivery</span>
                                     <span className={`${styles.assurityTabs} d-inline-flex align-items-center`}>100% Genuine Product</span>

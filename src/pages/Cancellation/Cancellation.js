@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
+import { Link } from "react-router-dom";
 
 export const Cancellation = () => {
   const appData = useApp();
@@ -73,9 +74,9 @@ export const Cancellation = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                   {process.env.REACT_APP_EMAIL_ADDRESS}
-                </a>
+                </Link>
               </span>
               <span className="c8">&nbsp;</span>
               <span className="c4">
@@ -169,9 +170,9 @@ export const Cancellation = () => {
               contact us at{" "}
             </span>
             <span className="c15">
-              <a className="c17" href={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+              <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                 {process.env.REACT_APP_EMAIL_ADDRESS}
-              </a>
+              </Link>
             </span>
             <span className="c8">&nbsp;or by phone at</span>
             <span className="c2">&nbsp;+91-99997 56468</span>

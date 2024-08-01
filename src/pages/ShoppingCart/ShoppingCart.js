@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartSummery } from "../../Components/CartSummery/CartSummery";
 import { DeliveryAddress } from "../../Components/DeliveryAddress/DeliveryAddress";
 import { Footer } from "../../Components/Footer/Footer";
@@ -251,9 +251,9 @@ export const ShoppingCart = () => {
                       >
                         Your cart is empty
                       </p>
-                      <a href="/">
+                      <Link to="/">
                         <button className={`${styles.shoppingBtn}`}>Continue Shopping</button>
-                      </a>
+                      </Link>
                       <p style={{
                         fontSize: "0.8rem",
                         marginTop: "20px",
@@ -272,12 +272,12 @@ export const ShoppingCart = () => {
                             className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
                             role="button"
                           >
-                            <a  href='/login' className={`${styles.supportText} d-inline-flex m-1`} style={{
+                            <Link to='/login' className={`${styles.supportText} d-inline-flex m-1`} style={{
                               color: "black",
                               textDecoration: "underline",
                             }}>
                               Log in
-                            </a>
+                            </Link>
                           </span>{" "}
                           <span className="my-1">
                             to checkout faster

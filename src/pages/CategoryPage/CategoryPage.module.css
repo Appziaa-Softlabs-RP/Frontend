@@ -1,108 +1,178 @@
-.ageBannerRow img{
+.ageBannerRow img {
     border-radius: 10px;
 }
+
 .filterSticky {
     top: 20px;
     height: calc(100vh - 30px);
 }
+
 .filterSticky::-webkit-scrollbar {
     width: 5px;
 }
+
 .clearAllBtn {
-    color: #009CDE;
+    color: #009cde;
     font-size: 14px;
 }
-.sortBy, .priceLow {
+
+.sortBy,
+.priceLow {
     font-size: 14px;
     color: #000;
     font-weight: 500;
 }
+
 .priceLow {
     font-weight: 400;
 }
+
 .productContainer {
     border-radius: 8px;
-    background: #FFF;
+    width: 75%;
+    background: #fff;
 }
+
+.productCardBox {
+    position: relative;
+    border-radius: 8px;
+    width: 33%;
+    background: #fff;
+}
+
+.superContainerCards{
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 560px) {
+    .productsContainer {
+        width: 50%;
+    }
+
+    .productCardBox {
+        width: 50%;
+    }
+
+    .superCardsContainer{
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .productContainer {
+        width: 100%;
+    }
+    .superCardsContainer{
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .productCardBox {
+        width: 50%;
+    }
+}
+
 .sortContainer {
-    border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid #ededed;
 }
-.emptyProduct svg{
+
+.emptyProduct svg {
     height: 150px;
     width: 150px;
 }
+
 .emptyProductText {
     font-size: 30px;
 }
-.goCartBtn, .AddCartBtn, .saveFilterBtn{
+
+.goCartBtn,
+.AddCartBtn,
+.saveFilterBtn {
     height: 60px;
     font-size: 16px;
     font-weight: bold;
     color: #000;
-    background: #FFF;
+    background: #fff;
 }
-.goCartBtn svg, .AddCartBtn svg {
+
+.goCartBtn svg,
+.AddCartBtn svg {
     height: 15px;
     width: 15px;
 }
+
 .goCartBtn {
-    border-right: 1px solid #EDEDED;
+    border-right: 1px solid #ededed;
 }
-.productBtnBox{
+
+.productBtnBox {
     position: fixed;
     z-index: 9;
-    box-shadow: 0px -10px 10px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px -10px 10px 0px rgba(0, 0, 0, 0.1);
 }
+
 .actionSheet {
-    background: rgba(0, 0, 0, 0.90);
+    background: rgba(0, 0, 0, 0.9);
     z-index: 10;
 }
+
 .actionSheetBox {
     border-radius: 8px;
 }
+
 .actionSheetTitle {
     height: 45px;
-    background: #FFF;
+    background: #fff;
     color: #000;
     font-size: 14px;
 }
-.actionSheetBtn, .actionSheetCnclBtn{
-    color: #009CDE;
+
+.actionSheetBtn,
+.actionSheetCnclBtn {
+    color: #009cde;
     border: none;
     box-shadow: none;
-    background: #FFF;
-    border-top: 1px solid #EDEDED;
+    background: #fff;
+    border-top: 1px solid #ededed;
     font-size: 17px;
     font-weight: 600;
     height: 50px;
 }
+
 .actionSheetCnclBtn {
-    color: #FF0000;
+    color: #ff0000;
     border-radius: 8px;
 }
+
 .filterPopup {
-    background: #FFF;
+    background: #fff;
     z-index: 10;
 }
-.PageHeader{
+
+.PageHeader {
     height: 60px;
     background: var(--PRIMARY_COLOR);
     z-index: 15;
 }
-.backBox{
+
+.backBox {
     height: 60px;
     width: 40px;
     padding-top: 2px;
 }
-.backBox svg{
+
+.backBox svg {
     height: 20px;
     width: 20px;
 }
-.currentName{
-    color: #FFF;
+
+.currentName {
+    color: #fff;
     font-size: 16px;
     font-weight: 600;
 }
+
 .saveFilterBtn {
     background: var(--PRIMARY_COLOR);
     color: var(--SECONDARY_COLOR);

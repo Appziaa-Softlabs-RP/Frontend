@@ -42,7 +42,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   const [hoveredPosition, setHoveredPosition] = useState({});
 
   const navigate = useNavigate();
-  let windowWidth = appData.appData.windowWidth;
 
   const openAsideMenu = () => {
     if (asideOpen === true) {
@@ -194,424 +193,421 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
 
   return (
     <React.Fragment>
-      {windowWidth === "mobile" ? (
-        <div
-          className={`${styles.siteHeader} col-12 d-inline-flex flex-column gap-3`}
-        >
-          <div className={`col-12 d-inline-flex align-items-center`}>
-            <span
-              className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`}
-              onClick={openAsideMenu}
-            >
-              <MenuIcons color={enviroment.SECONDARY_COLOR} />
+      {/* Mobile Structure */}
+      <div
+        className={`${styles.siteHeader} hideInDesktop col-12 d-inline-flex flex-column gap-3`}
+      >
+        <div className={`col-12 d-inline-flex align-items-center`}>
+          <span
+            className={`${styles.menuIconBox} d-inline-flex align-items-center justify-content-center`}
+            onClick={openAsideMenu}
+          >
+            <MenuIcons color={enviroment.SECONDARY_COLOR} />
+          </span>
+          <h1
+            onClick={() => routeHome()}
+            style={{ cursor: "pointer" }}
+            itemtype="http://schema.org/Organization"
+            className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}
+          >
+            <span class="visually-hidden">
+              {enviroment.REACT_APP_BUSINESS_NAME}
             </span>
-            <h1
-              onClick={() => routeHome()}
-              style={{ cursor: "pointer" }}
-              itemtype="http://schema.org/Organization"
-              className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center m-auto`}
-            >
-              <span class="visually-hidden">
-                {enviroment.REACT_APP_BUSINESS_NAME}
-              </span>
-              <img
-                src={siteLogo}
-                alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
-                className="object-fit-contain"
-              />
-            </h1>
-            <span
-              className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`}
-              onClick={() => openCart()}
-            >
-              <span
-                className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
-              >
-                {appData?.appData?.cartCount}
-              </span>
-              <CartIcon color={enviroment.SECONDARY_COLOR} />
-            </span>
-          </div>
-          <div className="col-12 d-inline-flex position-relative px-3">
-            <input
-              type="search"
-              placeholder={enviroment.SEARCH_PLACEHOLDER}
-              className={`${styles.searchProdInput} col-12 d-inline-block`}
-              value={searchProd}
-              onChange={(e) => searchShopProd(e, e.target.value)}
-              onKeyDown={handleKeyDown}
+            <img
+              src={siteLogo}
+              alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
+              className="object-fit-contain"
             />
-            {searchProdList?.length > 0 && (
-              <div
-                className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}
-              >
-                {searchProdList.map((item, idx) => {
-                  return (
-                    <span
-                      className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`}
-                      role="button"
-                      key={idx}
-                      onClick={() => openProductId(item.name_url, item.name)}
-                    >
-                      {item.name}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          </h1>
+          <span
+            className={`${styles.cartIconBox} d-inline-flex align-items-center justify-content-center position-relative`}
+            onClick={() => openCart()}
+          >
+            <span
+              className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
+            >
+              {appData?.appData?.cartCount}
+            </span>
+            <CartIcon color={enviroment.SECONDARY_COLOR} />
+          </span>
         </div>
-      ) : windowWidth === "desktop" ? (
-        <div className="col-12 d-inline-flex flex-column" style={{
-          position: 'relative'
-        }}>
-          <ReactOwlCarousel
-            className={`${styles.topHeaderSale} col-12 owl-theme`}
-            margin={0}
-            items={1}
-            loop={true}
-            dots={false}
-            animateOut="slideOutUp"
-            animateIn="slideInUp"
-            autoPlay={true}
-          >
+        <div className="col-12 d-inline-flex position-relative px-3">
+          <input
+            type="search"
+            placeholder={enviroment.SEARCH_PLACEHOLDER}
+            className={`${styles.searchProdInput} col-12 d-inline-block`}
+            value={searchProd}
+            onChange={(e) => searchShopProd(e, e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          {searchProdList?.length > 0 && (
             <div
-              className={`col-12 d-inline-flex align-items-center justify-content-center`}
+              className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}
             >
-              <span
-                className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
-                title="Superdeals"
-              >
-                Shipping Across India.
-              </span>
-            </div>
-            <div
-              className={`col-12 d-inline-flex align-items-center justify-content-center`}
-            >
-              <span
-                className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
-                title="Superdeals"
-              >
-                Shipping Across India.
-              </span>
-            </div>
-          </ReactOwlCarousel>
-          <div
-            className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}
-          >
-            <div className="container h-100 d-flex align-items-stretch">
-              <div
-                className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}
-              >
-                <h1
-                  onClick={() => routeHome()}
-                  itemtype="http://schema.org/Organization"
-                  style={{ cursor: "pointer" }}
-                  className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}
-                >
-                  <span class="visually-hidden">
-                    {enviroment.REACT_APP_BUSINESS_NAME}
-                  </span>
-                  <img
-                    src={siteLogo}
-                    alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
-                    className="object-fit-contain"
-                  />
-                </h1>
-                <div
-                  className={`d-inline-flex col-6 position-relative align-items-center`}
-                >
+              {searchProdList.map((item, idx) => {
+                return (
                   <span
-                    className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}
-                  >
-                    <SearchIcon color="#000" />
-                  </span>
-                  <input
-                    type="search"
-                    className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
-                    value={searchProd}
-                    onChange={(e) => searchShopProd(e, e.target.value)}
-                    placeholder={enviroment.SEARCH_PLACEHOLDER}
-                    onKeyDown={handleKeyDown}
-                  />
-                  {searchProdList?.length > 0 && (
-                    <div
-                      className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
-                    >
-                      {searchProdList.map((item, idx) => {
-                        return (
-                          <span
-                            className={`${styles.searchRow} p-3 text-truncate col-12`}
-                            role="button"
-                            key={idx}
-                            onClick={() =>
-                              openProductId(item.name_url, item.name)
-                            }
-                          >
-                            {item.name}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-                <div className="d-inline-flex align-items-stretch justify-content-end gap-5">
-                  <div
-                    className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                    className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`}
                     role="button"
+                    key={idx}
+                    onClick={() => openProductId(item.name_url, item.name)}
                   >
-                    <SupportIcon color="#FFF" />
-                    <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                      Support
-                    </span>
+                    {item.name}
+                  </span>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Desktop Structure */}
+      <div className={`hideInMobile col-12 d-inline-flex flex-column`} style={{
+        position: 'relative'
+      }}>
+        <ReactOwlCarousel
+          className={`${styles.topHeaderSale} col-12 owl-theme`}
+          margin={0}
+          items={1}
+          loop={true}
+          dots={false}
+          animateOut="slideOutUp"
+          animateIn="slideInUp"
+          autoPlay={true}
+        >
+          <div
+            className={`col-12 d-inline-flex align-items-center justify-content-center`}
+          >
+            <span
+              className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
+              title="Superdeals"
+            >
+              Shipping Across India.
+            </span>
+          </div>
+          <div
+            className={`col-12 d-inline-flex align-items-center justify-content-center`}
+          >
+            <span
+              className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
+              title="Superdeals"
+            >
+              Shipping Across India.
+            </span>
+          </div>
+        </ReactOwlCarousel>
+        <div
+          className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}
+        >
+          <div className="container h-100 d-flex align-items-stretch">
+            <div
+              className={`${styles.headerInnerRow} col-12 d-inline-flex align-items-stretch gap-3`}
+            >
+              <h1
+                onClick={() => routeHome()}
+                itemtype="http://schema.org/Organization"
+                style={{ cursor: "pointer" }}
+                className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2`}
+              >
+                <span class="visually-hidden">
+                  {enviroment.REACT_APP_BUSINESS_NAME}
+                </span>
+                <img
+                  src={siteLogo}
+                  alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
+                  className="object-fit-contain"
+                />
+              </h1>
+              <div
+                className={`d-inline-flex col-6 position-relative align-items-center`}
+              >
+                <span
+                  className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}
+                >
+                  <SearchIcon color="#000" />
+                </span>
+                <input
+                  type="search"
+                  className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
+                  value={searchProd}
+                  onChange={(e) => searchShopProd(e, e.target.value)}
+                  placeholder={enviroment.SEARCH_PLACEHOLDER}
+                  onKeyDown={handleKeyDown}
+                />
+                {searchProdList?.length > 0 && (
+                  <div
+                    className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
+                  >
+                    {searchProdList.map((item, idx) => {
+                      return (
+                        <span
+                          className={`${styles.searchRow} p-3 text-truncate col-12`}
+                          role="button"
+                          key={idx}
+                          onClick={() =>
+                            openProductId(item.name_url, item.name)
+                          }
+                        >
+                          {item.name}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <div className="d-inline-flex align-items-stretch justify-content-end gap-5">
+                <div
+                  className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                  role="button"
+                >
+                  <SupportIcon color="#FFF" />
+                  <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
+                    Support
+                  </span>
+                  <div
+                    className={`${styles.supportDropDown} position-absolute d-inline-block`}
+                  >
                     <div
-                      className={`${styles.supportDropDown} position-absolute d-inline-block`}
+                      className={`${styles.timingPhoneBox} d-inline-flex col-12 align-items-center gap-3`}
                     >
-                      <div
-                        className={`${styles.timingPhoneBox} d-inline-flex col-12 align-items-center gap-3`}
-                      >
-                        <SupportIcon color="#000" />
-                        <div className="d-inline-flex flex-column">
-                          <label
-                            className={`${styles.supportTimings} d-inline-block col-12 p-0 text-center`}
-                          >
-                            7 days, 9AM to 9PM
-                          </label>
-                          <Link
-                            to={`tel:${enviroment.PHONE_NUMBER}`}
-                            style={{
-                              textDecoration: "none",
-                            }}
-                            className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}
-                          >
-                            {enviroment.PHONE_NUMBER}
-                          </Link>
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.mailtoBox} text-decoration-none d-inline-flex align-items-center gap-3 col-12`}
-                      >
-                        <MailIcon color="#000" />
-                        <Link
-                          to={`mailto:${enviroment.EMAIL_ADDRESS}`}
-                          className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}
+                      <SupportIcon color="#000" />
+                      <div className="d-inline-flex flex-column">
+                        <label
+                          className={`${styles.supportTimings} d-inline-block col-12 p-0 text-center`}
                         >
-                          {enviroment.EMAIL_ADDRESS}
+                          7 days, 9AM to 9PM
+                        </label>
+                        <Link
+                          to={`tel:${enviroment.PHONE_NUMBER}`}
+                          style={{
+                            textDecoration: "none",
+                          }}
+                          className={`${styles.supportPhoneNumber} text-decoration-none d-inline-block col-12 p-0 text-center`}
+                        >
+                          {enviroment.PHONE_NUMBER}
                         </Link>
                       </div>
-                      <div
-                        className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}
+                    </div>
+                    <div
+                      className={`${styles.mailtoBox} text-decoration-none d-inline-flex align-items-center gap-3 col-12`}
+                    >
+                      <MailIcon color="#000" />
+                      <Link
+                        to={`mailto:${enviroment.EMAIL_ADDRESS}`}
+                        className={`${styles.mailtoEmail} d-inline-block text-decoration-none`}
                       >
-                        <Link
-                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
-                        >
-                          Chat With Us
-                        </Link>
-                        <span className={`${styles.dotSymbol} d-inline-flex`}>
-                          &bull;
-                        </span>
-                        <Link
-                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
-                        >
-                          FAQ&apos;s
-                        </Link>
-                        <span className={`${styles.dotSymbol} d-inline-flex`}>
-                          &bull;
-                        </span>
-                        <Link
-                          className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
-                        >
-                          Track Order
-                        </Link>
-                      </div>
+                        {enviroment.EMAIL_ADDRESS}
+                      </Link>
+                    </div>
+                    <div
+                      className={`${styles.orderTrackLinks} d-none justify-content-between align-items-center col-12 p-0`}
+                    >
+                      <Link
+                        className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                      >
+                        Chat With Us
+                      </Link>
+                      <span className={`${styles.dotSymbol} d-inline-flex`}>
+                        &bull;
+                      </span>
+                      <Link
+                        className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                      >
+                        FAQ&apos;s
+                      </Link>
+                      <span className={`${styles.dotSymbol} d-inline-flex`}>
+                        &bull;
+                      </span>
+                      <Link
+                        className={`${styles.supportLinks} text-decoration-none d-inline-flex`}
+                      >
+                        Track Order
+                      </Link>
                     </div>
                   </div>
-                  {userInfo && userInfo?.customer_id ? (
-                    <div
-                      className={`${styles.supportDrop} d-inline-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
-                      role="button"
-                      onClick={() => openAccountDetail()}
-                    >
-                      <div className="d-inline-flex align-items-center gap-2">
-                        <UserIcon color="#FFF" />
-                        <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                          Account
-                        </span>
-                      </div>
-                      {userInfo?.name !== "" && (
-                        <span className={`${styles.userName} d-inline-flex`}>
-                          {userInfo.name}
-                        </span>
-                      )}
-                      {accountOptn === true && (
-                        <div
-                          className={`${styles.userAccountDrop} position-absolute col-12`}
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <span
-                            role="button"
-                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
-                            onClick={() => navigate("/my-account")}
-                          >
-                            My Account
-                          </span>
-                          <span
-                            role="button"
-                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
-                            onClick={() => navigate("/my-orders")}
-                          >
-                            My Orders
-                          </span>
-                          <span
-                            role="button"
-                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
-                            onClick={() => navigate("/my-address")}
-                          >
-                            My Address
-                          </span>
-                          <span
-                            role="button"
-                            onClick={() => userLoggedOut()}
-                            className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
-                          >
-                            Logged Out
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div
-                      className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
-                      onClick={() => setLoginPop(true)}
-                      role="button"
-                    >
+                </div>
+                {userInfo && userInfo?.customer_id ? (
+                  <div
+                    className={`${styles.supportDrop} d-inline-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
+                    role="button"
+                    onClick={() => openAccountDetail()}
+                  >
+                    <div className="d-inline-flex align-items-center gap-2">
                       <UserIcon color="#FFF" />
                       <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
                         Account
                       </span>
                     </div>
-                  )}
+                    {userInfo?.name !== "" && (
+                      <span className={`${styles.userName} d-inline-flex`}>
+                        {userInfo.name}
+                      </span>
+                    )}
+                    {accountOptn === true && (
+                      <div
+                        className={`${styles.userAccountDrop} position-absolute col-12`}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <span
+                          role="button"
+                          className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                          onClick={() => navigate("/my-account")}
+                        >
+                          My Account
+                        </span>
+                        <span
+                          role="button"
+                          className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                          onClick={() => navigate("/my-orders")}
+                        >
+                          My Orders
+                        </span>
+                        <span
+                          role="button"
+                          className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                          onClick={() => navigate("/my-address")}
+                        >
+                          My Address
+                        </span>
+                        <span
+                          role="button"
+                          onClick={() => userLoggedOut()}
+                          className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
+                        >
+                          Logged Out
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ) : (
                   <div
                     className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                    onClick={() => setLoginPop(true)}
                     role="button"
-                    onClick={() => setCartPop(true)}
                   >
-                    <span className="position-relative d-inline-flex">
-                      <CartIcon color="#FFF" />
-                      {appData?.appData?.cartCount > 0 && (
-                        <span
-                          className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
-                        >
-                          {appData?.appData?.cartCount}
-                        </span>
-                      )}
-                    </span>
+                    <UserIcon color="#FFF" />
                     <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
-                      Cart
+                      Account
                     </span>
                   </div>
+                )}
+                <div
+                  className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                  role="button"
+                  onClick={() => setCartPop(true)}
+                >
+                  <span className="position-relative d-inline-flex">
+                    <CartIcon color="#FFF" />
+                    {appData?.appData?.cartCount > 0 && (
+                      <span
+                        className={`${styles.cartCount} position-absolute d-inline-flex align-items-center`}
+                      >
+                        {appData?.appData?.cartCount}
+                      </span>
+                    )}
+                  </span>
+                  <span className={`${styles.supportText} ${styles.supportHideOnMobile}`}>
+                    Cart
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}
-          >
-            <div style={{
-              width: 'fit-content',
-              margin: '0 auto'
-            }}>
-              {loading ? (
-                <HeaderNavLoader />
-              ) : (
-                <div
-                  className={`${styles.headerMenuRow} d-inline-flex align-items-stretch col-12`}
-                  style={{
-                    maxWidth: '100dvw',
-                    overflowX: "auto"
-                  }}
-                >
-                  {navItems.length > 0 &&
-                    navItems.map((item, index) => (
+        </div>
+        <div
+          className={`${styles.headerNavList} col-12 d-inline-flex align-items-center position-relative`}
+        >
+          <div style={{
+            width: 'fit-content',
+            margin: '0 auto'
+          }}>
+            {loading ? (
+              <HeaderNavLoader />
+            ) : (
+              <div
+                className={`${styles.headerMenuRow} d-inline-flex align-items-stretch col-12`}
+                style={{
+                  maxWidth: '100dvw',
+                  overflowX: "auto"
+                }}
+              >
+                {navItems.length > 0 &&
+                  navItems.map((item, index) => (
+                    <div
+                      id={`menu-${index}`}
+                      className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
+                      key={index}
+                      onMouseEnter={() => handleMouseEnter(item, index)}
+                      onClick={() => handleMouseEnter(item, index)}
+                    >
                       <div
-                        id={`menu-${index}`}
-                        className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
-                        key={index}
-                        onMouseEnter={() => handleMouseEnter(item, index)}
-                        onClick={() => handleMouseEnter(item, index)}
+                        className={`${styles.menuName}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          minWidth: '220px',
+                          maxWidth: '150px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
-                        <div
-                          className={`${styles.menuName}`}
+                        <span
+                          className={`${styles.menuNameText}`}
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.5rem',
-                            minWidth: '220px',
-                            maxWidth: '150px',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
                           }}
                         >
-                          <span
-                            className={`${styles.menuNameText}`}
-                            style={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                              display: 'inline-block',
-                              verticalAlign: 'middle',
-                            }}
-                          >
-                            {item.name}
-                          </span>
-                          <BackArrowIcon
-                            color="#000"
-                            role="button"
-                            style={{
-                              display: 'inline-block',
-                              verticalAlign: 'middle',
-                            }}
-                          />
-                        </div>
+                          {item.name}
+                        </span>
+                        <BackArrowIcon
+                          color="#000"
+                          role="button"
+                          style={{
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
                       </div>
-                    ))}
-                </div>
-              )}
-            </div>
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
-          {hoveredItem?.catList?.length > 0 && (
-            <div
-              className={`${styles.SubMenuList} d-inline-flex flex-column gap-1`}
-              style={{
-                position: 'absolute',
-                top: '150px',
-                left: hoveredPosition.left,
-                zIndex: 999,
-              }}
-              onMouseEnter={() => setHoveredItem(hoveredItem)}
-              onClick={() => setHoveredItem(hoveredItem)}
-              onMouseLeave={handleMouseLeave}
-            >
-              {hoveredItem.catList.map((subNme, subIdx) => (
-                <Link
-                  to={`/store-product/${subNme?.name_url}`}
-                  style={{ textDecoration: 'none' }}
-                  key={subIdx}
-                  className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
-                >
-                  {subNme.name}
-                </Link>
-              ))}
-            </div>
-          )}
-          {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
-          {cartPop === true && <CartAside setCartPop={setCartPop} />}
         </div>
-      ) : (
-        <></>
-      )}
+        {hoveredItem?.catList?.length > 0 && (
+          <div
+            className={`${styles.SubMenuList} d-inline-flex flex-column gap-1`}
+            style={{
+              position: 'absolute',
+              top: '150px',
+              left: hoveredPosition.left,
+              zIndex: 999,
+            }}
+            onMouseEnter={() => setHoveredItem(hoveredItem)}
+            onClick={() => setHoveredItem(hoveredItem)}
+            onMouseLeave={handleMouseLeave}
+          >
+            {hoveredItem.catList.map((subNme, subIdx) => (
+              <Link
+                to={`/store-product/${subNme?.name_url}`}
+                style={{ textDecoration: 'none' }}
+                key={subIdx}
+                className={`${styles.subMenuName} col-12 align-items-center px-3 d-inline-flex py-2`}
+              >
+                {subNme.name}
+              </Link>
+            ))}
+          </div>
+        )}
+        {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
+        {cartPop === true && <CartAside setCartPop={setCartPop} />}
+      </div>
     </React.Fragment>
   );
 };

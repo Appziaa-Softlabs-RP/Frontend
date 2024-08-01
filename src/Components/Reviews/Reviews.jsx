@@ -3,6 +3,7 @@ import styles from "./Review.module.css";
 import { useApp } from "../../context/AppContextProvider";
 import { useState } from "react";
 import { reviews } from "../../constants/data";
+import { Link } from "react-router-dom";
 
 export default function Reviews() {
     const appData = useApp();
@@ -111,10 +112,10 @@ export default function Reviews() {
                     <p className="text-sm mt-3" style={{
                         color: "#1a1a1a"
                     }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
-                    <a href="https://g.page/r/CYF-YBA6SelvEBM/review" rel="noopener noreferrer"
+                    <Link to="https://g.page/r/CYF-YBA6SelvEBM/review" rel="noopener noreferrer"
                         target="_blank">
                         <button className={`${styles.reviewBtn} text-white py-2 px-5 mt-3 mb-2`}>Write a Review</button>
-                    </a>
+                    </Link>
                 </div>
             </div>
 

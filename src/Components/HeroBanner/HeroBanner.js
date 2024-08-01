@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import styles from "./HeroBanner.module.css";
-import ReactOwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { useApp } from "../../context/AppContextProvider";
+import React, { useEffect, useState } from "react";
+import ReactOwlCarousel from "react-owl-carousel";
+import styles from "./HeroBanner.module.css";
 
-import { useAppStore } from "../../store";
-import ApiService from "../../services/ApiService";
-import { enviroment } from "../../enviroment";
-import { HeroBannerLoader } from "../Loader/Loader";
 import { useNavigate } from "react-router";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import { useAppStore } from "../../store";
 import { AppNotification } from "../../utils/helper";
+import { HeroBannerLoader } from "../Loader/Loader";
 
 export const HeroBanner = ({ allBanner }) => {
   const navigate = useNavigate();
@@ -19,9 +18,6 @@ export const HeroBanner = ({ allBanner }) => {
   const setHeroBanners = useAppStore((state) => state.setHeroBanners);
   const setPromoBanners = useAppStore((state) => state.setPromoBanners);
   const setOfferBanners = useAppStore((state) => state.setOfferBanners);
-
-  const appData = useApp();
-  let windowWidth = appData.appData.windowWidth;
 
   const openBannerProd = (
     verticalId,
@@ -96,54 +92,56 @@ export const HeroBanner = ({ allBanner }) => {
           setLoading(false);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
 
   return (
     <React.Fragment>
-      {windowWidth === "mobile" ? (
-        <div
-          className={`${styles.heroBannerContainer} col-12 d-inline-flex px-3`}
+      {/* Mobile Structure */}
+      <div
+        className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex px-3`}
+      >
+        <ReactOwlCarousel
+          className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
+          margin={5}
+          loop={true}
+          dots={true}
+          stagePadding={10}
+          items={1}
         >
-          <ReactOwlCarousel
-            className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
-            margin={5}
-            loop={true}
-            dots={true}
-            stagePadding={10}
-            items={1}
-          >
-            {heroBanners?.length > 0 &&
-              heroBanners.map((item, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    {item?.mobile_image !== "" && (
-                      <div
-                        className={styles.item}
-                        onClick={() =>
-                          openBannerProd(
-                            item?.vertical_id,
-                            item?.subcategory_id,
-                            item?.product_id,
-                            item?.category_id,
-                            item?.site_link
-                          )
-                        }
-                      >
-                        <img
-                          src={item?.mobile_image}
-                          alt={item?.name}
-                          className="object-fit-cover col-12 d-inline-block"
-                        />
-                      </div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-          </ReactOwlCarousel>
-        </div>
-      ) : windowWidth === "desktop" ? (
-        loading ? (
+          {heroBanners?.length > 0 &&
+            heroBanners.map((item, index) => {
+              return (
+                <React.Fragment key={index}>
+                  {item?.mobile_image !== "" && (
+                    <div
+                      className={styles.item}
+                      onClick={() =>
+                        openBannerProd(
+                          item?.vertical_id,
+                          item?.subcategory_id,
+                          item?.product_id,
+                          item?.category_id,
+                          item?.site_link
+                        )
+                      }
+                    >
+                      <img
+                        src={item?.mobile_image}
+                        alt={item?.name}
+                        className="object-fit-cover col-12 d-inline-block"
+                      />
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
+        </ReactOwlCarousel>
+      </div>
+
+      {/* Desktop Structure */}
+      <div className={`hideInMobile`}>
+        {loading ? (
           <HeroBannerLoader />
         ) : (
           <div className={`col-12 d-inline-flex`}>
@@ -188,10 +186,8 @@ export const HeroBanner = ({ allBanner }) => {
               })}
             </ReactOwlCarousel>
           </div>
-        )
-      ) : (
-        ""
-      )}
+        )}
+      </div>
     </React.Fragment>
   );
 };

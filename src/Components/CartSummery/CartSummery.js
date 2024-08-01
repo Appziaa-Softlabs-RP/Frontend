@@ -374,9 +374,9 @@ export const CartSummery = ({
               >
                 Your cart is empty
               </p>
-              <a href="/">
+              <Link to="/">
                 <button className={`${styles.shoppingBtn}`}>Continue Shopping</button>
-              </a>
+              </Link>
               <p style={{
                 fontSize: "0.8rem",
                 marginTop: "20px",

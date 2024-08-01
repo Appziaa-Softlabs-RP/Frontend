@@ -2,20 +2,63 @@ import fetch from "./ApiInterceptor";
 
 const ApiService = {};
 
+const cache = {};
+
+// Only works until the page is refreshed
+const cacheFetch = async (url, options, cacheKey, ttl = 500000) => {
+  const currentTime = new Date().getTime();
+
+    if (cache[cacheKey] && cache[cacheKey].expiry > currentTime) {
+    return JSON.parse(cache[cacheKey].response);
+  }
+
+  try {
+    // Make the fetch request if not in cache or cache expired
+    const data = await fetch({
+      url: url,
+      method: options.method,
+      data: options.body,
+    });
+
+    console.log(data)
+
+    // Store the response in the cache with an expiry time
+    cache[cacheKey] = {
+      response: JSON.stringify(data),
+      expiry: currentTime + ttl,
+    };
+
+    return data;
+  } catch (error) {
+    console.error(`Fetch error for ${url}:`, error);
+    throw error;
+  }
+};
+
 ApiService.banner = function (data) {
-  return fetch({
-    url: "/store/banner",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/banner" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/banner",
+    {
+      method: "POST",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.PromoBanner = function (data) {
-  return fetch({
-    url: "/store/promobanner",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/promobanner" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/promobanner",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.signIn = function (data) {
@@ -59,83 +102,133 @@ ApiService.VerifyOTPReg = function (data) {
 };
 
 ApiService.AllCategory = function (data) {
-  return fetch({
-    url: "store/verticalWithCatList",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/verticalWithCatList" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/verticalWithCatList",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.NewCategory = function (data) {
-  return fetch({
-    url: "store/verticaldesign",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/verticaldesign" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/verticaldesign",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.StoreCategory = function (data) {
-  return fetch({
-    url: "store/verticalList",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/verticalList" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/verticalList",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.StoreSubCategory = function (data) {
-  return fetch({
-    url: "store/verticalByCategory",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/verticalByCategory" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/verticalByCategory",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.StoreSubChildCategory = function (data) {
-  return fetch({
-    url: "store/categoryBySubCategory",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/categoryBySubCategory" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/categoryBySubCategory",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.StoreCategoryProd = function (data) {
-  return fetch({
-    url: "store/VerticalByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/VerticalByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/VerticalByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.CategoryByProd = function (data) {
-  return fetch({
-    url: "store/CategoryByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/CategoryByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/CategoryByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.CategoryBySubProd = function (data) {
-  return fetch({
-    url: "store/SubCategoryByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/SubCategoryByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/SubCategoryByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.DealsOfProduct = function (data) {
-  return fetch({
-    url: "store/normalDeals",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/normalDeals" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/normalDeals",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.HotDealsProduct = function (data) {
-  return fetch({
-    url: "store/hotDeals",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/hotDeals" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/hotDeals",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.addToCart = function (data) {
@@ -163,19 +256,29 @@ ApiService.updateCart = function (data) {
 };
 
 ApiService.offers = function (data) {
-  return fetch({
-    url: "store/offers",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/offers" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/offers",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.applicableOffers = function (data) {
-  return fetch({
-    url: "store/applicable-offer",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/applicable-offer" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/applicable-offer",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.addMultipleCart = function (data) {
@@ -195,11 +298,16 @@ ApiService.updateMultipleCart = function (data) {
 };
 
 ApiService.similarProd = function (data) {
-  return fetch({
-    url: "store/cartSimilarProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/cartSimilarProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/cartSimilarProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.showCart = function (data) {
@@ -227,11 +335,16 @@ ApiService.removeCart = function (data) {
 };
 
 ApiService.productDetails = function (data) {
-  return fetch({
-    url: "store/productDetail",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/productDetail" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/productDetail",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.orderList = function (data) {
@@ -315,43 +428,68 @@ ApiService.getAddressDetail = function (data) {
 };
 
 ApiService.ageGroupBox = function (data) {
-  return fetch({
-    url: "store/ageGroupList",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/ageGroupList" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/ageGroupList",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.ageGroupProduct = function (data) {
-  return fetch({
-    url: "store/ageGroupByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/ageGroupByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/ageGroupByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.brandInFocus = function (data) {
-  return fetch({
-    url: "store/brandOffer",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/brandOffer" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/brandOffer",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.newArrivals = function (data) {
-  return fetch({
-    url: "store/newarrivalRandom",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/newarrivalRandom" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/newarrivalRandom",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.brandProduct = function (data) {
-  return fetch({
-    url: "store/BrandByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/BrandByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/BrandByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.getDeliveryCost = function (data) {
@@ -387,66 +525,106 @@ ApiService.onlinePaymentSuccess = function (data) {
 };
 
 ApiService.storeSearch = function (data) {
-  return fetch({
-    url: "store/searchAI",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/searchAI" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/searchAI",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilter = function (data) {
-  return fetch({
-    url: "store/FilterByProduct",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/FilterByProduct" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/FilterByProduct",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilterNew = function (data) {
-  return fetch({
-    url: "store/FilterByProductNew",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/FilterByProductNew" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/FilterByProductNew",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilterAge = function (data) {
-  return fetch({
-    url: "store/FilterByProductAge",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/FilterByProductAge" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/FilterByProductAge",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilterCategory = function (data) {
-  return fetch({
-    url: "store/FilterByProductCategory",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/FilterByProductCategory" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/FilterByProductCategory",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilterBrand = function (data) {
-  return fetch({
-    url: "store/categoryByBrand",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/categoryByBrand" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/categoryByBrand",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.storeFilterOption = function (data) {
-  return fetch({
-    url: "store/filterOption",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/filterOption" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/filterOption",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 ApiService.storeFilterOptionVerticalSlug = function (data) {
-  return fetch({
-    url: "store/filterOptionVerticalSlug",
-    method: "post",
-    data: data,
-  });
+  const cacheKey = "/store/filterOptionVerticalSlug" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/filterOptionVerticalSlug",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
 };
 
 ApiService.orderItemCancel = function (data) {

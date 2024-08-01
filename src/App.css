@@ -3,10 +3,29 @@
   --SECONDARY_COLOR: #fff;
   --MENU_HOVER_COLOR: rgba(207, 16, 45, 0.101);
   --ADD_BUTTON_COLOR: #cf102e;
+  --breakpoint-mobile: 560px;
 }
 
 body {
   background: #e7ecf2;
+}
+
+.hero{
+  max-width: 1500px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 560px) {
+  .hideInDesktop{
+      display: none !important;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .hideInMobile{
+      display: none !important;
+  }
 }
 
 img {
@@ -173,6 +192,11 @@ img {
 .brandSilder .owl-nav button:hover span {
   color: var(--SECONDARY_COLOR);
 }
+.heroBannerMobile .owl-dots {
+  background-color: rgb(255, 255, 255) !important;
+  transform: translateY(-18px);
+}
+
 .heroBanner .owl-nav button,
 .limitedOfferSlider .owl-nav button {
   background: transparent !important;

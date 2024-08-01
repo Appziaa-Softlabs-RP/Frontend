@@ -4,6 +4,7 @@ import "./sitemap.css"; // Create a CSS file to style your sitemap
 import { Header } from "../Header/Header";
 import { Footer } from "../Footer/Footer";
 import { Aside } from "../Aside/Aside";
+import { Link } from "react-router-dom";
 
 const Sitemap = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -95,7 +96,7 @@ const Sitemap = () => {
           {data.verticals.map((vertical, index) => (
             <div key={index}>
               <h3>
-                <a href={`/store/${vertical.name_url}`}>{vertical.name}</a>
+                <Link to={`/store/${vertical.name_url}`}>{vertical.name}</Link>
               </h3>
               <ul>
                 {vertical.catList.map((cat, catIndex) => (
@@ -117,9 +118,9 @@ const Sitemap = () => {
           <ul>
             {data.brands.map((brand, index) => (
               <li key={index}>
-                <a href={`/store-product/brand/${brand.brand_id}`}>
+                <Link to={`/store-product/brand/${brand.brand_id}`}>
                   {brand.name}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -130,7 +131,7 @@ const Sitemap = () => {
           <ul>
             {data.ageGroupList?.map((ageGroup, index) => (
               <li key={index}>
-                <a href={`/store/age/${ageGroup.name_url}`}>{ageGroup.name}</a>
+                <Link to={`/store/age/${ageGroup.name_url}`}>{ageGroup.name}</Link>
               </li>
             ))}
           </ul>
@@ -141,7 +142,7 @@ const Sitemap = () => {
           <ul>
             {data.staticRoutes.map((route, index) => (
               <li key={index}>
-                <a href={route}>{route}</a>
+                <Link to={route}>{route}</Link>
               </li>
             ))}
           </ul>
@@ -152,7 +153,7 @@ const Sitemap = () => {
           <ul>
             {data.products.map((product, index) => (
               <li key={index}>
-                <a href={`/product/${product.name_url}`}>{product.name}</a>
+                <Link to={`/product/${product.name_url}`}>{product.name}</Link>
               </li>
             ))}
           </ul>

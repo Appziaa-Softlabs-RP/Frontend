@@ -13,6 +13,7 @@ import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
 import Reviews from "../../Components/Reviews/Reviews";
 import { ShopAge } from "../../Components/ShopAge/ShopAge";
 import { useApp } from "../../context/AppContextProvider";
+import styles from "./Home.module.css";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -29,10 +30,14 @@ export const Home = () => {
 
         <ShopAge />
 
-        {/* what are you looking for ? */}
-        {!isMobile && <LookingFor />}
-
-        {isMobile && <CategoryShop />}
+        {/* Mobile Structure */}
+        <div className={`hideInDesktop`}>
+          <CategoryShop />
+        </div>
+        {/* Desktop Structure */}
+        <div className={`hideInMobile`}>
+          <LookingFor />
+        </div>
 
         <NewArrival />
 

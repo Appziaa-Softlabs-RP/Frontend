@@ -28,8 +28,7 @@ export const LimitedOffers = () => {
     <React.Fragment>
       {offerProd?.length > 0 && (
         <React.Fragment>
-          {windowWidth === "mobile" ? (
-            <div className="col-12 d-inline-flex">
+            <div className="hideOnDesktop col-12 d-inline-flex">
               <div className={`p-3 container d-flex flex-column`}>
                 <h2
                   className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 fs-2`}
@@ -51,8 +50,7 @@ export const LimitedOffers = () => {
                 </div>
               </div>
             </div>
-          ) : windowWidth === "desktop" ? (
-            <div className="col-12 d-inline-flex">
+            <div className="hideOnMobile col-12 d-inline-flex">
               <div
                 className={`${
                   windowWidth === "mobile" && "p-3"
@@ -105,9 +103,6 @@ export const LimitedOffers = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            ""
-          )}
         </React.Fragment>
       )}
     </React.Fragment>
