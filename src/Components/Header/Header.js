@@ -536,6 +536,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       id={`menu-${index}`}
                       className={`${styles.headerNavBox} position-relative d-inline-flex align-items-center px-4`}
                       key={index}
+                      role="button"
                       onMouseEnter={() => handleMouseEnter(item, index)}
                       onClick={() => handleMouseEnter(item, index)}
                     >

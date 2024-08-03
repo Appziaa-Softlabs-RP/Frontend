@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import ReactReactOwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import styles from "./SubCategory.module.css";
-import ApiService from "../../services/ApiService";
-import { enviroment } from "../../enviroment";
-import { ProductCard } from "../ProductCard/ProductCard";
-import { useApp } from "../../context/AppContextProvider";
+import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ReactReactOwlCarousel from "react-owl-carousel";
+import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
+import { ProductCard } from "../ProductCard/ProductCard";
+import styles from "./SubCategory.module.css";
 
 let currentCat = "";
-export const SubCategory = ({ categoryID }) => {
+export const SubCategory = ({ verticalSlug }) => {
   const slideRef = useRef([]);
   const [shopCategory, setShopCategory] = useState([]);
   const [subShopCategory, setSubShopCategory] = useState([]);
@@ -80,11 +80,11 @@ export const SubCategory = ({ categoryID }) => {
   const fetchProducts = () => {
     const catpayload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_id: categoryID,
+      vertical_slug: verticalSlug,
     };
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_id: categoryID,
+      vertical_slug: verticalSlug,
       page: 1,
       result_per_page: 10,
     };
@@ -171,8 +171,8 @@ export const SubCategory = ({ categoryID }) => {
   }, [shopCategory]);
   return (
     <React.Fragment>
-      {shopCategory?.length && windowWidth === "mobile" ? (
-        <React.Fragment>
+      {shopCategory?.length ? (
+        <div className="hideInDesktop">
           <div
             className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}
           >
@@ -265,13 +265,11 @@ export const SubCategory = ({ categoryID }) => {
               })}
             </div>
           )}
-        </React.Fragment>
+        </div>
       ) : null}
 
       <div
-        className={`col-12 d-inline-flex ${
-          windowWidth === "desktop" && "mt-5"
-        }`}
+        className={`col-12 d-inline-flex mt-4`}
       >
         <div className={`${windowWidth === "mobile" && "p-0"} container`}>
           <InfiniteScroll

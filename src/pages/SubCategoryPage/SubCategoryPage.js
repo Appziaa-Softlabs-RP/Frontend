@@ -1,32 +1,25 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { SubCategory } from "../../Components/SubCategory/SubCategory";
-import { useApp } from "../../context/AppContextProvider";
 
 export const SubCategoryPage = () => {
-  const locationState = useLocation();
-  const categoryID = locationState?.state?.cat;
-  const appData = useApp();
-  let windowWidth = appData.appData.windowWidth;
+  const { verticalSlug } = useParams();
 
   return (
     <React.Fragment>
-      {windowWidth === "mobile" ? (
-        <React.Fragment>
-          <PageHeader title="Explore Categroy" />
-          <SubCategory categoryID={categoryID} />
-          <Footer />
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Header />
-          <SubCategory categoryID={categoryID} />
-          <Footer />
-        </React.Fragment>
-      )}
+      <div className="hideInDesktop">
+        <PageHeader title="Explore Categroy" />
+      </div>
+      <div className="hideInMobile">
+        <Header />
+      </div>
+      <SubCategory
+        verticalSlug={verticalSlug}
+      />
+      <Footer />
     </React.Fragment>
   );
 };
