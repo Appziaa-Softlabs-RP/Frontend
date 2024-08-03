@@ -234,7 +234,7 @@ export const Privacy = () => {
             </span>
             <span className="c6">&nbsp;</span>
             <span className="c9">or by phone at </span>
-            <span className="c1">+91-99997 56468.</span>
+            <span className="c1">+91-{process.env.REACT_APP_PHONE_NUMBER}.</span>
           </p>
         </div>
       </div>

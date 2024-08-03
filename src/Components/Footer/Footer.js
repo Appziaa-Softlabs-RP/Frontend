@@ -223,20 +223,23 @@ export const Footer = () => {
                     {/* <span>Instagram</span> */}
                   </a>
                 </li>
-                <li
-                  className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
-                >
-                  <a
-                    href={enviroment.FACEBOOK_LINK}
-                    className="d-inline-flex align-items-center text-decoration-none gap-1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={`${enviroment.BUSINESS_NAME} on Facebook`}
+                {
+                  enviroment.FACEBOOK_LINK !== "" &&
+                  <li
+                    className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                   >
-                    <FacebookIcon />
-                    {/* <span className="icon__fallback-text">Facebook</span> */}
-                  </a>
-                </li>
+                    <a
+                      href={enviroment.FACEBOOK_LINK}
+                      className="d-inline-flex align-items-center text-decoration-none gap-1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`${enviroment.BUSINESS_NAME} on Facebook`}
+                    >
+                      <FacebookIcon />
+                      {/* <span className="icon__fallback-text">Facebook</span> */}
+                    </a>
+                  </li>
+                }
                 <li
                   className={`${styles.footerIconLink} d-inline-flex p-0 align-items-center`}
                 >

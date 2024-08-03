@@ -19,9 +19,8 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
   return (
     <React.Fragment>
       <div
-        className={`${styles.gradientMenuDrawer} ${
-          asideOpen === true && styles.openDrawer
-        } position-fixed h-100 col-12 top-0 start-0`}
+        className={`${styles.gradientMenuDrawer} ${asideOpen === true && styles.openDrawer
+          } position-fixed h-100 col-12 top-0 start-0`}
       >
         <div
           className={`${styles.menuDrawerInnerContainer} position-absolute h-100 d-inline-flex flex-column`}
@@ -125,7 +124,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               >
                 <Link
                   className="d-inline-flex align-items-center text-decoration-none"
-                  href="tel:+919999756468"
+                  href={`tel:${process.env.REACT_APP_PHONE_NUMBER}`}
                 >
                   <span className="icon-and-text">
                     <svg className="icon icon-phone" viewBox="0 0 64 64">
@@ -135,7 +134,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                         d="M16.57 5l12.32 12.33L21.26 25c2.53 8.5 8.32 15 18.78 18.78l7.63-7.63L60 48.43 49.43 59C25.4 54.11 11.05 39.5 6 15.57z"
                       ></path>
                     </svg>
-                    <span>+91-99997 56468</span>
+                    <span>{process.env.REACT_APP_PHONE_NUMBER}</span>
                   </span>
                 </Link>
               </li>
@@ -167,21 +166,24 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
             <ul
               className={`${styles.listSocial} col-12 p-0 d-inline-flex flex-wrap list-unstyled`}
             >
-              <li
-                className={`${styles.listSocialLink} d-inline-flex align-items-center`}
-              >
-                <Link
-                  href={process.env.REACT_APP_FACEBOOK_LINK}
-                  className="d-inline-flex text-decoration-none list-social__link link"
+              {
+                process.env.REACT_APP_FACEBOOK_LINK !== "" &&
+                <li
+                  className={`${styles.listSocialLink} d-inline-flex align-items-center`}
                 >
-                  <svg className="icon icon-facebook" viewBox="0 0 18 18">
-                    <path
-                      fill="currentColor"
-                      d="M16.42.61c.27 0 .5.1.69.28.19.2.28.42.28.7v15.44c0 .27-.1.5-.28.69a.94.94 0 01-.7.28h-4.39v-6.7h2.25l.31-2.65h-2.56v-1.7c0-.4.1-.72.28-.93.18-.2.5-.32 1-.32h1.37V3.35c-.6-.06-1.27-.1-2.01-.1-1.01 0-1.83.3-2.45.9-.62.6-.93 1.44-.93 2.53v1.97H7.04v2.65h2.24V18H.98c-.28 0-.5-.1-.7-.28a.94.94 0 01-.28-.7V1.59c0-.27.1-.5.28-.69a.94.94 0 01.7-.28h15.44z"
-                    ></path>
-                  </svg>
-                </Link>
-              </li>
+                  <Link
+                    href={process.env.REACT_APP_FACEBOOK_LINK}
+                    className="d-inline-flex text-decoration-none list-social__link link"
+                  >
+                    <svg className="icon icon-facebook" viewBox="0 0 18 18">
+                      <path
+                        fill="currentColor"
+                        d="M16.42.61c.27 0 .5.1.69.28.19.2.28.42.28.7v15.44c0 .27-.1.5-.28.69a.94.94 0 01-.7.28h-4.39v-6.7h2.25l.31-2.65h-2.56v-1.7c0-.4.1-.72.28-.93.18-.2.5-.32 1-.32h1.37V3.35c-.6-.06-1.27-.1-2.01-.1-1.01 0-1.83.3-2.45.9-.62.6-.93 1.44-.93 2.53v1.97H7.04v2.65h2.24V18H.98c-.28 0-.5-.1-.7-.28a.94.94 0 01-.28-.7V1.59c0-.27.1-.5.28-.69a.94.94 0 01.7-.28h15.44z"
+                      ></path>
+                    </svg>
+                  </Link>
+                </li>
+              }
               <li
                 className={`${styles.listSocialLink} d-inline-flex align-items-center`}
               >

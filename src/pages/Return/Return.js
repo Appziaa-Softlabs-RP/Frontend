@@ -173,7 +173,7 @@ export const Return = () => {
               </Link>
             </span>
             <span className="c8">&nbsp;or by phone at</span>
-            <span className="c2">&nbsp;+91-99997 56468</span>
+            <span className="c2">&nbsp;+91-{process.env.REACT_APP_PHONE_NUMBER}</span>
             <span className="c4">.</span>
           </p>
         </div>
