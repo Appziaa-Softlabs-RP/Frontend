@@ -112,7 +112,7 @@ export default function Reviews() {
                     <p className="text-sm mt-3" style={{
                         color: "#1a1a1a"
                     }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
-                    <Link to="https://g.page/r/CYF-YBA6SelvEBM/review" rel="noopener noreferrer"
+                    <Link to="https://www.google.co.in/maps/place/Tara+Sales+Corporation/@28.6422231,77.1294355,13.03z/data=!4m18!1m9!3m8!1s0x390cfd416acaf655:0xc183af725fa98944!2sTara+Sales+Corporation!8m2!3d28.6458965!4d77.2032841!9m1!1b1!16s%2Fg%2F11cjp75xgv!3m7!1s0x390cfd416acaf655:0xc183af725fa98944!8m2!3d28.6458965!4d77.2032841!9m1!1b1!16s%2Fg%2F11cjp75xgv?entry=ttu" rel="noopener noreferrer"
                         target="_blank">
                         <button className={`${styles.reviewBtn} text-white py-2 px-5 mt-3 mb-2`}>Write a Review</button>
                     </Link>

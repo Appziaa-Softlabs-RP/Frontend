@@ -248,7 +248,12 @@ export const CartSummery = ({
                     <span
                       className={`${styles.itemImage} d-inline-flex flex-shrink-0 me-1`}
                     >
-                      <img src={item?.image} alt={item?.product_name} />
+                      <img src={item?.image}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/loading.jpg";
+                      }}
+                      alt={item?.product_name} />
                     </span>
                     <span className={`${styles.productName}`}>
                       {item?.product_name}

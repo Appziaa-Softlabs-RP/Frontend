@@ -5,40 +5,24 @@ export const reviews = [
         date: "1 day ago",
         image: "https://lh3.googleusercontent.com/a/ACg8ocJatwL8_irMwuyHBScTSXIWOA_NHugzs6gImgXAM5OmO4pq9Q=w36-h36-p-rp-mo-br100",
         rating: 5,
-        review: `${process.env.REACT_APP_BUSINESS_NAME} is the ultimate toy store! From Barbie to LEGO, they have it all. Friendly staff, eazy shopping, and quick delivery. Highly recommend for quality toys at great prices!`
+        review: `Tara Toys are built to last! My kids have been playing with their Tara Toy cars and trucks for years now, and they still look brand new. They're perfect for indoor or outdoor play, and they can withstand even the roughest toddler treatment. Plus, the variety of vehicles keeps them entertained for hours.`
     },
     {
         id: 2,
-        name: "Nisha Rawat",
+        name: "Nishant",
         date: "1 day ago",
-        image: "https://lh3.googleusercontent.com/a/ACg8ocKaL_Ty63cRYIBQH3t0WyWpl8zO8YfXeKdOl4AXfvi6ZBuc5Q=w36-h36-p-rp-mo-br100",
+        image: "https://lh3.googleusercontent.com/a-/ALV-UjXcEbhxDRL8VSSZc45WDOQ-vWvjRfIUDdKUahpo7QOGtWZ6455Y=w36-h36-p-rp-mo-br100",
         rating: 5,
-        review: `${process.env.REACT_APP_BUSINESS_NAME} is simply fantastic! I found all my favorite toy brands. The staff was incredibly welcoming and knowledgeable, making my shopp experience a breeze.`
+        review: `Tara Toy is my go-to for preschool supplies! Their selection of educational toys is fantastic, with something for every age group and learning style. The sensory bins are a huge hit with my students, and the customer service is always top-notch.`
     },
     {
         id: 3,
-        name: "kiran. rawat_194",
-        date: "1 day ago",
-        image: "https://lh3.googleusercontent.com/a-/ALV-UjXhFLJ4YJvqfTseY6mP4jFhLFRz_-5Hy7VftJz8m7YQGIeLTHY=w36-h36-p-rp-mo-br100",
-        rating: 5,
-        review: `${process.env.REACT_APP_BUSINESS_NAME} is a dream come true for toy lovers like me! They've got an incredible selection of top brands like Hot Wheels and LEGO, all at prices that won't break the bank. The staff was super friendly and helpful, making my shopping experience a delight. ${process.env.REACT_APP_BUSINESS_NAME} has definitely earned my loyalty as the go-to spot for quality toys!`
-    },
-    {
-        id: 5,
-        name: "Zaid Khan",
-        date: "1 day ago",
-        image: "https://lh3.googleusercontent.com/a-/ALV-UjVwBqMVy_pcC1Anf5NP2I0i0UT8lPfzQho172ODNXPdQsnLGQ9I=w36-h36-p-rp-mo-br100",
-        rating: 5,
-        review: `Absolutely thrilled with my ${process.env.REACT_APP_BUSINESS_NAME} experience! Found all my favorite brands like Barbie and LEGO at fantastic prices. The staff was super helpful, making my shopping trip a breeze. Online ordering was a snap, and my delivery arrived right on time. ${process.env.REACT_APP_BUSINESS_NAME} is now my go-to for top-quality toys!`
-    },
-    {
-        id: 6,
         name: "avinash Jha",
         date: "1 day ago",
         image: "https://lh3.googleusercontent.com/a-/ALV-UjVCGA_5Ye68OglcKE_ClzE6i7ajS_93JV_IGLPlsWrjJQelpRwu=w36-h36-p-rp-mo-ba4-br100",
         rating: 5,
-        review: `${process.env.REACT_APP_BUSINESS_NAME} is an absolute treasure trove for toy enthusiasts of all ages! As a parent, I'm always on the lookout for high-quality toys that spark creativity and keep my kids entertained for hours. ${process.env.REACT_APP_BUSINESS_NAME} exceeded all my expectations with its extensive collection of branded toys, including favorites like Barbie, LEGO, Hot Wheels, and PlayShifu.`
-    },
+        review: `Tara Toy's soft play equipment is a lifesaver at my daycare! It's a safe and fun way for the little ones to burn energy. The shapes are easy to clean, and the variety keeps them entertained. Just wish there were a few more options for older toddlers.`
+    }
 ];
 
 export const specials = {
@@ -146,9 +130,9 @@ export const aboutUs = {
         },
         {
             "heading": "Passion for Play:",
-            "description": "&nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His dynamic vision drives {process.env.REACT_APP_BUSINESS_NAME}&#39;s mission to make us the preferred destination for all things toys in India."
+            "description": `&nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His dynamic vision drives ${process.env.REACT_APP_BUSINESS_NAME}&#39;s mission to make us the preferred destination for all things toys in India.`
         }
     ],
 
-    "otherInfo": `<p>Discover the Wonders of Play</p><p> Come explore the endless possibilities of imagination and creativity at {process.env.REACT_APP_BUSINESS_NAME}.</p><p> Let us help you find the perfect toy that will spark joy and wonder in your child&#39;s life!</p>`
+    "otherInfo": `<p>Discover the Wonders of Play</p><p> Come explore the endless possibilities of imagination and creativity at ${process.env.REACT_APP_BUSINESS_NAME}.</p><p> Let us help you find the perfect toy that will spark joy and wonder in your child&#39;s life!</p>`
 }

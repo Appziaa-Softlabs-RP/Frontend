@@ -77,6 +77,10 @@ export const LookingFor = () => {
                         <img
                           src={item?.category?.image}
                           alt={item?.category?.name}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/loading.jpg";
+                          }}
                           className="object-fit-fill col-12 d-inline-block"
                         />
                       </div>

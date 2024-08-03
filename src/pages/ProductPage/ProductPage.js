@@ -1398,7 +1398,7 @@ export const ProductPage = () => {
                 </div>
               </div>
               <div
-                className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
+                className={`${styles.productDetailBox} d-inline-flex mt-5 flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
               >
                 {ProductData?.brand_name !== null && (
                   <h6 className={`${styles.brandName} d-inline-flex m-0`}>
@@ -1567,7 +1567,7 @@ export const ProductPage = () => {
                   )}
 
                 <div
-                  className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}
+                  className={`${styles.qualityAssured} col-12 d-inline-flex align-items-stretch gap-4 mt-4 p-4`}
                 >
                   <div
                     className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
@@ -1618,7 +1618,7 @@ export const ProductPage = () => {
                     <h6
                       className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
                     >
-                      7 Days Replacement
+                      7 Days Exchange
                     </h6>
                     <p
                       className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}

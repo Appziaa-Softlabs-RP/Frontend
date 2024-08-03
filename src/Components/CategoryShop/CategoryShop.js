@@ -63,6 +63,10 @@ export const CategoryShop = () => {
                       <img
                         src={item.image}
                         alt={item?.name}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/loading.jpg";
+                        }}
                         className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0"
                       />
                     </div>

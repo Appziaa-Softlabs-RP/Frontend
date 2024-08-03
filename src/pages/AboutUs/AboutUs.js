@@ -25,10 +25,11 @@ export const AboutUs = () => {
           <p className="c6">
             <span className="c1" style={{
               fontSize: "1.25rem"
-            }}>
+            }} dangerouslySetInnerHTML={
               {
-                aboutUs?.heading
+                __html: aboutUs?.heading
               }
+            }>
             </span>
           </p>
           <p className="c4" dangerouslySetInnerHTML={

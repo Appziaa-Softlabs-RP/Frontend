@@ -598,7 +598,7 @@ export const Footer = () => {
       ) : (
         ""
       )}
-      <Specials />
+      {/* <Specials /> */}
     </React.Fragment>
   );
 };

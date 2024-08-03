@@ -234,6 +234,10 @@ export const CartAside = ({ setCartPop }) => {
                         <img
                           src={item?.image}
                           alt={item?.product_name}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/loading.jpg";
+                          }}
                           className="col-12 d-inline-block object-fit-contain"
                         />
                       </span>
