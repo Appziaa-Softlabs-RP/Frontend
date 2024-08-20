@@ -1,6 +1,4 @@
 .singleFeaturedProduct {
-  border: 1px solid #ddd;
-  padding: 10px 12px 45px;
   background: #fff;
   border-radius: 10px;
 }
@@ -17,7 +15,7 @@
   z-index: 1;
 }
 .featuredImageBox {
-  /* padding-top: 100%; */
+  padding: 0px;
   border-radius: 5px;
 }
 .featuredImageBox img {

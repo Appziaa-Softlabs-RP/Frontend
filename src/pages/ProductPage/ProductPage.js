@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ProductPage.module.css";
-import ReactOwlCarousel from "react-owl-carousel";
+import axios from "axios";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { ThreeDots } from "react-loader-spinner";
+import ReactOwlCarousel from "react-owl-carousel";
 import {
   Link,
   useLocation,
@@ -11,30 +12,29 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
+import delivery from "../../assets/images/free-delivery.png";
+import orignal from "../../assets/images/original.png";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
-import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
-import { useApp } from "../../context/AppContextProvider";
-import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
+import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
+  CopyIcon,
   CrossIcon,
   FacebookIcon,
   LocationIcon,
+  PinterestIcon,
   ShareIcon,
   TwitterIcon,
   WhatsAppIcon,
-  PinterestIcon,
-  CopyIcon,
 } from "../../Components/siteIcons";
-import { AppNotification } from "../../utils/helper";
+import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
-import axios from "axios";
-import delivery from "../../assets/images/free-delivery.png";
-import orignal from "../../assets/images/original.png";
-import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
 import ApiService from "../../services/ApiService";
-import { Helmet } from "react-helmet";
-import { ThreeDots } from "react-loader-spinner";
+import { AppNotification } from "../../utils/helper";
+import styles from "./ProductPage.module.css";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -590,7 +590,7 @@ export const ProductPage = () => {
                     visible={true}
                     height="80"
                     width="80"
-                    color="#CF102E"
+                    color="#000"
                     radius="9"
                     ariaLabel="three-dots-loading"
                     wrapperStyle={{}}
@@ -626,7 +626,7 @@ export const ProductPage = () => {
                         visible={true}
                         height="80"
                         width="80"
-                        color="#CF102E"
+                        color="#000"
                         radius="9"
                         ariaLabel="three-dots-loading"
                         wrapperStyle={{}}
@@ -664,7 +664,7 @@ export const ProductPage = () => {
                   visible={true}
                   height="80"
                   width="80"
-                  color="#CF102E"
+                  color="#000"
                   radius="9"
                   ariaLabel="three-dots-loading"
                   wrapperStyle={{}}
@@ -1034,7 +1034,7 @@ export const ProductPage = () => {
               <button
                 style={{
                   border: "none",
-                  background: "#ed1f29",
+                  background: "black",
                   cursor: "not-allowed",
                   // opacity: "0.5",
                 }}
@@ -1109,8 +1109,10 @@ export const ProductPage = () => {
 
       <div className="hideInMobile">
         <Header />
-        <div className="col-12 d-inline-flex">
-          <div className="container">
+        <div className="col-12 d-inline-flex" style={{
+          background: "#EEEEEE"
+        }}>
+          <div className="container-fluid">
             <div
               className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}
             >
@@ -1123,7 +1125,7 @@ export const ProductPage = () => {
                   <div
                     className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
                   >
-                     {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
+                    {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
                       <div
                         className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100 top-0`}
                       >
@@ -1141,7 +1143,7 @@ export const ProductPage = () => {
                       role="button"
                       onClick={() => setProdSharePop(true)}
                     >
-                      <ShareIcon color="#CF112D" />
+                      <ShareIcon color="#000" />
                     </span>
                     {prodMainImg ? (
                       <img
@@ -1158,7 +1160,7 @@ export const ProductPage = () => {
                           visible={true}
                           height="80"
                           width="80"
-                          color="#CF102E"
+                          color="#000"
                           radius="9"
                           ariaLabel="three-dots-loading"
                           wrapperStyle={{}}
@@ -1222,179 +1224,116 @@ export const ProductPage = () => {
                     })}
                   </ReactOwlCarousel>
                 </div>
-                <div className={`col-12 d-inline-flex flex-column my-3`}>
-                  <div
-                    className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`}
-                  >
-                    {ProductData?.description !== "" &&
-                      ProductData?.description !== null &&
-                      ProductData?.description !== "Not available" && (
-                        <h3
-                          className={`${descActive === "Description" && styles.tabActive
-                            } ${styles.productDescTitle
-                            } col-4 d-inline-flex justify-content-center m-0`}
+                <div className="col-12 d-flex flex-column my-3">
+                  <div className="d-flex align-items-center justify-content-between flex-column gap-2">
+                    {ProductData?.description &&
+                      ProductData?.description !== "Not available" &&
+                      (
+                        <div
+                          className={`col-4 text-center ${descActive === "Description" ? styles.tabActive : ""
+                            } ${styles.productDescTitle}`}
                           onClick={() => setDescActive("Description")}
                           role="button"
                         >
-                          Product Description
-                        </h3>
+                          <h4>Product Description</h4>
+                          <span>+</span>
+                        </div>
                       )}
-                    {otherInfo === true && (
-                      <h3
-                        className={`${descActive === "Specifications" && styles.tabActive
-                          } ${styles.productDescTitle
-                          } col-4 justify-content-center d-inline-flex m-0`}
+                    {descActive === "Description" &&
+                      ProductData?.description !== "Not available" && (
+                        <div
+                          className={`d-flex flex-column col-12`}
+                          dangerouslySetInnerHTML={prodDesc}
+                        ></div>
+                      )}
+                    {otherInfo && (
+                      <div
+                        className={`col-4 text-center ${descActive === "Specifications" ? styles.tabActive : ""
+                          } ${styles.productDescTitle}`}
                         onClick={() => setDescActive("Specifications")}
                         role="button"
                       >
-                        Specifications
-                      </h3>
+                        <h4>Specifications</h4>
+                        <span>+</span>
+                      </div>
                     )}
-                    {featuresInfo === true && (
-                      <h3
-                        className={`${descActive === "Features" && styles.tabActive
-                          } ${styles.productDescTitle
-                          } col-4 d-inline-flex justify-content-center m-0`}
+                    {descActive === "Specifications" && (
+                      <div className="d-flex flex-column gap-3 col-12 p-3">
+                        {ProductData?.specifications?.type && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Type:</strong> {ProductData?.specifications?.type}
+                          </p>
+                        )}
+                        {ProductData?.specifications?.model_name && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Model Name:</strong> {ProductData?.specifications?.model_name}
+                          </p>
+                        )}
+                        {ProductData?.specifications?.container_type && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Container Type:</strong> {ProductData?.specifications?.container_type}
+                          </p>
+                        )}
+                        {ProductData?.specifications?.package_dimension_length && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Dimension:</strong>{" "}
+                            {"L " +
+                              ProductData?.specifications?.package_dimension_length +
+                              " x B " +
+                              ProductData?.specifications?.package_dimension_width +
+                              " x H " +
+                              ProductData?.specifications?.package_dimension_height}{" "}
+                            cm
+                          </p>
+                        )}
+                        {ProductData?.specifications?.manufactured_by && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Manufactured By:</strong> {ProductData?.specifications?.manufactured_by}
+                          </p>
+                        )}
+                        {ProductData?.specifications?.packed_by && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Packed By:</strong> {ProductData?.specifications?.packed_by}
+                          </p>
+                        )}
+                        {ProductData?.specifications?.exp_date && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Exp Date:</strong> {ProductData?.specifications?.exp_date}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    {featuresInfo && (
+                      <div
+                        className={`col-4 text-center ${descActive === "Features" ? styles.tabActive : ""
+                          } ${styles.productDescTitle}`}
                         onClick={() => setDescActive("Features")}
                         role="button"
                       >
-                        Other Information
-                      </h3>
+                        <h4>Other Information</h4>
+                        <span>+</span>
+                      </div>
+                    )}
+                    {descActive === "Features" && (
+                      <div className="d-flex flex-column gap-3 col-12 p-3">
+                        {ProductData?.other_information?.country_origin && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Country Of Origin:</strong> {ProductData?.other_information?.country_origin}
+                          </p>
+                        )}
+                        {ProductData?.other_information?.manufactured_by && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Manufactured By:</strong> {ProductData?.other_information?.manufactured_by}
+                          </p>
+                        )}
+                        {ProductData?.other_information?.marketed_by && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Marketed By:</strong> {ProductData?.other_information?.marketed_by}
+                          </p>
+                        )}
+                      </div>
                     )}
                   </div>
-                  {descActive === "Description" && (
-                    <div
-                      className={`${styles.prodDescAnswer} d-inline-flex flex-column col-12`}
-                      dangerouslySetInnerHTML={prodDesc}
-                    ></div>
-                  )}
-                  {descActive === "Specifications" && (
-                    <div
-                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
-                    >
-                      {ProductData?.specifications?.type && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Type:</strong>{" "}
-                          {ProductData?.specifications?.type}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.model_name && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Model Name: </strong>
-                          {ProductData?.specifications?.model_name}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.shelf_life && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Shelf Life: </strong>
-                          {ProductData?.specifications?.shelf_life}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications
-                        ?.shelf_life_month_years && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Shelf Life Month Years: </strong>
-                            {
-                              ProductData?.specifications
-                                ?.shelf_life_month_years
-                            }{" "}
-                          </p>
-                        )}
-
-                      {ProductData?.specifications?.container_type && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Container Type: </strong>
-                          {ProductData?.specifications?.container_type}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.organic && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Organic: </strong>
-                          {ProductData?.specifications?.organic}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.polished && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Polished: </strong>
-                          {ProductData?.specifications?.polished}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications
-                        ?.package_dimension_length && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Dimension: </strong>
-                            {"L " +
-                              ProductData?.specifications
-                                ?.package_dimension_length +
-                              " x B " +
-                              ProductData?.specifications
-                                ?.package_dimension_width +
-                              " x H " +
-                              ProductData?.specifications
-                                ?.package_dimension_height}{" "}
-                            cm{" "}
-                          </p>
-                        )}
-
-                      {ProductData?.specifications?.manufactured_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Manufactured By: </strong>
-                          {ProductData?.specifications?.manufactured_by}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.packed_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Packed By: </strong>
-                          {ProductData?.specifications?.packed_by}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.exp_date && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Exp Date: </strong>
-                          {ProductData?.specifications?.exp_date}{" "}
-                        </p>
-                      )}
-                    </div>
-                  )}
-
-                  {descActive === "Features" && (
-                    <div
-                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
-                    >
-                      {ProductData?.other_information?.country_origin && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Country Of Origin: </strong>
-                          {ProductData?.other_information?.country_origin}
-                          <br />
-                        </p>
-                      )}
-
-                      {ProductData?.other_information?.manufactured_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Manufactured By: </strong>
-                          {
-                            ProductData?.other_information?.manufactured_by
-                          }{" "}
-                          <br />
-                        </p>
-                      )}
-
-                      {ProductData?.other_information?.marketed_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
-                          <strong>Marketed By: </strong>
-                          {ProductData?.other_information?.marketed_by} <br />
-                        </p>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
               <div
@@ -1467,7 +1406,7 @@ export const ProductPage = () => {
                     <button
                       style={{
                         border: "none",
-                        background: "#cd1c25",
+                        background: "black",
                         cursor: "not-allowed",
                         opacity: "0.5",
                       }}

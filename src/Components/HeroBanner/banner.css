@@ -1,0 +1,338 @@
+.heroMain {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    background: url("../../../public/images/bg.svg") center/cover no-repeat;
+}
+
+.logo {
+    height: auto;
+    width: 100px;
+}
+
+.heroMain .container {
+    max-width: 1200px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-between;
+    height: 500px;
+}
+
+.heroMain .container .content {
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.heroMain .container h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.heroMain .container p {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: black;
+    color: white;
+    border: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+/* launching soon */
+#launching-soon {
+    position: absolute; /* Change from fixed to absolute */
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    right: 0px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    z-index: 10; /* Ensure it stays above other content */
+}
+
+#launching-soon .logo {
+    height: auto;
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+#launching-soon .content {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#launching-soon .content h1 {
+    font-size: 2.8rem;
+    font-weight: 300;
+}
+
+#launching-soon .content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 200;
+    max-width: 340px;
+    margin: 10px auto;
+    margin-bottom: 20px;
+}
+
+/* timer */
+.wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: -5px;
+}
+
+.days {
+    width: 100px;
+    padding: 11px;
+    font-size: 22px;
+}
+
+.hours {
+    width: 100px;
+    padding: 11px;
+    font-size: 22px;
+}
+
+#days_left,
+#hours_left,
+#mins_left,
+#secs_left {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.time_heading {
+    font-size: 15px;
+    font-weight: 200;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.mins {
+    width: 100px;
+    padding: 11px;
+    font-size: 22px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.secs {
+    width: 100px;
+    padding: 11px;
+    font-size: 22px;
+}
+
+.modal-dialog>* {
+    padding: 1rem;
+}
+
+.close-modal {
+    font-size: 1rem;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid gray;
+    border-radius: 100%;
+}
+
+.modal-content {
+    max-height: 95vh;
+    overflow: auto;
+}
+
+.modal-content p {
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.action-btn {
+    margin: 10px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sheet {
+    position: fixed;
+    top: 0;
+    right: -500px;
+    /* Initially hidden off the screen */
+    width: 500px;
+    height: 100%;
+    background-color: white;
+    transition: right 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sheet-content {
+    color: black;
+    padding: 20px;
+}
+
+/* subscribe */
+.subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+}
+
+.subscribe__title {
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+.subscribe__copy {
+    max-width: 450px;
+    text-align: center;
+    margin-bottom: 53px;
+    line-height: 1.5;
+}
+
+.form {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.form__email {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cad3db;
+    width: 100%;
+    font-size: 18px;
+    color: #0f121f;
+}
+
+.form__email:focus {
+    outline: 1px solid black;
+}
+
+/* social icons */
+.social-icons-group {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .heroMain .container {
+        padding: 20px;
+    }
+
+    .timer {
+        margin-left: 0;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .sheet {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .action-btn {
+        padding: 10px;
+    }
+
+    .btn-group {
+        gap: 5px;
+    }
+
+    .timer {
+        gap: 5px;
+    }
+
+    #days_left,
+    #hours_left,
+    #mins_left,
+    #secs_left {
+        font-size: 30px;
+    }
+}

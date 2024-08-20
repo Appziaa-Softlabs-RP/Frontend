@@ -14,13 +14,14 @@
 }
 .loginGradientBox h2{
     font-size: 18px;
-    color: #FFF;
+    color: #000;
+    margin: 0px;
     font-weight: bold;
 }
 .loginGradientBox p{
     font-size: 14px;
     font-weight: 400;
-    color: #EEE;
+    color: #2e2e2e;
 }
 .closeLogin{
     font-size: 20px;

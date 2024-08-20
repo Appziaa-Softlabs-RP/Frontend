@@ -7,6 +7,7 @@ import styles from "./LookingFor.module.css";
 import { useAppStore } from "../../store";
 import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
+import SubHeading from "../sub-heading/SubHeading";
 
 export const LookingFor = () => {
   const categories = useAppStore((state) => state.categories);
@@ -47,11 +48,9 @@ export const LookingFor = () => {
             className={`${windowWidth === "mobile" && "p-0"
               } container d-flex flex-column m-auto`}
           >
-            <h2
-              className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}
-            >
-              ✨ Shop by Category ✨
-            </h2>
+            
+            <SubHeading title="Shop By Categry" />
+
             <div className="col-12 d-inline-flex">
               <ReactOwlCarousel
                 className={`carousel-looking-for col-12 brandSilder owl-theme`}

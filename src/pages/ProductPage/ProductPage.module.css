@@ -73,7 +73,7 @@
 	z-index: 5;
 }
 .soldOutText{
-    background: #ED1F29;
+    background: #000;
 	-webkit-transform: rotate(-5deg) translateY(-50%);
 	transform: rotate(-5deg) translateY(-50%);
 	border-radius: 4px;
@@ -125,9 +125,23 @@
     border-bottom: 1px solid #999;
 }
 .productDescTitle{
-    color: #151515;
+    background-color: white;
+    color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 5px;
     font-size: 16px;
+    font-weight: 600;
 }
+
+.productDescTitle h4{
+    font-size: 16px;
+    margin: 0px;
+}
+
 .prodDescAnswer{
     padding: 24px;
     color: #151515;

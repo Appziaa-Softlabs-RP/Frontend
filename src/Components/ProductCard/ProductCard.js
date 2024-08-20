@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import noImage from "../../assets/images/image-not-available.jpg";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductCard.module.css";
-import noImage from "../../assets/images/image-not-available.jpg";
-import { ProductPage } from "../../pages/ProductPage/ProductPage";
 
 export const ProductCard = ({ item, index }) => {
   const [prodAdded, setProdAdded] = useState(false);
@@ -291,7 +290,7 @@ export const ProductCard = ({ item, index }) => {
             ""
           )}
           <div
-            className={`d-flex align-items-center  justify-content-center ${styles.productImgContainer}`}
+            className={`d-flex align-items-center ${styles.productImgContainer}`}
           >
             <img
               onError={(e) => setNoImage(e)}
@@ -299,7 +298,7 @@ export const ProductCard = ({ item, index }) => {
                 opacity: item.stock <= 0 ? "0.5" : "1",
                 height: "100%",
                 width: "100%",
-                objectFit: "contain",
+                objectFit: "cover",
               }}
               src={
                 item?.image
@@ -307,7 +306,7 @@ export const ProductCard = ({ item, index }) => {
                       "https://rewardsplus.in/uploads/app/public/cogendermpany",
                       "https://merchant.rewardsplus.in/uploads/app/public/company"
                     )
-                  : item?.image_url
+                  : item?.image_url ?? noImage
               }
               alt="--"
               className={`${styles.productImg}`}
@@ -330,26 +329,34 @@ export const ProductCard = ({ item, index }) => {
             ""
           )}
         </Link>
+        <div style={{
+          fontSize: "13px",
+          fontWeight: "500",
+        }} className="mt-2" >
+          {item?.gender_name}
+        </div>
         <div>
           <Link
             to={`/product/${item?.name_url}`}
             style={{
-              margin: "15px 0px",
+              margin: "5px 0px",
               textDecoration: "none",
-              minHeight: "30px",
+              minHeight: "25px",
               display: "-webkit-box",
               WebkitLineClamp: "2",
               WebkitBoxOrient: "vertical",
+              fontSize: "16px",
+              fontWeight: "600",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "normal",
               lineHeight: "15px",
             }}
-            className={`${styles.offerItemName} col-12 p-0 mb-1`}
+            className={`${styles.offerItemName} col-12 p-0`}
           >
             {item.name}
           </Link>
-          {item?.is_deal === 1 && item.deals_price != 0 ? (
+          {item?.is_deal === 1 && item.deals_price !== 0 ? (
             <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
               <span className={`${styles.offerPrice} d-inline-flex`}>
                 <b>₹{Math.round(item.deals_price)}</b>
@@ -362,11 +369,12 @@ export const ProductCard = ({ item, index }) => {
             <div
               style={{
                 margin: "10px 0px",
+                fontWeight: "400",
               }}
               className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap"
             >
               <span className={`${styles.offerPrice} d-inline-flex`}>
-                <b>₹{Math.round(item.selling_price)}</b>
+                ₹{Math.round(item.selling_price)}
               </span>
               <del className={`${styles.offerDiscountPrice} d-inline-flex`}>
                 ₹{Math.round(item.mrp)}
@@ -381,80 +389,13 @@ export const ProductCard = ({ item, index }) => {
             >
               <span
                 className={`${styles.offerPrice} col-12 p-0 d-inline-block float-left`}
+                style={{
+                  fontWeight: "400",
+                }}
               >
-                <b>₹{Math.round(item.mrp)}</b>
+                ₹{Math.round(item.mrp)}
               </span>
             </div>
-          )}
-          {item.stock > 0 && (
-            <React.Fragment>
-              {!prodAdded ? (
-                <span
-                  role="button"
-                  className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}
-                  onClick={(e) => addToCart(e, item)}
-                >
-                  Add to cart
-                </span>
-              ) : (
-                <div
-                  className={`${styles.itemQuantityBtnBox} position-absolute`}
-                >
-                  <span
-                    role="button"
-                    onClick={(e) =>
-                      updateProdQty(
-                        e,
-                        item?.product_id ? item.product_id : item.id,
-                        item?.no_of_quantity_allowed,
-                        prodAddedQty,
-                        "minus",
-                        item?.stock
-                      )
-                    }
-                    className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                  >
-                    -
-                  </span>
-                  <span className="d-inline-flex flex-shrink-0">
-                    <input
-                      type="text"
-                      readOnly
-                      value={prodAddedQty}
-                      className={`${styles.countValue} d-inline-block text-center`}
-                    />
-                  </span>
-                  <span
-                    role="button"
-                    onClick={(e) =>
-                      updateProdQty(
-                        e,
-                        item?.product_id ? item.product_id : item.id,
-                        item?.no_of_quantity_allowed,
-                        prodAddedQty,
-                        "plus",
-                        item?.stock
-                      )
-                    }
-                    className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-                  >
-                    +
-                  </span>
-                </div>
-              )}
-            </React.Fragment>
-          )}
-          {item.stock <= 0 && (
-            <button
-              type="button"
-              className={`${styles.addCartBtn} d-inline-flex align-items-center justify-content-center position-absolute text-uppercase`}
-              style={{
-                cursor: "not-allowed",
-                opacity: "0.5",
-              }}
-            >
-              Sold out!
-            </button>
           )}
         </div>
       </div>

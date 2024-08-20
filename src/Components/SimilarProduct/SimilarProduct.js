@@ -3,6 +3,7 @@ import styles from "./SimilarProduct.module.css";
 import { useApp } from "../../context/AppContextProvider";
 import { ProductCard } from "../ProductCard/ProductCard";
 import ReactOwlCarousel from "react-owl-carousel";
+import SubHeading from "../sub-heading/SubHeading";
 
 export const SimilarProduct = ({ product }) => {
   const appData = useApp();
@@ -14,15 +15,9 @@ export const SimilarProduct = ({ product }) => {
         className={`${styles.similarProductBox} col-12 d-inline-flex flex-column py-4`}
       >
         <div className={`${windowWidth === "mobile" && "p-0"} container`}>
-          <h2
-            className={`${
-              styles.availSizeTitle
-            } mt-0 col-12 d-inline-flex align-items-center justify-content-between ${
-              windowWidth === "mobile" && "px-4 m-0"
-            }`}
-          >
-            Similar Products
-          </h2>
+
+          <SubHeading title="Similar Products" />
+
           {windowWidth === "mobile" && (
             <span
               className={`${styles.smallTitle} col-12 mb-3 d-inline-block float-left px-4`}

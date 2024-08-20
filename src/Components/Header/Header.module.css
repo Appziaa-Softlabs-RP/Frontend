@@ -112,7 +112,7 @@
     width: 320px;
     border-radius: 4px;
     box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.10);
-    z-index: 5;
+    z-index: 30;
     padding: 20px;
 }
 
@@ -184,12 +184,12 @@
     background: #FFF;
     font-size: 16px;
     color: #000;
-    border: none;
+    border: 2px solid rgba(128, 128, 128, 0.229);
     box-shadow: none;
 }
 
 .inputSearch:focus {
-    border: none;
+    border: 2px solid rgba(45, 45, 45, 0.383);
     box-shadow: none;
     outline: none;
 }
@@ -211,20 +211,7 @@
 .menuName,
 .subMenuName {
     font-size: 15px;
-    min-width: 250px;
     color: #000;
-}
-
-.menuName {
-    min-width: 150px;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.headerNavBox:hover .menuName {
-    font-weight: bold;
 }
 
 .menuName {
@@ -236,17 +223,37 @@
     -webkit-transform: rotate(-90deg);
     height: 8px;
     width: 8px;
-    transition: transform .1s, -webkit-transform .1s;
+    transition: transform 0.1s, -webkit-transform 0.1s;
 }
 
 .SubMenuList {
-    background: #FFF;
-    z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
+    background: #fff;
+    z-index: 30;
+    transition: all ease 400ms;
+    transform: translateY(-16px);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
     top: 48px;
     border-radius: 5px;
     padding: 12px;
     min-width: 240px;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.headerNavBox:hover .SubMenuList:after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    margin-left: -5px;
+    background: #fff;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: -5px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
 }
 
 .headerNavBox:hover .SubMenuList {
@@ -266,7 +273,18 @@
 
 .subMenuName:hover {
     font-weight: 500;
-    background: #FAC100;
+    background: var(--MENU_HOVER_COLOR);
+}
+
+.headerNavBox:hover .menuName svg {
+    transform: rotate(-90deg) scaleX(-1);
+    -webkit-transform: rotate(-90deg) scaleX(-1);
+}
+
+.subMenuName:hover {
+    font-weight: 500;
+    background: #ff0000;
+    color: white;
 }
 
 .userAccountDrop {

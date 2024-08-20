@@ -1,0 +1,15 @@
+.categoryHeaderTitleContanier{
+    border-bottom: 4px solid black;
+    padding: 0px;
+    width: 70%;
+    margin: 30px 0px;
+}
+.categoryHeaderTitle{
+    font-size: 18px;
+    margin: 0px;
+    font-weight: 600;
+    width: fit-content;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+}
