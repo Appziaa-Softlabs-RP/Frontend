@@ -28,7 +28,7 @@ export const CategoryShop = () => {
           </h1>
           <div className="d-flex flex-row flex-wrap align-items-center  justify-content-center md:justify-content-start ">
             {shopCategory?.map((item, index) => {
-              return <SubCategory categoryID={item?.vertical_id} />;
+              return <SubCategory verticalSlug={item?.name_url} />;
             })}
           </div>
         </div>
