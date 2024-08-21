@@ -152,6 +152,13 @@
     color: #000;
     font-weight: 700;
 }
+.deliveryInputBox{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 100px;
+    width: 100%;
+    align-items: center;
+}
 .deliveryInputBox svg{
     height: 30px;
     width: 30px;
@@ -161,11 +168,12 @@
     position: absolute;
 }
 .deliveryInput{
-    height: 50px;
+    /* height: 50px; */
     border: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #bfbdbd;
     box-shadow: none;
-    padding: 10px 80px 10px 40px;
+    padding: 5px 10px;
+    font-size: 15px;
     background: transparent;
 }
 .deliveryInput:focus{
@@ -173,11 +181,11 @@
 }
 .deliveryBtn{
     box-shadow: none;
-    border: none;
+    border: 1px solid black;
     right: 0;
     top: 0;
-    height: 100%;
-    padding: 0 10px;
+    padding: 5px 10px;
+    height: fit-content;
     background: transparent;
     font-size: 14px;
     font-weight: 600;

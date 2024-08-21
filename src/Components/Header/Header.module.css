@@ -211,11 +211,15 @@
 .menuName,
 .subMenuName {
     font-size: 15px;
-    color: #000;
+    color: #000 !important;
 }
 
 .menuName {
     font-weight: 500;
+    min-width: 100px;
+}
+.menuName:hover {
+    font-weight: bold;
 }
 
 .menuName svg {
@@ -282,8 +286,8 @@
 }
 
 .subMenuName:hover {
-    font-weight: 500;
-    background: #ff0000;
+    font-weight: 700;
+    background: #d5d5d5;
     color: white;
 }
 

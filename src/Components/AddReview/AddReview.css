@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+body {
+    color: #545454;
+    font-family: "Open Sans", sans-serif;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    line-height: 160%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.rating-component {
+    margin-bottom: 10px;
+}
+
+.feedback-tags .tags-container {
+    display: none;
+}
+
+.feedback-tags .tags-box {
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.feedback-tags .tag {
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.feedback-tags .tag.choosed {
+    background-color: black;
+    color: #fff;
+}
+
+.submited-box {
+    padding: 20px;
+}
+
+.submited-box .loader {
+    border: 5px solid transparent;
+    border-top: 5px solid #4dc7b7;
+    border-bottom: 5px solid black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

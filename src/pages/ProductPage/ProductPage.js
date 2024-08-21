@@ -12,9 +12,6 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
-import delivery from "../../assets/images/free-delivery.png";
-import orignal from "../../assets/images/original.png";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
@@ -35,6 +32,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
+import AddReview from "../../Components/AddReview/AddReview";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -1505,67 +1503,6 @@ export const ProductPage = () => {
                     </div>
                   )}
 
-                <div
-                  className={`${styles.qualityAssured} col-12 d-inline-flex aliign-items-stretch gap-4 mt-4 p-4`}
-                >
-                  <div
-                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                  >
-                    <img
-                      src={delivery}
-                      alt="delivery"
-                      className="object-fit-contain"
-                    />
-                    <h6
-                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                    >
-                      Free Home Delivery
-                    </h6>
-                    <p
-                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                    >
-                      More than 19,000 pincodes, seamlessly connected.
-                    </p>
-                  </div>
-                  <div
-                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                  >
-                    <img
-                      src={orignal}
-                      alt="orignal"
-                      className="object-fit-contain"
-                    />
-                    <h6
-                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                    >
-                      100% Original
-                    </h6>
-                    <p
-                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                    >
-                      Backed by manufacturer warranty.
-                    </p>
-                  </div>
-                  <div
-                    className={`${styles.assuredBox} col-4 flex-shrink-1 d-inline-flex flex-column align-items-center gap-2`}
-                  >
-                    <img
-                      src={replacement}
-                      alt="replacement"
-                      className="object-fit-contain"
-                    />
-                    <h6
-                      className={`${styles.assuredTitle} col-12 d-inline-flex justify-content-center mb-0`}
-                    >
-                      7 Days Replacement
-                    </h6>
-                    <p
-                      className={`${styles.assuredDesc} m-0 col-12 d-inline-flex justify-content-center text-center`}
-                    >
-                      Shop risk-free with our 7-day return policy.
-                    </p>
-                  </div>
-                </div>
                 <div className="col-12 d-inline-block mt-3 mb-3">
                   <h3
                     className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}
@@ -1576,10 +1513,15 @@ export const ProductPage = () => {
                     <div
                       className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}
                     >
-                      <LocationIcon color={enviroment.PRIMARY_COLOR} />
+                      <p style={{
+                        width: '30px',
+                        height: '30px',
+                      }}>
+                        <LocationIcon color={'gray'} />
+                      </p>
                       <input
                         type="number"
-                        className={`${styles.deliveryInput} col-12 d-inline-block position-relative`}
+                        className={`${styles.deliveryInput} w-100 d-inline-block position-relative`}
                         maxLength="6"
                         minLength="6"
                         placeholder="Enter Delivery Pincode"
@@ -1590,7 +1532,7 @@ export const ProductPage = () => {
                         aria-label="Check Delivery"
                         onClick={() => getDeliveyInfo(pincode)}
                         type="button"
-                        className={`${styles.deliveryBtn} position-absolute d-inline-flex h-100 align-items-center justify-content-center`}
+                        className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center`}
                       >
                         Check
                       </button>
@@ -1687,6 +1629,9 @@ export const ProductPage = () => {
                     )}
                   </div>
                 </div>
+
+                <AddReview />
+
               </div>
             </div>
           </div>

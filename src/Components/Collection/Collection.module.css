@@ -1,0 +1,55 @@
+.mainContainer {
+    background-color: #EEEEEE;
+    padding: 50px 0px;
+    position: relative;
+}
+
+.darkenImage {
+    filter: brightness(50%);
+}
+
+.collectionImageText{
+    position: absolute;
+    bottom: 0px;
+    white-space: break-space;
+    z-index: 20;
+    left: 30px;
+    line-height: 1.2;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.categoryName{
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    bottom: 0px;
+    background-color: white;
+    width: 75%;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.imageResponsive{
+    min-width: 100%;
+    object-fit: cover;
+    height: auto;
+}
+
+.imageResponsive:hover{
+    transform: scale(1.1);
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.categoryCollection{
+    display: flex;
+    padding: 0px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    overflow: hidden;
+}
