@@ -1123,7 +1123,7 @@ export const ProductPage = () => {
                   <div
                     className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
                   >
-                     {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
+                    {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
                       <div
                         className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100 top-0`}
                       >
@@ -1273,63 +1273,31 @@ export const ProductPage = () => {
                       className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
                     >
                       {ProductData?.specifications?.type && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Type:</strong>{" "}
                           {ProductData?.specifications?.type}
                         </p>
                       )}
 
                       {ProductData?.specifications?.model_name && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Model Name: </strong>
                           {ProductData?.specifications?.model_name}{" "}
                         </p>
                       )}
 
-                      {ProductData?.specifications?.shelf_life && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Shelf Life: </strong>
-                          {ProductData?.specifications?.shelf_life}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications
-                        ?.shelf_life_month_years && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Shelf Life Month Years: </strong>
-                            {
-                              ProductData?.specifications
-                                ?.shelf_life_month_years
-                            }{" "}
-                          </p>
-                        )}
-
                       {ProductData?.specifications?.container_type && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Container Type: </strong>
                           {ProductData?.specifications?.container_type}{" "}
                         </p>
                       )}
 
-                      {ProductData?.specifications?.organic && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Organic: </strong>
-                          {ProductData?.specifications?.organic}{" "}
-                        </p>
-                      )}
-
-                      {ProductData?.specifications?.polished && (
-                        <p className="col-12 d-none gap-2 m-0">
-                          <strong>Polished: </strong>
-                          {ProductData?.specifications?.polished}{" "}
-                        </p>
-                      )}
-
                       {ProductData?.specifications
                         ?.package_dimension_length && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
+                          <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                             <strong>Dimension: </strong>
-                            {"L " +
+                            <span>{"L " +
                               ProductData?.specifications
                                 ?.package_dimension_length +
                               " x B " +
@@ -1338,26 +1306,37 @@ export const ProductPage = () => {
                               " x H " +
                               ProductData?.specifications
                                 ?.package_dimension_height}{" "}
-                            cm{" "}
+                            {
+                              ProductData?.specifications
+                                ?.package_dimension_unit === 2
+                                ? <span>inch</span> :
+                                ProductData?.specifications
+                                  ?.package_dimension_unit === 3
+                                  ? <span>cm</span> :
+                                  ProductData?.specifications
+                                    ?.package_dimension_unit === 4
+                                    ? <span>mm</span> : ''
+                            }{" "}
+                            </span>
                           </p>
                         )}
 
                       {ProductData?.specifications?.manufactured_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Manufactured By: </strong>
                           {ProductData?.specifications?.manufactured_by}{" "}
                         </p>
                       )}
 
                       {ProductData?.specifications?.packed_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Packed By: </strong>
                           {ProductData?.specifications?.packed_by}{" "}
                         </p>
                       )}
 
                       {ProductData?.specifications?.exp_date && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Exp Date: </strong>
                           {ProductData?.specifications?.exp_date}{" "}
                         </p>
@@ -1367,10 +1346,16 @@ export const ProductPage = () => {
 
                   {descActive === "Features" && (
                     <div
-                      className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12 p-3`}
+                      className={`${styles.productDetailText} gap-3 col-12 p-3`}
                     >
+                      {ProductData?.barcode && (
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
+                          <strong>Bar Code: </strong>
+                          {ProductData?.barcode} <br />
+                        </p>
+                      )}
                       {ProductData?.other_information?.country_origin && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Country Of Origin: </strong>
                           {ProductData?.other_information?.country_origin}
                           <br />
@@ -1378,7 +1363,7 @@ export const ProductPage = () => {
                       )}
 
                       {ProductData?.other_information?.manufactured_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Manufactured By: </strong>
                           {
                             ProductData?.other_information?.manufactured_by
@@ -1386,9 +1371,8 @@ export const ProductPage = () => {
                           <br />
                         </p>
                       )}
-
                       {ProductData?.other_information?.marketed_by && (
-                        <p className="col-12 d-inline-flex gap-2 m-0">
+                        <p className={`col-12 ${styles.gridtwo} gap-2 m-0`}>
                           <strong>Marketed By: </strong>
                           {ProductData?.other_information?.marketed_by} <br />
                         </p>
@@ -1431,9 +1415,12 @@ export const ProductPage = () => {
                     ? ProductData?.category_name
                     : ""}
                 </div>
-                <span className="ml-3 mb-0">
-                  Item Code: {ProductData?.barcode}{" "}
-                </span>
+                {
+                  ProductData?.article_name &&
+                  <span className="ml-3 mb-0">
+                    Item Code: {ProductData?.article_name ?? ''}{" "}
+                  </span>
+                }
                 <div
                   className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
                 >

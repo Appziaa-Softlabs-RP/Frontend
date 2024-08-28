@@ -67,7 +67,20 @@
     font-size: 14px;
     line-height: 19px;
     color: #000;
+    display: grid;
+    grid-template-columns: 1fr;
 }
+
+.gridtwo{
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px;
+}
+
+.tabActive{
+    font-weight: bold;
+}
+
 .productSoldOutBox{
     background: rgba(255,255,255,0.60);
 	z-index: 5;
