@@ -2,12 +2,10 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ReactReactOwlCarousel from "react-owl-carousel";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { ProductCard } from "../ProductCard/ProductCard";
-import styles from "./SubCategory.module.css";
 
 let currentCat = "";
 export const SubCategory = ({ verticalSlug }) => {
@@ -35,12 +33,12 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setSubShopCategory(res?.payload_categoryBySubCategory);
       })
-      .catch((err) => {});
+      .catch((err) => { });
     ApiService.CategoryByProd(payload)
       .then((res) => {
         setShopCategoryProd(res?.payload_CategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const getSubCategoryProd = (subId) => {
@@ -57,7 +55,7 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategoryProd(res.payload_SubCategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const getCategoryProd = (currentCat) => {
@@ -74,7 +72,7 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategoryProd(res.payload_CategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const fetchProducts = () => {
@@ -94,14 +92,14 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategory(res.payload_verticalByCategory);
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     setApiPayload(payload);
     ApiService.StoreCategoryProd(payload)
       .then((res) => {
         setShopCategoryProd(res.payload_VerticalByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const LoadMoreProducts = () => {
@@ -120,7 +118,7 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else if (activeApi === "categorySub") {
       ApiService.CategoryBySubProd(apiPayload)
         .then((res) => {
@@ -133,7 +131,7 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     } else if (activeApi === "subChild") {
       ApiService.CategoryByProd(apiPayload)
         .then((res) => {
@@ -146,7 +144,7 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   };
 
@@ -165,7 +163,7 @@ export const SubCategory = ({ verticalSlug }) => {
           .then((res) => {
             setSubShopCategory(res?.payload_categoryBySubCategory);
           })
-          .catch((err) => {});
+          .catch((err) => { });
       }
     });
   }, [shopCategory]);
@@ -175,20 +173,20 @@ export const SubCategory = ({ verticalSlug }) => {
         className={`col-12 d-inline-flex mt-4`}
       >
         <div className={`${windowWidth === "mobile" && "p-0"} container`}>
-          <InfiniteScroll
+          {/* <InfiniteScroll
             className="col-12 d-inline-flex flex-wrap"
             dataLength={categoryProd.length}
             next={LoadMoreProducts}
             hasMore={true}
-          >
+          > */}
+          <div className="col-12 d-inline-flex flex-wrap">
             {categoryProd.map((item, index) => {
               return (
                 <React.Fragment key={index}>
                   {item.name !== "" && (
                     <div
-                      className={`${
-                        windowWidth === "mobile" ? "col-6" : "col-3"
-                      } px-2 flex-shrink-0 mb-2`}
+                      className={`${windowWidth === "mobile" ? "col-6" : "col-3"
+                        } px-2 flex-shrink-0 mb-2`}
                       key={index}
                     >
                       <ProductCard item={item} index={index} />
@@ -197,7 +195,8 @@ export const SubCategory = ({ verticalSlug }) => {
                 </React.Fragment>
               );
             })}
-          </InfiniteScroll>
+          </div>
+          {/* </InfiniteScroll> */}
         </div>
       </div>
     </React.Fragment>
