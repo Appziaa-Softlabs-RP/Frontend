@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
 
 export const Cancellation = () => {
   const appData = useApp();
@@ -73,8 +74,8 @@ export const Cancellation = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <a className="c17" href="mailto:taradutt777@yahoo.in">
-                  taradutt777@yahoo.in
+                <a className="c17" href={`mailto:${enviroment.EMAIL_ADDRESS}`}>
+                  {enviroment.EMAIL_ADDRESS}
                 </a>
               </span>
               <span className="c8">&nbsp;</span>
@@ -97,8 +98,8 @@ export const Cancellation = () => {
                 location at{" "}
               </span>
               <span className="c14 c18">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
+                {enviroment.STORE_ADDRESS}
+                ,{" "}
               </span>
               <span className="c4">
                 &nbsp;within the 7-day Cancellation window. Please bring your
@@ -169,8 +170,8 @@ export const Cancellation = () => {
               contact us at{" "}
             </span>
             <span className="c15">
-              <a className="c17" href="mailto:taradutt777@yahoo.in">
-                taradutt777@yahoo.in
+              <a className="c17" href={`mailto:${enviroment.EMAIL_ADDRESS}`}>
+              {enviroment.EMAIL_ADDRESS}
               </a>
             </span>
             <span className="c8">&nbsp;or by phone at</span>

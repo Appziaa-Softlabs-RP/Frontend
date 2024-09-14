@@ -71,7 +71,7 @@ export const ProductPage = () => {
     setProdMainImg(image);
   };
 
-  const openProductColpse = () => {};
+  const openProductColpse = () => { };
 
   const addToCart = (e, item) => {
     e.preventDefault();
@@ -240,8 +240,8 @@ export const ProductPage = () => {
       let productID = ProductData?.product_id
         ? ProductData.product_id
         : ProductData?.id
-        ? ProductData?.id
-        : "";
+          ? ProductData?.id
+          : "";
       if (productID !== "") {
         let cartID = appData.appData.cartData.findIndex(
           (obj) => obj.product_id === productID
@@ -296,7 +296,7 @@ export const ProductPage = () => {
     if (val.length > 5) {
       axios
         .post(`${enviroment.DELIVERY_URL}/pincode-status`, {
-          store_email: "knickk8@gmail.com",
+          store_email: enviroment.EMAIL_ADDRESS,
           pincode: val,
         })
         .then(function (res) {
@@ -523,39 +523,39 @@ export const ProductPage = () => {
               dots={true}
               items={1}
             >
-                <div
-                    className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+              <div
+                className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
+              >
+                {prodMainImg ? (
+                  <img
+                    src={ProductData?.image}
+                    alt={ProductData?.name}
+                    className="col-12 d-inline-block"
+                    style={{
+                      maxHeight: "500px",
+                      width: "auto",
+                    }}
+                  />
+                ) : (
+                  <div
+                    className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+                    style={{
+                      height: "500px",
+                    }}
                   >
-                    {prodMainImg ? (
-                      <img
-                        src={ProductData?.image}
-                        alt={ProductData?.name}
-                        className="col-12 d-inline-block"
-                        style={{
-                          maxHeight: "500px",
-                          width: "auto",
-                        }}
-                      />
-                    ) : (
-                      <div
-                        className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                        style={{
-                          height: "500px",
-                        }}
-                      >
-                        <ThreeDots
-                          visible={true}
-                          height="80"
-                          width="80"
-                          color="#CF102E"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      </div>
-                    )}
+                    <ThreeDots
+                      visible={true}
+                      height="80"
+                      width="80"
+                      color="#CF102E"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
                   </div>
+                )}
+              </div>
               {ProductData?.gallery_images?.map((item, index) => {
                 return (
                   <div
@@ -734,9 +734,8 @@ export const ProductPage = () => {
                 </button>
               </div>
               <div
-                className={`${styles.productDetailText} col-12 p-0 ${
-                  !isAboutProductDesc && "visually-hidden"
-                }`}
+                className={`${styles.productDetailText} col-12 p-0 ${!isAboutProductDesc && "visually-hidden"
+                  }`}
               >
                 {ProductData?.description?.replace(/(<([^>]+)>)/gi, " ")}
               </div>
@@ -893,11 +892,10 @@ export const ProductPage = () => {
                 </span>
               ) : (
                 <span
-                  className={`${styles.AddCartBtn} ${
-                    ProductData?.stock === 0 || ProductData?.stock < 0
+                  className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0
                       ? styles.disableCartBtn
                       : ""
-                  } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                    } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
                   onClick={(e) => addToCart(e, ProductData)}
                 >
                   Add to Cart
@@ -1008,37 +1006,35 @@ export const ProductPage = () => {
                       dots={false}
                       items={6}
                     >
-                      
+
                       <div
-                            className={`${styles.galleryBox} ${
-                              activeImg === -1 ? styles.activeGallery : ""
-                            } col-12 d-inline-flex align-items-center justify-content-center`}
-                            onClick={() =>
-                              setMainImage(
-                                ProductData?.image,
-                                -1
-                              )
-                            }
-                          >
-                            <img
-                              src={ProductData?.image}
-                              alt={ProductData?.name}
-                              className=""
-                              style={{
-                                height: "80px",
-                                maxHeight: "80px",
-                                maxWidth: "100%",
-                                objectFit: "contain",
-                              }}
-                            />
-                          </div>
+                        className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
+                          } col-12 d-inline-flex align-items-center justify-content-center`}
+                        onClick={() =>
+                          setMainImage(
+                            ProductData?.image,
+                            -1
+                          )
+                        }
+                      >
+                        <img
+                          src={ProductData?.image}
+                          alt={ProductData?.name}
+                          className=""
+                          style={{
+                            height: "80px",
+                            maxHeight: "80px",
+                            maxWidth: "100%",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </div>
 
                       {ProductData?.gallery_images?.map((item, index) => {
                         return (
                           <div
-                            className={`${styles.galleryBox} ${
-                              activeImg === index ? styles.activeGallery : ""
-                            } col-12 d-inline-flex align-items-center justify-content-center`}
+                            className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
+                              } col-12 d-inline-flex align-items-center justify-content-center`}
                             onClick={() =>
                               setMainImage(
                                 enviroment.API_IMAGE_GALLERY_URL + item,
@@ -1071,11 +1067,9 @@ export const ProductPage = () => {
                         ProductData?.description !== null &&
                         ProductData?.description !== "Not available" && (
                           <h3
-                            className={`${
-                              descActive === "Description" && styles.tabActive
-                            } ${
-                              styles.productDescTitle
-                            } col-4 d-inline-flex justify-content-center m-0`}
+                            className={`${descActive === "Description" && styles.tabActive
+                              } ${styles.productDescTitle
+                              } col-4 d-inline-flex justify-content-center m-0`}
                             onClick={() => setDescActive("Description")}
                             role="button"
                           >
@@ -1084,11 +1078,9 @@ export const ProductPage = () => {
                         )}
                       {otherInfo === true && (
                         <h3
-                          className={`${
-                            descActive === "Specifications" && styles.tabActive
-                          } ${
-                            styles.productDescTitle
-                          } col-4 justify-content-center d-inline-flex m-0`}
+                          className={`${descActive === "Specifications" && styles.tabActive
+                            } ${styles.productDescTitle
+                            } col-4 justify-content-center d-inline-flex m-0`}
                           onClick={() => setDescActive("Specifications")}
                           role="button"
                         >
@@ -1097,11 +1089,9 @@ export const ProductPage = () => {
                       )}
                       {featuresInfo === true && (
                         <h3
-                          className={`${
-                            descActive === "Features" && styles.tabActive
-                          } ${
-                            styles.productDescTitle
-                          } col-4 d-inline-flex justify-content-center m-0`}
+                          className={`${descActive === "Features" && styles.tabActive
+                            } ${styles.productDescTitle
+                            } col-4 d-inline-flex justify-content-center m-0`}
                           onClick={() => setDescActive("Features")}
                           role="button"
                         >
@@ -1142,14 +1132,14 @@ export const ProductPage = () => {
 
                         {ProductData?.specifications
                           ?.shelf_life_month_years && (
-                          <p className="col-12 d-none gap-2 m-0">
-                            <strong>Shelf Life Month Years: </strong>
-                            {
-                              ProductData?.specifications
-                                ?.shelf_life_month_years
-                            }{" "}
-                          </p>
-                        )}
+                            <p className="col-12 d-none gap-2 m-0">
+                              <strong>Shelf Life Month Years: </strong>
+                              {
+                                ProductData?.specifications
+                                  ?.shelf_life_month_years
+                              }{" "}
+                            </p>
+                          )}
 
                         {ProductData?.specifications?.container_type && (
                           <p className="col-12 d-inline-flex gap-2 m-0">
@@ -1174,20 +1164,20 @@ export const ProductPage = () => {
 
                         {ProductData?.specifications
                           ?.package_dimension_length && (
-                          <p className="col-12 d-inline-flex gap-2 m-0">
-                            <strong>Dimension: </strong>
-                            {"L " +
-                              ProductData?.specifications
-                                ?.package_dimension_length +
-                              " x B " +
-                              ProductData?.specifications
-                                ?.package_dimension_width +
-                              " x H " +
-                              ProductData?.specifications
-                                ?.package_dimension_height}{" "}
-                            cm{" "}
-                          </p>
-                        )}
+                            <p className="col-12 d-inline-flex gap-2 m-0">
+                              <strong>Dimension: </strong>
+                              {"L " +
+                                ProductData?.specifications
+                                  ?.package_dimension_length +
+                                " x B " +
+                                ProductData?.specifications
+                                  ?.package_dimension_width +
+                                " x H " +
+                                ProductData?.specifications
+                                  ?.package_dimension_height}{" "}
+                              cm{" "}
+                            </p>
+                          )}
 
                         {ProductData?.specifications?.manufactured_by && (
                           <p className="col-12 d-inline-flex gap-2 m-0">
@@ -1320,11 +1310,10 @@ export const ProductPage = () => {
                     ) : (
                       <span
                         role="button"
-                        className={`${styles.continueShop} ${
-                          ProductData?.stock === 0 || ProductData?.stock < 0
+                        className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
                             ? styles.disableCartBtn
                             : ""
-                        } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                          } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
                         onClick={(e) => addToCart(e, ProductData)}
                       >
                         Add to cart
@@ -1504,7 +1493,7 @@ export const ProductPage = () => {
                           className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}
                         >
                           {deliveryDetail.maxDays !== "" ||
-                          deliveryDetail.minDays !== "" ? (
+                            deliveryDetail.minDays !== "" ? (
                             <p
                               className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
                             >
@@ -1601,11 +1590,9 @@ export const ProductPage = () => {
         <React.Fragment></React.Fragment>
       )}
       <div
-        className={`${
-          styles.productShare
-        } position-fixed top-0 bottom-0 start-0 end-0 align-items-center justify-content-center ${
-          prodSharePop === true ? "d-inline-flex" : "d-none"
-        }`}
+        className={`${styles.productShare
+          } position-fixed top-0 bottom-0 start-0 end-0 align-items-center justify-content-center ${prodSharePop === true ? "d-inline-flex" : "d-none"
+          }`}
       >
         <div
           className={`${styles.productShareContainer} col-4 d-inline-flex flex-column position-relative p-3`}
