@@ -521,7 +521,7 @@ export const LoginPopup = ({ setLoginPop }) => {
                         <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-4 px-4 flex-grow-1 justify-content-center`}>
                             <div className="col-12 d-inline-flex flex-column">
                                 <h2 className="col-12 d-inline-flex mb-2 mt-0">Original Products</h2>
-                                <p className="col-12 d-inline-flex m-0">Step into the world of KnickKnack, your trusted toy haven, where every plaything is a genuine joy-bringer, crafted with authenticity and love.</p>
+                                <p className="col-12 d-inline-flex m-0">Step into the world of Sangpriya, your trusted toy haven, where every plaything is a genuine joy-bringer, crafted with authenticity and love.</p>
                             </div>
                             <div className="col-12 d-inline-flex flex-column">
                                 <h2 className="col-12 d-inline-flex mb-2 mt-0">Easy Returns</h2>
