@@ -1,33 +1,36 @@
 import React, { useState } from "react";
-import { Header } from "../../Components/Header/Header";
 import { Aside } from "../../Components/Aside/Aside";
-import { ShopAge } from "../../Components/ShopAge/ShopAge";
-import { CategoryShop } from "../../Components/CategoryShop/CategoryShop";
-import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
-import { HeroBanner } from "../../Components/HeroBanner/HeroBanner";
 import { BrandFocus } from "../../Components/BrandFocus/BrandFocus";
-import { Footer } from "../../Components/Footer/Footer";
-import { useApp } from "../../context/AppContextProvider";
-import { LookingFor } from "../../Components/LookingFor/LookingFor";
+import { CategoryShop } from "../../Components/CategoryShop/CategoryShop";
 import { DealShop } from "../../Components/DealShop/DealShop";
+import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
+import { HeroBanner } from "../../Components/HeroBanner/HeroBanner";
 import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
+import OurProducts from "../../Components/OurProduct/product";
+import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
+import { ShopAge } from "../../Components/ShopAge/ShopAge";
+import { useApp } from "../../context/AppContextProvider";
+import JoinSales from "../../Components/JoinSales/joinsales";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
   const appData = useApp();
-  const isMobile = appData.appData.windowWidth === 'mobile';
+  const isMobile = appData.appData.windowWidth === "mobile";
 
   return (
     <React.Fragment>
-      <div className="col-12 d-inline-flex flex-column">
+      <div className="col-12 d-inline-flex flex-column bg-white ">
         <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         {/* hero banner */}
         <HeroBanner />
         {/* what are you looking for ? */}
-        {!isMobile && <LookingFor />}
-        
-        {isMobile && <CategoryShop />}
+        {/* {!isMobile && <LookingFor />} */}
+
+        <OurProducts />
+
+        <CategoryShop />
 
         <DealShop />
 
@@ -37,12 +40,14 @@ export const Home = () => {
 
         <PromoBanner type="Offers" />
 
-        <LimitedOffers/>
+        <LimitedOffers />
 
         <BrandFocus />
+        
+        <JoinSales />
 
         <Footer />
       </div>
     </React.Fragment>
-  )
-}
+  );
+};

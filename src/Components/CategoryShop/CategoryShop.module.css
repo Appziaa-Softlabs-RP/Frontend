@@ -12,11 +12,13 @@
 .categoryblock{
     float: left;
     width: 50%;
+    cursor: pointer;
+    max-width: 200px;
     padding: 0px 10px;
 }
 .imgBox{
-    border-radius: 5px;
-    border: 2px solid #F9F01F;
+    border-radius: 100%;
+    border: 1px solid var(--PRIMARY_COLOR);
 }
 .categoryProdName{
     color: #000;

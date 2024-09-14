@@ -5,84 +5,78 @@ import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 
 export const AboutUs = () => {
-    const appData = useApp();
-    let windowWidth = appData.appData.windowWidth;
+  const appData = useApp();
+  let windowWidth = appData.appData.windowWidth;
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-    return (
-        <React.Fragment>
-            {windowWidth === "mobile" ? (
-                <PageHeader title="About Us" hide={true} />
-            ) : (
-                <Header />
-            )}
-            <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
-                <div className="container">
-                    <h1>About Us</h1>
-                    <p className="c6">
-                        <span className="c1">
-                            About Sangpriya &ndash; Your Premium Toy Destination
-                        </span>
-                    </p>
-                    <p className="c6">
-                        <span className="c4">
-                            Sangpriya is where the joy of childhood comes alive. We&#39;re a
-                            premium toy store dedicated to bringing the world&#39;s best
-                            playthings to your doorstep. Whether you&#39;re searching for a
-                            classic wooden puzzle, the latest tech-powered robot, or a beloved
-                            character from your favorite story, you&#39;ll find it at
-                            Sangpriya.
-                        </span>
-                    </p>
-                    <p className="c6">
-                        <span className="c1">The Sangpriya Difference</span>
-                    </p>
-                    <ul className="c10 lst-kix_ck63bwdhsg7q-0 start">
-                        <li className="c0 li-bullet-0">
-                            <span className="c2">Curated Collection:</span>
-                            <span className="c4">
-                                &nbsp;We carefully handpick toys from around the world and
-                                India, ensuring a mix of both internationally renowned brands
-                                and exceptional local craftsmanship.
-                            </span>
-                        </li>
-                        <li className="c0 li-bullet-0">
-                            <span className="c2">Premium Experience:</span>
-                            <span className="c4">
-                                &nbsp;From the moment you explore our website to the day your
-                                little one unwraps their new treasure, we strive to provide a
-                                delightful and seamless shopping experience.
-                            </span>
-                        </li>
-                        <li className="c0 li-bullet-0">
-                            <span className="c2">Passion for Play:</span>
-                            <span className="c4">
-                                &nbsp;Our founder, Varun Behl, is a toy enthusiast at heart. His
-                                dynamic vision drives Sangpriya&#39;s mission to make us the
-                                preferred destination for all things toys in India.
-                            </span>
-                        </li>
-                    </ul>
-                    <p className="c6">
-                        <span className="c1">Discover the Wonders of Play</span>
-                    </p>
-                    <p className="c6">
-                        <span className="c4">
-                            Come explore the endless possibilities of imagination and
-                            creativity at Sangpriya.
-                        </span>
-                    </p>
-                    <p className="c6">
-                        <span className="c1">
-                            Let us help you find the perfect toy that will spark joy and
-                            wonder in your child&#39;s life!
-                        </span>
-                    </p>
-                </div>
-            </div>
-            <Footer />
-        </React.Fragment>
-    );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return (
+    <React.Fragment>
+      {windowWidth === "mobile" ? (
+        <PageHeader title="About Us" hide={true} />
+      ) : (
+        <Header />
+      )}
+      <div
+        className="min-vh-100 col-12 d-inline-flex flex-column my-5"
+        style={{
+          paddingTop: "80px",
+        }}
+      >
+        <div className="container">
+          <h2>
+            <b>About Us</b>
+          </h2>
+          <p>
+            At Sangpriya, we believe in the power of pure, authentic ingredients
+            to create delicious and wholesome food. We are a brand built on
+            tradition, using time-tested recipes and natural ingredients to
+            bring back the flavors you know and love.
+          </p>
+          <h3>
+            <b>Our Promise</b>
+          </h3>
+          <p>
+            We are committed to using only the finest, ethically sourced
+            ingredients. We never add artificial flavors, preservatives, or
+            colors to our products. We believe that nature provides the perfect
+            blend of taste and goodness, and we strive to preserve that in every
+            bite.
+          </p>
+          <h3>
+            <b>Our Story</b>
+          </h3>
+          <p>
+            Sangpriya is the brainchild of Mr. Ranjan, a man with a deep passion
+            for authentic Indian cuisine. Inspired by his own family recipes
+            passed down through generations, Mr. Ranjan saw a growing need for
+            high-quality, natural food products in today's fast-paced world.
+            Sangpriya was born out of a desire to reconnect people with the true
+            flavors of India, using only the ingredients our ancestors relied
+            on.
+          </p>
+          <h3>
+            <b>Our Mission</b>
+          </h3>
+          <p>
+            Our mission is to revive the tradition of authentic Indian cooking
+            and to make pure, natural food accessible to everyone. We want to
+            bring families and friends together around the table to share
+            delicious meals made with love.
+          </p>
+          <h3>
+            <b>Join the Sangpriya Family</b>
+          </h3>
+          <p>
+            We invite you to explore our range of food, masala, and mustard oil
+            products. We are confident that you will taste the difference that
+            pure ingredients make. With Sangpriya, experience the joy of
+            authentic Indian flavors in every dish you create.
+          </p>
+        </div>
+      </div>
+      <Footer />
+    </React.Fragment>
+  );
 };
