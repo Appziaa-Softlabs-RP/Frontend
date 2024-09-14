@@ -197,18 +197,18 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         position: 'relative',
       }}>
         <div
-          className={`${styles.headerRow} col-12 row d-inline-flex align-items-center`}
+          className={`${styles.headerRow} m-0 col-12 row d-inline-flex align-items-center`}
         >
-          <div className="container-fluid mx-auto col-11 d-flex align-items-stretch">
+          <div className="container-fluid w-100 mx-auto col-11 d-flex align-items-stretch">
             <div
-              className={`row col-12 d-flex  align-items-stretch gap-3`}
+              className={`row col-12 d-flex w-100 m-0 align-items-stretch gap-3`}
               style={{
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
 
-              <div className="col-6 d-flex align-items-center">
+              <div className="col-5 d-flex align-items-center">
                 <span
                   className={`${styles.menuIconBox} d-md-none d-inline-flex align-items-center justify-content-center`}
                   onClick={openAsideMenu}
@@ -229,7 +229,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     alt={enviroment.REACT_APP_BUSINESS_NAME ?? "Logo"}
                     className="object-fit-contain mt-4"
                     style={{
-                      maxWidth: "100px",
+                      maxWidth: "80px",
                       marginTop: "10px",
                     }}
                   />
@@ -268,7 +268,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     ))}
                 </div>
               </div>
-              <div className="col-5 d-flex flex-row justify-content-end gap-4">
+              <div className="col-6 d-flex flex-row justify-content-end gap-4">
                 <div
                   className={`${styles.supportDrop} d-flex align-items-center gap-1 position-relative justify-content-center`}
                   role="button"
@@ -401,7 +401,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   </div>
                 ) : (
                   <div
-                    className={`${styles.supportDrop} d-flex align-items-center gap-2 position-relative`}
+                    className={`${styles.supportDrop} hideInMobile d-flex align-items-center gap-2 position-relative`}
                     onClick={() => setLoginPop(true)}
                     role="button"
                   >

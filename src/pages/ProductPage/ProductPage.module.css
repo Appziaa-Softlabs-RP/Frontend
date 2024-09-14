@@ -352,6 +352,8 @@
 }
 @media screen and (min-width:568px) {
     .productDetailName{
+        margin: 0px;
+        text-align: left;
         font-size: 28px;
         line-height: 34px;
         font-weight: 600;

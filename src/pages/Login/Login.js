@@ -97,7 +97,7 @@ export const Login = () => {
               onClick={() => sendMobileOtp()}
                 disabled={mobileVal.length !== 10}
             >
-              Continue
+              Get Otp
             </button>
           </div>
         </div>

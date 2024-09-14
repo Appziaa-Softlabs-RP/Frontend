@@ -9,7 +9,7 @@ function CountDown() {
     useEffect(() => {
         const getRemainingTime = async () => {
             const today = new Date();
-            const offerDate = new Date("May 31, 2024"); // Update with your actual offer date
+            const offerDate = new Date("Oct 08, 2024"); // Update with your actual offer date
 
             if (today.getSeconds() === offerDate.getSeconds()) {
                 offerDate.setDate(offerDate.getDate() + 15); // Reset offer date every 15 days (adjust as needed)

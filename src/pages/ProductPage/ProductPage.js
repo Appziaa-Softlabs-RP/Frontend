@@ -681,7 +681,7 @@ export const ProductPage = () => {
           </h2>
 
           <div className="ms-2">
-            <span className="mb-2">Item Code: {ProductData?.barcode} </span>
+            <span className="mb-2">Item Code: {ProductData?.article_name} </span>
             <div
               className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
             >
@@ -983,6 +983,13 @@ export const ProductPage = () => {
                     <div
                       className={`${styles.productDetailText} d-inline-flex flex-column gap-3 col-12`}
                     >
+                      {ProductData?.barcode && (
+                        <p className="col-12 d-inline-flex gap-2 m-0">
+                          <strong>Bar Code: </strong>
+                          {ProductData?.barcode}
+                          <br />
+                        </p>
+                      )}
                       {ProductData?.other_information?.country_origin && (
                         <p className="col-12 d-inline-flex gap-2 m-0">
                           <strong>Country Of Origin: </strong>
@@ -1314,6 +1321,11 @@ export const ProductPage = () => {
                     )}
                     {descActive === "Features" && (
                       <div className="d-flex flex-column gap-3 col-12 p-3">
+                        {ProductData?.barcode && (
+                          <p className="col-12 d-flex gap-2 m-0">
+                            <strong>Barcode:</strong> {ProductData?.barcode}
+                          </p>
+                        )}
                         {ProductData?.other_information?.country_origin && (
                           <p className="col-12 d-flex gap-2 m-0">
                             <strong>Country Of Origin:</strong> {ProductData?.other_information?.country_origin}
@@ -1369,7 +1381,7 @@ export const ProductPage = () => {
                     : ""}
                 </div>
                 <span className="ml-3 mb-0">
-                  Item Code: {ProductData?.barcode}{" "}
+                  Item Code: {ProductData?.article_name}
                 </span>
                 <div
                   className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
