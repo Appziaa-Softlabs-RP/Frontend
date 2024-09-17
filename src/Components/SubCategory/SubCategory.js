@@ -102,51 +102,51 @@ export const SubCategory = ({ verticalSlug }) => {
       .catch((err) => { });
   };
 
-  const LoadMoreProducts = () => {
-    let pageCount = apiPayload?.page;
-    pageCount = pageCount + 1;
+  // const LoadMoreProducts = () => {
+  //   let pageCount = apiPayload?.page;
+  //   pageCount = pageCount + 1;
 
-    if (activeApi === "storeSub" || activeApi === "categoryProd") {
-      ApiService.StoreCategoryProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_VerticalByProduct;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => { });
-    } else if (activeApi === "categorySub") {
-      ApiService.CategoryBySubProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_SubCategoryByProduct;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => { });
-    } else if (activeApi === "subChild") {
-      ApiService.CategoryByProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_SubCategoryByProduct;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => { });
-    }
-  };
+  //   if (activeApi === "storeSub" || activeApi === "categoryProd") {
+  //     ApiService.StoreCategoryProd(apiPayload)
+  //       .then((res) => {
+  //         let prevProdArr = [];
+  //         prevProdArr = categoryProd;
+  //         let newProd = res.payload_VerticalByProduct;
+  //         for (let i = 0; i < newProd.length; i++) {
+  //           prevProdArr.push(newProd[i]);
+  //         }
+  //         let newProduct = [...prevProdArr];
+  //         setShopCategoryProd(newProduct);
+  //       })
+  //       .catch((err) => { });
+  //   } else if (activeApi === "categorySub") {
+  //     ApiService.CategoryBySubProd(apiPayload)
+  //       .then((res) => {
+  //         let prevProdArr = [];
+  //         prevProdArr = categoryProd;
+  //         let newProd = res.payload_SubCategoryByProduct;
+  //         for (let i = 0; i < newProd.length; i++) {
+  //           prevProdArr.push(newProd[i]);
+  //         }
+  //         let newProduct = [...prevProdArr];
+  //         setShopCategoryProd(newProduct);
+  //       })
+  //       .catch((err) => { });
+  //   } else if (activeApi === "subChild") {
+  //     ApiService.CategoryByProd(apiPayload)
+  //       .then((res) => {
+  //         let prevProdArr = [];
+  //         prevProdArr = categoryProd;
+  //         let newProd = res.payload_SubCategoryByProduct;
+  //         for (let i = 0; i < newProd.length; i++) {
+  //           prevProdArr.push(newProd[i]);
+  //         }
+  //         let newProduct = [...prevProdArr];
+  //         setShopCategoryProd(newProduct);
+  //       })
+  //       .catch((err) => { });
+  //   }
+  // };
 
   useEffect(() => {
     fetchProducts();
