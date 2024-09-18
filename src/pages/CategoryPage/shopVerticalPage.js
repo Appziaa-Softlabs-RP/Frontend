@@ -67,11 +67,11 @@ export const ShopVerticalPage = () => {
   };
 
   const fetchProductsList = (data) => {
-    ApiService.StoreCategoryProd(data)
+    ApiService.storeFilterCategory(data)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
-          setProductData(res.payload_VerticalByProduct);
-          setProductActualData(res.payload_VerticalByProduct);
+          setProductData(res.payload_FilterByProductCategory);
+          setProductActualData(res.payload_FilterByProductCategory);
           setLoading(false);
           setApiPayload((prev) => ({ ...prev, page: 2 }));
         }
@@ -105,7 +105,10 @@ export const ShopVerticalPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: verticalSlug,
+      vertical_id: verticalSlug,
+      category_name_url: categorySlug,
+      result_per_page: 10,
+      page: 1,
     };
     setFilterVert(verticalSlug);
     setFilterCatg(categorySlug);
