@@ -24,11 +24,11 @@ export default function ContactUsPage() {
         try {
             setLoading(true)
             const payload = {
-                'subjectUser': `Thank You for Contacting ${enviroment.STORE_ADDRESS}! 🎨`,
-                'subjectAdmin': `New Contact Form Submission on ${enviroment.STORE_ADDRESS} Website`,
+                'subjectUser': `Thank You for Contacting ${enviroment.BUSINESS_NAME}! 🎨`,
+                'subjectAdmin': `New Contact Form Submission on ${enviroment.BUSINESS_NAME} Website`,
                 'userEmail': email,
                 'phone': phone,
-                'adminEmail': 'vermamanav117@gmail.com',
+                'adminEmail': enviroment.EMAIL_ADDRESS,
                 'adminHtmlTemplate': getContactUsAdminEmailTemplate({ name, email, phone, message }),
                 'userHtmlTemplate': getContactUsUserEmailTemplate({ name }),
             };
