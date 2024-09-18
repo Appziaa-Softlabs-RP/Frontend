@@ -198,7 +198,10 @@ img {
   background-color: rgb(255, 255, 255) !important;
   transform: translateY(-18px);
 }
-
+.primaryColor{
+  background-color: var(--PRIMARY_COLOR);
+  color: var(--SECONDARY_COLOR);
+}
 .heroBanner .owl-nav button,
 .limitedOfferSlider .owl-nav button {
   background: transparent !important;
