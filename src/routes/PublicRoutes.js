@@ -29,6 +29,7 @@ import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import Sitemap from "../Components/Sitemap/SitemapNew";
 import { ShopVerticalPage } from "../pages/CategoryPage/shopVerticalPage";
+import ContactUsPage from "../pages/ContactUs/ContactUs";
 
 export const PublicRoutes = () => {
   return (
@@ -83,6 +84,7 @@ export const PublicRoutes = () => {
       <Route path="/Cancellation-policy" element={<Cancellation />} />
       <Route path="/press" element={<Press />} />
       <Route path="/sitemap" element={<Sitemap />} />
+      <Route path="/contact-us" element={<ContactUsPage />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

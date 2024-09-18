@@ -96,6 +96,11 @@ export const Footer = () => {
                   </a>
                 </li>
                 <li>
+                  <Link to='/contact-us' className="text-decoration-none d-inline-flex">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
                   <Link className="text-decoration-none d-inline-flex">
                     FAQ
                   </Link>
@@ -429,6 +434,11 @@ export const Footer = () => {
                       >
                         Payments
                       </a>
+                    </li>
+                    <li>
+                      <Link to="/contact-us" className="text-decoration-none">
+                        Contact Us
+                      </Link>
                     </li>
                     <li>
                       <Link className="text-decoration-none" to="">

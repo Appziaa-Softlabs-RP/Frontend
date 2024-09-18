@@ -186,6 +186,10 @@ img {
   position: relative;
   top: -2px;
 }
+.primaryColor{
+  background-color: var(--PRIMARY_COLOR);
+  color: var(--SECONDARY_COLOR);
+}
 .carousel-looking-for .owl-nav button:hover,
 .brandSilder .owl-nav button:hover {
   background: var(--PRIMARY_COLOR) !important;

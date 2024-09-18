@@ -83,6 +83,14 @@ ApiService.sendOTP = function (data) {
   });
 };
 
+ApiService.sendContactUsEmail = function (data) {
+  return fetch({
+    url: "/send-mail",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.VerifyOTP = function (data) {
   return fetch({
     url: "user/verifyotp",
