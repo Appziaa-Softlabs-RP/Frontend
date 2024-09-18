@@ -84,6 +84,11 @@ export const Footer = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to='/contact-us' className="text-decoration-none d-inline-flex text-black">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
                   <Link className="text-decoration-none d-inline-flex">
                     FAQ
                   </Link>
@@ -347,9 +352,13 @@ export const Footer = () => {
                           <li>
                             <b>Help</b>
                           </li>
+                          <li>
+                            <Link to='/contact-us' className="text-decoration-none d-inline-flex text-black">
+                              Contact Us
+                            </Link>
+                          </li>
                           <li>FAQ</li>
                           <li>Cancellation</li>
-                          <li>Contact Us</li>
                         </ul>
                       </div>
                     </div>

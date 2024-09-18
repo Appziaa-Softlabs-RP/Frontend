@@ -27,6 +27,7 @@ import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
 import { Terms } from "../pages/Terms/Terms";
 import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import ContactUsPage from "../pages/ContactUs/ContactUs";
 
 export const PublicRoutes = () => {
   return (
@@ -75,6 +76,7 @@ export const PublicRoutes = () => {
         path="/add-new-address"
         element={<ProtectedRoutes element={<AddAddress />} />}
       />
+      <Route path="/contact-us" element={<ContactUsPage />} />
       <Route path="/privacy-policy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/return-policy" element={<Return />} />

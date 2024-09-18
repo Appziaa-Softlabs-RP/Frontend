@@ -250,6 +250,14 @@ ApiService.orderReschdule = function (data) {
   });
 }
 
+ApiService.sendContactUsEmail = function (data) {
+  return fetch({
+    url: "/send-mail",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.orderItemCancel = function (data) {
   return fetch({
     url: "store/orderItemCancel",

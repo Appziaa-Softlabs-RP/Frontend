@@ -63,6 +63,10 @@ left: -25px;
 .carousel-looking-for .owl-nav button:hover span, .brandSilder .owl-nav button:hover span{
   color: var(--SECONDARY_COLOR);
 }
+.primaryColor{
+  background-color: var(--PRIMARY_COLOR);
+  color: var(--SECONDARY_COLOR);
+}
 .heroBanner .owl-nav button, .limitedOfferSlider .owl-nav button{
   background: transparent !important;
 }
@@ -111,6 +115,17 @@ input::-webkit-inner-spin-button, input::-webkit-outter-spin-button{
   height: 30px;
   width: 30px;
   margin: 0px;
+}
+@media screen and (min-width: 560px) {
+  .hideInDesktop{
+      display: none !important;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .hideInMobile{
+      display: none !important;
+  }
 }
 .infinite-scroll-component__outerdiv{
   width: 100%;
