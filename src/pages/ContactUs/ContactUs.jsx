@@ -8,6 +8,7 @@ import { enviroment } from "../../enviroment"
 import ApiService from '../../services/ApiService'
 import { AppNotification } from '../../utils/helper'
 import { getContactUsUserEmailTemplate, getContactUsAdminEmailTemplate } from '../../assets/email-templates/contact-us'
+
 export default function ContactUsPage() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -28,8 +29,8 @@ export default function ContactUsPage() {
                 'userEmail': email,
                 'phone': phone,
                 'adminEmail': enviroment.EMAIL_ADDRESS,
-                'adminHtmlTemplate': getContactUsAdminEmailTemplate({name, email, phone, message}),
-                'userHtmlTemplate': getContactUsUserEmailTemplate({name}),
+                'adminHtmlTemplate': getContactUsAdminEmailTemplate({ name, email, phone, message }),
+                'userHtmlTemplate': getContactUsUserEmailTemplate({ name }),
             };
             ApiService.sendContactUsEmail(payload)
                 .then((res) => {
@@ -41,7 +42,7 @@ export default function ContactUsPage() {
                         );
                     }
                 })
-                AppNotification("Success", "Thank you for contacting us. We will get back to you soon.", "success");
+            AppNotification("Success", "Thank you for contacting us. We will get back to you soon.", "success");
             setIsSent(true)
             setName('')
             setEmail('')
@@ -138,52 +139,84 @@ export default function ContactUsPage() {
 
                 <div className="mt-5 p-4 bg-light rounded">
                     <div className="row">
-                    <div className="col-md-3 mb-3 mb-md-0 text-center d-flex justify-content-center align-items-center flex-column">
-                            <div className="m d" style={{
-                                width: '100%',
-                                maxHeight: '40px',
-                                maxWidth: '40px'
+                        <div className="col-md-3 mb-3 mb-md-0 text-center"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr",
+                                gridTemplateRows: "50px 1fr",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <div className="mx-auto" style={{
+                                height: '40px',
+                                width: '40px',
                             }}>
                                 <LocationIcon className="m-2" />
                             </div>
-                            <strong>Address:</strong> <span>{enviroment.STORE_ADDRESS}</span>
+                            <p style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}><strong>Address:</strong> <span>{enviroment.STORE_ADDRESS}</span></p>
                         </div>
-                        <div className="col-md-3 mb-3 mb-md-0 d-flex justify-content-center align-items-center flex-column">
-                            <div className="m-2" style={{
-                                width: '100%',
-                                maxHeight: '40px',
-                                maxWidth: '40px'
+                        <div className="col-md-3 mb-3 mb-md-0 text-center"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr",
+                                gridTemplateRows: "50px 1fr",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <div className="mx-auto" style={{
+                                height: '40px',
+                                width: '40px',
                             }}>
                                 <EmailIcon className="m-2" />
                             </div>
-                            <strong>Email:</strong> <a href={`mailto:${enviroment.EMAIL_ADDRESS}`} style={{
+                            <p><strong>Email:</strong> <a href={`mailto:${enviroment.EMAIL_ADDRESS}`} style={{
                                 textDecoration: 'none',
                                 color: 'inherit'
                             }}>{enviroment.EMAIL_ADDRESS}</a>
+                            </p>
                         </div>
-                        <div className="col-md-3 mb-3 mb-md-0 d-flex justify-content-center align-items-center flex-column">
-                            <div className="m-2" style={{
-                                width: '100%',
-                                maxHeight: '40px',
-                                maxWidth: '40px'
+                        <div className="col-md-3 mb-3 mb-md-0 text-center"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr",
+                                gridTemplateRows: "50px 1fr",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <div className="mx-auto" style={{
+                                height: '40px',
+                                width: '40px',
                             }}>
                                 <ServiceIcon className="m-2" />
                             </div>
-                            <strong>GST Number:</strong> 12ABCDE3456F7Z8
+                            <p><strong>GST Number:</strong> {enviroment.GST_NUMBER}</p>
                         </div>
-                        <div className="col-md-3 mb-3 mb-md-0 d-flex justify-content-center align-items-center flex-column">
-                            <div className="m-2" style={{
-                                width: '100%',
-                                maxHeight: '40px',
-                                maxWidth: '40px'
+                        <div className="col-md-3 mb-3 mb-md-0 text-center"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr",
+                                gridTemplateRows: "50px 1fr",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <div className="mx-auto" style={{
+                                height: '40px',
+                                width: '40px',
                             }}>
                                 <PhoneIcon className="m-2" />
                             </div>
-                            <strong>Phone Number:</strong> <a href={`tel:${enviroment.PHONE_NUMBER}`}
+                            <p style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}><strong>Phone Number:</strong> <a href={`tel:${enviroment.PHONE_NUMBER}`}
                                 style={{
                                     textDecoration: 'none',
                                     color: 'inherit'
                                 }}>{enviroment.PHONE_NUMBER}</a>
+                                </p>
                         </div>
                     </div>
                 </div>

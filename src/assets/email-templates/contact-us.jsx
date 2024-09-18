@@ -327,8 +327,8 @@ const ContactUsUserTemplate = `<table
             </div>
             <div style="margin-top: 10px; font-size: 12px">
               <p>
-                24A/1, LGF, Shaheed Jeet Singh Marg, Block A, Katwaria Sarai,
-                New Delhi, Delhi 110016<br />
+                ${enviroment.STORE_ADDRESS}
+                <br />
               </p>
               <p>Email: ${enviroment.EMAIL_ADDRESS}<br /></p>
             </div>
