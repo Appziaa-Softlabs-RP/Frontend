@@ -157,7 +157,7 @@ export const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className="col-md-12 d-inline-flex justify-content-center" style={{
+      <div className="col-md-12 w-100" style={{
         background: "black"
       }}>
         <div className="container">

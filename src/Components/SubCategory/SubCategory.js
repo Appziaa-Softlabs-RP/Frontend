@@ -80,40 +80,30 @@ export const SubCategory = ({ verticalSlug }) => {
   const fetchProducts = () => {
     const catpayload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: verticalSlug,
-    };
-    const payload = {
-      store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: verticalSlug,
-      page: 1,
-      result_per_page: 10,
+      category_slug: verticalSlug,
     };
     setCatActive("");
     setActiveApi("storeSub");
-    ApiService.StoreSubCategory(catpayload)
+    ApiService.CategoryByProd(catpayload)
       .then((res) => {
-        setShopCategory(res.payload_verticalByCategory);
+        setShopCategory(res.payload_CategoryByProduct?.products);
+        setShopCategoryProd(res.payload_CategoryByProduct?.products);
       })
       .catch((err) => {});
 
-    setApiPayload(payload);
-    ApiService.StoreCategoryProd(payload)
-      .then((res) => {
-        setShopCategoryProd(res.payload_VerticalByProduct);
-      })
-      .catch((err) => {});
+    setApiPayload(catpayload);
   };
 
   const LoadMoreProducts = () => {
-    let pageCount = apiPayload?.page;
+    let pageCount = apiPayload?.page ?? 1;
     pageCount = pageCount + 1;
 
     if (activeApi === "storeSub" || activeApi === "categoryProd") {
-      ApiService.StoreCategoryProd(apiPayload)
+      ApiService.CategoryByProd(apiPayload)
         .then((res) => {
           let prevProdArr = [];
           prevProdArr = categoryProd;
-          let newProd = res.payload_VerticalByProduct;
+          let newProd = res.payload_CategoryByProduct?.products;
           for (let i = 0; i < newProd.length; i++) {
             prevProdArr.push(newProd[i]);
           }
@@ -148,6 +138,8 @@ export const SubCategory = ({ verticalSlug }) => {
         })
         .catch((err) => {});
     }
+    console.log(apiPayload)
+    setApiPayload((prev) => ({ ...prev, page: pageCount }));
   };
 
   useEffect(() => {
