@@ -38,16 +38,23 @@ export default function Collections({ type }) {
 
     return <div className={`container-fluid m-0 ${styles.mainContainer}`}>
         <div className={`container row col-12 mx-auto d-flex flex-column-reverse ${type === "men" ? "flex-md-row" : "flex-md-row-reverse"}`}>
-            <div className="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center py-4">
-                <h2 className="text-center">
+            <div className={`d-flex flex-column flex ${styles.collectionTextBox}`}
+            >
+                <h2 className="text-center m-0 mb-2 p-0">
                     {getTitle({ type })}
                 </h2>
-                <div className="row col-12 gap-2 d-flex py-4 flex-wrap justify-content-center">
+                <div className="" style={{ flexGrow: 1,
+                    width: '100%',
+                    display: 'grid',
+                    gridTemplateRows: 'repeat(2, 1fr)',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '0.9rem',
+                    }}>
                     {shopCategory.map((item, index) => {
                         return (
                             <Link to={`/store/${item?.name_url}`}
                                 key={index}
-                                className={`position-relative col-5 ${styles.categoryCollection}`}
+                                className={`position-relative ${styles.categoryCollection}`}
                             >
                                 <img
                                     src={item?.image === "" ? noImage : item?.image}
@@ -56,6 +63,9 @@ export default function Collections({ type }) {
                                 />
                                 <p
                                     className={`text-center mt-2 ${styles.categoryName}`}
+                                    style={{
+                                        fontSize: "1rem",
+                                    }}
                                 >
                                     {item?.name}
                                 </p>
@@ -64,7 +74,7 @@ export default function Collections({ type }) {
                     })}
                 </div>
             </div>
-            <div className='col-12 col-md-6 position-relative' 
+            <div className='col-12 col-md-6 position-relative'
                 style={{
                     maxWidth: "100%",
                     overflow: "hidden",
@@ -73,16 +83,17 @@ export default function Collections({ type }) {
                 <img
                     src={
                         type === "men" ?
-                        mensCollection :
-                        womensCollection
+                            mensCollection :
+                            womensCollection
                     }
                     alt="Mens Collection"
                     className={`${styles.darkenImage}`}
                 />
                 <p className={styles.collectionImageText}
                     style={{
-                        whiteSpace: "break-spaces",
-                        wordSpacing: "99999px"
+                        textAlign: "start",
+                        whiteSpace: "preserve-breaks",
+                        wordSpacing: "99999px",
                     }}
                 >
                     {getTitle({ type })}

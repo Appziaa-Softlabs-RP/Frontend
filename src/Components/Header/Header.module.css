@@ -76,7 +76,7 @@
 
 .headerRow {
     background: var(--PRIMARY_COLOR);
-    height: 74px;
+    height: 100%;
 }
 
 /* Desktop CSS */
@@ -181,15 +181,16 @@
 .inputSearch {
     height: 45px;
     border-radius: 6px;
-    background: #FFF;
     font-size: 16px;
     color: #000;
-    border: 2px solid rgba(128, 128, 128, 0.229);
+    background: rgba(179, 179, 179, 0.229);
+    border: 2px solid rgba(179, 179, 179, 0);
     box-shadow: none;
 }
 
 .inputSearch:focus {
-    border: 2px solid rgba(45, 45, 45, 0.383);
+    border: 2px solid rgba(179, 179, 179, 0.229);
+    background: white;
     box-shadow: none;
     outline: none;
 }
@@ -210,16 +211,19 @@
 
 .menuName,
 .subMenuName {
-    font-size: 15px;
+    font-size: 16px;
     color: #000 !important;
 }
 
 .menuName {
     font-weight: 500;
-    min-width: 100px;
 }
-.menuName:hover {
-    font-weight: bold;
+ .headerNavBox {
+    border-bottom: 3px solid white;
+}
+.headerNavBox:hover {
+    transition: all ease 400ms;
+    border-bottom: 3px solid red;
 }
 
 .menuName svg {
@@ -235,9 +239,9 @@
     z-index: 30;
     transition: all ease 400ms;
     transform: translateY(-16px);
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
-    top: 48px;
-    border-radius: 5px;
+    /* box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2); */
+    top: 86px;
+    border-radius: 0px 0px 5px 5px;
     padding: 12px;
     min-width: 240px;
     left: 0px;
@@ -245,7 +249,7 @@
     visibility: hidden;
 }
 
-.headerNavBox:hover .SubMenuList:after {
+/* .headerNavBox:hover .SubMenuList:after {
     content: "";
     position: absolute;
     left: 10%;
@@ -258,7 +262,7 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     display: inline-block;
-}
+} */
 
 .headerNavBox:hover .SubMenuList {
     opacity: 1;
@@ -287,7 +291,7 @@
 
 .subMenuName:hover {
     font-weight: 700;
-    background: #d5d5d5;
+    background: #ebeaea;
     color: white;
 }
 

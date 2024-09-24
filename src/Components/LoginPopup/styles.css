@@ -1,0 +1,51 @@
+.owl-dots {
+    transform: translateY(-35px);
+    background-color: transparent !important;
+}
+
+.owl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 3px !important;
+}
+
+.owl-dot span {
+    background-color: rgba(255, 255, 255, 0.622) !important;
+    height: 10px !important;
+    width: 10px !important;
+    margin: 0px 6px !important;
+    transform: translateY(0); /* Removed translateX to avoid shifting */
+}
+
+.swiper-pagination-bullet-active {
+    background: white !important;
+}
+
+.owl-dot.active span {
+    background: red !important;
+}
+
+.owl-stage-outer {
+    height: 100% !important;
+    width: 100%;
+    overflow: hidden !important; /* Ensures no overflow beyond container */
+}
+
+.owl-stage {
+    height: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    transform: none !important; /* Prevent shifting by OwlCarousel */
+}
+
+.owl-item {
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important; /* Ensure proper alignment of items */
+    justify-content: center !important;
+}
+
+.owl-theme {
+    max-height: 470px !important;
+}

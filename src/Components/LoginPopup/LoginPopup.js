@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './LoginPopup.module.css';
 import ApiService from "../../services/ApiService";
@@ -6,6 +6,9 @@ import { AppNotification } from '../../utils/helper';
 import { useApp } from '../../context/AppContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { enviroment } from "../../enviroment";
+import ReactOwlCarousel from "react-owl-carousel";
+import './styles.css'
+import 'owl.carousel/dist/assets/owl.carousel.css';
 
 const LoginPassword = ({ setLoginType, setLoginPop }) => {
     const [mobileVal, setMobileVal] = useState('');
@@ -95,8 +98,8 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
     return (
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
-                <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-3 mt-0`}>Login</h2>
-                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
+                <h2 className={`${styles.loginTitle} col-12 d-inline-flex m-0 mb-3`}>Login</h2>
+                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Get access to your Orders, Wishlist and Recommendations</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-5">
                     <div className="col-12 d-inline-flex">
                         <input type="text" value={mobileVal} onChange={(e) => setMobileVal(e.target.value)} name="useremail" placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
@@ -105,7 +108,7 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                         <input type="password" value={mobilePass} onChange={(e) => seMobilePass(e.target.value)} name="userpassword" placeholder="Enter Password" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
                     </div>
                 </div>
-                <div className="d-inline-flex justify-content-between col-12 gap-5 mb-5">
+                <div className="d-inline-flex justify-content-end col-12 gap-3 mb-5">
                     <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => userLogin()}>Login</span>
                     <span className={`${styles.loginUnfilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => setLoginType('LoginOTP')}>Login via OTP</span>
                 </div>
@@ -113,7 +116,7 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
                     <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank"
                         rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</Link> and <Link className="text-decoration-none" to="/terms" target="_blank" rel="noopener noreferrer"
+                        className="text-decoration-none text-black fw-bold text-decoration-underline">Privacy Policy</Link> and <Link className="text-decoration-none text-black fw-bold text-decoration-underline" to="/terms" target="_blank" rel="noopener noreferrer"
                         >T&amp;C</Link></div>
                 </div>
             </div>
@@ -143,8 +146,8 @@ const LoginOTP = ({ setLoginType, mobileVal, setMobileVal, setOTPObj }) => {
     return (
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
-                <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-4 mt-0`}>Login</h2>
-                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
+                <h2 className={`${styles.loginTitle} col-12 d-inline-flex m-0 mb-4`}>Login</h2>
+                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Get access to your Orders, Wishlist and Recommendations</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex">
                         <input type="tel" value={mobileVal} minLength="10" maxLength="10" placeholder="9XXXXXXXXX" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value.replace(/\D/g, ""))} />
@@ -156,8 +159,8 @@ const LoginOTP = ({ setLoginType, mobileVal, setMobileVal, setOTPObj }) => {
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
                     <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</Link></div>
+                        className="text-decoration-none text-black fw-bold text-decoration-underline">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none text-black fw-bold text-decoration-underline">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -259,7 +262,7 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
                 <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-4 mt-0`}>Login</h2>
-                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
+                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Get access to your Orders, Wishlist and Recommendations</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex position-relative">
                         <input type="text" value={mobileVal} readOnly placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
@@ -276,8 +279,8 @@ const LoginVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, otpO
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>
                     <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</Link></div>
+                        className="text-decoration-none text-black fw-bold text-decoration-underline">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none text-black fw-bold text-decoration-underline">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -325,7 +328,7 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
         <React.Fragment>
             <div className="d-inline-flex flex-column col-12">
                 <h2 className={`${styles.loginTitle} col-12 d-inline-flex mb-4 mt-0`}>Sign Up</h2>
-                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Enter Mobile No / Email ID to get an OTP for smooth login</p>
+                <p className={`${styles.loginDesc} col-12 d-inline-flex mb-3 mt-0`}>Get access to your Orders, Wishlist and Recommendations</p>
                 <div className="d-inline-flex flex-column col-12 gap-4 mb-4">
                     <div className="col-12 d-inline-flex">
                         <input type="text" value={mobileVal} placeholder="Enter Mobile No / E-mail ID" className={`${styles.inputField} col-12 d-inline-block px-3`} onChange={(e) => setMobileVal(e.target.value)} />
@@ -337,8 +340,8 @@ const Register = ({ setLoginType, mobileVal, setMobileVal, setOTPObj, setRegiste
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
                     <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</Link></div>
+                        className="text-decoration-none text-black fw-bold text-decoration-underline">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none text-black fw-bold text-decoration-underline">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -502,8 +505,8 @@ const RegisterVerifyOTP = ({ setLoginType, mobileVal, mobileOTP, setMobileOTP, o
                 <div className="col-12 d-inline-flex flex-column">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>Already have account?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Login')} role="button">Login</span></div>
                     <div className={`${styles.privacyTxt} col-12 text-center`}>By continuing, you agree to our <Link to="/privacy" target="_blank" rel="noopener noreferrer"
-                        className="text-decoration-none">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
-                            className="text-decoration-none">T&amp;C</Link></div>
+                        className="text-decoration-none text-black fw-bold text-decoration-underline">Privacy Policy</Link> and <Link to="/terms" target="_blank" rel="noopener noreferrer"
+                            className="text-decoration-none text-black fw-bold text-decoration-underline">T&amp;C</Link></div>
                 </div>
             </div>
         </React.Fragment>
@@ -517,6 +520,34 @@ export const LoginPopup = ({ setLoginPop }) => {
     const [registerType, setRegisterType] = useState('');
     const [otpObj, setOTPObj] = useState({});
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const owlCarouselRef = useRef(null);
+
+    const handleSlideChange = (event, index) => {
+        setCurrentSlide(index);
+    };
+
+    const options = {
+        items: 1,
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        dots: true,
+        nav: false,
+        navText: ['<', '>'],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            600: {
+                items: 2,
+            },
+            1000: {
+                items: 3,
+            },
+        },
+    };
+
     const hideLoginPop = () => {
         setLoginPop(false);
     }
@@ -526,40 +557,73 @@ export const LoginPopup = ({ setLoginPop }) => {
     }
     return (
         <React.Fragment>
-            <div className={`${styles.loginLayerBox} position-fixed top-0 bottom-0 start-0 end-0 d-inline-flex align-items-center justify-content-center`}>
-                <div className={`${styles.loginContainer} d-inline-flex align-items-stretch`}>
-                    <div className="col-4 d-inline-flex flex-column align-items-center" onClick={(e) => stopParentLayer(e)}>
-                        <div className={`${styles.loginGradientBox} col-12 d-inline-flex flex-column gap-4 px-4 flex-grow-1 justify-content-center`}>
-                            <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Original Products</h2>
-                                <p className="col-12 d-inline-flex m-0"> {process.env.REACT_APP_BUSINESS_NAME}, your trusted toy haven, where every plaything is a genuine joy-bringer, crafted with authenticity and love.</p>
-                            </div>
-                            <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Easy Returns</h2>
-                                <p className="col-12 d-inline-flex m-0">Shop with confidence and zero worries, as our 7-day free return policy ensures your satisfaction is our priority!</p>
-                            </div>
-                            <div className="col-12 d-inline-flex flex-column">
-                                <h2 className="col-12 d-inline-flex mb-2 mt-0">Home Delivery</h2>
-                                <p className="col-12 d-inline-flex m-0">Experience the joy of shopping from the comfort of your home, as we bring your desires to your doorstep with our swift and reliable home delivery!</p>
-                            </div>
+        <div className={`${styles.loginLayerBox} position-fixed top-0 bottom-0 start-0 end-0 d-inline-flex align-items-center justify-content-center`}>
+            <div className={`${styles.loginContainer} d-inline-flex align-items-stretch`}>
+                <div className="col-4 d-inline-flex position-relative flex-column align-items-center p-0 flex-grow-1" onClick={(e) => stopParentLayer(e)}>
+                <div className={`${styles.loginCarousalImg} h-100 bg-black p-0 m-0 w-100`}>
+                            <img src="/images/login-img3.png" alt="shoe" style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                                margin: "0px",
+                            }} />
                         </div>
-                    </div>
-                    <div className="col-8 p-4 position-relative">
-                        <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
-                        {loginType === 'Login' ?
-                            <LoginPassword setLoginType={setLoginType} setLoginPop={setLoginPop} />
-                            : loginType === 'LoginOTP' ?
-                                <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
-                                : loginType === 'Register' ?
-                                    <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
-                                    : loginType === 'VerifyOTP' ?
-                                        <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
-                                        : loginType === 'RegVerifyOTP' ?
-                                            <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
-                                            : ''}
-                    </div>
+                    {/* <ReactOwlCarousel
+                        className={`owl-theme`}
+                        style={{
+                            position: 'relative',
+                            maxWidth: '100%',
+                            width: '100%',
+                        }}
+                        dots={true}
+                        items={1}
+                        loop={true}
+                        autoplay={true}
+                        autoplayTimeout={3000}
+                        autoplayHoverPause={true}
+                        nav={false}
+                    >
+                        <div className={`${styles.loginCarousalImg} h-100 p-0`} style={{
+                                width: "100%",
+                            }}>
+                            <img src="/images/login-img1.png" alt="shoe" style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover"
+                            }} />
+                        </div>
+                        <div className={`${styles.loginCarousalImg} h-100`}>
+                            <img src="/images/login-img2.png" alt="shoe" style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover"
+                            }} />
+                        </div>
+                        <div className={`${styles.loginCarousalImg} h-100`}>
+                            <img src="/images/login-img3.png" alt="shoe" style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover"
+                            }} />
+                        </div>
+                    </ReactOwlCarousel> */}
+                </div>
+                <div className="col-8 p-4 position-relative">
+                    <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>
+                    {loginType === 'Login' ?
+                        <LoginPassword setLoginType={setLoginType} setLoginPop={setLoginPop} />
+                        : loginType === 'LoginOTP' ?
+                            <LoginOTP setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} />
+                            : loginType === 'Register' ?
+                                <Register setLoginType={setLoginType} mobileVal={mobileVal} setMobileVal={setMobileVal} setOTPObj={setOTPObj} setRegisterType={setRegisterType} />
+                                : loginType === 'VerifyOTP' ?
+                                    <LoginVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} />
+                                    : loginType === 'RegVerifyOTP' ?
+                                        <RegisterVerifyOTP setLoginType={setLoginType} mobileVal={mobileVal} mobileOTP={mobileOTP} setMobileOTP={setMobileOTP} otpObj={otpObj} setOTPObj={setOTPObj} setLoginPop={setLoginPop} registerType={registerType} />
+                                        : ''}
                 </div>
             </div>
-        </React.Fragment>
+        </div>
+    </React.Fragment>
     )
 }

@@ -16,13 +16,13 @@ body {
   padding: 0 20px;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 943px) {
   .hideInDesktop{
       display: none !important;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 943px) {
   .hideInMobile{
       display: none !important;
   }

@@ -197,7 +197,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         position: 'relative',
       }}>
         <div
-          className={`${styles.headerRow} m-0 col-12 row d-inline-flex align-items-center`}
+          className={`${styles.headerRow} m-0 col-12 p-0 row d-inline-flex align-items-center`}
         >
           <div className="container-fluid w-100 mx-auto col-11 d-flex align-items-stretch">
             <div
@@ -208,7 +208,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               }}
             >
 
-              <div className="col-5 d-flex align-items-center">
+              <div className="col-4 d-flex align-items-center">
                 <span
                   className={`${styles.menuIconBox} d-md-none d-inline-flex align-items-center justify-content-center`}
                   onClick={openAsideMenu}
@@ -234,17 +234,17 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     }}
                   />
                 </h1>
-                <div className="d-flex d-none d-md-flex position-relative align-items-center ps-5">
+                <div className="d-flex d-none d-md-flex position-relative align-items-center ps-5 h-100">
                   {navItems.length > 0 &&
                     navItems.map((item, index) => (
                       <div
-                        className={`${styles.headerNavBox} position-relative d-flex align-items-center m-0`}
+                        className={`${styles.headerNavBox} w-fit position-relative d-flex align-items-center m-0 h-100 px-3`}
                         key={index}
                       >
                         <span
                           className={`${styles.menuName} d-flex align-items-center gap-2`}
                         >
-                          {item.name} <BackArrowIcon color="#000" role="button" />
+                          {item.name}
                         </span>
                         {item.catList?.length > 0 && (
                           <div
@@ -253,13 +253,17 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             {item.catList.map((subNme, subIdx) => (
                               <Link
                                 to={`/store-product/${subNme?.name_url}`}
+                                key={subIdx}
+                                className={`${styles.subMenuName} col-12 d-flex align-items-center px-3 py-2`}
                                 style={{
                                   textDecoration: "none",
                                 }}
-                                key={subIdx}
-                                className={`${styles.subMenuName} col-12 d-flex align-items-center px-3 py-2`}
                               >
-                                {subNme.name}
+                                <p style={{
+                                  margin: '0',
+                                  padding: '0',
+                                  fontSize: '16px'
+                                }}>{subNme.name}</p>
                               </Link>
                             ))}
                           </div>
@@ -268,21 +272,68 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     ))}
                 </div>
               </div>
-              <div className="col-6 d-flex flex-row justify-content-end gap-4">
+
+              <div className="col-7 d-flex flex-row justify-content-end gap-4">
+                {/* Search box */}
                 <div
-                  className={`${styles.supportDrop} d-flex align-items-center gap-1 position-relative justify-content-center`}
+                  className={`${styles.supportDrop} d-flex align-items-center gap-1 position-relative justify-content-end ps-5`}
+                  style={{
+                    width: '100%',
+                    maxWidth: '350px',
+                  }}
                   role="button"
                   onClick={() => {
                     setIsSearch(!isSearch);
                     setSearchProd("");
                   }}
                 >
-                  <div className="d-flex align-items-center gap-2">
-                    <SearchIcon color="#000" />
-                    <span className="visually-hidden">Search</span>
+                  <div className="d-flex w-100 align-items-center gap-2">
+                    <div
+                      className={`d-inline-flex col-6 align-items-center`}
+                      style={{
+                        width: '100%',
+                        zIndex: '25',
+                      }}
+                    >
+                      <span
+                        className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
+                        style={{
+                          left: '60px',
+                        }}
+                      >
+                        <SearchIcon color="#000" />
+                      </span>
+                      <input
+                        type="search"
+                        className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
+                        value={searchProd}
+                        onChange={(e) => searchShopProd(e, e.target.value)}
+                        placeholder={enviroment.SEARCH_PLACEHOLDER}
+                        onKeyDown={handleKeyDown}
+                      />
+                      {searchProdList?.length > 0 && (
+                        <div
+                          className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
+                        >
+                          {searchProdList.map((item, idx) => {
+                            return (
+                              <span
+                                className={`${styles.searchRow} p-3 text-truncate col-12`}
+                                role="button"
+                                key={idx}
+                                onClick={() =>
+                                  openProductId(item.name_url, item.name)
+                                }
+                              >
+                                {item.name}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-
                 <div
                   className={`${styles.supportDrop} d-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
                   role="button"
@@ -430,54 +481,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             </div>
           </div>
         </div>
-
-        {
-          isSearch &&
-          <div
-            className={`d-inline-flex col-6 align-items-center`}
-            style={{
-              position: 'absolute',
-              top: '80px',
-              right: '10px',
-              maxWidth: "500px",
-              zIndex: '25',
-            }}
-          >
-            <span
-              className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto start-0 ms-3 d-inline-flex align-items-center`}
-            >
-              <SearchIcon color="#000" />
-            </span>
-            <input
-              type="search"
-              className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
-              value={searchProd}
-              onChange={(e) => searchShopProd(e, e.target.value)}
-              placeholder={enviroment.SEARCH_PLACEHOLDER}
-              onKeyDown={handleKeyDown}
-            />
-            {searchProdList?.length > 0 && (
-              <div
-                className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
-              >
-                {searchProdList.map((item, idx) => {
-                  return (
-                    <span
-                      className={`${styles.searchRow} p-3 text-truncate col-12`}
-                      role="button"
-                      key={idx}
-                      onClick={() =>
-                        openProductId(item.name_url, item.name)
-                      }
-                    >
-                      {item.name}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        }
         {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
         {cartPop === true && <CartAside setCartPop={setCartPop} />}
       </div>

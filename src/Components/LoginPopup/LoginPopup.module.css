@@ -6,11 +6,15 @@
     background: #FFF;
     border-radius: 6px;
     min-height: 470px;
+    height: 470px;
     width: 100%;
     max-width: 800px;
 }
 .loginGradientBox{
     background: var(--PRIMARY_COLOR);
+}
+.loginCarousalImg{
+    height: 100%;
 }
 .loginGradientBox h2{
     font-size: 18px;
@@ -56,10 +60,12 @@
     border: 1px solid var(--PRIMARY_COLOR);
 }
 .loginFilledBtn{
+    border: 2px solid black;
     background: var(--PRIMARY_COLOR);
     color: var(--SECONDARY_COLOR);
 }
 .loginUnfilledBtn{
+    border: 2px solid black;
     background: var(--SECONDARY_COLOR);
     color: var(--PRIMARY_COLOR);
 }
@@ -68,7 +74,9 @@
     color: #111;
 }
 .loginLink{
-    color: var(--PRIMARY_COLOR);
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
 }
 .changeNumber{
     color: var(--PRIMARY_COLOR)
