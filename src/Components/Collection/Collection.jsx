@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import noImage from "../../assets/images/image-not-available.jpg";
-import mensCollection from '../../assets/images/mens-collection.svg';
+import mensCollection from '../../assets/images/mens.jpeg';
 import { enviroment } from '../../enviroment';
 import ApiService from '../../services/ApiService';
 import styles from './Collection.module.css';

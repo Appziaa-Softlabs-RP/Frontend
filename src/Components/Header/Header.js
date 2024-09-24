@@ -193,7 +193,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {/* Desktop Structure */}
-      <div className={`col-12 d-inline-flex flex-column`} style={{
+      <div className={`col-12 d-inline-flex flex-column px-5 `} style={{
         position: 'relative',
       }}>
         <div
