@@ -1,34 +1,56 @@
-import brandImage from "../../assets/images/brand.svg";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import brandInfoImage from "../../assets/images/brandInfo.svg";
+import { useAppStore } from "../../store";
 import styles from "./brand.module.css";
 
 export default function IntroBrand() {
 
-    return <div className="container-fluid m-0 p-0 row">
+    const [loading, setLoading] = useState(true);
+    const promoBanners = useAppStore((state) => state.promoBanners);
+    const offerBanners = useAppStore((state) => state.offerBanners);
+    const [allBanner, setAllBanner] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setAllBanner(offerBanners);
+        setLoading(false);
+    }, [promoBanners, offerBanners]);
+
+
+    return <div className="container-fluid m-0 p-0 row" style={{
+        height: "600px",
+    }}>
         <div className={`col-12 d-none d-md-flex col-md-6 w-full p-0 justify-content-center align-items-center`} style={{
-            background: "#BD54A6"
+            background: "#343434"
         }}>
             <img src={brandInfoImage}
                 style={{
-                    width: "60%",
-                    height: "60%",
+                    width: "40%",
+                    height: "40%",
                 }}
                 alt="Brand" />
         </div>
         <div className="col-12 col-md-6 w-full d-flex align-items-center justify-content-center p-0">
-            <img src={brandImage}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover"
-                }}
-                className={styles.brandImage}
-                alt="Brand" />
+            {allBanner?.length >0 && (
+                    <div
+                        className={styles.banner}
+                    >
+                        <img
+                            src={allBanner[0]?.image}
+                            alt={allBanner[0]?.name}
+                            className={styles.brandImage}
+                            style={{
+                                width: "100%",
+                            }}
+                        />
+                    </div>
+            )}
             <div className="position-absolute d-md-none z-20">
                 <img src={brandInfoImage}
                     style={{
-                        width: "70%",
-                        height: "70%",
+                        width: "50%",
+                        height: "50%",
                     }}
                     alt="Brand" />
             </div>

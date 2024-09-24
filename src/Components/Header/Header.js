@@ -199,12 +199,13 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         <div
           className={`${styles.headerRow} m-0 col-12 p-0 row d-inline-flex align-items-center`}
         >
-          <div className="container-fluid w-100 mx-auto col-11 d-flex align-items-stretch">
+          <div className="container-fluid p-0 w-100 mx-auto col-11 d-flex align-items-stretch">
             <div
               className={`row col-12 d-flex w-100 m-0 align-items-stretch gap-3`}
               style={{
                 alignItems: "center",
                 justifyContent: "space-between",
+                margin: "0px",
               }}
             >
 
@@ -482,64 +483,65 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           </div>
           {/* Search box */}
           <div
-                  className={`${styles.supportDrop} d-flex align-items-center gap-1 position-relative justify-content-end ps-5 hideInDesktop`}
+            className={`${styles.supportDrop} d-flex align-items-center gap-1 position-relative hideInDesktop`}
+            style={{
+              width: '100%',
+              margin: "auto",
+              maxWidth: '350px',
+            }}
+            role="button"
+            onClick={() => {
+              setIsSearch(!isSearch);
+              setSearchProd("");
+            }}
+          >
+            <div className="d-flex w-100 align-items-center gap-2">
+              <div
+                className={`d-inline-flex col-6 align-items-center`}
+                style={{
+                  width: '100%',
+                  zIndex: '25',
+                }}
+              >
+                <span
+                  className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                   style={{
-                    width: '100%',
-                    maxWidth: '350px',
-                  }}
-                  role="button"
-                  onClick={() => {
-                    setIsSearch(!isSearch);
-                    setSearchProd("");
+                    left: '25px',
                   }}
                 >
-                  <div className="d-flex w-100 align-items-center gap-2">
-                    <div
-                      className={`d-inline-flex col-6 align-items-center`}
-                      style={{
-                        width: '100%',
-                        zIndex: '25',
-                      }}
-                    >
-                      <span
-                        className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
-                        style={{
-                          left: '60px',
-                        }}
-                      >
-                        <SearchIcon color="#000" />
-                      </span>
-                      <input
-                        type="search"
-                        className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
-                        value={searchProd}
-                        onChange={(e) => searchShopProd(e, e.target.value)}
-                        placeholder={enviroment.SEARCH_PLACEHOLDER}
-                        onKeyDown={handleKeyDown}
-                      />
-                      {searchProdList?.length > 0 && (
-                        <div
-                          className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
+                  <SearchIcon color="#000" />
+                </span>
+                <input
+                  type="search"
+                  className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
+                  value={searchProd}
+                  onChange={(e) => searchShopProd(e, e.target.value)}
+                  placeholder={enviroment.SEARCH_PLACEHOLDER}
+                  onKeyDown={handleKeyDown}
+                />
+                {searchProdList?.length > 0 && (
+                  <div
+                    className={`${styles.showSearchList} position-absolute d-inline-flex flex-column start-0 col-12 overflow-y-auto`}
+                  >
+                    {searchProdList.map((item, idx) => {
+                      return (
+                        <span
+                          className={`${styles.searchRow} p-3 text-truncate col-12`}
+                          role="button"
+                          key={idx}
+                          onClick={() =>
+                            openProductId(item.name_url, item.name)
+                          }
                         >
-                          {searchProdList.map((item, idx) => {
-                            return (
-                              <span
-                                className={`${styles.searchRow} p-3 text-truncate col-12`}
-                                role="button"
-                                key={idx}
-                                onClick={() =>
-                                  openProductId(item.name_url, item.name)
-                                }
-                              >
-                                {item.name}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
+                          {item.name}
+                        </span>
+                      );
+                    })}
                   </div>
-                </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
         {cartPop === true && <CartAside setCartPop={setCartPop} />}

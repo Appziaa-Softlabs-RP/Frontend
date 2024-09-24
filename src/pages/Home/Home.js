@@ -20,7 +20,11 @@ export const Home = () => {
 
   return (
     <React.Fragment>
-      <div className="col-12 d-inline-flex flex-column">
+      <div className="col-12 d-inline-flex flex-column" style={{
+        position: "relative",
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}>
         <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         {/* hero banner */}
@@ -59,7 +63,7 @@ export const Home = () => {
 
         <BrandFocus />
 
-        <PromoBanner type="Offers" />
+        {/* <PromoBanner type="Offers" /> */}
 
         <Reviews />
 
