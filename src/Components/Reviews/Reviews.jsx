@@ -105,7 +105,7 @@ export default function Reviews() {
                     width: "60px",
                     marginBottom: "-20px"
                 }} />
-                <div className="ms-4">
+                <div className="ms-4 mt-2">
                     <p style={{
                         fontSize: "1.125rem"
                     }}><b>The {process.env.REACT_APP_BUSINESS_NAME} Testimonials</b></p>
@@ -126,7 +126,7 @@ export default function Reviews() {
                 <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`}  {...settings}>
                     {reviews.map((review) => (
                         <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                            background: "#EBD4D4",
+                            background: "rgb(255, 242, 242)",
                             color: "#291845",
                             borderRadius: "5px"
                         }}>
