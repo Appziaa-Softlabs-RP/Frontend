@@ -6,12 +6,12 @@
 }
 
 .pointHeading{
-    font-size: 1.2rem;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .pointDesc{
-    font-size: 0.8rem;
+    font-size: 12px;
     font-weight: 400;
 }
 

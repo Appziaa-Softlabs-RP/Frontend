@@ -13,53 +13,58 @@ export default function OurStory() {
         <div className='col-12 col-md-7 d-flex flex-column justify-content-center align-items-center'>
             <h4 style={{
                 textAlign: 'center',
-                fontWeight: '400',
+                fontWeight: 'bold',
                 fontSize: '1.4rem'
             }}>Our Story</h4>
             <p style={{
                 textAlign: 'center',
-                fontWeight: '400',
+                fontWeight: 'bold',
                 fontSize: '0.9rem'
-            }}>Lorem ipsum dolor sit amet consectetur. Eget turpis vivamus aliquam lacinia Nec elementum et malesuada vitae.</p>
+            }}>Steps Forever: Where Style Meets Comfort</p>
+            <p style={{
+                textAlign: 'center',
+                fontWeight: '400',
+                fontSize: '12px'
+            }}>At Steps Forever, we believe that every step you take should blend comfort with style. As we venture into the world of direct-to-consumer (D2C) shoes and lifestyle products, our mission is to redefine everyday fashion with quality and elegance.</p>
             <div>
                 <h5 className='text-center mt-3' style={{
-                    fontWeight: '400'
-                }}>What Makes Us Different?</h5>
+                    fontWeight: 'bold'
+                }}>4 Key Pillars of Our Brand:</h5>
                 <div className={`${styles.pointsContainer}`}>
                     <div className='d-flex align-items-center gap-2'>
                         <div className={styles.pointIcon}></div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
-                            Quality
+                            Unmatched Quality:
                         </h6>
-                        <p className={styles.pointDesc}>Lorem ipsum dolor sit amet consectetur. Eget turpis vivamus aliquam lacinia</p>
+                        <p className={styles.pointDesc}>We source the finest materials to craft shoes and lifestyle products that stand the test of time.</p>
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-2'>
                         <div className={styles.pointIcon}></div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
-                            Quality
+                            Everyday Comfort:
                         </h6>
-                        <p className={styles.pointDesc}>Lorem ipsum dolor sit amet consectetur. Eget turpis vivamus aliquam lacinia</p>
+                        <p className={styles.pointDesc}>Our designs prioritize comfort, ensuring that style never comes at the expense of wearability.</p>
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-2'>
                         <div className={styles.pointIcon}></div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
-                            Quality
+                            Affordability Meets Luxury:
                         </h6>
-                        <p className={styles.pointDesc}>Lorem ipsum dolor sit amet consectetur. Eget turpis vivamus aliquam lacinia</p>
+                        <p className={styles.pointDesc}>Enjoy premium designs without the premium price tag—fashion that's accessible for all.</p>
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-2'>
                         <div className={styles.pointIcon}></div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
-                            Quality
+                            Sustainable Style:
                         </h6>
-                        <p className={styles.pointDesc}>Lorem ipsum dolor sit amet consectetur. Eget turpis vivamus aliquam lacinia</p>
+                        <p className={styles.pointDesc}>We are committed to sustainability, focusing on eco-friendly practices to create products that not only look good but do good.</p>
                         </div>
                     </div>
                 </div>
