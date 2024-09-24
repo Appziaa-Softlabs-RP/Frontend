@@ -19,14 +19,16 @@ export default function IntroBrand() {
 
 
     return <div className="container-fluid m-0 p-0 row" style={{
+        position: "relative",
         height: "600px",
     }}>
         <div className={`col-12 d-none d-md-flex col-md-6 w-full p-0 justify-content-center align-items-center`} style={{
-            background: "#343434"
+            background: "#343434",
+            height: "100%",
         }}>
             <img src={brandInfoImage}
                 style={{
-                    width: "40%",
+                    maxHeight: '300px',
                     height: "40%",
                 }}
                 alt="Brand" />

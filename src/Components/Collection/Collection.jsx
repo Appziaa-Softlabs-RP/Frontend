@@ -5,7 +5,7 @@ import mensCollection from '../../assets/images/mens-collection.svg';
 import { enviroment } from '../../enviroment';
 import ApiService from '../../services/ApiService';
 import styles from './Collection.module.css';
-import womensCollection from '../../assets/images/women-fashion.svg';
+import womensCollection from '../../assets/images/womensCollection.jpeg';
 
 export default function Collections({ type }) {
 
@@ -88,6 +88,9 @@ export default function Collections({ type }) {
                     }
                     alt="Mens Collection"
                     className={`${styles.darkenImage}`}
+                    style={{
+                        height: "100%",
+                    }}
                 />
                 <p className={styles.collectionImageText}
                     style={{
