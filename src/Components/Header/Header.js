@@ -277,7 +277,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               <div className="col-7 d-flex flex-row justify-content-end gap-4">
                 {/* Search box */}
                 <div
-                  className={`${styles.supportDrop} d-flex hideInMobile align-items-center gap-1 position-relative justify-content-end ps-5`}
+                  className={`${styles.supportDrop} d-flex hideInMobile align-items-center gap-1 position-relative justify-content-end ps-4`}
                   style={{
                     width: '100%',
                     maxWidth: '350px',
@@ -294,20 +294,25 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       style={{
                         width: '100%',
                         zIndex: '25',
+                        position: 'relative',
                       }}
                     >
                       <span
                         className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                         style={{
-                          left: '60px',
+                          left: '5px',
+                          padding: '2px'
                         }}
                       >
                         <SearchIcon color="#000" />
                       </span>
                       <input
                         type="search"
-                        className={`${styles.inputSearch} d-inline-flex ps-5 col-12 pe-3`}
+                        className={`${styles.inputSearch} d-inline-flex ps-4 col-12 pe-3`}
                         value={searchProd}
+                        style={{
+                          fontSize: '12px',
+                        }}
                         onChange={(e) => searchShopProd(e, e.target.value)}
                         placeholder={enviroment.SEARCH_PLACEHOLDER}
                         onKeyDown={handleKeyDown}
