@@ -25,14 +25,16 @@ export default function OurStory() {
                 textAlign: 'center',
                 fontWeight: '400',
                 fontSize: '12px'
-            }}>At Steps Forever, we believe that every step you take should blend comfort with style. As we venture into the world of direct-to-consumer (D2C) shoes and lifestyle products, our mission is to redefine everyday fashion with quality and elegance.</p>
+            }}>At Steps Forever, we believe that every step you take should blend comfort with style. As we venture into the world of direct-to-consumer (D2C)<br />shoes and lifestyle products, our mission is to redefine everyday fashion with quality and elegance.</p>
             <div>
                 <h5 className='text-center mt-3' style={{
                     fontWeight: 'bold'
                 }}>4 Key Pillars of Our Brand:</h5>
                 <div className={`${styles.pointsContainer}`}>
                     <div className='d-flex align-items-center gap-2'>
-                        <div className={styles.pointIcon}></div>
+                        <div className={styles.pointIcon}>
+                            <img src="/images/quality.png" alt="1" />
+                        </div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
                             Unmatched Quality:
@@ -41,7 +43,9 @@ export default function OurStory() {
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-2'>
-                        <div className={styles.pointIcon}></div>
+                        <div className={styles.pointIcon}>
+                        <img src="/images/comfort.png" alt="1" />
+                        </div>
                         <div className='d-flex flex-column'>
                         <h6 className={styles.pointHeading}>
                             Everyday Comfort:

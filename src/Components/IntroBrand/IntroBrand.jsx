@@ -36,14 +36,25 @@ export default function IntroBrand() {
         <div className="col-12 col-md-6 w-full d-flex align-items-center justify-content-center p-0">
             {allBanner?.length >0 && (
                     <div
-                        className={styles.banner}
+                        className={`${styles.banner} w-100 h-100`}
+                        style={{
+                            // background: `url(${allBanner[0]?.image})`,
+                            // backgroundSize: "cover",
+                            width: '50vw',
+                            minHeight: "600px",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                        }}
                     >
                         <img
                             src={allBanner[0]?.image}
                             alt={allBanner[0]?.name}
                             className={styles.brandImage}
                             style={{
+                                minWidth: "100%",
                                 width: "100%",
+                                height: "600px",
+                                objectFit: "fill",
                             }}
                         />
                     </div>
