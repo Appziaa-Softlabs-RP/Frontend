@@ -308,7 +308,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       </span>
                       <input
                         type="search"
-                        className={`${styles.inputSearch} d-inline-flex ps-4 col-12 pe-3`}
+                        className={`${styles.inputSearch} d-inline-flex ps-4 col-12 pe-1`}
                         value={searchProd}
                         style={{
                           fontSize: '12px',

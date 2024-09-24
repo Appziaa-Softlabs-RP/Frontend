@@ -189,7 +189,7 @@
 }
 
 .inputSearch:focus {
-    border: 2px solid rgba(179, 179, 179, 0.229);
+    border: 2px solid black;
     background: white;
     box-shadow: none;
     outline: none;
