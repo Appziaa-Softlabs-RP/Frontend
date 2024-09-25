@@ -36,7 +36,12 @@ export default function Collections({ type }) {
     }
 
 
-    return <div className={`container-fluid m-0 ${styles.mainContainer}`}>
+    return <div className={`container-fluid m-0 ${styles.mainContainer}`} 
+        style={{
+            position: "relative",
+            height: "fit-content",
+        }}
+    >
         <div className={`container row col-12 mx-auto d-flex flex-column-reverse ${type === "men" ? "flex-md-row" : "flex-md-row-reverse"}`}>
             <div className={`d-flex flex-column flex ${styles.collectionTextBox}`}
             >
@@ -60,6 +65,10 @@ export default function Collections({ type }) {
                                     src={item?.image === "" ? noImage : item?.image}
                                     alt={item?.name}
                                     className={`${styles.imageResponsive}`}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
                                 />
                                 <p
                                     className={`text-center mt-2 ${styles.categoryName}`}
@@ -78,6 +87,7 @@ export default function Collections({ type }) {
                 style={{
                     maxWidth: "100%",
                     overflow: "hidden",
+                    position: 'relative'
                 }}
             >
                 <img
@@ -89,6 +99,7 @@ export default function Collections({ type }) {
                     alt="Mens Collection"
                     className={`${styles.darkenImage}`}
                     style={{
+                        width: "100%",
                         height: "100%",
                     }}
                 />

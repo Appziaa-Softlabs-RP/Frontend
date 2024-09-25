@@ -561,14 +561,8 @@ export const LoginPopup = ({ setLoginPop }) => {
             <div className={`${styles.loginContainer} d-inline-flex align-items-stretch`}>
                 <div className="col-4 d-inline-flex position-relative flex-column align-items-center p-0 flex-grow-1" onClick={(e) => stopParentLayer(e)}>
                 <div className={`${styles.loginCarousalImg} h-100 bg-black p-0 m-0 w-100`}>
-                            <img src="/images/login-img3.png" alt="shoe" style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                margin: "0px",
-                            }} />
-                        </div>
-                    {/* <ReactOwlCarousel
+                         
+                    <ReactOwlCarousel
                         className={`owl-theme`}
                         style={{
                             position: 'relative',
@@ -606,7 +600,8 @@ export const LoginPopup = ({ setLoginPop }) => {
                                 objectFit: "cover"
                             }} />
                         </div>
-                    </ReactOwlCarousel> */}
+                    </ReactOwlCarousel>
+                </div>
                 </div>
                 <div className="col-8 p-4 position-relative">
                     <span className={`${styles.closeLogin} position-absolute d-inline-flex align-items-center justify-content-center`} role="button" onClick={() => hideLoginPop(false)}>&times;</span>

@@ -102,9 +102,9 @@ img {
   width: fit-content;
   margin: auto;
   padding: 0px !important;
-  background-color: rgba(255, 255, 255, 0.767) !important;
+  /* background-color: rgba(255, 255, 255, 0.767) !important; */
   border-radius: 40px !important;
-  transform: translateY(-5px);
+  transform: translateY(-30px);
   height: 15px;
 }
 
@@ -122,18 +122,18 @@ img {
 }
 
 .owl-dot span {
-  height: 6px !important;
-  width: 6px !important;
+  height: 10px !important;
+  width: 10px !important;
   margin: 0px 6px !important;
   transform: translateY(-7px);
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--PRIMARY_COLOR) !important;
+  /* background: red !important; */
 }
 
 .owl-dot.active span {
-  background: var(--PRIMARY_COLOR) !important;
+  background: red !important;
 }
 
 .galleryBox .owl-stage {
