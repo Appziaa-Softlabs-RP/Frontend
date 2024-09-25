@@ -41,8 +41,6 @@ export const Home = () => {
           <LookingFor />
         </div> */}
 
-        <NewArrival />
-
         <DealShop />
 
         <Collections
@@ -53,6 +51,12 @@ export const Home = () => {
 
         <Collections
           type={'women'}
+        />
+
+        <NewArrival />
+
+        <Collections
+          type={'kids'}
         />
 
         <OurStory />

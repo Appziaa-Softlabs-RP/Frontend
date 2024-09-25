@@ -6,6 +6,7 @@ import { enviroment } from '../../enviroment';
 import ApiService from '../../services/ApiService';
 import styles from './Collection.module.css';
 import womensCollection from '../../assets/images/womensCollection.jpeg';
+import kidsCollection from '../../assets/images/kids.svg';
 
 export default function Collections({ type }) {
 
@@ -30,32 +31,35 @@ export default function Collections({ type }) {
             return "Men's Collection";
         } else if (type === 'women') {
             return "Women's Collection";
+        } else if (type === 'kids') {
+            return "Kid's Collection";
         } else {
             return 'Collection';
         }
     }
 
 
-    return <div className={`container-fluid m-0 ${styles.mainContainer}`} 
+    return <div className={`container-fluid m-0 ${styles.mainContainer}`}
         style={{
             position: "relative",
             height: "fit-content",
-            backgroundColor: type === 'men' ? '' : '#dfdcf9'
+            backgroundColor: type !== 'women' ? '' : '#dfdcf9'
         }}
     >
-        <div className={`container row col-12 mx-auto d-flex flex-column-reverse ${type === "men" ? "flex-md-row" : "flex-md-row-reverse"}`}>
+        <div className={`container row col-12 mx-auto d-flex flex-column-reverse ${type === "women" ? "flex-md-row-reverse" : "flex-md-row"}`}>
             <div className={`d-flex flex-column flex ${styles.collectionTextBox}`}
             >
                 <h2 className="text-center m-0 mb-2 p-0">
                     {getTitle({ type })}
                 </h2>
-                <div className="" style={{ flexGrow: 1,
+                <div className="" style={{
+                    flexGrow: 1,
                     width: '100%',
                     display: 'grid',
                     gridTemplateRows: 'repeat(2, 1fr)',
                     gridTemplateColumns: 'repeat(2, 1fr)',
                     gap: '0.9rem',
-                    }}>
+                }}>
                     {shopCategory.map((item, index) => {
                         return (
                             <Link to={`/store/${item?.name_url}`}
@@ -95,9 +99,11 @@ export default function Collections({ type }) {
                     src={
                         type === "men" ?
                             mensCollection :
-                            womensCollection
+                            type === "women" ?
+                                womensCollection :
+                                kidsCollection
                     }
-                    alt="Mens Collection"
+                    alt="Collection"
                     className={`${styles.darkenImage}`}
                     style={{
                         width: "100%",
