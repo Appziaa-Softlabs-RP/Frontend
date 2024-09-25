@@ -193,7 +193,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {/* Desktop Structure */}
-      <div className={`col-12 d-inline-flex flex-column px-5 `} style={{
+      <div className={`col-12 d-inline-flex flex-column px-2 px-md-5 `} style={{
         position: 'relative',
       }}>
         <div
@@ -209,9 +209,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               }}
             >
 
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-4 d-flex gap-2p align-items-center">
                 <span
-                  className={`${styles.menuIconBox} d-md-none d-inline-flex align-items-center justify-content-center`}
+                  className={`${styles.menuIconBox} m-0 d-md-none d-inline-flex align-items-center`}
                   onClick={openAsideMenu}
                 >
                   <MenuIcons color={enviroment.SECONDARY_COLOR} />
@@ -220,7 +220,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   onClick={() => routeHome()}
                   itemtype="http://schema.org/Organization"
                   style={{ cursor: "pointer" }}
-                  className={`d-flex align-items-center justify-content-center`}
+                  className={`d-flex align-items-center h-100`}
                 >
                   <span className="visually-hidden">
                     {enviroment.REACT_APP_BUSINESS_NAME}
