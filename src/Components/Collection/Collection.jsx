@@ -40,6 +40,7 @@ export default function Collections({ type }) {
         style={{
             position: "relative",
             height: "fit-content",
+            backgroundColor: type === 'men' ? '' : '#dfdcf9'
         }}
     >
         <div className={`container row col-12 mx-auto d-flex flex-column-reverse ${type === "men" ? "flex-md-row" : "flex-md-row-reverse"}`}>
