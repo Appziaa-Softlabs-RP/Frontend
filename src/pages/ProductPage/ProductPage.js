@@ -63,11 +63,23 @@ export const ProductPage = () => {
   const [isSpecilization, setIsSpecilization] = useState(false);
   const userInfo = appData?.appData?.user;
   const pageCurrentURL = encodeURIComponent(window.location.href);
+  const [isSizeInCm, setSizeInCm] = useState(true);
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
 
   const setMainImage = (image, count) => {
     setActiveImg(count);
     setProdMainImg(image);
   };
+
+  const sizeData = [
+    { uk: 5, us: 6, euro: 39, cm: 23.4, inches: 9.21 },
+    { uk: 6, us: 7, euro: 40, cm: 24.4, inches: 9.61 },
+    { uk: 7, us: 8, euro: 41, cm: 25.4, inches: 10.00 },
+    { uk: 8, us: 9, euro: 42, cm: 26.4, inches: 10.40 },
+    { uk: 9, us: 10, euro: 43, cm: 27.4, inches: 10.80 },
+    { uk: 10, us: 11, euro: 44, cm: 28.4, inches: 11.20 },
+    { uk: 11, us: 12, euro: 45, cm: 29.4, inches: 11.57 },
+  ];
 
   const openProductColpse = () => { };
 
@@ -709,71 +721,72 @@ export const ProductPage = () => {
               (Inclusive of all taxes)
             </span>
           </div>
+          {/* Color and size */}
           <div className="row">
-                  <div className="col-md-12">
-                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      More Colors
-                    </h2>
-                    <div className="d-flex">
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'black',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          marginRight: '10px'
-                        }}
-                      ></div>
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'blue',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          marginRight: '10px'
-                        }}
-                      ></div>
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'yellow',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%'
-                        }}
-                      ></div>
-                    </div>
-                    <p className="mt-2" style={{fontSize: '12px'}}><span style={{margin: '2px'}}>Black</span> <span style={{margin: '2px'}}>Blue</span> <span style={{margin: '2px'}}>Yellow</span></p>
-                  </div>
+            <div className="col-md-12">
+              <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                More Colors
+              </h2>
+              <div className="d-flex">
+                <div
+                  className="color-option"
+                  style={{
+                    backgroundColor: 'black',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                    marginRight: '10px'
+                  }}
+                ></div>
+                <div
+                  className="color-option"
+                  style={{
+                    backgroundColor: 'blue',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                    marginRight: '10px'
+                  }}
+                ></div>
+                <div
+                  className="color-option"
+                  style={{
+                    backgroundColor: 'yellow',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%'
+                  }}
+                ></div>
+              </div>
+              <p className="mt-2" style={{ fontSize: '12px' }}><span style={{ margin: '2px' }}>Black</span> <span style={{ margin: '2px' }}>Blue</span> <span style={{ margin: '2px' }}>Yellow</span></p>
+            </div>
 
-                  <div className="col-md-12">
-                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      Select Size (UK Size)
-                    </h2>
-                    <div className="d-flex">
-                      {[5, 6, 7, 8, 9, 10, 11].map((size) => (
-                        <button
-                          key={size}
-                          className="btn"
-                          style={{
-                            marginRight: '5px',
-                            textAlign: 'center',
-                            padding: '4px',
-                            fontSize: '12px',
-                            height: '30px',
-                            width: '30px',
-                            border: '1px solid #000',
-                            borderRadius: '50%',
-                          }}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+            <div className="col-md-12">
+              <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                Select Size (UK Size)
+              </h2>
+              <div className="d-flex">
+                {[5, 6, 7, 8, 9, 10, 11].map((size) => (
+                  <button
+                    key={size}
+                    className="btn"
+                    style={{
+                      marginRight: '5px',
+                      textAlign: 'center',
+                      padding: '4px',
+                      fontSize: '12px',
+                      height: '30px',
+                      width: '30px',
+                      border: '1px solid #000',
+                      borderRadius: '50%',
+                    }}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {ProductData?.bank_offer !== null &&
@@ -1476,6 +1489,7 @@ export const ProductPage = () => {
                     </div>
                   )}
                 </div>
+                {/* Color and size */}
                 <div className="row">
                   <div className="col-md-12">
                     <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
@@ -1512,35 +1526,157 @@ export const ProductPage = () => {
                         }}
                       ></div>
                     </div>
-                    <p className="mt-2" style={{fontSize: '12px'}}><span style={{margin: '2px'}}>Black</span> <span style={{margin: '2px'}}>Blue</span> <span style={{margin: '2px'}}>Yellow</span></p>
+                    <p className="mt-2" style={{ fontSize: '12px' }}><span style={{ margin: '2px' }}>Black</span> <span style={{ margin: '2px' }}>Blue</span> <span style={{ margin: '2px' }}>Yellow</span></p>
                   </div>
 
-                  <div className="col-md-12">
-                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      Select Size (UK Size)
-                    </h2>
-                    <div className="d-flex">
-                      {[5, 6, 7, 8, 9, 10, 11].map((size) => (
-                        <button
-                          key={size}
-                          className="btn"
-                          style={{
-                            marginRight: '5px',
-                            textAlign: 'center',
-                            padding: '4px',
-                            fontSize: '12px',
-                            height: '30px',
-                            width: '30px',
-                            border: '1px solid #000',
-                            borderRadius: '50%',
-                          }}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  {
+                    !isSizeChartOpen && (
+                      <div className="col-md-12">
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginBottom: '10px',
+                          maxWidth: '300px',
+                        }}>
+                          <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                            Select Size (UK Size)
+                          </h2>
+                          <button className="btn fw-bold text-danger"
+                            onClick={
+                              () => {
+                                setIsSizeChartOpen(true)
+                              }
+                            }
+                          >
+                            See Guide &gt;
+                          </button>
+                        </div>
+                        <div className="d-flex">
+                          {[5, 6, 7, 8, 9, 10, 11].map((size) => (
+                            <button
+                              key={size}
+                              className="btn"
+                              style={{
+                                marginRight: '5px',
+                                textAlign: 'center',
+                                padding: '4px',
+                                fontSize: '12px',
+                                height: '30px',
+                                width: '30px',
+                                border: '1px solid #000',
+                                borderRadius: '50%',
+                              }}
+                            >
+                              {size}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                 </div>
+                {/* Size chart */}
+                {
+                  isSizeChartOpen && (
+                    <div className="">
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '10px'
+                      }}>
+                        <h2 className="text-danger text-start m-0">Size Chart</h2>
+                        <button className="btn btn-danger"
+                          onClick={
+                            () => {
+                              setIsSizeChartOpen(false)
+                            }
+                          }
+                        >
+                          Close
+                        </button>
+                      </div>
+                      <div className="row position-relative">
+                        <div className="col-xl-6 h-100">
+                          <div style={{
+                            display: 'flex',
+                            justifyContent: 'end',
+                            alignItems: 'center',
+                          }}>
+                            <div
+                              style={{
+                                display: 'flex',
+                                marginBottom: '10px',
+                                flexDirection: 'row',
+                                gap: '10px',
+                                background: '#D9D9D9',
+                                padding: '5px',
+                                borderRadius: '5px'
+                              }}
+                            >
+                              <button
+                                onClick={() => setSizeInCm(true)}
+                                className="btn"
+                                style={{
+                                  background: isSizeInCm ? 'red' : '#D9D9D9',
+                                  color: isSizeInCm ? 'white' : 'black',
+                                  fontWeight: 'bold',
+                                }}
+                              >cm</button>
+                              <button
+                                className="btn"
+                                onClick={() => setSizeInCm(false)}
+                                style={{
+                                  background: !isSizeInCm ? 'red' : '#D9D9D9',
+                                  color: !isSizeInCm ? 'white' : 'black',
+                                  fontWeight: 'bold',
+                                }}
+                              >inch</button>
+                            </div>
+                          </div>
+                          <table className="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>UK</th>
+                                <th>US</th>
+                                <th>EURO</th>
+                                {
+                                  isSizeInCm ?
+                                    <th>To Fit Foot Length (cm)</th>
+                                    :
+                                    <th>To Fit Foot Length (in)</th>
+                                }
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {sizeData.map((size, index) => (
+                                <tr key={index}>
+                                  <td>{size.uk}</td>
+                                  <td>{size.us}</td>
+                                  <td>{size.euro}</td>
+                                  {
+                                    isSizeInCm ?
+                                      <td>{size.cm}</td>
+                                      :
+                                      <td>{size.inches}</td>
+                                  }
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                        <div className="col-xl-6" style={{
+                          minHeight: '100%',
+                          height: '100%',
+                        }}>
+                          <img src="/images/footlen.svg" alt="footlen" style={{
+                            height: '100%',
+                            width: 'auto'
+                          }} />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 {!prodAdded ? (
                   ProductData?.stock <= 0 ? (
                     <button
