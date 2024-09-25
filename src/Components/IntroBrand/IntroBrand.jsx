@@ -44,6 +44,8 @@ export default function IntroBrand() {
                             minHeight: "600px",
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
+                            display: "flex",
+                            justifyContent: "center",
                         }}
                     >
                         <img
@@ -51,8 +53,8 @@ export default function IntroBrand() {
                             alt={allBanner[0]?.name}
                             className={styles.brandImage}
                             style={{
-                                minWidth: "100%",
-                                width: "100%",
+                                // minWidth: "100%",
+                                // width: "100%",
                                 height: "600px",
                                 objectFit: "fill",
                             }}
