@@ -54,6 +54,28 @@ export const Footer = () => {
               <div
                 className={`${styles.footerTabCol} d-inline-flex flex-column px-3`}
               >
+                <h5>Policies</h5>
+                <ul className="list-unstyled">
+                  <li>
+                    <Link className="text-decoration-none" to="/privacy-policy">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-decoration-none" to="/terms">
+                      Terms & Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-decoration-none" to="/return-policy">
+                        Return Policies
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div
+                className={`${styles.footerTabCol} d-inline-flex flex-column px-3`}
+              >
                 <h5>Shop</h5>
                 <ul className="list-unstyled">
                   <li>
