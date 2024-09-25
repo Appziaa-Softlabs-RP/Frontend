@@ -761,32 +761,154 @@ export const ProductPage = () => {
               <p className="mt-2" style={{ fontSize: '12px' }}><span style={{ margin: '2px' }}>Black</span> <span style={{ margin: '2px' }}>Blue</span> <span style={{ margin: '2px' }}>Yellow</span></p>
             </div>
 
-            <div className="col-md-12">
-              <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                Select Size (UK Size)
-              </h2>
-              <div className="d-flex">
-                {[5, 6, 7, 8, 9, 10, 11].map((size) => (
-                  <button
-                    key={size}
-                    className="btn"
-                    style={{
-                      marginRight: '5px',
-                      textAlign: 'center',
-                      padding: '4px',
-                      fontSize: '12px',
-                      height: '30px',
-                      width: '30px',
-                      border: '1px solid #000',
-                      borderRadius: '50%',
-                    }}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {
+              !isSizeChartOpen && (
+                <div className="col-md-12">
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '10px',
+                    maxWidth: '300px',
+                  }}>
+                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                      Select Size (UK Size)
+                    </h2>
+                    <button className="btn fw-bold text-danger"
+                      onClick={
+                        () => {
+                          setIsSizeChartOpen(true)
+                        }
+                      }
+                    >
+                      See Guide &gt;
+                    </button>
+                  </div>
+                  <div className="d-flex">
+                    {[5, 6, 7, 8, 9, 10, 11].map((size) => (
+                      <button
+                        key={size}
+                        className="btn"
+                        style={{
+                          marginRight: '5px',
+                          textAlign: 'center',
+                          padding: '4px',
+                          fontSize: '12px',
+                          height: '30px',
+                          width: '30px',
+                          border: '1px solid #000',
+                          borderRadius: '50%',
+                        }}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
           </div>
+          {/* Size chart */}
+          {
+            isSizeChartOpen && (
+              <div className="">
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '10px'
+                }}>
+                  <h2 className="text-danger text-start m-0">Size Chart</h2>
+                  <button className="btn btn-danger"
+                    onClick={
+                      () => {
+                        setIsSizeChartOpen(false)
+                      }
+                    }
+                  >
+                    Close
+                  </button>
+                </div>
+                <div className="row position-relative">
+                  <div className="col-xl-6 h-100">
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'end',
+                      alignItems: 'center',
+                    }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          marginBottom: '10px',
+                          flexDirection: 'row',
+                          gap: '10px',
+                          background: '#D9D9D9',
+                          padding: '5px',
+                          borderRadius: '5px'
+                        }}
+                      >
+                        <button
+                          onClick={() => setSizeInCm(true)}
+                          className="btn"
+                          style={{
+                            background: isSizeInCm ? 'red' : '#D9D9D9',
+                            color: isSizeInCm ? 'white' : 'black',
+                            fontWeight: 'bold',
+                          }}
+                        >cm</button>
+                        <button
+                          className="btn"
+                          onClick={() => setSizeInCm(false)}
+                          style={{
+                            background: !isSizeInCm ? 'red' : '#D9D9D9',
+                            color: !isSizeInCm ? 'white' : 'black',
+                            fontWeight: 'bold',
+                          }}
+                        >inch</button>
+                      </div>
+                    </div>
+                    <table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>UK</th>
+                          <th>US</th>
+                          <th>EURO</th>
+                          {
+                            isSizeInCm ?
+                              <th>To Fit Foot Length (cm)</th>
+                              :
+                              <th>To Fit Foot Length (in)</th>
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sizeData.map((size, index) => (
+                          <tr key={index}>
+                            <td>{size.uk}</td>
+                            <td>{size.us}</td>
+                            <td>{size.euro}</td>
+                            {
+                              isSizeInCm ?
+                                <td>{size.cm}</td>
+                                :
+                                <td>{size.inches}</td>
+                            }
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="col-xl-6" style={{
+                    minHeight: '100%',
+                    height: '100%',
+                  }}>
+                    <img src="/images/footlen.svg" alt="footlen" style={{
+                      height: '100%',
+                      width: 'auto'
+                    }} />
+                  </div>
+                </div>
+              </div>
+            )}
         </div>
 
         {ProductData?.bank_offer !== null &&
