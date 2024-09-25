@@ -709,6 +709,71 @@ export const ProductPage = () => {
               (Inclusive of all taxes)
             </span>
           </div>
+          <div className="row">
+                  <div className="col-md-12">
+                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                      More Colors
+                    </h2>
+                    <div className="d-flex">
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'black',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          marginRight: '10px'
+                        }}
+                      ></div>
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'blue',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          marginRight: '10px'
+                        }}
+                      ></div>
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'yellow',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%'
+                        }}
+                      ></div>
+                    </div>
+                    <p className="mt-2" style={{fontSize: '12px'}}><span style={{margin: '2px'}}>Black</span> <span style={{margin: '2px'}}>Blue</span> <span style={{margin: '2px'}}>Yellow</span></p>
+                  </div>
+
+                  <div className="col-md-12">
+                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                      Select Size (UK Size)
+                    </h2>
+                    <div className="d-flex">
+                      {[5, 6, 7, 8, 9, 10, 11].map((size) => (
+                        <button
+                          key={size}
+                          className="btn"
+                          style={{
+                            marginRight: '5px',
+                            textAlign: 'center',
+                            padding: '4px',
+                            fontSize: '12px',
+                            height: '30px',
+                            width: '30px',
+                            border: '1px solid #000',
+                            borderRadius: '50%',
+                          }}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
         </div>
 
         {ProductData?.bank_offer !== null &&
@@ -1384,7 +1449,7 @@ export const ProductPage = () => {
                   Item Code: {ProductData?.article_name}
                 </span>
                 <div
-                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
+                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
                 >
                   <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
                     Special Price
@@ -1410,6 +1475,71 @@ export const ProductPage = () => {
                       )}
                     </div>
                   )}
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                      More Colors
+                    </h2>
+                    <div className="d-flex">
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'black',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          marginRight: '10px'
+                        }}
+                      ></div>
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'blue',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          marginRight: '10px'
+                        }}
+                      ></div>
+                      <div
+                        className="color-option"
+                        style={{
+                          backgroundColor: 'yellow',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%'
+                        }}
+                      ></div>
+                    </div>
+                    <p className="mt-2" style={{fontSize: '12px'}}><span style={{margin: '2px'}}>Black</span> <span style={{margin: '2px'}}>Blue</span> <span style={{margin: '2px'}}>Yellow</span></p>
+                  </div>
+
+                  <div className="col-md-12">
+                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                      Select Size (UK Size)
+                    </h2>
+                    <div className="d-flex">
+                      {[5, 6, 7, 8, 9, 10, 11].map((size) => (
+                        <button
+                          key={size}
+                          className="btn"
+                          style={{
+                            marginRight: '5px',
+                            textAlign: 'center',
+                            padding: '4px',
+                            fontSize: '12px',
+                            height: '30px',
+                            width: '30px',
+                            border: '1px solid #000',
+                            borderRadius: '50%',
+                          }}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 {!prodAdded ? (
                   ProductData?.stock <= 0 ? (
