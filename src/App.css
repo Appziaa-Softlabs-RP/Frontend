@@ -229,6 +229,12 @@ input::-webkit-outter-spin-button {
 .limitedOfferSlider .owl-stage-outer {
   padding-top: 30px;
 }
+
+.primaryColor{
+  background-color: var(--SECONDARY_COLOR);
+  color: var(--PRIMARY_COLOR);
+}
+
 .limitedOfferSlider.owl-theme .owl-nav {
   width: 100px;
   top: 0px;

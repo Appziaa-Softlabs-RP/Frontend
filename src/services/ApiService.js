@@ -177,6 +177,14 @@ ApiService.StoreCategoryProd = function (data) {
   );
 };
 
+ApiService.sendContactUsEmail = function (data) {
+  return fetch({
+    url: "/send-mail",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.CategoryByProd = function (data) {
   const cacheKey = "/store/CategoryByProduct" + JSON.stringify(data);
   return cacheFetch(
