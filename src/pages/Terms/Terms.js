@@ -4,6 +4,7 @@ import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { enviroment } from "../../enviroment";
 
 export const Terms = () => {
   const appData = useApp();
@@ -267,7 +268,7 @@ export const Terms = () => {
             </li>
             <li className="c0 li-bullet-0">
               <span className="c2">Phone:</span>
-              <span className="c4">&nbsp;+91-99997 56468</span>
+              <span className="c4">&nbsp;{enviroment.PHONE_NUMBER}</span>
             </li>
             <li className="c0 li-bullet-0">
               <span className="c2">Address:</span>

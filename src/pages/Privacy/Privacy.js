@@ -4,6 +4,7 @@ import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { enviroment } from "../../enviroment";
 
 export const Privacy = () => {
   const appData = useApp();
@@ -234,7 +235,7 @@ export const Privacy = () => {
             </span>
             <span className="c6">&nbsp;</span>
             <span className="c9">or by phone at </span>
-            <span className="c1">+91-99997 56468.</span>
+            <span className="c1">{enviroment.PHONE_NUMBER}.</span>
           </p>
         </div>
       </div>

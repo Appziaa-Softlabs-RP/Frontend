@@ -4,6 +4,7 @@ import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { enviroment } from "../../enviroment";
 
 export const Cancellation = () => {
   const appData = useApp();
@@ -175,7 +176,7 @@ export const Cancellation = () => {
               </Link>
             </span>
             <span className="c8">&nbsp;or by phone at</span>
-            <span className="c2">&nbsp;+91-99997 56468</span>
+            <span className="c2">&nbsp;{enviroment.PHONE_NUMBER}</span>
             <span className="c4">.</span>
           </p>
         </div>

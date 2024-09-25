@@ -1429,7 +1429,7 @@ export const ProductPage = () => {
                     })}
                   </ReactOwlCarousel>
                 </div>
-                <div className="col-12 d-flex flex-column my-3">
+                <div className="col-12 d-flex flex-column m-3">
                   <div className="d-flex align-items-center justify-content-between flex-column gap-2">
                     {ProductData?.description &&
                       ProductData?.description !== "Not available" &&

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Aside.module.css";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
 
 export const Aside = ({ asideOpen, setAsideOpen }) => {
   const navigate = useNavigate();
@@ -125,7 +126,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               >
                 <Link
                   className="d-inline-flex align-items-center text-decoration-none"
-                  href="tel:+919999756468"
+                  href={`tel:${enviroment.PHONE_NUMBER}`}
                 >
                   <span className="icon-and-text">
                     <svg className="icon icon-phone" viewBox="0 0 64 64">
@@ -135,7 +136,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                         d="M16.57 5l12.32 12.33L21.26 25c2.53 8.5 8.32 15 18.78 18.78l7.63-7.63L60 48.43 49.43 59C25.4 54.11 11.05 39.5 6 15.57z"
                       ></path>
                     </svg>
-                    <span>+91-99997 56468</span>
+                    <span>{enviroment.PHONE_NUMBER}</span>
                   </span>
                 </Link>
               </li>
