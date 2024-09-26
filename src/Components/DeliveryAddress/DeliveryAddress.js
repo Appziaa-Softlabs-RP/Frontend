@@ -101,11 +101,13 @@ const AddressDelivery = ({
           </div>
           {allAddress?.length > 0 && (
             <React.Fragment>
-              <div style={{
-                maxheight: '400px',
-                overflowY: 'auto',
-              }}>
-                <div className="col-12 d-inline-flex flex-wrap p-3">
+                <div className="position-relative col-12 d-inline-flex flex-wrap p-3"
+                style={{
+                  height: '350px',
+                  maxheight: '350px',
+                  overflowY: 'auto',
+                }}
+                >
                   {allAddress?.map((item, idx) => {
                     return (
                       <div
@@ -196,7 +198,6 @@ const AddressDelivery = ({
                       </div>
                     );
                   })}
-                </div>
               </div>
               <div
                 className={`${styles.placeOrderBtnBox} col-12 p-3 d-inline-flex align-items-center justify-content-end`}
