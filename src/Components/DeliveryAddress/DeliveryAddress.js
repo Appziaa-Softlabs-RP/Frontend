@@ -99,6 +99,10 @@ const AddressDelivery = ({
               Add New Address
             </span>
           </div>
+          <div style={{
+            maxHeight: '400px',
+            overflowY: 'auto',
+          }}>
           {allAddress?.length > 0 && (
             <React.Fragment>
               <div className="col-12 d-inline-flex flex-wrap p-3">
@@ -206,6 +210,7 @@ const AddressDelivery = ({
               </div>
             </React.Fragment>
           )}
+          </div>
         </div>
       )}
       {checkoutType === "Payment" && (
