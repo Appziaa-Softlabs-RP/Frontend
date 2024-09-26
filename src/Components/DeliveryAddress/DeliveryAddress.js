@@ -304,6 +304,7 @@ const PaymentMode = ({
     ApiService.onlinePaymentProcess(payload)
       .then((res) => {
         if (res.message === "Online payment process successfully.") {
+          console.log(res.payload_onlinePaymentProcess.order_id)
           handlePayment(res.payload_onlinePaymentProcess.order_id);
         } else {
           AppNotification(
@@ -324,44 +325,62 @@ const PaymentMode = ({
 
   const handlePayment = useCallback(
     (orderId) => {
-      //const order = createOrder(params);
 
-      let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
-      const options = {
-        key: "rzp_live_JaHAb0V5w6ZxfC",
-        amount: finalAmount,
-        currency: "INR",
-        name: enviroment.BUSINESS_NAME,
-        description: "Order Purchase",
-        image: `${process.env.REACT_APP_URL}/favicon.ico`,
-        order_id: orderId,
-        handler: (res) => {
-          onlinePaymentSuccess(
-            selectedOfferProductId,
-            selectedOfferId,
-            orderId,
-            res.razorpay_payment_id,
-            res.razorpay_order_id
-          );
-        },
-        prefill: {
-          name: selectAddrDetail?.name,
-          email: selectAddrDetail?.email,
-          contact: selectAddrDetail?.contact,
-        },
-        notes: {
-          address: enviroment.STORE_ADDRESS,
-        },
-        theme: {
-          color: enviroment.PRIMARY_COLOR,
-        },
+      const companyIdPayload = {
+        company_id: parseInt(enviroment.COMPANY_ID),
       };
 
-      const rzpay = new Razorpay(options);
-      rzpay.open();
+      ApiService.getRazorpayPublicKey(companyIdPayload).then(res => {
+        if (res.payload != '' || res.payload != null) {
+          let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
+          const options = {
+            key: res.payload,// Fetching and adding razorpay key from server
+            amount: finalAmount,
+            currency: "INR",
+            name: enviroment.BUSINESS_NAME,
+            description: "Order Purchase",
+            image: `${process.env.REACT_APP_URL}/favicon.ico`,
+            order_id: orderId,
+            handler: (res) => {
+              // const onlinePaymentSuccess = (
+              //   orderId,
+              //   transID,
+              //   selectedOfferProductId,
+              //   selectedOfferId
+              // ) => {
+              onlinePaymentSuccess(
+                orderId,
+                res.razorpay_payment_id,
+                selectedOfferProductId,
+                selectedOfferId
+            );
+            },
+            prefill: {
+              name: selectAddrDetail?.name,
+              email: selectAddrDetail?.email,
+              contact: selectAddrDetail?.contact,
+            },
+            notes: {
+              address: enviroment.STORE_ADDRESS,
+            },
+            theme: {
+              color: enviroment.PRIMARY_COLOR,
+            },
+          };
+
+          const rzpay = new Razorpay(options);
+          rzpay.open();
+        }
+      }).catch(err => {
+        AppNotification(
+          "Error",
+          "We are un-able to place your order. Please try later.",
+          "danger"
+        );
+      })
     },
-    [Razorpay]
-  );
+    [Razorpay])
+
 
   const onlinePaymentSuccess = (
     orderId,
@@ -375,10 +394,11 @@ const PaymentMode = ({
       customer_id: userInfo.customer_id,
       offer_id: selectedOfferProductId,
       offer_product_id: selectedOfferId,
-      order_id: orderId,
+      order_id: orderId, // Ensure this is not null
       transection_id: transID,
       cart_id: shopcartID,
     };
+    console.log(payload)
     ApiService.onlinePaymentSuccess(payload)
       .then((res) => {
         if (res.message == "Online payment successfully.") {

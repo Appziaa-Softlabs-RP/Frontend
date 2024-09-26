@@ -67,6 +67,14 @@ ApiService.signIn = function (data) {
   });
 };
 
+ApiService.getRazorpayPublicKey = function (data) {
+  return fetch({
+    url: "payments/get-public-active-keys-for-company-id",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.signupOTP = function (data) {
   return fetch({
     url: "user/sendOtpReg",
