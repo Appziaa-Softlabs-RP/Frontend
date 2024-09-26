@@ -329,8 +329,9 @@ const PaymentMode = ({
       const companyIdPayload = {
         company_id: parseInt(enviroment.COMPANY_ID),
       };
-
+console.log(enviroment.COMPANY_ID)
       ApiService.getRazorpayPublicKey(companyIdPayload).then(res => {
+        console.log(res)
         if (res.payload != '' || res.payload != null) {
           let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
           const options = {
