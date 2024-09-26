@@ -94,7 +94,7 @@ const AddressDelivery = ({
             <span
               onClick={() => addNewAddress()}
               role="button"
-              className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4`}
+              className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4 me-1`}
             >
               Add New Address
             </span>
@@ -204,7 +204,7 @@ const AddressDelivery = ({
               >
                 <span
                   role="button"
-                  className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`}
+                  className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase me-1`}
                   onClick={() => chooseSelectAddr()}
                 >
                   Proceed
@@ -562,7 +562,7 @@ const PaymentMode = ({
                 })
               }
               role="button"
-              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3 me-1`}
             >
               {" "}
               PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery})
