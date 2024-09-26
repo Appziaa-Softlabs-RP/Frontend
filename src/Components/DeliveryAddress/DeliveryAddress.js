@@ -304,6 +304,7 @@ const PaymentMode = ({
     ApiService.onlinePaymentProcess(payload)
       .then((res) => {
         if (res.message === "Online payment process successfully.") {
+          console.log(res.payload_onlinePaymentProcess.order_id)
           handlePayment(res.payload_onlinePaymentProcess.order_id);
         } else {
           AppNotification(
@@ -331,7 +332,6 @@ const PaymentMode = ({
 
       ApiService.getRazorpayPublicKey(companyIdPayload).then(res => {
         if (res.payload != '' || res.payload != null) {
-
           let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
           const options = {
             key: res.payload,// Fetching and adding razorpay key from server
@@ -342,13 +342,18 @@ const PaymentMode = ({
             image: `${process.env.REACT_APP_URL}/favicon.ico`,
             order_id: orderId,
             handler: (res) => {
+              // const onlinePaymentSuccess = (
+              //   orderId,
+              //   transID,
+              //   selectedOfferProductId,
+              //   selectedOfferId
+              // ) => {
               onlinePaymentSuccess(
-                selectedOfferProductId,
-                selectedOfferId,
                 orderId,
                 res.razorpay_payment_id,
-                res.razorpay_order_id
-              );
+                selectedOfferProductId,
+                selectedOfferId
+            );
             },
             prefill: {
               name: selectAddrDetail?.name,
@@ -389,10 +394,11 @@ const PaymentMode = ({
       customer_id: userInfo.customer_id,
       offer_id: selectedOfferProductId,
       offer_product_id: selectedOfferId,
-      order_id: orderId,
+      order_id: orderId, // Ensure this is not null
       transection_id: transID,
       cart_id: shopcartID,
     };
+    console.log(payload)
     ApiService.onlinePaymentSuccess(payload)
       .then((res) => {
         if (res.message == "Online payment successfully.") {
