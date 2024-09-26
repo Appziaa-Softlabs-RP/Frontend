@@ -105,7 +105,7 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                         <input type="password" value={mobilePass} onChange={(e) => seMobilePass(e.target.value)} name="userpassword" placeholder="Enter Password" className={`${styles.inputField} col-12 d-inline-flex px-3`} />
                     </div>
                 </div>
-                <div className="d-inline-flex justify-content-between col-12 gap-5 mb-5">
+                <div className="d-inline-flex justify-content-end col-12 gap-2 mb-5">
                     <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => userLogin()}>Login</span>
                     <span className={`${styles.loginUnfilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => setLoginType('LoginOTP')}>Login via OTP</span>
                 </div>
