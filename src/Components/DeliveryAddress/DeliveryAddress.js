@@ -99,103 +99,104 @@ const AddressDelivery = ({
               Add New Address
             </span>
           </div>
-          <div style={{
-            maxHeight: '400px',
-            overflowY: 'auto',
-          }}>
           {allAddress?.length > 0 && (
             <React.Fragment>
-              <div className="col-12 d-inline-flex flex-wrap p-3">
-                {allAddress?.map((item, idx) => {
-                  return (
-                    <div
-                      className={`${windowWidth === "mobile" ? "col-12" : "col-6"
-                        } p-3`}
-                      key={idx}
-                    >
+              <div style={{
+                maxheight: '400px',
+                overflowY: 'auto',
+              }}>
+                <div className="col-12 d-inline-flex flex-wrap p-3">
+                  {allAddress?.map((item, idx) => {
+                    return (
                       <div
-                        className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`}
-                        role="button"
-                        style={{
-                          height: "120px",
-                        }}
-                        onClick={(e) =>
-                          seletThisAddress(e, item, item.address_id)
-                        }
+                        className={`${windowWidth === "mobile" ? "col-12" : "col-6"
+                          } p-3`}
+                        key={idx}
                       >
-                        <input
-                          className={`${styles.deliveryRadio} position-absolute d-inline-block`}
-                          id={`delivery${idx}`}
-                          type="radio"
-                          checked={selectAddress.address_id === item.address_id}
-                          name="delivery"
-                        />
-                        <label
-                          className={`col-10 d-inline-flex flex-column`}
-                          htmlFor={`delivery${idx}`}
+                        <div
+                          className={`${styles.addedAdres} col-12 p-3 ps-5 rounded d-inline-flex flex-column position-relative`}
                           role="button"
+                          style={{
+                            height: "120px",
+                          }}
+                          onClick={(e) =>
+                            seletThisAddress(e, item, item.address_id)
+                          }
                         >
-                          <h6
-                            className={`${styles.addressName} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}
-                            style={{
-                              whiteSpace: "nowrap",
-                              textOverflow: "ellipsis",
-                              maxWidth: "100%",
-                              overflow: "hidden",
-                            }}
+                          <input
+                            className={`${styles.deliveryRadio} position-absolute d-inline-block`}
+                            id={`delivery${idx}`}
+                            type="radio"
+                            checked={selectAddress.address_id === item.address_id}
+                            name="delivery"
+                          />
+                          <label
+                            className={`col-10 d-inline-flex flex-column`}
+                            htmlFor={`delivery${idx}`}
+                            role="button"
                           >
-                            {item.name}
-                            <span
-                              className={`${styles.addressTag} d-inline-flex align-items-center px-1`}
+                            <h6
+                              className={`${styles.addressName} col-12 d-inline-flex align-items-center flex-wrap gap-2 mb-1`}
+                              style={{
+                                whiteSpace: "nowrap",
+                                textOverflow: "ellipsis",
+                                maxWidth: "100%",
+                                overflow: "hidden",
+                              }}
                             >
-                              {item.address_type}
+                              {item.name}
+                              <span
+                                className={`${styles.addressTag} d-inline-flex align-items-center px-1`}
+                              >
+                                {item.address_type}
+                              </span>
+                            </h6>
+                            <label
+                              className={`${styles.addressdetail} col-12 d-inline-flex mb-0`}
+                            >
+                              {item.contact}
+                            </label>
+                            <label
+                              className={`${styles.addressdetail} col-12 d-inline-flex mb-0 `}
+                              style={{
+                                position: "relative",
+                                whiteSpace: "nowrap",
+                                maxWidth: "100%",
+                                width: "100%",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              {item.house_no}, {item?.street}, {item?.city},{" "}
+                              {item?.state} - {item.pincode}
+                            </label>
+                          </label>
+                          <div className="position-absolute p-3 top-0 end-0 d-inline-flex justify-content-end gap-3">
+                            <span
+                              role="button"
+                              onClick={
+                                () => deleteAddress({ addressId: item.address_id })
+                              }
+                              className={`${styles.deleteBtn} d-inline-flex align-items-center px-2`}
+                            >
+                              <DeleteIcon />
                             </span>
-                          </h6>
-                          <label
-                            className={`${styles.addressdetail} col-12 d-inline-flex mb-0`}
-                          >
-                            {item.contact}
-                          </label>
-                          <label
-                            className={`${styles.addressdetail} col-12 d-inline-flex mb-0 `}
-                            style={{
-                              position: "relative",
-                              whiteSpace: "nowrap",
-                              maxWidth: "100%",
-                              width: "100%",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {item.house_no}, {item?.street}, {item?.city},{" "}
-                            {item?.state} - {item.pincode}
-                          </label>
-                        </label>
-                        <div className="position-absolute p-3 top-0 end-0 d-inline-flex justify-content-end gap-3">
-                          <span
-                            role="button"
-                            onClick={
-                              () => deleteAddress({ addressId: item.address_id })
-                            }
-                            className={`${styles.deleteBtn} d-inline-flex align-items-center px-2`}
-                          >
-                            <DeleteIcon />
-                          </span>
-                          <span
-                            role="button"
-                            onClick={() => editNewAddress({
-                              addressId: item.address_id,
-                            })}
-                            // onClick={() => editAddress(item.address_id)}
-                            className={`${styles.editBtn} d-inline-flex align-items-center px-2`}
-                          >
-                            <EditIcon color="#FF0000" />
-                          </span>
+                            <span
+                              role="button"
+                              onClick={() => editNewAddress({
+                                addressId: item.address_id,
+                              })}
+                              // onClick={() => editAddress(item.address_id)}
+                              className={`${styles.editBtn} d-inline-flex align-items-center px-2`}
+                            >
+                              <EditIcon color="#FF0000" />
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
               <div
                 className={`${styles.placeOrderBtnBox} col-12 p-3 d-inline-flex align-items-center justify-content-end`}
@@ -210,7 +211,6 @@ const AddressDelivery = ({
               </div>
             </React.Fragment>
           )}
-          </div>
         </div>
       )}
       {checkoutType === "Payment" && (
@@ -358,7 +358,7 @@ const PaymentMode = ({
                 res.razorpay_payment_id,
                 selectedOfferProductId,
                 selectedOfferId
-            );
+              );
             },
             prefill: {
               name: selectAddrDetail?.name,

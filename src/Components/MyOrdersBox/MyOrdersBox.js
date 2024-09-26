@@ -63,7 +63,7 @@ export const MyOrdersBox = () => {
                             </div>
                             <div className={`col-12 d-inline-flex justify-content-end gap-2`}>
                                 <span className={`${styles.orderDetailBtn} d-inline-flex align-items-center px-3`} role="button" onClick={() => openOrderDetail(item.order_id)}>View Details</span>
-                                <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`}>Reschedule</span>
+                                {/* <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`}>Reschedule</span> */}
                             </div>
                         </div>
                     );
