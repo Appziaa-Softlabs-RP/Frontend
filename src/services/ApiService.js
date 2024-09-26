@@ -91,6 +91,14 @@ ApiService.sendContactUsEmail = function (data) {
   });
 };
 
+ApiService.getRazorpayPublicKey = function (data) {
+  return fetch({
+    url: "payments/get-public-active-keys-for-company-id",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.VerifyOTP = function (data) {
   return fetch({
     url: "user/verifyotp",
