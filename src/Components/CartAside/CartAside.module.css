@@ -148,7 +148,7 @@
 }
 
 .cartCheckoutButton {
-	background: var(--PRIMARY_COLOR);
+	background: black;
 	border: none;
 	box-shadow: none;
 	font-size: 18px;

@@ -99,6 +99,14 @@ ApiService.VerifyOTPReg = function (data) {
   });
 };
 
+ApiService.getRazorpayPublicKey = function (data) {
+  return fetch({
+    url: "payments/get-public-active-keys-for-company-id",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.AllCategory = function (data) {
   const cacheKey = "/store/verticalWithCatList" + JSON.stringify(data);
   return cacheFetch(
