@@ -28,7 +28,7 @@ export default function ContactUsPage() {
                 'subjectAdmin': `New Contact Form Submission on ${enviroment.STORE_ADDRESS} Website`,
                 'userEmail': email,
                 'phone': phone,
-                'adminEmail': 'vermamanav117@gmail.com',
+                'adminEmail': enviroment.EMAIL_ADDRESS,
                 'adminHtmlTemplate': getContactUsAdminEmailTemplate({ name, email, phone, message }),
                 'userHtmlTemplate': getContactUsUserEmailTemplate({ name }),
             };
