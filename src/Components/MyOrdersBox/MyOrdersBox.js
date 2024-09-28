@@ -54,7 +54,7 @@ export const MyOrdersBox = () => {
                                     </div>
                                     <span className={`${styles.itemName} col-12 d-inline-flex`}><b>Seller: {item?.store_name}</b></span>
                                     <span className={`${styles.itemName} col-12 d-inline-flex`}><b>Ordered On: {item?.ordered_on}</b></span>
-                                    <span className={`${styles.itemName} col-12 d-inline-flex`}><b>Delivery Date: {item?.delivery_date}</b></span>
+                                    {/* <span className={`${styles.itemName} col-12 d-inline-flex`}><b>Delivery Date: {item?.delivery_date}</b></span> */}
                                 </div>
                             </div>
                             <div className={`d-inline-flex flex-wrap gap-2 ps-5 col-12 mb-3 mt-3`}>
