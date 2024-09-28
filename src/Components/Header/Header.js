@@ -473,7 +473,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           onClick={() => userLoggedOut()}
                           className={`${styles.accountOption} col-12 d-inline-flex align-items-center`}
                         >
-                          Logged Out
+                          Log Out
                         </span>
                       </div>
                     )}

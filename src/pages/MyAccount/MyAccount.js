@@ -191,7 +191,7 @@ export const MyAccount = () => {
                   <LogoutIcon color="var(--PRIMARY_COLOR)" />
                 </span>
                 <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>
-                  Logged Out
+                  Log Out
                 </h6>
               </div>
             </div>

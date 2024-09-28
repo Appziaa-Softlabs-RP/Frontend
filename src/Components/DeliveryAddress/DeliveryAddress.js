@@ -94,14 +94,20 @@ const AddressDelivery = ({
             <span
               onClick={() => addNewAddress()}
               role="button"
-              className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4`}
+              className={`${styles.addAddressBtn} d-inline-flex align-items-center px-4 me-1`}
             >
               Add New Address
             </span>
           </div>
           {allAddress?.length > 0 && (
             <React.Fragment>
-              <div className="col-12 d-inline-flex flex-wrap p-3">
+              <div className="position-relative col-12 d-inline-flex flex-wrap p-3"
+                style={{
+                  height: '350px',
+                  maxheight: '350px',
+                  overflowY: 'auto',
+                }}
+              >
                 {allAddress?.map((item, idx) => {
                   return (
                     <div
@@ -198,7 +204,7 @@ const AddressDelivery = ({
               >
                 <span
                   role="button"
-                  className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase`}
+                  className={`${styles.placeOrderBtn} d-inline-flex align-items-center px-3 text-uppercase me-1`}
                   onClick={() => chooseSelectAddr()}
                 >
                   Proceed
@@ -353,7 +359,7 @@ const PaymentMode = ({
                 res.razorpay_payment_id,
                 selectedOfferProductId,
                 selectedOfferId
-            );
+              );
             },
             prefill: {
               name: selectAddrDetail?.name,
@@ -556,7 +562,7 @@ const PaymentMode = ({
                 })
               }
               role="button"
-              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3 me-1`}
             >
               {" "}
               PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery})
