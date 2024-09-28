@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactOwlCarousel from "react-owl-carousel";
 import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
@@ -7,7 +6,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import { LoginPopup } from "../LoginPopup/LoginPopup";
 import { ProductOfferCard } from "../ProductOfferCard/ProductOfferCard";
-import { DeleteIcon, UserIcon } from "../siteIcons";
+import { DeleteIcon } from "../siteIcons";
 import styles from "./CartSummery.module.css";
 
 export const CartSummery = ({

@@ -308,6 +308,7 @@ export const ShoppingCart = () => {
                 selectedOfferProductId={selectedOfferProductId}
                 selectedOfferId={selectedOfferId}
                 cartPriceTotal={cartPriceTotal}
+                setCartPriceTotal={setCartPriceTotal}
                 shopcartID={shopcartID}
                 setOrderStatus={setOrderStatus}
               />
@@ -373,6 +374,7 @@ export const ShoppingCart = () => {
                       selectedOfferProductId={selectedOfferProductId}
                       selectedOfferId={selectedOfferId}
                       cartPriceTotal={cartPriceTotal}
+                      setCartPriceTotal={setCartPriceTotal}
                       shopcartID={shopcartID}
                       setOrderStatus={setOrderStatus}
                     />

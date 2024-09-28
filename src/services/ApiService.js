@@ -74,6 +74,13 @@ ApiService.getRazorpayPublicKey = function (data) {
     data: data,
   });
 };
+ApiService.getPaymentFees = function (data) {
+  return fetch({
+    url: "payments/get-company-payment-fees",
+    method: "post",
+    data: data,
+  });
+};
 
 ApiService.signupOTP = function (data) {
   return fetch({
