@@ -448,6 +448,8 @@ const PaymentMode = ({
       const payload = {
         company_id: parseInt(enviroment.COMPANY_ID),
         offer_product_id: selectedOfferId ?? null,
+        handling_fee: cartPriceTotal.handling_fee ?? 0,
+        digital_discount: cartPriceTotal.digital_discount ?? 0,
         offer_id: selectedOfferProductId ?? null,
         store_id: parseInt(enviroment.STORE_ID),
         customer_id: userInfo.customer_id,
@@ -696,8 +698,8 @@ export const DeliveryAddress = ({
     try {
       const res = await ApiService.getPaymentFees(payload);
       setPaymentFees({
-        digital_discount: res?.digital_discount,
-        handling_fee: res?.handling_fee,
+        digital_discount: res?.digital_discount ?? 0,
+        handling_fee: res?.handling_fee ?? 0,
       });
     } catch (err) {
       console.error(err);
