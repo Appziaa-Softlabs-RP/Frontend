@@ -83,6 +83,14 @@ ApiService.sendOTP = function (data) {
   });
 };
 
+ApiService.getPaymentFees = function (data) {
+  return fetch({
+    url: "payments/get-company-payment-fees",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.sendContactUsEmail = function (data) {
   return fetch({
     url: "/send-mail",

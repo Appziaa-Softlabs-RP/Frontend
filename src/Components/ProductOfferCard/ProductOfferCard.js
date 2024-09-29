@@ -125,7 +125,7 @@ export const ProductOfferCard = ({
             className="text-uppercase"
               style={{
                 position: "absolute",
-                color: "#75BF3A",
+                color: "#408558",
                 fontWeight: "bold",
                 textAlign: "center",
                 width: "100%",
