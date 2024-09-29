@@ -583,7 +583,7 @@ const PaymentMode = ({
                       padding: "0.2rem 0.5rem",
                       width: "fit-content"
                     }}
-                  >Digital Payment Discount: ₹{(parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)}</span> : null}
+                  >Digital Payment Discount: ₹{((parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)).toFixed(2)}</span> : null}
                 </p>
               </label>
             </div>
@@ -614,7 +614,7 @@ const PaymentMode = ({
                       padding: "0.2rem 0.5rem",
                       width: "fit-content"
                     }}
-                  >Cash Handling Fees: ₹{(parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)}</span> : null}
+                  >Cash Handling Fees: ₹{((parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)).toFixed(2)}</span> : null}
                 </p>
               </label>
             </div>
