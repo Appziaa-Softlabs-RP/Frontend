@@ -588,8 +588,8 @@ const PaymentMode = ({
                   id="cash"
                   name="paymentmode"
                 />
-                <span className={`${styles.radioText} d-inline-flex`}>
-                  Cash on Delivery
+                <span className={`${styles.radioText} d-inline-flex gap-2`}>
+                  Cash on Delivery {paymentFeee.handling_fee > 0 ? <span className="fw-bold text-danger">(+₹{(parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)})</span> : null}
                 </span>
               </label>
             </div>
@@ -609,8 +609,8 @@ const PaymentMode = ({
                   id="online"
                   name="paymentmode"
                 />
-                <span className={`${styles.radioText} d-inline-flex`}>
-                  Online Payment Options
+                <span className={`${styles.radioText} d-inline-flex gap-2`}>
+                  Online Payment Options {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-success">(-₹{(parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)})</span> : null}
                 </span>
               </label>
             </div>

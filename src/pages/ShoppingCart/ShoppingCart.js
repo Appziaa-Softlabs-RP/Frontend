@@ -60,6 +60,7 @@ export const ShoppingCart = () => {
       ...prevCartPriceTotal,
       saving: allSaving,
       subTotal: allTotal,
+      prevTotal: allTotal,
       price: allPrice,
     }));
 
