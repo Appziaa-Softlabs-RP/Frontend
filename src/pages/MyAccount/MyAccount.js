@@ -31,8 +31,8 @@ const userMenu = [
     icon: <LocationIcon color="#454545" />,
   },
   {
-    name: "Logged Out",
-    icon: <LogoutIcon color="var(--PRIMARY_COLOR)" />,
+    name: "Log Out",
+    icon: <LogoutIcon color="#454545" />,
   },
 ];
 
@@ -188,7 +188,7 @@ export const MyAccount = () => {
                 <span
                   className={`${styles.accountIcon} d-inline-flex flex-shrink-0 align-items-center justify-content-center`}
                 >
-                  <LogoutIcon color="var(--PRIMARY_COLOR)" />
+                  <LogoutIcon color="#454545" />
                 </span>
                 <h6 className={`${styles.accountLabel} d-inline-flex m-0`}>
                   Log Out

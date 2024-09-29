@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
@@ -6,9 +6,10 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./AddAddressForm.module.css";
 // Addaddress form
+
 export const AddAddressForm = ({
-  isEdit=false,
-  addressId=null,
+  isEdit = false,
+  addressId = null,
   stopNavigate,
   setOpenAdressPop,
   setAddressSaved,
@@ -17,7 +18,9 @@ export const AddAddressForm = ({
   const navigate = useNavigate();
   const location = useLocation();
   const addresState = location?.state;
+  const [pending, setTransition] = useTransition()
   const userInfo = appData?.appData?.user;
+  const [isPinCodeValid, setIsPinCodeValid] = useState(false);
   const [addressObj, setAddressObj] = useState({
     store_id: parseInt(enviroment.STORE_ID),
     customer_id: userInfo?.customer_id,
@@ -34,6 +37,10 @@ export const AddAddressForm = ({
   });
 
   const saveNewAddress = () => {
+    if (!isPinCodeValid) {
+      AppNotification("Error", "Please enter valid PinCode.", "danger");
+      return;
+    }
     if (addressObj.name === "") {
       AppNotification("Error", "Enter your first name.", "danger");
     } else if (addressObj.email === "") {
@@ -52,9 +59,9 @@ export const AddAddressForm = ({
     } else if (addressObj.house_no === "") {
       AppNotification("Error", "Enter your house number.", "danger");
     } else if (addressObj.street === "") {
-      AppNotification("Error", "Enter your street address.", "danger");
+      AppNotification("Error", "Please enter valid PinCode.", "danger");
     } else if (addressObj.city === "") {
-      AppNotification("Error", "Enter your city name.", "danger");
+      AppNotification("Error", "Please enter valid PinCode.", "danger");
     } else if (addressObj.state === "") {
       AppNotification("Error", "Enter your state name.", "danger");
     } else if (addressObj.pincode === "") {
@@ -65,7 +72,7 @@ export const AddAddressForm = ({
       if (addresState?.addressEdit === true || isEdit) {
         ApiService.updateAddress({
           ...addressObj,
-          address_id: addressId===null ? addresState?.addressId : addressId,
+          address_id: addressId === null ? addresState?.addressId : addressId,
         })
           .then((res) => {
             if (res.message === "Update successfully.") {
@@ -134,7 +141,7 @@ export const AddAddressForm = ({
       const payload = {
         store_id: parseInt(enviroment.STORE_ID),
         customer_id: userInfo.customer_id,
-        address_id: addressId===null ? addresState?.addressId : addressId,
+        address_id: addressId === null ? addresState?.addressId : addressId,
       };
       ApiService.getAddressDetail(payload)
         .then((res) => {
@@ -152,12 +159,56 @@ export const AddAddressForm = ({
               street: editAddressObj.street,
               landmark: editAddressObj.landmark,
               address_type: editAddressObj.address_type,
+              instruction_delivery: editAddressObj.instruction_delivery,
             });
           }
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   }, [addresState, addressId, isEdit]);
+
+  useEffect(() => {
+    const getPincodeDetails = async () => {
+      const formData = new FormData();
+      formData.append("zip_code", addressObj?.pincode);
+      setTransition(async () => {
+        const response = await fetch(`${enviroment.MAIN_API_URL}/v1/getMatchedZipCodeDetails`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              zip_code: addressObj?.pincode
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              'Accept': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            }
+          });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+          if (data?.data[0]?.district?.name === undefined) {
+            setIsPinCodeValid(false);
+            AppNotification("Error", "Pincode not found.", "danger");
+            return;
+          }
+          setIsPinCodeValid(true);
+          setAddressObj({
+            ...addressObj,
+            city: data?.data[0]?.district?.name,
+            state: data?.data[0]?.district?.state?.name,
+          });
+        } else {
+          AppNotification("Error", "Pincode not found.", "danger");
+        }
+      });
+    }
+
+    if (addressObj?.pincode !== "" && addressObj?.pincode.length === 6) {
+      getPincodeDetails();
+    }
+  }, [addressObj?.pincode]);
 
   return (
     <React.Fragment>
@@ -232,44 +283,72 @@ export const AddAddressForm = ({
               <span className="login_required">*</span> Enter Your Email
             </label>
           </div>
-          <div
-            className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}
-          >
-            <input
-              placeholder="house no"
-              autoComplete="off"
-              className={`${styles.formInput} d-inline-block col-12`}
-              type="text"
-              name="house_no"
-              value={addressObj.house_no}
-              onChange={(e) =>
-                setAddressObj({ ...addressObj, house_no: e.target.value })
-              }
-            />
-            <label
-              className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
+          <div className="col-12 row p-0 mx-0">
+            <div
+              className={`${styles.loginFormFloating} col-12 col-md-6 position-relative p-0 pe-md-3 d-inline-block`}
             >
-              <span className="login_required">*</span> House No/Apartment No
-            </label>
+              <input
+                placeholder="house no"
+                autoComplete="off"
+                className={`${styles.formInput} d-inline-block col-12`}
+                type="text"
+                name="house_no"
+                value={addressObj.house_no}
+                onChange={(e) =>
+                  setAddressObj({ ...addressObj, house_no: e.target.value })
+                }
+              />
+              <label
+                className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
+              >
+                <span className="login_required">*</span> House No/Apartment No
+              </label>
+            </div>
+            <div
+              className={`${styles.loginFormFloating} col-12 col-md-6 p-0 pe-md-3 position-relative d-inline-block`}
+            >
+              <input
+                placeholder="locality"
+                autoComplete="off"
+                className={`${styles.formInput} d-inline-block m-0 col-12`}
+                type="text"
+                name="locality"
+                value={addressObj.street}
+                onChange={(e) =>
+                  setAddressObj({ ...addressObj, street: e.target.value })
+                }
+              />
+              <label
+                className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
+              >
+                <span className="login_required">*</span> Locality / Area / Street
+              </label>
+            </div>
           </div>
           <div
             className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}
           >
             <input
-              placeholder="locality"
+              placeholder="Pincode"
               autoComplete="off"
               className={`${styles.formInput} d-inline-block col-12`}
               type="text"
-              name="locality"
-              value={addressObj.street}
-              onChange={(e) =>
-                setAddressObj({ ...addressObj, street: e.target.value })
+              name="pincode"
+              value={addressObj.pincode}
+              onChange={(e) => {
+                // if pincode is more than 6 digites then return with app notification
+                if (e.target.value.length > 6) {
+                  AppNotification("Error", "Pincode should be 6 digits.", "danger");
+                  return;
+                }
+                setAddressObj({ ...addressObj, pincode: e.target.value })
+              }
               }
             />
             <label
               className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
             >
-              <span className="login_required">*</span> Locality / Area / Street
+              <span className="login_required">*</span> Pincode
             </label>
           </div>
           <div
@@ -285,14 +364,22 @@ export const AddAddressForm = ({
                 type="text"
                 name="city"
                 value={addressObj.city}
-                onChange={(e) =>
-                  setAddressObj({ ...addressObj, city: e.target.value })
-                }
+                disabled
+                style={{
+                  background: "#F0F0F0",
+                  zIndex: 0
+                }}
+              // onChange={(e) =>
+              //   setAddressObj({ ...addressObj, city: e.target.value })
+              // }
               />
               <label
-                className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
+                className={`${styles.formLabel} ${styles.formLabelDisabled} position-absolute d-inline-flex align-items-center`}
+                style={{
+                  background: 'transparent',
+                }}
               >
-                <span className="login_required">*</span> City
+                City
               </label>
             </div>
             <div
@@ -305,14 +392,22 @@ export const AddAddressForm = ({
                 type="text"
                 name="state"
                 value={addressObj.state}
-                onChange={(e) =>
-                  setAddressObj({ ...addressObj, state: e.target.value })
-                }
+                disabled
+                style={{
+                  backgroundColor: "#F0F0F0",
+                  zIndex: 0
+                }}
+              // onChange={(e) =>
+              //   setAddressObj({ ...addressObj, state: e.target.value })
+              // }
               />
               <label
-                className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
+                className={`${styles.formLabel} ${styles.formLabelDisabled} position-absolute d-inline-flex align-items-center`}
+                style={{
+                  background: 'transparent',
+                }}
               >
-                <span className="login_required">*</span> State
+                State
               </label>
             </div>
           </div>
@@ -336,26 +431,26 @@ export const AddAddressForm = ({
               Landmark
             </label>
           </div>
-          <div
-            className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}
+        </div>
+        <div
+          className={`${styles.loginFormFloating} col-12 position-relative d-inline-block`}
+        >
+          <input
+            placeholder="Delivery Instructions"
+            autoComplete="off"
+            className={`${styles.formInput} d-inline-block col-12`}
+            type="text"
+            name="instruction_delivery"
+            value={addressObj.instruction_delivery}
+            onChange={(e) =>
+              setAddressObj({ ...addressObj, instruction_delivery: e.target.value })
+            }
+          />
+          <label
+            className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
           >
-            <input
-              placeholder="Pincode"
-              autoComplete="off"
-              className={`${styles.formInput} d-inline-block col-12`}
-              type="text"
-              name="pincode"
-              value={addressObj.pincode}
-              onChange={(e) =>
-                setAddressObj({ ...addressObj, pincode: e.target.value })
-              }
-            />
-            <label
-              className={`${styles.formLabel} position-absolute d-inline-flex align-items-center`}
-            >
-              <span className="login_required">*</span> Pincode
-            </label>
-          </div>
+            Delivery Instructions
+          </label>
         </div>
         <h6 className="addres-type col-md-12 p-0 mb-2">Address Type</h6>
         <div className="col-12 pb-3 pr-0 d-inline-flex align-items-center justify-content-between">
@@ -391,6 +486,7 @@ export const AddAddressForm = ({
                 className={`${styles.address_option}`}
                 value="Office"
                 name="address_type"
+                checked={addressObj.address_type === "Office"}
               />
               <div
                 className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
@@ -410,6 +506,7 @@ export const AddAddressForm = ({
                 className={`${styles.address_option}`}
                 value="Others"
                 name="address_type"
+                checked={addressObj.address_type === "Others"}
               />
               <div
                 className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
@@ -422,6 +519,7 @@ export const AddAddressForm = ({
       <div className="col-12 d-inline-flex">
         <span
           role="button"
+          disabled={pending}
           className={`${styles.saveAddrsBtn} d-inline-flex align-items-center justify-content-center col-12`}
           onClick={() => saveNewAddress()}
         >

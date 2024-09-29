@@ -444,7 +444,7 @@ const PaymentMode = ({
     ) {
       AppNotification("Error", "Please select payment type", "danger");
     } else {
-      let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
+      let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery + (cartPriceTotal.handling_fee ?? 0) - (cartPriceTotal.digital_discount ?? 0);
       const payload = {
         company_id: parseInt(enviroment.COMPANY_ID),
         offer_product_id: selectedOfferId ?? null,
@@ -504,24 +504,10 @@ const PaymentMode = ({
 
   const resetPaymentFees = useCallback(() => {
     setCartPriceTotal((prevCartPriceTotal) => {
-      let newSubTotal = parseFloat(prevCartPriceTotal.subTotal);
-
-      // Adjust subTotal based on previous handling fee
-      if (prevCartPriceTotal?.handling_fee > 0) {
-        newSubTotal -= parseFloat(prevCartPriceTotal.handling_fee);
-      }
-
-      // Adjust subTotal based on previous digital discount
-      if (prevCartPriceTotal?.digital_discount > 0) {
-        newSubTotal += parseFloat(prevCartPriceTotal.digital_discount);
-      }
-
-      // Return updated cart totals without rounding here
       return {
         ...prevCartPriceTotal,
         handling_fee: 0,
         digital_discount: 0,
-        subTotal: newSubTotal,
       };
     });
   }, []);
@@ -533,13 +519,12 @@ const PaymentMode = ({
 
       // Calculate the handling fee as a percentage of the subTotal
       const fees = (parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(prevCartPriceTotal.subTotal);
-      const total = parseFloat(prevCartPriceTotal.subTotal) + fees;
 
       // Return updated cart totals
       return {
         ...prevCartPriceTotal,
         handling_fee: fees,
-        subTotal: total,
+        // subTotal: total,
       };
     });
   }, [paymentFeee.handling_fee, resetPaymentFees]);
@@ -551,13 +536,12 @@ const PaymentMode = ({
 
       // Calculate the digital discount as a percentage of the subTotal
       const discount = (parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(prevCartPriceTotal.subTotal);
-      const total = parseFloat(prevCartPriceTotal.subTotal) - discount;
 
       // Return updated cart totals
       return {
         ...prevCartPriceTotal,
         digital_discount: discount,
-        subTotal: total,
+        // subTotal: total,
       };
     });
   }, [paymentFeee.digital_discount, resetPaymentFees]);
@@ -571,7 +555,38 @@ const PaymentMode = ({
       </h2>
       {checkoutType === "Payment" && (
         <div className="col-12 d-inline-flex flex-column">
-          <div className="col-12 d-inline-flex flex-column gap-3 px-5 py-4">
+          <div className="col-12 d-inline-flex flex-column gap-1 px-5 py-4">
+          <div className="col-12 d-inline-flex">
+              <label
+                className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
+                htmlFor="online"
+                role="button"
+                onClick={() => {
+                  selectPaymentMode("online")
+                  addDigitalDiscount()
+                }}
+              >
+                <input
+                  className={`${styles.deliveryRadio} position-absolute d-inline-block`}
+                  type="radio"
+                  id="online"
+                  name="paymentmode"
+                />
+                <p className="d-flex flex-column gap-2">
+                  <span className={`${styles.radioText} d-inline-flex`}>
+                    Online Payment Options
+                  </span>
+                  {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-success"
+                    style={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#D2FAC1",
+                      padding: "0.2rem 0.5rem",
+                      width: "fit-content"
+                    }}
+                  >Digital Payment Discount: ₹{(parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)}</span> : null}
+                </p>
+              </label>
+            </div>
             <div className="col-12 d-inline-flex">
               <label
                 className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
@@ -588,51 +603,40 @@ const PaymentMode = ({
                   id="cash"
                   name="paymentmode"
                 />
-                <span className={`${styles.radioText} d-inline-flex gap-2`}>
-                  Cash on Delivery {paymentFeee.handling_fee > 0 ? <span className="fw-bold text-danger">(+₹{(parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)})</span> : null}
-                </span>
+                <p className="d-flex flex-column gap-2">
+                  <span className={`${styles.radioText} d-inline-flex`}>
+                    Cash on delivery
+                  </span>
+                  {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-danger"
+                    style={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#F8DADA",
+                      padding: "0.2rem 0.5rem",
+                      width: "fit-content"
+                    }}
+                  >Cash Handling Fees: ₹{(parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)}</span> : null}
+                </p>
               </label>
             </div>
-            <div className="col-12 d-inline-flex">
-              <label
-                className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
-                htmlFor="online"
-                role="button"
-                onClick={() => {
-                  selectPaymentMode("online")
-                  addDigitalDiscount()
-                }}
-              >
-                <input
-                  className={`${styles.deliveryRadio} position-absolute d-inline-block`}
-                  type="radio"
-                  id="online"
-                  name="paymentmode"
-                />
-                <span className={`${styles.radioText} d-inline-flex gap-2`}>
-                  Online Payment Options {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-success">(-₹{(parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)})</span> : null}
-                </span>
-              </label>
-            </div>
-          </div>
-          <div
-            className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}
-          >
-            <span
-              onClick={() =>
-                proceedPayment({
-                  selectedOfferProductId,
-                  selectedOfferId,
-                  selectedOfferProductId,
-                  selectedOfferId,
-                })
-              }
-              role="button"
-              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+            <div
+              className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-center align-items-center`}
             >
-              {" "}
-              PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery})
-            </span>
+              <span
+                onClick={() =>
+                  proceedPayment({
+                    selectedOfferProductId,
+                    selectedOfferId,
+                    selectedOfferProductId,
+                    selectedOfferId,
+                  })
+                }
+                role="button"
+                className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+              >
+                {" "}
+                PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery + (cartPriceTotal.handling_fee ?? 0) - (cartPriceTotal.digital_discount ?? 0)})
+              </span>
+            </div>
           </div>
         </div>
       )}

@@ -11,6 +11,7 @@
     position: relative;
     z-index: 2
 }
+
 .formInput:focus,.formInput:focus-visible,.formInput:not(:placeholder-shown) {
     border: 1px solid var(--PRIMARY_COLOR);
     outline: none
@@ -38,6 +39,9 @@
     font-size: 10px;
     color: #111;
     z-index: 3
+}
+.formInput:not(:placeholder-shown) + .formLabelDisabled {
+    background: linear-gradient(0deg, #F0F0F0 30%, white 50%) !important;
 }
 .addressFrom{
     background: #FFF;
