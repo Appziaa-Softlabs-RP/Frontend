@@ -7,10 +7,9 @@
 .categoryHeaderTitle{
     font-size: 25px;
     font-weight: 700;
-    color: var(--SECONDARY_COLOR);
+    color: var(--PRIMARY_COLOR);
     top: 15px;
 }
 .limitedOfferBox{
-    background: var(--PRIMARY_COLOR);
-    border-radius: 10px;
+    background: var(--SECONDARY_COLOR);    border-radius: 10px;
 }

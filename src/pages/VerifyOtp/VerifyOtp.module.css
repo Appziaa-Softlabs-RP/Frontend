@@ -33,8 +33,7 @@
 .verifyBtn{
     height: 60px;
     border-radius: 6px;
-    background: var(--PRIMARY_COLOR);
-    color: #FFF;
+    background: var(--SECONDARY_COLOR);    color: #FFF;
     border: none;
     font-size: 18px;
     font-weight: 600;

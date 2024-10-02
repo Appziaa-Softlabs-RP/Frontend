@@ -24,8 +24,7 @@
     background: var(--ADD_BUTTON_COLOR)
 }
 .checkoutBtn {
-    background: var(--PRIMARY_COLOR);
-    color: var(--SECONDARY_COLOR);
+    background: var(--SECONDARY_COLOR);    color: var(--PRIMARY_COLOR);
     box-shadow: none;
     border: none;
     border-radius: 4px;

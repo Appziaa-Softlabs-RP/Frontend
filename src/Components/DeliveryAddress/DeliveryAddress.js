@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
-import styles from "./DeliveryAddress.module.css";
-import { DeleteIcon, EditIcon, LocationIcon } from "../siteIcons";
-import { enviroment } from "../../enviroment";
-import { useApp } from "../../context/AppContextProvider";
-import ApiService from "../../services/ApiService";
+import React, { useCallback, useEffect, useState } from "react";
+import useRazorpay from "react-razorpay";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContextProvider";
+import { enviroment } from "../../enviroment";
+import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import { AddAddressPopup } from "../AddAddressPopup/AddAddressPopup";
-import useRazorpay from "react-razorpay";
-import { EditAddressPopup } from "../EditAddressPopup/EditAddressPopup";
 import { DeleteAddressPopup } from "../DeleteAddressPopup/DeleteAddressPopup";
+import { EditAddressPopup } from "../EditAddressPopup/EditAddressPopup";
+import { DeleteIcon, EditIcon, LocationIcon } from "../siteIcons";
+import styles from "./DeliveryAddress.module.css";
 
 const AddressDelivery = ({
   allAddress,
@@ -19,7 +19,6 @@ const AddressDelivery = ({
   setAddressSaved,
   setSelectAddrDetail,
 }) => {
-  const navigate = useNavigate();
   const [selectAddress, setSelectAddress] = useState({});
   const [openAdressPop, setOpenAdressPop] = useState(false);
   const [openEditAdressPop, setOpenEditAdressPop] = useState(false);
@@ -290,10 +289,15 @@ const PaymentMode = ({
   shopcartID,
   cartPriceTotal,
   selectAddrDetail,
+  paymentType,
+  setPaymentType,
+  paymentFeee,
+  setCartPriceTotal
 }) => {
-  const [paymentType, setPaymentType] = useState(null);
+  // const [paymentType, setPaymentType] = useState(null);
   const navigate = useNavigate();
   const appData = useApp();
+
   const [Razorpay, isLoaded] = useRazorpay();
 
   const selectPaymentMode = (type) => {
@@ -353,7 +357,7 @@ const PaymentMode = ({
                 res.razorpay_payment_id,
                 selectedOfferProductId,
                 selectedOfferId
-            );
+              );
             },
             prefill: {
               name: selectAddrDetail?.name,
@@ -440,10 +444,12 @@ const PaymentMode = ({
     ) {
       AppNotification("Error", "Please select payment type", "danger");
     } else {
-      let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery;
+      let finalAmount = cartPriceTotal.subTotal + cartPriceTotal.delivery + (cartPriceTotal.handling_fee ?? 0) - (cartPriceTotal.digital_discount ?? 0);
       const payload = {
         company_id: parseInt(enviroment.COMPANY_ID),
         offer_product_id: selectedOfferId ?? null,
+        handling_fee: cartPriceTotal.handling_fee ?? 0,
+        digital_discount: cartPriceTotal.digital_discount ?? 0,
         offer_id: selectedOfferProductId ?? null,
         store_id: parseInt(enviroment.STORE_ID),
         customer_id: userInfo.customer_id,
@@ -496,6 +502,50 @@ const PaymentMode = ({
     }
   };
 
+  const resetPaymentFees = useCallback(() => {
+    setCartPriceTotal((prevCartPriceTotal) => {
+      return {
+        ...prevCartPriceTotal,
+        handling_fee: 0,
+        digital_discount: 0,
+      };
+    });
+  }, []);
+
+  const addCodFees = useCallback(() => {
+    resetPaymentFees();  // Ensure reset happens first
+    setCartPriceTotal((prevCartPriceTotal) => {
+      if (prevCartPriceTotal?.handling_fee > 0) return prevCartPriceTotal;  // Prevent adding fees again
+
+      // Calculate the handling fee as a percentage of the subTotal
+      const fees = (parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(prevCartPriceTotal.subTotal);
+
+      // Return updated cart totals
+      return {
+        ...prevCartPriceTotal,
+        handling_fee: fees,
+        // subTotal: total,
+      };
+    });
+  }, [paymentFeee.handling_fee, resetPaymentFees]);
+
+  const addDigitalDiscount = useCallback(() => {
+    resetPaymentFees();  // Ensure reset happens first
+    setCartPriceTotal((prevCartPriceTotal) => {
+      if (prevCartPriceTotal?.digital_discount > 0) return prevCartPriceTotal;  // Prevent adding discount again
+
+      // Calculate the digital discount as a percentage of the subTotal
+      const discount = (parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(prevCartPriceTotal.subTotal);
+
+      // Return updated cart totals
+      return {
+        ...prevCartPriceTotal,
+        digital_discount: discount,
+        // subTotal: total,
+      };
+    });
+  }, [paymentFeee.digital_discount, resetPaymentFees]);
+
   return (
     <div className={`${styles.deliveryBox} col-12 d-inline-flex flex-column`}>
       <h2
@@ -505,31 +555,16 @@ const PaymentMode = ({
       </h2>
       {checkoutType === "Payment" && (
         <div className="col-12 d-inline-flex flex-column">
-          <div className="col-12 d-inline-flex flex-column gap-3 px-5 py-4">
-            <div className="col-12 d-inline-flex">
-              <label
-                className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
-                htmlFor="cash"
-                role="button"
-                onClick={() => selectPaymentMode("cash")}
-              >
-                <input
-                  className={`${styles.deliveryRadio} position-absolute d-inline-block`}
-                  type="radio"
-                  id="cash"
-                  name="paymentmode"
-                />
-                <span className={`${styles.radioText} d-inline-flex`}>
-                  Cash on Delivery
-                </span>
-              </label>
-            </div>
+          <div className="col-12 d-inline-flex flex-column gap-1 px-5 py-4">
             <div className="col-12 d-inline-flex">
               <label
                 className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
                 htmlFor="online"
                 role="button"
-                onClick={() => selectPaymentMode("online")}
+                onClick={() => {
+                  selectPaymentMode("online")
+                  addDigitalDiscount()
+                }}
               >
                 <input
                   className={`${styles.deliveryRadio} position-absolute d-inline-block`}
@@ -537,30 +572,71 @@ const PaymentMode = ({
                   id="online"
                   name="paymentmode"
                 />
-                <span className={`${styles.radioText} d-inline-flex`}>
-                  Online Payment Options
-                </span>
+                <p className="d-flex flex-column gap-2">
+                  <span className={`${styles.radioText} d-inline-flex`}>
+                    Online Payment Options
+                  </span>
+                  {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-success"
+                    style={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#D2FAC1",
+                      padding: "0.2rem 0.5rem",
+                      width: "fit-content"
+                    }}
+                  >Digital Payment Discount: ₹{((parseFloat(paymentFeee.digital_discount) / 100) * parseFloat(cartPriceTotal.prevTotal)).toFixed(2)}</span> : null}
+                </p>
               </label>
             </div>
-          </div>
-          <div
-            className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end`}
-          >
-            <span
-              onClick={() =>
-                proceedPayment({
-                  selectedOfferProductId,
-                  selectedOfferId,
-                  selectedOfferProductId,
-                  selectedOfferId,
-                })
-              }
-              role="button"
-              className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+            <div className="col-12 d-inline-flex">
+              <label
+                className={`${styles.paymentRadio} d-inline-flex align-items-center gap-2 position-relative px-3`}
+                htmlFor="cash"
+                role="button"
+                onClick={() => {
+                  selectPaymentMode("cash")
+                  addCodFees()
+                }}
+              >
+                <input
+                  className={`${styles.deliveryRadio} position-absolute d-inline-block`}
+                  type="radio"
+                  id="cash"
+                  name="paymentmode"
+                />
+                <p className="d-flex flex-column gap-2">
+                  <span className={`${styles.radioText} d-inline-flex`}>
+                    Cash on delivery
+                  </span>
+                  {paymentFeee.digital_discount > 0 ? <span className="fw-bold text-danger"
+                    style={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#F8DADA",
+                      padding: "0.2rem 0.5rem",
+                      width: "fit-content"
+                    }}
+                  >Cash Handling Fees: ₹{((parseFloat(paymentFeee.handling_fee) / 100) * parseFloat(cartPriceTotal.prevTotal)).toFixed(2)}</span> : null}
+                </p>
+              </label>
+            </div>
+            <div
+              className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-center align-items-center`}
             >
-              {" "}
-              PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery})
-            </span>
+              <span
+                onClick={() =>
+                  proceedPayment({
+                    selectedOfferProductId,
+                    selectedOfferId,
+                    selectedOfferProductId,
+                    selectedOfferId,
+                  })
+                }
+                role="button"
+                className={`${styles.payOrderBtn} d-inline-flex align-items-center px-3`}
+              >
+                {" "}
+                PLACE ORDER (₹{cartPriceTotal.subTotal + cartPriceTotal.delivery + (cartPriceTotal.handling_fee ?? 0) - (cartPriceTotal.digital_discount ?? 0)})
+              </span>
+            </div>
           </div>
         </div>
       )}
@@ -572,6 +648,7 @@ export const DeliveryAddress = ({
   selectedOfferProductId,
   selectedOfferId,
   cartPriceTotal,
+  setCartPriceTotal,
   shopcartID,
   setOrderStatus,
 }) => {
@@ -582,6 +659,11 @@ export const DeliveryAddress = ({
   const userInfo = appData.appData.user;
   const [addressId, setAddressId] = useState("");
   const [selectAddrDetail, setSelectAddrDetail] = useState({});
+  const [paymentType, setPaymentType] = useState(null);
+  const [paymentFees, setPaymentFees] = useState({
+    digital_discount: 0,
+    handling_fee: 0
+  });
 
   const getAllAdress = () => {
     const payload = {
@@ -612,6 +694,30 @@ export const DeliveryAddress = ({
     }
   }, [addressSaved]);
 
+  const fetchPaymentFees = useCallback(async () => {
+    const payload = {
+      company_id: parseInt(enviroment.COMPANY_ID),
+    };
+
+    try {
+      const res = await ApiService.getPaymentFees(payload);
+      setPaymentFees({
+        digital_discount: res?.digital_discount ?? 0,
+        handling_fee: res?.handling_fee ?? 0,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPaymentFees();
+  }, [fetchPaymentFees]);
+
+  if (!paymentFees) {
+    return <p>Loading...</p>
+  }
+
   return (
     <React.Fragment>
       <div
@@ -628,6 +734,7 @@ export const DeliveryAddress = ({
           Change
         </span>
       </div>
+
       <AddressDelivery
         allAddress={allAddress}
         setCheckoutType={setCheckoutType}
@@ -637,6 +744,8 @@ export const DeliveryAddress = ({
         setSelectAddrDetail={setSelectAddrDetail}
       />
       <PaymentMode
+        paymentType={paymentType}
+        setPaymentType={setPaymentType}
         selectedOfferProductId={selectedOfferProductId}
         selectedOfferId={selectedOfferId}
         checkoutType={checkoutType}
@@ -645,6 +754,8 @@ export const DeliveryAddress = ({
         shopcartID={shopcartID}
         cartPriceTotal={cartPriceTotal}
         selectAddrDetail={selectAddrDetail}
+        setCartPriceTotal={setCartPriceTotal}
+        paymentFeee={paymentFees}
       />
     </React.Fragment>
   );

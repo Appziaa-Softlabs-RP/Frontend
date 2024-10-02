@@ -11,6 +11,7 @@
     position: relative;
     z-index: 2
 }
+
 .formInput:focus,.formInput:focus-visible,.formInput:not(:placeholder-shown) {
     border: 1px solid var(--PRIMARY_COLOR);
     outline: none
@@ -39,6 +40,9 @@
     color: #111;
     z-index: 3
 }
+.formInput:not(:placeholder-shown) + .formLabelDisabled {
+    background: linear-gradient(0deg, #F0F0F0 30%, white 50%) !important;
+}
 .addressFrom{
     background: #FFF;
 }
@@ -47,8 +51,7 @@
     font-weight: 700;
 }
 .saveAddrsBtn{
-    background: var(--PRIMARY_COLOR);
-    height: 60px;
+    background: var(--SECONDARY_COLOR);    height: 60px;
     font-size: 18px;
     color: #FFF;
 }

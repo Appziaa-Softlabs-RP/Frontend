@@ -1,15 +1,19 @@
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ReactReactOwlCarousel from "react-owl-carousel";
+import OwlCarousel from "react-owl-carousel";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
+import { ProductListLoader } from "../Loader/Loader";
 import { ProductCard } from "../ProductCard/ProductCard";
+import NoProductFound from "../shared/NoProductFound";
 import styles from "./SubCategory.module.css";
 
 let currentCat = "";
+
 export const SubCategory = ({ verticalSlug }) => {
   const slideRef = useRef([]);
   const [shopCategory, setShopCategory] = useState([]);
@@ -19,10 +23,14 @@ export const SubCategory = ({ verticalSlug }) => {
   const [activeApi, setActiveApi] = useState(null);
   const [catActive, setCatActive] = useState("");
   const [apiPayload, setApiPayload] = useState(null);
-  const appData = useApp();
-  let windowWidth = appData.appData.windowWidth;
+  const { appData: { windowWidth } } = useApp();
+  const [loading, setLoading] = useState(true);
+  const [isInfinityLoading, setIsInfinityLoading] = useState(false);
 
-  const getSubCategory = (id) => {
+  const handleApiError = (err) => console.error(err);
+
+  const getSubCategory = useCallback((id) => {
+    setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       category_id: id,
@@ -31,19 +39,21 @@ export const SubCategory = ({ verticalSlug }) => {
     setCatActive(id);
     setSubCatActive("");
     setActiveApi("subChild");
-    ApiService.StoreSubChildCategory(payload)
-      .then((res) => {
-        setSubShopCategory(res?.payload_categoryBySubCategory);
-      })
-      .catch((err) => {});
-    ApiService.CategoryByProd(payload)
-      .then((res) => {
-        setShopCategoryProd(res?.payload_CategoryByProduct);
-      })
-      .catch((err) => {});
-  };
 
-  const getSubCategoryProd = (subId) => {
+    Promise.all([
+      ApiService.StoreSubChildCategory(payload),
+      ApiService.CategoryByProd(payload)
+    ])
+      .then(([subCategoryRes, categoryProdRes]) => {
+        setLoading(false);
+        setSubShopCategory(subCategoryRes?.payload_categoryBySubCategory || []);
+        setShopCategoryProd(categoryProdRes?.payload_CategoryByProduct || []);
+      })
+      .catch(handleApiError);
+  }, []);
+
+  const getSubCategoryProd = useCallback((subId) => {
+    setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       subcategory_id: subId,
@@ -53,14 +63,17 @@ export const SubCategory = ({ verticalSlug }) => {
     setSubCatActive(subId);
     setApiPayload(payload);
     setActiveApi("categorySub");
+
     ApiService.CategoryBySubProd(payload)
       .then((res) => {
-        setShopCategoryProd(res.payload_SubCategoryByProduct);
+        setShopCategoryProd(res.payload_SubCategoryByProduct || [])
+        setLoading(false);
       })
-      .catch((err) => {});
-  };
+      .catch(handleApiError);
+  }, []);
 
-  const getCategoryProd = (currentCat) => {
+  const getCategoryProd = useCallback(() => {
+    setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       vertical_id: currentCat,
@@ -70,195 +83,138 @@ export const SubCategory = ({ verticalSlug }) => {
     setSubCatActive("");
     setApiPayload(payload);
     setActiveApi("categoryProd");
+
     ApiService.CategoryByProd(payload)
       .then((res) => {
-        setShopCategoryProd(res.payload_CategoryByProduct);
+        setLoading(false);
+        setShopCategoryProd(res.payload_CategoryByProduct || [])
       })
-      .catch((err) => {});
-  };
+      .catch(handleApiError);
+  }, [currentCat]);
 
-  const fetchProducts = () => {
-    const catpayload = {
+  const fetchProducts = useCallback(() => {
+    setLoading(true);
+    const payload = {
       store_id: parseInt(enviroment.STORE_ID),
       category_slug: verticalSlug,
     };
     setCatActive("");
     setActiveApi("storeSub");
-    ApiService.CategoryByProd(catpayload)
+
+    ApiService.CategoryByProd(payload)
       .then((res) => {
-        setShopCategory(res.payload_CategoryByProduct?.products);
-        setShopCategoryProd(res.payload_CategoryByProduct?.products);
+        setLoading(false);
+        const products = res.payload_CategoryByProduct?.products || [];
+        setShopCategory(products);
+        setShopCategoryProd(products);
       })
-      .catch((err) => {});
+      .catch(handleApiError);
 
-    setApiPayload(catpayload);
-  };
+    setApiPayload(payload);
+  }, [verticalSlug]);
 
-  const LoadMoreProducts = () => {
-    let pageCount = apiPayload?.page ?? 1;
-    pageCount = pageCount + 1;
-
-    if (activeApi === "storeSub" || activeApi === "categoryProd") {
-      ApiService.CategoryByProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_CategoryByProduct?.products;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => {});
-    } else if (activeApi === "categorySub") {
-      ApiService.CategoryBySubProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_SubCategoryByProduct;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => {});
-    } else if (activeApi === "subChild") {
-      ApiService.CategoryByProd(apiPayload)
-        .then((res) => {
-          let prevProdArr = [];
-          prevProdArr = categoryProd;
-          let newProd = res.payload_SubCategoryByProduct;
-          for (let i = 0; i < newProd.length; i++) {
-            prevProdArr.push(newProd[i]);
-          }
-          let newProduct = [...prevProdArr];
-          setShopCategoryProd(newProduct);
-        })
-        .catch((err) => {});
-    }
-    console.log(apiPayload)
+  const loadMoreProducts = useCallback(() => {
+    setIsInfinityLoading(true);
+    let pageCount = (apiPayload?.page || 1) + 1;
     setApiPayload((prev) => ({ ...prev, page: pageCount }));
-  };
+
+    const fetchApi =
+      activeApi === "categorySub"
+        ? ApiService.CategoryBySubProd(apiPayload)
+        : ApiService.CategoryByProd(apiPayload);
+
+    fetchApi
+      .then((res) => {
+        const newProducts =
+          activeApi === "categorySub"
+            ? res.payload_SubCategoryByProduct
+            : res.payload_CategoryByProduct?.products;
+        setIsInfinityLoading(false);
+        setShopCategoryProd((prev) => [...prev, ...(newProducts || [])]);
+      })
+      .catch(handleApiError);
+  }, [apiPayload, activeApi]);
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   useEffect(() => {
-    shopCategory?.map((item, index) => {
-      if (index === 0) {
-        const payload = {
-          store_id: parseInt(enviroment.STORE_ID),
-          category_id: item?.category_id,
-        };
-        ApiService.StoreSubChildCategory(payload)
-          .then((res) => {
-            setSubShopCategory(res?.payload_categoryBySubCategory);
-          })
-          .catch((err) => {});
-      }
-    });
+    if (shopCategory.length > 0) {
+      const firstCategory = shopCategory[0];
+      const payload = {
+        store_id: parseInt(enviroment.STORE_ID),
+        category_id: firstCategory?.category_id,
+      };
+      ApiService.StoreSubChildCategory(payload)
+        .then((res) => setSubShopCategory(res?.payload_categoryBySubCategory || []))
+        .catch(handleApiError);
+    }
   }, [shopCategory]);
+
+  if (loading) {
+    return <div className="p-4">
+      <ProductListLoader header={false} />
+    </div>
+  }
+
+  if(shopCategory.length === 0) {
+    return <NoProductFound />
+  }
+
   return (
-    <React.Fragment>
-      {shopCategory?.length ? (
+    <>
+      {shopCategory.length > 0 && (
         <div className="hideInDesktop">
-          <div
-            className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}
-          >
-            <ReactReactOwlCarousel
-              className={`col-12 d-inline-block owl-theme`}
-              margin={20}
-              loop={false}
-              dots={false}
-              stagePadding={20}
-              items={4}
-            >
+          <div className={`${styles.lookingContainer} ps-3 py-3 col-12 d-inline-flex align-items-stretch gap-3`}>
+            <OwlCarousel className="col-12 d-inline-block owl-theme" margin={20} loop={false} dots={false} stagePadding={20} items={4}>
               <div
-                className={`${
-                  catActive === "" && styles.active
-                } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
-                onClick={() => fetchProducts()}
+                className={`${!catActive && styles.active} d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
+                onClick={fetchProducts}
               >
-                <div
-                  className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}
-                >
-                  <img
-                    src="/all-icon.png"
-                    alt={"all"}
-                    className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0 position-absolute"
-                  />
+                <div className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}>
+                  <img src="/all-icon.png" alt="all" className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0 position-absolute" />
                 </div>
-                <p
-                  className={`${styles.categoryProdName} col-12 text-center m-0`}
-                >
-                  All
-                </p>
+                <p className={`${styles.categoryProdName} col-12 text-center m-0`}>All</p>
               </div>
 
-              {shopCategory?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={`${
-                      catActive === item?.category_id && styles.active
-                    } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
-                    onClick={() => getSubCategory(item?.category_id)}
-                    ref={(element) => (slideRef.current[index] = element)}
-                  >
-                    <div
-                      className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}
-                    >
-                      <img
-                        src={item?.image}
-                        alt={item?.name}
-                        className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0 position-absolute"
-                      />
-                    </div>
-                    <p
-                      className={`${styles.categoryProdName} col-12 text-center m-0`}
-                    >
-                      {item?.name}
-                    </p>
+              {shopCategory.map((item, index) => (
+                <div
+                  key={index}
+                  className={`${catActive === item?.category_id && styles.active} d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
+                  onClick={() => getSubCategory(item?.category_id)}
+                  ref={(element) => (slideRef.current[index] = element)}
+                >
+                  <div className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center col-12 overflow-hidden position-relative`}>
+                    <img src={item?.image} alt={item?.name} className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0 position-absolute" />
                   </div>
-                );
-              })}
-            </ReactReactOwlCarousel>
+                  <p className={`${styles.categoryProdName} col-12 text-center m-0`}>{item?.name}</p>
+                </div>
+              ))}
+            </OwlCarousel>
           </div>
 
-          {catActive != "" && (
-            <div
-              className={`p-3 col-12 d-inline-flex align-items-stretch gap-3 overflow-x-auto`}
-            >
+          {catActive && (
+            <div className={`p-3 col-12 d-inline-flex align-items-stretch gap-3 overflow-x-auto`}>
               <span
-                onClick={() => getCategoryProd(currentCat)}
-                className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${
-                  styles.productsItemsName
-                } ${subCatActive === "" && styles.active}`}
+                onClick={getCategoryProd}
+                className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${styles.productsItemsName} ${!subCatActive && styles.active}`}
               >
                 All
               </span>
-              {subShopCategory?.map((item, index) => {
-                return (
-                  <span
-                    key={index}
-                    onClick={() => getSubCategoryProd(item?.subcategory_id)}
-                    className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${
-                      styles.productsItemsName
-                    } ${
-                      item?.subcategory_id === subCatActive && styles.active
-                    }`}
-                  >
-                    {item?.name}
-                  </span>
-                );
-              })}
+              {subShopCategory.map((item, index) => (
+                <span
+                  key={index}
+                  onClick={() => getSubCategoryProd(item?.subcategory_id)}
+                  className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${styles.productsItemsName} ${item?.subcategory_id === subCatActive && styles.active}`}
+                >
+                  {item?.name}
+                </span>
+              ))}
             </div>
           )}
         </div>
-      ) : null}
+      )}
 
       <div
         className={`col-12 d-inline-flex mt-4`}
@@ -267,7 +223,7 @@ export const SubCategory = ({ verticalSlug }) => {
           <InfiniteScroll
             className="col-12 d-inline-flex flex-wrap"
             dataLength={categoryProd.length}
-            next={LoadMoreProducts}
+            next={loadMoreProducts}
             hasMore={true}
           >
             {categoryProd.map((item, index) => {
@@ -275,9 +231,8 @@ export const SubCategory = ({ verticalSlug }) => {
                 <React.Fragment key={index}>
                   {item.name !== "" && (
                     <div
-                      className={`${
-                        windowWidth === "mobile" ? "col-6" : "col-3"
-                      } px-2 flex-shrink-0 mb-2`}
+                      className={`${windowWidth === "mobile" ? "col-6" : "col-3"
+                        } px-2 flex-shrink-0 mb-2`}
                       key={index}
                     >
                       <ProductCard item={item} index={index} />
@@ -287,8 +242,14 @@ export const SubCategory = ({ verticalSlug }) => {
               );
             })}
           </InfiniteScroll>
+          {
+            isInfinityLoading &&
+            <div className="col-12 mb-5 d-inline-flex justify-content-center mt-4">
+              <Spinner animation="border" variant="dark" />
+            </div>
+          }
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };

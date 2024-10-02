@@ -102,8 +102,7 @@
 }
 .PageHeader {
   height: 60px;
-  background: var(--PRIMARY_COLOR);
-  z-index: 15;
+  background: var(--SECONDARY_COLOR);  z-index: 15;
 }
 .backBox {
   height: 60px;
@@ -120,6 +119,5 @@
   font-weight: 600;
 }
 .saveFilterBtn {
-  background: var(--PRIMARY_COLOR);
-  color: var(--SECONDARY_COLOR);
+  background: var(--SECONDARY_COLOR);  color: var(--PRIMARY_COLOR);
 }

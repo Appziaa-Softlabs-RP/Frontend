@@ -32,7 +32,8 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
-import AddReview from "../../Components/AddReview/AddReview";
+import Skeleton from "react-loading-skeleton";
+import noImage from "../../assets/images/image-not-available.jpg";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -63,23 +64,22 @@ export const ProductPage = () => {
   const [isSpecilization, setIsSpecilization] = useState(false);
   const userInfo = appData?.appData?.user;
   const pageCurrentURL = encodeURIComponent(window.location.href);
-  const [isSizeInCm, setSizeInCm] = useState(true);
-  const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
+  const [productVariants, setProductVariants] = useState([]);
+  const [productVariantsLoading, setProductVariantsLoading] = useState(true);
+  const [productLoading, setProductLoading] = useState(true);
+
+  const [deliveryShowed, setDeliveryShowed] = useState(false);
 
   const setMainImage = (image, count) => {
     setActiveImg(count);
     setProdMainImg(image);
   };
 
-  const sizeData = [
-    { uk: 5, us: 6, euro: 39, cm: 23.4, inches: 9.21 },
-    { uk: 6, us: 7, euro: 40, cm: 24.4, inches: 9.61 },
-    { uk: 7, us: 8, euro: 41, cm: 25.4, inches: 10.00 },
-    { uk: 8, us: 9, euro: 42, cm: 26.4, inches: 10.40 },
-    { uk: 9, us: 10, euro: 43, cm: 27.4, inches: 10.80 },
-    { uk: 10, us: 11, euro: 44, cm: 28.4, inches: 11.20 },
-    { uk: 11, us: 12, euro: 45, cm: 29.4, inches: 11.57 },
-  ];
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
+  };
 
   const openProductColpse = () => { };
 
@@ -270,88 +270,52 @@ export const ProductPage = () => {
     }
   };
 
-  const getDeliveyPincode = (val) => {
-    setPincode(val);
-    if (val.length < 6) {
-      setDeliveryDetail({});
-    }
+  const formatDeliveryDate = (date) => {
+    const options = {
+      weekday: 'long', // Full day name (e.g., "Tuesday")
+      day: 'numeric',  // Numeric day (e.g., "3")
+      month: 'short',  // Short month (e.g., "Oct")
+    };
+
+    const formattedDate = new Date(date).toLocaleDateString('en-GB', options);
+
+    // Insert a comma after the day
+    const [weekday, day, month] = formattedDate.split(' ');
+    return `${weekday}, ${day} ${month}`;
   };
 
-  const getDeliveyInfo = (val) => {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const weekNames = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    var day = new Date();
 
-    if (val.length > 5) {
-      axios
-        .post(`${enviroment.DELIVERY_URL}/pincode-status`, {
-          store_email: process.env.REACT_APP_EMAIL_ADDRESS,
-          pincode: val,
-        })
-        .then(function (res) {
-          if (res.data.message === "Delivery found") {
-            AppNotification("Success", "Product Delivery Found", "success");
-            if (res?.data?.data?.max_days && res?.data?.data?.min_days) {
-              var fromDay = new Date(day);
-              fromDay.setDate(day.getDate() + res.data.data.min_days);
-              let fromMonth = weekNames[fromDay.getDay()];
-              let fromWeek = monthNames[fromDay.getMonth()];
-              let fromDate = fromDay.getDate();
-              fromDay = fromMonth + ", " + fromDate + " " + fromWeek;
-              var nextDay = new Date(day);
-              nextDay.setDate(day.getDate() + res.data.data.max_days);
-              let nextMonth = weekNames[nextDay.getDay()];
-              let nextWeek = monthNames[nextDay.getMonth()];
-              let nextDate = nextDay.getDate();
-              nextDay = nextMonth + ", " + nextDate + " " + nextWeek;
-              setDeliveryDetail({ minDays: fromDay, maxDays: nextDay });
-            } else if (res?.data?.data?.max_days) {
-              var nextDay = new Date(day);
-              nextDay.setDate(day.getDate() + res.data.data.max_days);
-              let nextMonth = weekNames[nextDay.getDay()];
-              let nextWeek = monthNames[nextDay.getMonth()];
-              let nextDate = nextDay.getDate();
-              nextDay = nextMonth + ", " + nextDate + " " + nextWeek;
-              setDeliveryDetail({ maxDays: nextDay });
-            } else if (res?.data?.data?.min_days) {
-              var fromDay = new Date(day);
-              fromDay.setDate(day.getDate() + res.data.data.min_days);
-              let fromMonth = weekNames[fromDay.getDay()];
-              let fromWeek = monthNames[fromDay.getMonth()];
-              let fromDate = fromDay.getDate();
-              fromDay = fromMonth + ", " + fromDate + " " + fromWeek;
-              setDeliveryDetail({ minDays: fromDay });
-            } else {
-              setDeliveryDetail({});
+  const getDeliveyPincode = async (val) => {
+    setPincode(val);
+    if (val.length === 6) {
+      const payload = {
+        pincode: val,
+        store_email: "info@neverowned.in"
+      };
+      try {
+        const response = await fetch(`https://company.aspl.tech/api/pincode-status`,
+          {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: {
+              "Content-Type": "application/json",
+              'Accept': 'application/json',
+              'Access-Control-Allow-Origin': '*',
             }
-          }
-        })
-        .catch(function (error) {
-          setDeliveryDetail({});
-        });
+          });
+
+        const data = await response.json();
+        if (data?.data === null) {
+          AppNotification("Error", "Please enter valid pincode.", "danger");
+          return;
+        }
+        setDeliveryDetail(data?.data);
+        setDeliveryShowed(true);
+      } catch (error) {
+        AppNotification("Error", "Please enter valid pincode.", "danger");
+      }
     } else {
-      setDeliveryDetail({});
+      AppNotification("Error", "Please enter valid pincode.", "danger");
     }
   };
 
@@ -380,6 +344,7 @@ export const ProductPage = () => {
     };
 
     // Fetch product details based on the slug
+    setProductLoading(true);
     ApiService.productDetails(payload)
       .then((res) => {
         if (res.message === "Product Detail") {
@@ -423,6 +388,27 @@ export const ProductPage = () => {
               }
             });
           }
+
+          // Fetching Similar Products
+          const similarProdPayload = {
+            product_id: res.payload.product_id,
+            store_id: parseInt(enviroment.STORE_ID),
+          };
+
+          setProductVariantsLoading(true);
+          ApiService.productVariantInfo(similarProdPayload)
+            .then((res) => {
+              if (res.message === "Product Variant") {
+                setProductVariants(res?.payload);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              setProductVariantsLoading(false);
+            });
+
         } else {
           AppNotification(
             "Error",
@@ -433,6 +419,9 @@ export const ProductPage = () => {
       })
       .catch((err) => {
         AppNotification("Error", "Sorry, Product detail not found.", "danger");
+      })
+      .finally(() => {
+        setProductLoading(false);
       });
   }, [slug, navigate, searchParams]);
 
@@ -553,7 +542,10 @@ export const ProductPage = () => {
         </Helmet>
       )}
 
-      <div className="hideInDesktop">
+      <div className="hideInDesktop" style={{
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}>
         <PageHeader title={ProductData?.name} />
         <div className="col-12 d-inline-block position-relative">
           {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
@@ -579,12 +571,14 @@ export const ProductPage = () => {
             <div
               className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
             >
-              {prodMainImg ? (
+              {!productLoading ? (
                 <img
                   src={ProductData?.image}
                   alt={ProductData?.name}
+                  onError={(e) => setNoImage(e)}
                   className="col-12 d-inline-block"
                   style={{
+                    minHeight: "300px",
                     maxHeight: "500px",
                     width: "auto",
                   }}
@@ -615,9 +609,10 @@ export const ProductPage = () => {
                   className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
                   key={index}
                 >
-                  {prodMainImg ? (
+                  {!productLoading ? (
                     <img
                       src={enviroment.API_IMAGE_GALLERY_URL + item}
+                      onError={(e) => setNoImage(e)}
                       alt={ProductData?.name}
                       className="col-12 d-inline-block"
                       style={{
@@ -648,14 +643,15 @@ export const ProductPage = () => {
               );
             })}
           </ReactOwlCarousel>
-          {!ProductData?.gallery_images.length ? (
-            prodMainImg ? (
+          {productLoading && !ProductData?.gallery_images.length ? (
+            !productLoading ? (
               <div
                 className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
               >
                 <img
                   src={prodMainImg}
                   alt={ProductData?.name}
+                  onError={(e) => setNoImage(e)}
                   className="col-12 d-inline-block"
                   style={{
                     maxHeight: "100px",
@@ -667,7 +663,7 @@ export const ProductPage = () => {
               <div
                 className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
                 style={{
-                  height: "500px",
+                  height: "100px",
                 }}
               >
                 <ThreeDots
@@ -686,229 +682,159 @@ export const ProductPage = () => {
         </div>
 
         <div
-          className={`${styles.productAllDetail} col-12 d-inline-block p-4`}
+          className={`${styles.productAllDetail} col-12 d-flex flex-column gap-3 p-4`}
         >
-          <h2 className={`${styles.productDetailName} col-12 mb-1`}>
-            {ProductData?.name}
+          <h2 className={`${styles.productDetailName} col-12 mb-1 text-start m-0`}
+            style={{
+              fontSize: "1.5rem",
+            }}
+          >
+            {
+              productLoading ?
+                <Skeleton width={200} height={20} />
+                :
+                ProductData?.name
+            }
           </h2>
 
-          <div className="ms-2">
-            <span className="mb-2">Item Code: {ProductData?.article_name} </span>
-            <div
-              className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
-            >
-              {ProductData?.selling_price === ProductData?.mrp ? (
-                <span className={`${styles.offerPrice}`}>
-                  <b>₹{ProductData?.mrp}</b>
-                </span>
-              ) : (
-                <React.Fragment>
-                  <span className={`${styles.offerPrice}`}>
-                    <b>₹{ProductData?.selling_price}</b>{" "}
-                    <del>₹{ProductData?.mrp}</del>
-                  </span>
-                  {prodDiscount !== "" && (
-                    <span
-                      className={`${styles.offerPercentage} d-inline-flex`}
-                    >
-                      {prodDiscount}% &nbsp;OFF
+          <div className="">
+            {/* <span className="mb-2">Item Code: {ProductData?.article_name} </span> */}
+            {
+              productLoading ?
+                <Skeleton width={200} height={20} /> :
+                <div
+                  className={`d-inline-flex align-items-center col-12 mb-0 position-relative`}
+                >
+                  {ProductData?.selling_price === ProductData?.mrp ? (
+                    <span style={{
+                      fontSize: "26px",
+                    }} className={`${styles.offerPrice}`}>
+                      <b>₹{ProductData?.mrp}</b>
                     </span>
+                  ) : (
+                    <React.Fragment>
+                      <span style={{
+                        fontSize: "26px",
+                      }} className={`${styles.offerPrice}`}>
+                        <b>₹{ProductData?.selling_price}</b>{" "}
+                      </span>
+                      {prodDiscount !== "" && (
+                        <span
+                          className={`${styles.offerPercentage} d-inline-flex ms-2`}
+                        >
+                          ({prodDiscount}% &nbsp;OFF)
+                        </span>
+                      )}
+                    </React.Fragment>
                   )}
-                </React.Fragment>
-              )}
-            </div>
-            <span className={`${styles.inclusivTax} col-12 d-inline-block`}>
-              (Inclusive of all taxes)
+                </div>
+            }
+            <span className={`${styles.inclusivTax} col-12 d-inline-block`} style={{
+              fontSize: "16px",
+              fontWeight: "500",
+            }}>
+              {
+                ProductData?.selling_price !== ProductData?.mrp ?
+                  <span style={{ marginRight: '5px' }}>MRP: <del>₹{ProductData?.mrp}</del></span>
+                  : null
+              }
+              <span>(Inclusive of all taxes)</span>
             </span>
           </div>
           {/* Color and size */}
-          <div className="row">
+          <div className="row my-3 d-flex flex-column gap-3">
+            {/* Colors Section */}
             <div className="col-md-12">
-              <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                More Colors
-              </h2>
-              <div className="d-flex">
-                <div
-                  className="color-option"
-                  style={{
-                    backgroundColor: 'black',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    marginRight: '10px'
-                  }}
-                ></div>
-                <div
-                  className="color-option"
-                  style={{
-                    backgroundColor: 'blue',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    marginRight: '10px'
-                  }}
-                ></div>
-                <div
-                  className="color-option"
-                  style={{
-                    backgroundColor: 'yellow',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%'
-                  }}
-                ></div>
-              </div>
-              <p className="mt-2" style={{ fontSize: '12px' }}><span style={{ margin: '2px' }}>Black</span> <span style={{ margin: '2px' }}>Blue</span> <span style={{ margin: '2px' }}>Yellow</span></p>
+              <h2 className={`${styles.specialTitle} d-inline-flex m-0 mb-2`}>More Colors</h2>
+              {
+                productVariantsLoading ?
+                  <ColorSkeleton />
+                  :
+                  <div className="d-flex gap-2">
+                    {productVariants
+                      .filter((variant, index, self) =>
+                        index === self.findIndex((v) => v.color_code === variant.color_code)
+                      )
+                      .map((variant) => (
+                        <div key={variant.color_code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: "column", marginRight: '10px' }}>
+                          <Link
+                            to={`/product/${variant.name_url}`}
+                            className={`color-option`}
+                            style={{
+                              backgroundColor: variant.color_code,
+                              minWidth: '30px',
+                              width: '30px',
+                              minHeight: '30px',
+                              height: '30px',
+                              borderRadius: '50%',
+                              border: (ProductData?.color_id === variant?.color_id) && '2px solid red'
+                            }}
+                          ></Link>
+                          <span style={{
+                            fontSize: '12px',
+                          }}>{variant.color_name}</span>
+                        </div>
+                      ))}
+                  </div>
+              }
             </div>
 
-            {
-              !isSizeChartOpen && (
-                <div className="col-md-12">
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '10px',
-                    maxWidth: '300px',
-                  }}>
-                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      Select Size (UK Size)
-                    </h2>
-                    <button className="btn fw-bold text-danger"
-                      onClick={
-                        () => {
-                          setIsSizeChartOpen(true)
-                        }
-                      }
-                    >
-                      See Guide &gt;
-                    </button>
-                  </div>
-                  <div className="d-flex">
-                    {[5, 6, 7, 8, 9, 10, 11].map((size) => (
-                      <button
-                        key={size}
-                        className="btn"
-                        style={{
-                          marginRight: '5px',
-                          textAlign: 'center',
-                          padding: '4px',
-                          fontSize: '12px',
-                          height: '30px',
-                          width: '30px',
-                          border: '1px solid #000',
-                          borderRadius: '50%',
-                        }}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-          </div>
-          {/* Size chart */}
-          {
-            isSizeChartOpen && (
-              <div className="">
-                <div style={{
+            {/* Sizes Section */}
+            <div className="col-md-12">
+              <div
+                style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginBottom: '10px'
-                }}>
-                  <h2 className="text-danger text-start m-0">Size Chart</h2>
-                  <button className="btn btn-danger"
-                    onClick={
-                      () => {
-                        setIsSizeChartOpen(false)
-                      }
-                    }
-                  >
-                    Close
-                  </button>
-                </div>
-                <div className="row position-relative">
-                  <div className="col-xl-6 h-100">
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'end',
-                      alignItems: 'center',
-                    }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          marginBottom: '10px',
-                          flexDirection: 'row',
-                          gap: '10px',
-                          background: '#D9D9D9',
-                          padding: '5px',
-                          borderRadius: '5px'
-                        }}
-                      >
-                        <button
-                          onClick={() => setSizeInCm(true)}
-                          className="btn"
-                          style={{
-                            background: isSizeInCm ? 'red' : '#D9D9D9',
-                            color: isSizeInCm ? 'white' : 'black',
-                            fontWeight: 'bold',
-                          }}
-                        >cm</button>
-                        <button
-                          className="btn"
-                          onClick={() => setSizeInCm(false)}
-                          style={{
-                            background: !isSizeInCm ? 'red' : '#D9D9D9',
-                            color: !isSizeInCm ? 'white' : 'black',
-                            fontWeight: 'bold',
-                          }}
-                        >inch</button>
-                      </div>
-                    </div>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>UK</th>
-                          <th>US</th>
-                          <th>EURO</th>
-                          {
-                            isSizeInCm ?
-                              <th>To Fit Foot Length (cm)</th>
-                              :
-                              <th>To Fit Foot Length (in)</th>
-                          }
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sizeData.map((size, index) => (
-                          <tr key={index}>
-                            <td>{size.uk}</td>
-                            <td>{size.us}</td>
-                            <td>{size.euro}</td>
-                            {
-                              isSizeInCm ?
-                                <td>{size.cm}</td>
-                                :
-                                <td>{size.inches}</td>
-                            }
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="col-xl-6" style={{
-                    minHeight: '100%',
-                    height: '100%',
-                  }}>
-                    <img src="/images/footlen.svg" alt="footlen" style={{
-                      height: '100%',
-                      width: 'auto'
-                    }} />
-                  </div>
-                </div>
+                  maxWidth: '300px',
+                }}
+              >
+                <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                  Select Size (EUR Size)
+                </h2>
+                <SizeGuideModal
+                  prodDiscount={prodDiscount}
+                  productLoading={productLoading}
+                  productData={ProductData}
+                  prodMainImg={prodMainImg}
+                  sizeGuide={ProductData?.size_guide}
+                  ProductData={ProductData}
+                  addToCart={addToCart}
+                  prodAdded={prodAdded}
+                  prodAddedQty={prodAddedQty}
+                  updateProdQty={updateProdQty}
+                />
               </div>
-            )}
+              {
+                productVariantsLoading ?
+                  <SizeSkeleton />
+                  :
+                  <div className="d-flex">
+                    {productVariants
+                      .filter((variant) => variant.color_id === ProductData?.color_id)
+                      .map((variant) => (
+                        <Link
+                          key={variant.size}
+                          to={`/product/${variant.name_url}`}
+                          className="btn"
+                          style={{
+                            marginRight: '5px',
+                            textAlign: 'center',
+                            padding: '4px',
+                            fontSize: '12px',
+                            height: '30px',
+                            width: '30px',
+                            border: (ProductData?.size === variant?.size) ? '2px solid red' : '1px solid #000',
+                            borderRadius: '50%',
+                          }}
+                        >
+                          {variant.size}
+                        </Link>
+                      ))}
+                  </div>
+              }
+            </div>
+          </div>
         </div>
 
         {ProductData?.bank_offer !== null &&
@@ -929,7 +855,9 @@ export const ProductPage = () => {
                       key={index}
                       className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                     >
-                      <img src={item.logo} alt={item.description} />
+                      <img src={item.logo} alt={item.description}
+                        onError={(e) => setNoImage(e)}
+                      />
                       {item.description}
                     </span>
                   );
@@ -1225,15 +1153,8 @@ export const ProductPage = () => {
           <SimilarProduct product={ProductData?.similar} />
         </div>
         <div
-          className={`${styles.productBtnBox} d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}
+          className={`${styles.productBtnBox} w-100 p-2 bg-white d-inline-flex align-items-stretch col-12 position-fixed bottom-0 start-0`}
         >
-          <span
-            className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
-            onClick={() => showCheckoutPage()}
-          >
-            Go to Cart
-          </span>
-
           {!prodAdded ? (
             ProductData?.stock <= 0 ? (
               <button
@@ -1244,24 +1165,25 @@ export const ProductPage = () => {
                   // opacity: "0.5",
                 }}
                 disabled={true}
-                className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                className={`${styles.AddCartBtn} position-relative w-100 d-inline-flex align-items-center justify-content-center`}
               >
                 Out of Stock
               </button>
             ) : (
-              <span
-                className={`${styles.AddCartBtn} ${ProductData?.stock === 0 || ProductData?.stock < 0
+              <button
+                disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
+                className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
                   ? styles.disableCartBtn
                   : ""
-                  } position-relative col-6 d-inline-flex align-items-center justify-content-center`}
+                  } position-relative w-100 d-inline-flex align-items-center justify-content-center`}
                 onClick={(e) => addToCart(e, ProductData)}
               >
                 Add to Cart
-              </span>
+              </button>
             )
           ) : (
             <div
-              className={`${styles.addedQuantityBtnBox} d-inline-flex align-items-center position-relative col-6 justify-content-evenly`}
+              className={`${styles.addedQuantityBtnBox} w-fit d-inline-flex gap-3 align-items-center position-relative justify-content-center w-100`}
             >
               <span
                 role="button"
@@ -1312,7 +1234,10 @@ export const ProductPage = () => {
         </div>
       </div>
 
-      <div className="hideInMobile">
+      <div className="hideInMobile" style={{
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}>
         <Header />
         <div className="col-12 d-inline-flex" style={{
           background: "#EEEEEE"
@@ -1328,7 +1253,7 @@ export const ProductPage = () => {
                   className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
                 >
                   <div
-                    className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
+                    className={`${styles.productMainImage} col-12 d-inline-block position-relative bg-white rounded`}
                   >
                     {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
                       <div
@@ -1350,9 +1275,10 @@ export const ProductPage = () => {
                     >
                       <ShareIcon color="#000" />
                     </span>
-                    {prodMainImg ? (
+                    {!productLoading ? (
                       <img
                         src={prodMainImg}
+                        onError={(e) => setNoImage(e)}
                         alt={ProductData?.name}
                         style={{
                           opacity: (ProductData?.stock === 0 || ProductData?.stock < 0) ? "0.5" : "1",
@@ -1384,13 +1310,14 @@ export const ProductPage = () => {
                   >
                     <div
                       className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
-                        } col-12 d-inline-flex align-items-center justify-content-center`}
+                        } col-12 d-inline-flex p-0 rounded align-items-center justify-content-center`}
                       onClick={() => setMainImage(ProductData?.image, -1)}
                     >
                       <img
                         src={ProductData?.image}
                         alt={ProductData?.name}
-                        className=""
+                        onError={(e) => setNoImage(e)}
+                        className="bg-white rounded"
                         style={{
                           height: "80px",
                           maxHeight: "80px",
@@ -1404,7 +1331,7 @@ export const ProductPage = () => {
                       return (
                         <div
                           className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
-                            } col-12 d-inline-flex align-items-center justify-content-center`}
+                            } col-12 d-inline-flex p-0 rounded align-items-center justify-content-center`}
                           onClick={() =>
                             setMainImage(
                               enviroment.API_IMAGE_GALLERY_URL + item,
@@ -1416,7 +1343,8 @@ export const ProductPage = () => {
                           <img
                             src={enviroment.API_IMAGE_GALLERY_URL + item}
                             alt={ProductData?.name}
-                            className=""
+                            onError={(e) => setNoImage(e)}
+                            className="bg-white m-0 rounded"
                             style={{
                               height: "80px",
                               maxHeight: "80px",
@@ -1547,336 +1475,306 @@ export const ProductPage = () => {
                 </div>
               </div>
               <div
-                className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
+                className={`${styles.productDetailBox} d-inline-flex flex-column gap-2 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
               >
-                {ProductData?.brand_name !== null && (
+                {/* {ProductData?.brand_name !== null && (
                   <h6 className={`${styles.brandName} d-inline-flex m-0`}>
                     {ProductData?.brand_name}
                   </h6>
-                )}
-                <h2
-                  className={`${styles.productDetailName} col-12 mb-1 mt-0`}
-                >
-                  {ProductData?.name}
-                </h2>
+                )} */}
                 <div
                   className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
                 >
-                  {ProductData?.age_type ? ProductData?.age_type : ""}
-                  {ProductData?.age_type !== null &&
-                    ProductData?.gender_name !== null && (
-                      <span className={`${styles.spaceLine} d-inline-flex`}>
-                        |
-                      </span>
-                    )}
-                  {ProductData?.gender_name ? ProductData?.gender_name : ""}
-                  {ProductData?.category_name !== null &&
-                    ProductData?.gender_name !== null && (
-                      <span className={`${styles.spaceLine} d-inline-flex`}>
-                        |
-                      </span>
-                    )}
-                  {ProductData?.category_name
-                    ? ProductData?.category_name
-                    : ""}
+                  {
+                    productLoading ?
+                      <Skeleton width={100} height={20} />
+                      :
+                      <div className="d-inline-flex align-items-center gap-2">
+                        {ProductData?.category_name ? (
+                          <span className={`${styles.categoryName} d-inline-flex m-0`}>
+                            {ProductData?.category_name}
+                          </span>
+                        ) : null}
+                      </div>
+                  }
                 </div>
-                <span className="ml-3 mb-0">
+                <h2
+                  className={`${styles.productDetailName} col-12 mb-1 mb-2`}
+                >
+                  {
+                    productLoading ?
+                      <Skeleton width={200} height={30} />
+                      :
+                      ProductData?.name
+                  }
+                </h2>
+                {/* <span className="ml-3 mb-0">
                   Item Code: {ProductData?.article_name}
-                </span>
+                </span> */}
                 <div
                   className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
                 >
-                  <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                    Special Price
-                  </h2>
+                  {
+                    productLoading ?
+                      <Skeleton width={100} height={20} />
+                      :
+                      <span>
+                        {
+                          ProductData?.stock > 0 ? (
+                            <span
+                              className="rounded"
+                              style={{
+                                padding: "5px 10px",
+                                background: "hsla(0, 0%, 87%, 1)",
+                                color: "#4CAF50",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              In stock
+                            </span>
+                          ) : (
+                            <span
+                              className="rounded"
+                              style={{
+                                padding: "5px 10px",
+                                background: "hsla(0, 0%, 87%, 1)",
+                                color: "red",
+                                fontWeight: "bold",
+                              }}>
+                              Out of stock
+                            </span>
+                          )
+                        }
+                      </span>
+                  }
                   {ProductData?.selling_price === ProductData?.mrp ? (
                     <span className={`${styles.offerPrice}`}>
-                      <b>₹{ProductData?.mrp}</b>
+                      {
+                        productLoading ?
+                          <Skeleton width={100} height={20} />
+                          : <b>₹{ProductData?.mrp}</b>
+                      }
                     </span>
                   ) : (
                     <div className="col-12 d-inline-flex align-items-center gap-3">
-                      <span
-                        className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}
-                      >
-                        <b>₹{ProductData?.selling_price}</b>
-                        <del>₹{ProductData?.mrp}</del>
-                      </span>
-                      {prodDiscount !== "" && (
-                        <span
-                          className={`${styles.offerPercentage} d-inline-flex`}
-                        >
-                          {prodDiscount}% &nbsp;OFF
-                        </span>
-                      )}
+                      {
+                        productLoading ?
+                          <Skeleton width={'300px'} height={24} />
+                          :
+                          <div
+                            className={`${styles.offerPrice} d-flex align-items-center gap-2`}
+                          >
+                            <b style={{
+                              fontSize: '26px',
+                              margin: '0',
+                            }}>₹{ProductData?.selling_price}</b>
+                            <p className="text-secondary"
+                              style={{
+                                fontSize: '20px',
+                                display: 'flex',
+                                gap: '5px',
+                                margin: '0',
+                              }}><span style={{
+                                fontWeight: 'bold'
+                              }}>MRP</span><del>₹{ProductData?.mrp}</del>
+                            </p>
+                            {prodDiscount !== "" && (
+                              <span
+                                className={`${styles.offerPercentage} d-inline-flex`}
+                              >
+                                ({prodDiscount}% &nbsp;OFF)
+                              </span>
+                            )}
+                          </div>
+                      }
                     </div>
                   )}
                 </div>
                 {/* Color and size */}
-                <div className="row">
+                <div className="row my-3 d-flex flex-column gap-3">
+                  {/* Colors Section */}
                   <div className="col-md-12">
-                    <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                      More Colors
-                    </h2>
-                    <div className="d-flex">
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'black',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          marginRight: '10px'
-                        }}
-                      ></div>
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'blue',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          marginRight: '10px'
-                        }}
-                      ></div>
-                      <div
-                        className="color-option"
-                        style={{
-                          backgroundColor: 'yellow',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%'
-                        }}
-                      ></div>
-                    </div>
-                    <p className="mt-2" style={{ fontSize: '12px' }}><span style={{ margin: '2px' }}>Black</span> <span style={{ margin: '2px' }}>Blue</span> <span style={{ margin: '2px' }}>Yellow</span></p>
+                    <h2 className={`${styles.specialTitle} d-inline-flex m-0 mb-2`}>More Colors</h2>
+                    {
+                      productVariantsLoading ?
+                        <ColorSkeleton />
+                        :
+                        <div className="d-flex gap-2">
+                          {productVariants
+                            .filter((variant, index, self) =>
+                              index === self.findIndex((v) => v.color_code === variant.color_code)
+                            )
+                            .map((variant) => (
+                              <div key={variant.color_code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: "column", marginRight: '10px' }}>
+                                <Link
+                                  to={`/product/${variant.name_url}`}
+                                  className={`color-option`}
+                                  style={{
+                                    backgroundColor: variant.color_code,
+                                    minWidth: '30px',
+                                    width: '30px',
+                                    minHeight: '30px',
+                                    height: '30px',
+                                    borderRadius: '50%',
+                                    border: (ProductData?.color_id === variant?.color_id) && '2px solid red'
+                                  }}
+                                ></Link>
+                                <span style={{
+                                  fontSize: '12px',
+                                }}>{variant.color_name}</span>
+                              </div>
+                            ))}
+                        </div>
+                    }
                   </div>
 
-                  {
-                    !isSizeChartOpen && (
-                      <div className="col-md-12">
-                        <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          marginBottom: '10px',
-                          maxWidth: '300px',
-                        }}>
-                          <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
-                            Select Size (UK Size)
-                          </h2>
-                          <button className="btn fw-bold text-danger"
-                            onClick={
-                              () => {
-                                setIsSizeChartOpen(true)
-                              }
-                            }
-                          >
-                            See Guide &gt;
-                          </button>
-                        </div>
-                        <div className="d-flex">
-                          {[5, 6, 7, 8, 9, 10, 11].map((size) => (
-                            <button
-                              key={size}
-                              className="btn"
-                              style={{
-                                marginRight: '5px',
-                                textAlign: 'center',
-                                padding: '4px',
-                                fontSize: '12px',
-                                height: '30px',
-                                width: '30px',
-                                border: '1px solid #000',
-                                borderRadius: '50%',
-                              }}
-                            >
-                              {size}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                </div>
-                {/* Size chart */}
-                {
-                  isSizeChartOpen && (
-                    <div className="">
-                      <div style={{
+                  {/* Sizes Section */}
+                  <div className="col-md-12">
+                    <div
+                      style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginBottom: '10px'
-                      }}>
-                        <h2 className="text-danger text-start m-0">Size Chart</h2>
-                        <button className="btn btn-danger"
-                          onClick={
-                            () => {
-                              setIsSizeChartOpen(false)
-                            }
-                          }
-                        >
-                          Close
-                        </button>
-                      </div>
-                      <div className="row position-relative">
-                        <div className="col-xl-6 h-100">
-                          <div style={{
-                            display: 'flex',
-                            justifyContent: 'end',
-                            alignItems: 'center',
-                          }}>
-                            <div
-                              style={{
-                                display: 'flex',
-                                marginBottom: '10px',
-                                flexDirection: 'row',
-                                gap: '10px',
-                                background: '#D9D9D9',
-                                padding: '5px',
-                                borderRadius: '5px'
-                              }}
-                            >
-                              <button
-                                onClick={() => setSizeInCm(true)}
+                        maxWidth: '300px',
+                      }}
+                    >
+                      <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
+                        Select Size (EUR Size)
+                      </h2>
+                      <SizeGuideModal
+                        prodDiscount={prodDiscount}
+                        productData={ProductData}
+                        productLoading={productLoading}
+                        prodMainImg={prodMainImg}
+                        sizeGuide={ProductData?.size_guide}
+                        ProductData={ProductData}
+                        addToCart={addToCart}
+                        prodAdded={prodAdded}
+                        prodAddedQty={prodAddedQty}
+                        updateProdQty={updateProdQty}
+                      />
+                    </div>
+                    {
+                      productVariantsLoading ?
+                        <SizeSkeleton />
+                        :
+                        <div className="d-flex">
+                          {productVariants
+                            .filter((variant) => variant.color_id === ProductData?.color_id)
+                            .map((variant) => (
+                              <Link
+                                key={variant.size}
+                                to={`/product/${variant.name_url}`}
                                 className="btn"
                                 style={{
-                                  background: isSizeInCm ? 'red' : '#D9D9D9',
-                                  color: isSizeInCm ? 'white' : 'black',
-                                  fontWeight: 'bold',
+                                  marginRight: '5px',
+                                  textAlign: 'center',
+                                  padding: '4px',
+                                  fontSize: '12px',
+                                  height: '30px',
+                                  width: '30px',
+                                  border: (ProductData?.size === variant?.size) ? '2px solid red' : '1px solid #000',
+                                  borderRadius: '50%',
                                 }}
-                              >cm</button>
-                              <button
-                                className="btn"
-                                onClick={() => setSizeInCm(false)}
-                                style={{
-                                  background: !isSizeInCm ? 'red' : '#D9D9D9',
-                                  color: !isSizeInCm ? 'white' : 'black',
-                                  fontWeight: 'bold',
-                                }}
-                              >inch</button>
-                            </div>
-                          </div>
-                          <table className="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th>UK</th>
-                                <th>US</th>
-                                <th>EURO</th>
-                                {
-                                  isSizeInCm ?
-                                    <th>To Fit Foot Length (cm)</th>
-                                    :
-                                    <th>To Fit Foot Length (in)</th>
-                                }
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {sizeData.map((size, index) => (
-                                <tr key={index}>
-                                  <td>{size.uk}</td>
-                                  <td>{size.us}</td>
-                                  <td>{size.euro}</td>
-                                  {
-                                    isSizeInCm ?
-                                      <td>{size.cm}</td>
-                                      :
-                                      <td>{size.inches}</td>
-                                  }
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              >
+                                {variant.size}
+                              </Link>
+                            ))}
                         </div>
-                        <div className="col-xl-6" style={{
-                          minHeight: '100%',
-                          height: '100%',
-                        }}>
-                          <img src="/images/footlen.svg" alt="footlen" style={{
-                            height: '100%',
-                            width: 'auto'
-                          }} />
-                        </div>
-                      </div>
+                    }
+                  </div>
+                </div>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  width: '100%',
+                  gap: '10px',
+                }}>
+                  {!prodAdded ? (
+                    ProductData?.stock <= 0 ? (
+                      <button
+                        style={{
+                          border: "none",
+                          background: "black",
+                          cursor: "not-allowed",
+                          opacity: "0.5",
+                        }}
+                        disabled={true}
+                        type="button"
+                        className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
+                      >
+                        Out of stock
+                      </button>
+                    ) : (
+                      <button
+                        disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
+                        className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
+                          ? styles.disableCartBtn
+                          : ""
+                          } col-5 d-inline-flex align-items-center justify-content-center`}
+                        onClick={(e) => addToCart(e, ProductData)}
+                      >
+                        Add to Cart
+                      </button>
+                    )
+                  ) : (
+                    <div
+                      className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center justify-content-center position-relative`}
+                    >
+                      <span
+                        role="button"
+                        onClick={(e) =>
+                          updateProdQty(
+                            e,
+                            ProductData?.product_id
+                              ? ProductData.product_id
+                              : ProductData.id,
+                            ProductData?.no_of_quantity_allowed,
+                            prodAddedQty,
+                            "minus",
+                            ProductData?.stock
+                          )
+                        }
+                        className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
+                      >
+                        -
+                      </span>
+                      <span className="d-inline-flex flex-shrink-0">
+                        <input
+                          type="text"
+                          readOnly
+                          value={prodAddedQty}
+                          className={`${styles.countValue} d-inline-block text-center`}
+                        />
+                      </span>
+                      <span
+                        role="button"
+                        onClick={(e) =>
+                          updateProdQty(
+                            e,
+                            ProductData?.product_id
+                              ? ProductData.product_id
+                              : ProductData.id,
+                            ProductData?.no_of_quantity_allowed,
+                            prodAddedQty,
+                            "plus",
+                            ProductData?.stock
+                          )
+                        }
+                        className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
+                      >
+                        +
+                      </span>
                     </div>
                   )}
-                {!prodAdded ? (
-                  ProductData?.stock <= 0 ? (
-                    <button
-                      style={{
-                        border: "none",
-                        background: "black",
-                        cursor: "not-allowed",
-                        opacity: "0.5",
-                      }}
-                      disabled={true}
-                      type="button"
-                      className={`${styles.continueShop} col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
-                    >
-                      Out of stock
-                    </button>
-                  ) : (
+                  <Link to="/checkout">
                     <span
-                      role="button"
-                      className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
-                        ? styles.disableCartBtn
-                        : ""
-                        } col-5 d-inline-flex align-items-center justify-content-center text-uppercase`}
-                      onClick={(e) => addToCart(e, ProductData)}
+                      className={`${styles.wishlist}  col-5 d-inline-flex align-items-center justify-content-center`}
                     >
-                      Add to cart
+                      Wishlist
                     </span>
-                  )
-                ) : (
-                  <div
-                    className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}
-                  >
-                    <span
-                      role="button"
-                      onClick={(e) =>
-                        updateProdQty(
-                          e,
-                          ProductData?.product_id
-                            ? ProductData.product_id
-                            : ProductData.id,
-                          ProductData?.no_of_quantity_allowed,
-                          prodAddedQty,
-                          "minus",
-                          ProductData?.stock
-                        )
-                      }
-                      className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                    >
-                      -
-                    </span>
-                    <span className="d-inline-flex flex-shrink-0">
-                      <input
-                        type="text"
-                        readOnly
-                        value={prodAddedQty}
-                        className={`${styles.countValue} d-inline-block text-center`}
-                      />
-                    </span>
-                    <span
-                      role="button"
-                      onClick={(e) =>
-                        updateProdQty(
-                          e,
-                          ProductData?.product_id
-                            ? ProductData.product_id
-                            : ProductData.id,
-                          ProductData?.no_of_quantity_allowed,
-                          prodAddedQty,
-                          "plus",
-                          ProductData?.stock
-                        )
-                      }
-                      className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-                    >
-                      +
-                    </span>
-                  </div>
-                )}
-
+                  </Link>
+                </div>
                 {ProductData?.bank_offer !== null &&
                   ProductData?.bank_offer?.length > 0 &&
                   ProductData?.bank_offer !== undefined && (
@@ -1895,7 +1793,9 @@ export const ProductPage = () => {
                               key={index}
                               className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                             >
-                              <img src={item.logo} alt={item.description} />
+                              <img src={item.logo} alt={item.description}
+                                onError={(e) => setNoImage(e)}
+                              />
                               {item.description}
                             </span>
                           );
@@ -1925,82 +1825,123 @@ export const ProductPage = () => {
                         maxLength="6"
                         minLength="6"
                         placeholder="Enter Delivery Pincode"
-                        onChange={(e) => getDeliveyPincode(e.target.value)}
+                        disabled={deliveryShowed}
+                        onChange={(e) => {
+                          if (e.target.value.length > 6) {
+                            AppNotification("Error", "Please enter a valid pincode.", "danger");
+                            return;
+                          }
+                          setPincode(e.target.value)
+                        }}
                         value={pincode || ""}
                       />
-                      <button
-                        aria-label="Check Delivery"
-                        onClick={() => getDeliveyInfo(pincode)}
-                        type="button"
-                        className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center`}
-                      >
-                        Check
-                      </button>
+                      {
+                        deliveryShowed ?
+                          <button
+                            aria-label="Check Delivery"
+                            onClick={() => {
+                              setDeliveryShowed(false);
+                              setPincode("");
+                              setDeliveryDetail({});
+                            }}
+                            type="button"
+                            className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center border-success text-success`}
+                          >
+                            Change
+                          </button>
+                          :
+                          <button
+                            aria-label="Check Delivery"
+                            onClick={() => getDeliveyPincode(pincode)}
+                            type="button"
+                            className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center`}
+                          >
+                            Check
+                          </button>
+                      }
                     </div>
                     <span
                       className={`${styles.checkZiperror} col-12 d-inline-block`}
                     ></span>
                     {Object.keys(deliveryDetail)?.length > 0 && (
                       <div
-                        className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 mt-3 p-3`}
+                        className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 gap-2 mt-3 p-3`}
                       >
-                        {deliveryDetail.maxDays !== "" ||
-                          deliveryDetail.minDays !== "" ? (
+                        {deliveryDetail.max_days !== "" ||
+                          deliveryDetail.min_days !== "" ? (
                           <p
-                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                            className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                            style={{
+                              display: 'grid',
+                              gridTemplateColumns: '180px 1fr',
+                            }}
                           >
                             <span
                               className={`${styles.checkDeliveryLabel} d-inline-flex`}
                             >
-                              Expected Delivery Date - &nbsp;
+                              Expected Delivery Date:
                             </span>
-                            {deliveryDetail.minDays !== "" ? (
-                              <span>
-                                <strong
-                                  className={`${styles.checkDeliveryDate} d-inline-flex`}
-                                >
-                                  {deliveryDetail.minDays}
-                                </strong>
-                              </span>
-                            ) : null}
-                            {deliveryDetail.maxDays !== "" &&
-                              deliveryDetail.min_days !== "" && (
-                                <span>&nbsp;-&nbsp;</span>
-                              )}
-                            {deliveryDetail.maxDays !== "" ? (
-                              <span>
-                                <strong
-                                  className={`${styles.checkDeliveryDate} d-inline-flex`}
-                                >
-                                  {deliveryDetail.maxDays}
-                                </strong>
-                              </span>
-                            ) : null}
+                            <span>
+                              {deliveryDetail.min_days !== "" ? (
+                                <span>
+                                  <strong
+                                    className={`${styles.checkDeliveryDate} d-inline-flex`}
+                                  >
+                                    {
+                                      formatDeliveryDate(new Date().setDate(new Date().getDate() + deliveryDetail.min_days))
+                                    }
+                                  </strong>
+                                </span>
+                              ) : null}
+                              {deliveryDetail.max_days !== "" &&
+                                deliveryDetail.min_days !== "" && (
+                                  <span>&nbsp;-&nbsp;</span>
+                                )}
+                              {deliveryDetail.max_days !== "" ? (
+                                <span>
+                                  <strong
+                                    className={`${styles.checkDeliveryDate} d-inline-flex`}
+                                  >
+                                    {
+                                      formatDeliveryDate(new Date().setDate(new Date().getDate() + deliveryDetail.max_days))
+                                    }
+                                  </strong>
+                                </span>
+                              ) : null}
+                            </span>
                           </p>
                         ) : (
                           ""
                         )}
 
                         <p
-                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns: '180px 1fr',
+                          }}
                         >
                           <span>Available for Pickup at: </span>
                           <strong
                             id="deliveryLoc"
                             className={`${styles.checkDeliveryLabel} d-inline-flex`}
                           >
-                            {enviroment.STORE_ADDRESS}
+                            Shop No - 01, Old Delhi Road Opposite Hudda Office Gurugram Haryana - 122015
                           </strong>
                         </p>
                         <p
-                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns: '180px 1fr',
+                          }}
                         >
                           <span>Store Contact: </span>
                           <span
                             className={`${styles.checkDeliveryLabel} d-inline-flex`}
                           >
                             <Link
-                              className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
+                              className={`${styles.checkDeliveryDateOuter} d-inline-flex fw-bold text-black`}
                               to={`tel:${enviroment.PHONE_NUMBER}`}
                               id="storeTel"
                             >
@@ -2009,17 +1950,21 @@ export const ProductPage = () => {
                           </span>
                         </p>
                         <p
-                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1 d-inline-block`}
+                          className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns: '180px 1fr',
+                          }}
                         >
                           <span>Locate Store: </span>
                           <span
                             className={`${styles.checkDeliveryLabel} d-inline-flex`}
                           >
                             <a
-                              href="https://maps.app.goo.gl/gyhzfKFKBJZJkPfa6"
+                              href="https://g.co/kgs/t5Z1TUd"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`${styles.checkDeliveryDateOuter} text-decoration-none d-inline-flex`}
+                              className={`${styles.checkDeliveryDateOuter} d-inline-flex fw-bold text-black`}
                             >
                               Google Map
                             </a>
@@ -2030,7 +1975,7 @@ export const ProductPage = () => {
                   </div>
                 </div>
 
-                <AddReview />
+                {/* <AddReview /> */}
 
               </div>
             </div>
@@ -2132,5 +2077,405 @@ export const ProductPage = () => {
         </div>
       </div>
     </React.Fragment>
+  );
+};
+
+const SizeGuideModal = ({
+  prodDiscount,
+  productData,
+  productLoading,
+  prodMainImg,
+  prodAdded,
+  ProductData,
+  addToCart,
+  prodAddedQty,
+  updateProdQty,
+}) => {
+  const [modalShow, setModalShow] = useState(false);
+  const [isSizeInCm, setSizeInCm] = useState(true);
+
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
+  };
+  const sizeData = [
+    { uk: 5, us: 6, euro: 39, cm: 23.4, inches: 9.21 },
+    { uk: 6, us: 7, euro: 40, cm: 24.4, inches: 9.61 },
+    { uk: 7, us: 8, euro: 41, cm: 25.4, inches: 10.00 },
+    { uk: 8, us: 9, euro: 42, cm: 26.4, inches: 10.40 },
+    { uk: 9, us: 10, euro: 43, cm: 27.4, inches: 10.80 },
+    { uk: 10, us: 11, euro: 44, cm: 28.4, inches: 11.20 },
+    { uk: 11, us: 12, euro: 45, cm: 29.4, inches: 11.57 },
+  ];
+
+  return <>
+    <button className="btn fw-bold text-danger"
+      onClick={() => setModalShow(true)}
+    >
+      See Guide &gt;
+    </button>
+    <div
+      show={modalShow}
+      onHide={() => setModalShow(false)}
+      size="lg"
+      className="position-absolute"
+      style={{
+        top: '0px',
+        maxHeight: '100vh',
+        overflowY: 'scroll',
+        right: '0px',
+        background: 'white',
+        height: 'fit-content',
+        zIndex: '10',
+        padding: '20px 10px',
+        animation: 'slide 0.5s',
+        transition: 'transform 0.5s',
+        transform: modalShow ? 'translateX(0px)' : 'translateX(1000px)',
+        display: modalShow ? 'flex' : 'none',
+        flexDirection: 'column',
+        gap: '20px',
+      }}
+    >
+      {/* HideBtn */}
+      <div className="closeBtn">
+        <button className="btn p-0"
+          onClick={() => setModalShow(false)}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>
+        </button>
+      </div>
+
+      {/* ProductInfo */}
+      <div className="productInfo" style={{
+        display: 'flex',
+        gap: '20px',
+      }}>
+        <div>
+          {!productLoading ? (
+            <img
+              src={ProductData?.image}
+              onError={(e) => setNoImage(e)}
+              alt={ProductData?.name}
+              className="d-inline-block"
+              style={{
+                height: "100px",
+                width: "100px",
+              }}
+            />
+          ) : (
+            <div
+              className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
+              style={{
+                height: "500px",
+              }}
+            >
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#000"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          )}
+        </div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '5px',
+          fontSize: '16px',
+        }}>
+          <p className="m-0">{ProductData?.category_name
+            ? ProductData?.category_name
+            : ""}</p>
+          <p style={{
+            fontWeight: 'bold',
+            margin: '0px',
+          }}>{productData?.name}</p>
+          <div
+            className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
+          >
+            {ProductData?.selling_price === ProductData?.mrp ? (
+              <span className={`${styles.offerPrice}`} style={{
+                fontSize: '16px',
+              }}>
+                <b>₹{ProductData?.mrp}</b>
+              </span>
+            ) : (
+              <div className="col-12 d-inline-flex align-items-center gap-3 fw-bold">
+                <span
+                  className={`${styles.offerPrice} d-inline-flex align-items-center gap-2 fw-bold`}
+                  style={{
+                    fontSize: '16px',
+                  }}
+                >
+                  <b>₹{ProductData?.selling_price}</b>
+                  <del>₹{ProductData?.mrp}</del>
+                </span>
+                {prodDiscount !== "" && (
+                  <span
+                    className={`${styles.offerPercentage} d-inline-flex fw-bold`}
+                    style={{
+                      fontSize: '16px',
+                    }}
+                  >
+                    {prodDiscount}% &nbsp;OFF
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Breakline */}
+      <div className="breakline" style={{
+        minHeight: '1px',
+        height: '1px',
+        width: '100%',
+        borderBottom: '2px dashed gray',
+      }}>
+      </div>
+
+      {/* SizeTypeHeading */}
+      <div className="sizeTypeAndHeading" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}>
+        <h2 className="text-danger text-start m-0" style={{
+          fontSize: '1rem'
+        }}>Size Chart</h2>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '10px',
+            background: '#D9D9D9',
+            padding: '5px',
+            borderRadius: '5px',
+          }}
+        >
+          <button
+            onClick={() => setSizeInCm(true)}
+            className="btn"
+            style={{
+              fontSize: '12px',
+              padding: '5px',
+              background: isSizeInCm ? 'red' : '#D9D9D9',
+              color: isSizeInCm ? 'white' : 'black',
+              fontWeight: 'bold',
+            }}
+          >cm</button>
+          <button
+            className="btn"
+            onClick={() => setSizeInCm(false)}
+            style={{
+              fontSize: '12px',
+              padding: '5px',
+              background: !isSizeInCm ? 'red' : '#D9D9D9',
+              color: !isSizeInCm ? 'white' : 'black',
+              fontWeight: 'bold',
+            }}
+          >inch</button>
+        </div>
+      </div>
+
+      {/* SizeTable */}
+      <div className="d-flex flex-column gap-4">
+        <div className="row position-relative">
+          <div className="col-xl-6 h-100">
+            <div style={{
+              display: 'flex',
+              justifyContent: 'end',
+              alignItems: 'center',
+            }}>
+            </div>
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>UK</th>
+                  <th>US</th>
+                  <th>EURO</th>
+                  {
+                    isSizeInCm ?
+                      <th>To Fit Foot Length (cm)</th>
+                      :
+                      <th>To Fit Foot Length (in)</th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {sizeData.map((size, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input id='size' name='size' type="radio" />
+                    </td>
+                    <td>{size.uk}</td>
+                    <td>{size.us}</td>
+                    <td>{size.euro}</td>
+                    <td>
+                      {
+                        isSizeInCm ?
+                          <td>{size.cm}</td>
+                          :
+                          <td>{size.inches}</td>
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="col-xl-6" style={{
+            minHeight: '100%',
+            height: '100%',
+          }}>
+            <img src="/images/footlen.svg" alt="footlen" style={{
+              height: '100%',
+              width: 'auto'
+            }} />
+          </div>
+        </div>
+        {!prodAdded ? (
+          ProductData?.stock <= 0 ? (
+            <button
+              style={{
+                border: "none",
+                background: "black",
+                cursor: "not-allowed",
+                opacity: "0.5",
+              }}
+              disabled={true}
+              type="button"
+              className={`${styles.continueShop} col-5 w-100 d-inline-flex align-items-center justify-content-center text-uppercase`}
+            >
+              Out of stock
+            </button>
+          ) : (
+            <button
+            disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
+            className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
+                ? styles.disableCartBtn
+                : ""
+                } col-5 d-inline-flex align-items-center w-100 justify-content-center text-uppercase`}
+              onClick={(e) => addToCart(e, ProductData)}
+            >
+              Add to cart
+            </button>
+          )
+        ) : (
+          <div
+            className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}
+          >
+            <span
+              role="button"
+              onClick={(e) =>
+                updateProdQty(
+                  e,
+                  ProductData?.product_id
+                    ? ProductData.product_id
+                    : ProductData.id,
+                  ProductData?.no_of_quantity_allowed,
+                  prodAddedQty,
+                  "minus",
+                  ProductData?.stock
+                )
+              }
+              className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
+            >
+              -
+            </span>
+            <span className="d-inline-flex flex-shrink-0">
+              <input
+                type="text"
+                readOnly
+                value={prodAddedQty}
+                className={`${styles.countValue} d-inline-block text-center`}
+              />
+            </span>
+            <span
+              role="button"
+              onClick={(e) =>
+                updateProdQty(
+                  e,
+                  ProductData?.product_id
+                    ? ProductData.product_id
+                    : ProductData.id,
+                  ProductData?.no_of_quantity_allowed,
+                  prodAddedQty,
+                  "plus",
+                  ProductData?.stock
+                )
+              }
+              className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
+            >
+              +
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  </>
+}
+
+const SizeSkeleton = () => {
+  return (
+    <div className="d-flex">
+      {[...Array(5)].map((_, index) => (
+        <div
+          key={index}
+          className="skeleton-text"
+          style={{
+            backgroundColor: '#e0e0e0',
+            width: '35px',
+            height: '35px',
+            borderRadius: '50%',
+            marginRight: '10px'
+          }}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+const ColorSkeleton = () => {
+  return (
+    <div className="d-flex gap-2">
+      {[...Array(4)].map((_, index) => (
+        <div key={index} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '5px', justifyContent: 'center' }}>
+          <div
+            className="skeleton-circle"
+            style={{
+              backgroundColor: '#e0e0e0',
+              minWidth: '30px',
+              width: '30px',
+              minHeight: '30px',
+              margin: '0 auto',
+              height: '30px',
+              borderRadius: '50%',
+              marginRight: '10px'
+            }}
+          ></div>
+          <div
+            className="skeleton-text"
+            style={{
+              backgroundColor: '#e0e0e0',
+              width: '40px',
+              height: '16px',
+              borderRadius: '4px'
+            }}
+          ></div>
+        </div>
+      ))}
+    </div>
   );
 };

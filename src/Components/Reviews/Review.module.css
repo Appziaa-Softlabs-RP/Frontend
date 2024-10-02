@@ -11,8 +11,7 @@
 }
 
 .reviewBtn{
-  background: var(--PRIMARY_COLOR);
-  border: none;
+  background: var(--SECONDARY_COLOR);  border: none;
   border-radius: 5px;
 }
 

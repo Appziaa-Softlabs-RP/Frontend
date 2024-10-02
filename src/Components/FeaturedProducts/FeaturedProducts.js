@@ -9,6 +9,10 @@ export const FeaturedProducts = ({ product }) => {
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
 
+  if (!product) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <div

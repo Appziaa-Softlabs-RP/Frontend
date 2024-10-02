@@ -6,7 +6,7 @@ export const OrderSummery = ({ cartPriceTotal }) => {
   const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
-    setFinalTotal(cartPriceTotal.subTotal + cartPriceTotal.delivery);
+    setFinalTotal(cartPriceTotal.subTotal + cartPriceTotal.delivery + (cartPriceTotal.handling_fee ?? 0) - (cartPriceTotal.digital_discount ?? 0));
   }, [cartPriceTotal]);
 
   return (
@@ -88,6 +88,36 @@ export const OrderSummery = ({ cartPriceTotal }) => {
                 </div>
               </div>
             }
+            {
+              cartPriceTotal?.handling_fee > 0 &&
+              <div className="col-12 d-inline-flex align-items-center justify-content-between"
+              >
+                <h6 className={`d-inline-flex m-0`} style={{
+                  fontSize: "14px",
+                }}>
+                  Cash Handling Fee
+                </h6>
+                <span className="d-flex text-danger" style={{
+                  fontSize: "14px",
+                  height: "fit-content",
+                }}>+₹{parseFloat(cartPriceTotal.handling_fee).toFixed(2)}</span>
+              </div>
+            }
+            {
+              cartPriceTotal?.digital_discount > 0 &&
+              <div className="col-12 d-inline-flex align-items-center justify-content-between"
+              >
+                <h6 className={`d-inline-flex m-0`} style={{
+                  fontSize: "14px",
+                }}>
+                  Digital Payment Discount
+                </h6>
+                <span className="d-flex text-success" style={{
+                  fontSize: "14px",
+                  height: "fit-content",
+                }}>-₹{parseFloat(cartPriceTotal.digital_discount).toFixed(2)}</span>
+              </div>
+            }
             {cartPriceTotal?.deliveryUpTo > 0 && cartPriceTotal.subTotal > 0 &&
               parseInt(cartPriceTotal?.deliveryUpTo) - parseInt(finalTotal) >
               0 && (
@@ -115,7 +145,7 @@ export const OrderSummery = ({ cartPriceTotal }) => {
               <div
                 className={`${styles.finalTotalRow} col-12 d-inline-flex align-items-center justify-content-between py-3`}
               >
-                <h6 className={`${styles.finalTotalLabel} d-inline-flex`}>
+                <h6 className={`${styles.finalTotalLabel} d-inline-flex m-0`}>
                   Total Amount Payable
                 </h6>
                 <div className={`${styles.subTotalPrice} d-inline-flex`}>
@@ -123,7 +153,7 @@ export const OrderSummery = ({ cartPriceTotal }) => {
                 </div>
               </div>
               <div className="col-12 d-inline-flex align-items-center justify-content-between mt-3">
-                <h6 className={`${styles.finalSavingLabel} d-inline-flex`}>
+                <h6 className={`${styles.finalSavingLabel} d-inline-flex m-0`}>
                   Your Total Saving
                 </h6>
                 <div className={`${styles.subTotalSaving} d-inline-flex`}>

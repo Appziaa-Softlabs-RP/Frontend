@@ -1,6 +1,6 @@
 .siteHeader {
     padding: 15px 0px 150px;
-    background: var(--PRIMARY_COLOR);
+    background: var(--SECONDARY_COLOR);
 }
 
 .menuIconBox,
@@ -75,7 +75,7 @@
 }
 
 .headerRow {
-    background: var(--PRIMARY_COLOR);
+    background: var(--SECONDARY_COLOR);
     height: 100%;
 }
 
@@ -329,7 +329,7 @@
 .userName {
     font-size: 12px;
     line-height: 12px;
-    color: var(--SECONDARY_COLOR);
+    color: var(--PRIMARY_COLOR);
 }
 
 .showSearchList {

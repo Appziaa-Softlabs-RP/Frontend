@@ -11,8 +11,7 @@
     max-width: 800px;
 }
 .loginGradientBox{
-    background: var(--PRIMARY_COLOR);
-}
+    background: var(--SECONDARY_COLOR);}
 .loginCarousalImg{
     height: 100%;
 }
@@ -61,13 +60,12 @@
 }
 .loginFilledBtn{
     border: 2px solid black;
-    background: var(--PRIMARY_COLOR);
-    color: var(--SECONDARY_COLOR);
+    background: var(--SECONDARY_COLOR);    color: var(--PRIMARY_COLOR);
 }
 .loginUnfilledBtn{
     border: 2px solid black;
-    background: var(--SECONDARY_COLOR);
-    color: var(--PRIMARY_COLOR);
+    background-color: var(--PRIMARY_COLOR);
+    color: var(--SECONDARY_COLOR);
 }
 .alreadyTxt, .privacyTxt{
     font-size: 14px;

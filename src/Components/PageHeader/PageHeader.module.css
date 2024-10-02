@@ -9,8 +9,7 @@
 }
 .PageHeader{
     height: 60px;
-    background: var(--PRIMARY_COLOR);
-}
+    background: var(--SECONDARY_COLOR);}
 .cartQtyCount{
     color: #FFF;
     z-index: 2;
@@ -30,8 +29,7 @@
     font-weight: 600;
 }
 .searchPopup {
-    background: var(--PRIMARY_COLOR);
-    z-index: 4;
+    background: var(--SECONDARY_COLOR);    z-index: 4;
     box-shadow: 0px 3px 7px 5px rgba(0,0,0,0.20);
 }
 .searchProdInput{

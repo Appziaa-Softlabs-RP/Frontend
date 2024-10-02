@@ -109,8 +109,8 @@ const LoginPassword = ({ setLoginType, setLoginPop }) => {
                     </div>
                 </div>
                 <div className="d-inline-flex justify-content-end col-12 gap-3 mb-5">
-                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => userLogin()}>Login</span>
                     <span className={`${styles.loginUnfilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => setLoginType('LoginOTP')}>Login via OTP</span>
+                    <span className={`${styles.loginFilledBtn} d-inline-flex align-items-center justify-content-center text-uppercase col-5`} role="button" onClick={() => userLogin()}>Login</span>
                 </div>
                 <div className="col-12 d-inline-flex flex-column mb-4">
                     <div className="col-12 text-center"><span className={`${styles.alreadyTxt}`}>New Customer?</span> <span className={`${styles.loginLink}`} onClick={() => setLoginType('Register')} role="button">Signup</span></div>

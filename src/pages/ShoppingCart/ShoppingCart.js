@@ -60,6 +60,7 @@ export const ShoppingCart = () => {
       ...prevCartPriceTotal,
       saving: allSaving,
       subTotal: allTotal,
+      prevTotal: allTotal,
       price: allPrice,
     }));
 
@@ -308,6 +309,7 @@ export const ShoppingCart = () => {
                 selectedOfferProductId={selectedOfferProductId}
                 selectedOfferId={selectedOfferId}
                 cartPriceTotal={cartPriceTotal}
+                setCartPriceTotal={setCartPriceTotal}
                 shopcartID={shopcartID}
                 setOrderStatus={setOrderStatus}
               />
@@ -373,6 +375,7 @@ export const ShoppingCart = () => {
                       selectedOfferProductId={selectedOfferProductId}
                       selectedOfferId={selectedOfferId}
                       cartPriceTotal={cartPriceTotal}
+                      setCartPriceTotal={setCartPriceTotal}
                       shopcartID={shopcartID}
                       setOrderStatus={setOrderStatus}
                     />
