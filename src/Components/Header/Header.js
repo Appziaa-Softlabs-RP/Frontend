@@ -161,19 +161,35 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     setUserInfo(appData.appData.user);
   }, [appData?.appData]);
 
-  const handleMouseEnter = (item, index) => {
-    // if index is smae then set hoveredItem to null
-    if (hoveredItem === item) {
-      return handleMouseLeave();
-    }
-    const element = document.getElementById(`menu-${index}`);
-    setHoveredItem(item);
-    let pos = element.getBoundingClientRect();
+  const searchTexts = [
+    'Shoes',
+    'Sandals',
+    'Accesories'
+  ];
 
-    setHoveredPosition({
-      left: `${[pos.left]}px`,
-    });
-  };
+    const [placeholderText, setPlaceholderText] = useState('');
+    const [currentItem, setCurrentItem] = useState(0);
+    const [currentChar, setCurrentChar] = useState(0);
+
+    useEffect(() => {
+      if (currentItem < searchTexts.length) {
+        if (currentChar < searchTexts[currentItem].length) {
+          const timeoutId = setTimeout(() => {
+            setPlaceholderText((prev) => prev + searchTexts[currentItem][currentChar]);
+            setCurrentChar((prev) => prev + 1);
+          }, 100); // Adjust the typing speed here
+          return () => clearTimeout(timeoutId);
+        } else {
+          const timeoutId = setTimeout(() => {
+            setPlaceholderText('');
+            setCurrentChar(0);
+            setCurrentItem((prev) => (prev + 1) % searchTexts.length); // Loop through items
+          }, 1000); // Adjust the delay between items here
+          return () => clearTimeout(timeoutId);
+        }
+      }
+    }, [currentChar, currentItem]);
+
 
   const handleMouseLeave = () => {
     setHoveredItem(null);
@@ -290,7 +306,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 >
                   <div className="d-flex w-100 align-items-center gap-2">
                     <div
-                      className={`d-inline-flex col-6 align-items-center`}
+                      className={`d-inline-flex col-6 align-items-center ps-5`}
                       style={{
                         width: '100%',
                         zIndex: '25',
@@ -300,21 +316,20 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                       <span
                         className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                         style={{
-                          left: '5px',
-                          padding: '2px'
+                          left: '55px',
                         }}
                       >
                         <SearchIcon color="#000" />
                       </span>
                       <input
                         type="search"
-                        className={`${styles.inputSearch} d-inline-flex ps-4 col-12 pe-1`}
-                        value={searchProd}
+                        className={`${styles.inputSearch} d-inline-flex col-12 pe-1`}
                         style={{
-                          fontSize: '12px',
+                          padding: '0 0 0 30px',
                         }}
+                        value={searchProd}
                         onChange={(e) => searchShopProd(e, e.target.value)}
-                        placeholder={enviroment.SEARCH_PLACEHOLDER}
+                        placeholder={'Search For '+placeholderText}
                         onKeyDown={handleKeyDown}
                       />
                       {searchProdList?.length > 0 && (
@@ -511,21 +526,20 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 <span
                   className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                   style={{
-                    left: '5px',
-                    padding: '2px'
+                    left: '5px'
                   }}
                 >
                   <SearchIcon color="#000" />
                 </span>
                 <input
                   type="search"
-                  className={`${styles.inputSearch} d-inline-flex ps-4 col-12 pe-3`}
+                  className={`${styles.inputSearch} d-inline-flex col-12 pe-3`}
                   style={{
-                    fontSize: '12px',
+                    padding: '0 0 0 30px',
                   }}
                   value={searchProd}
                   onChange={(e) => searchShopProd(e, e.target.value)}
-                  placeholder={enviroment.SEARCH_PLACEHOLDER}
+                  placeholder={'Search For '+placeholderText}
                   onKeyDown={handleKeyDown}
                 />
                 {searchProdList?.length > 0 && (

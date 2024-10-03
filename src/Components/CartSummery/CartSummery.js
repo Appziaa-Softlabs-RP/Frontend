@@ -8,6 +8,8 @@ import { LoginPopup } from "../LoginPopup/LoginPopup";
 import { ProductOfferCard } from "../ProductOfferCard/ProductOfferCard";
 import { DeleteIcon } from "../siteIcons";
 import styles from "./CartSummery.module.css";
+import noImage from "../../assets/images/image-not-available.jpg";
+import AddProductQuantity from "../shared/AddProductQuantity";
 
 export const CartSummery = ({
   setSelectedOfferProductId,
@@ -24,6 +26,12 @@ export const CartSummery = ({
   const [userInfo, setUserInfo] = useState({});
   const [cartSummryData, setCartSummyData] = useState(cartData);
   const windowWidth = appData.appData.windowWidth;
+
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
+  };
 
   const showProductDetail = (name_url) => {
     navigate(`/product/${name_url}`);
@@ -211,7 +219,7 @@ export const CartSummery = ({
             cartSummryData?.length > 0 &&
             <div className="col-12 d-inline-flex align-items-center p-2">
               <label className={`${styles.detailTitle} d-inline-flex col-3`}>
-                Item Descriptions
+                Item Description
               </label>
               <label className={`${styles.detailTitle} d-inline-flex col-2`}>
                 Unit Price
@@ -248,11 +256,8 @@ export const CartSummery = ({
                       className={`${styles.itemImage} d-inline-flex flex-shrink-0 me-1`}
                     >
                       <img src={item?.image}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/loading.jpg";
-                      }}
-                      alt={item?.product_name} />
+                        onError={(e) => setNoImage(e)}
+                        alt={item?.product_name} />
                     </span>
                     <span className={`${styles.productName}`}>
                       {item?.product_name}
@@ -284,46 +289,12 @@ export const CartSummery = ({
                     )}
                   </div>
                   <div className="col-2 d-inline-flex align-items-center">
-                    <span
-                      role="button"
-                      onClick={(e) =>
-                        updateProdQty(
-                          e,
-                          item.product_id,
-                          item.no_of_quantity_allowed,
-                          item.quantity,
-                          "minus",
-                          item?.stock
-                        )
-                      }
-                      className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                    >
-                      -
-                    </span>
-                    <span className="d-inline-flex flex-shrink-0">
-                      <input
-                        type="text"
-                        readOnly
-                        value={item.quantity}
-                        className={`${styles.countValue} d-inline-block text-center`}
-                      />
-                    </span>
-                    <span
-                      role="button"
-                      onClick={(e) =>
-                        updateProdQty(
-                          e,
-                          item.product_id,
-                          item.no_of_quantity_allowed,
-                          item.quantity,
-                          "plus",
-                          item?.stock
-                        )
-                      }
-                      className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-                    >
-                      +
-                    </span>
+                    <AddProductQuantity
+                      sm={true}
+                      prodAddedQty={item.quantity}
+                      ProductData={item}
+                      updateProdQty={updateProdQty}
+                    />
                   </div>
                   <div className="col-2 d-inline-flex flex-column">
                     <span className={`${styles.productPrice} d-inline-flex`}>
@@ -395,21 +366,21 @@ export const CartSummery = ({
                   display: "flex",
                   flexDirection: "row",
                 }}>
-                <span
-                  className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
-                  onClick={() => setLoginPop(true)}
-                  role="button"
-                >
-                  <span className={`${styles.supportText} d-inline-flex m-1`} style={{
-                    color: "black",
-                    textDecoration: "underline",
-                  }}>
-                    Log in
+                  <span
+                    className={`${styles.supportDrop} d-inline-flex d-inline-flex align-items-center gap-2 position-relative`}
+                    onClick={() => setLoginPop(true)}
+                    role="button"
+                  >
+                    <span className={`${styles.supportText} d-inline-flex m-1`} style={{
+                      color: "black",
+                      textDecoration: "underline",
+                    }}>
+                      Log in
+                    </span>
+                  </span>{" "}
+                  <span className="my-1">
+                    to checkout faster
                   </span>
-                </span>{" "}
-                <span className="my-1">
-                  to checkout faster
-                </span>
                 </span>
               </p>
             </div>

@@ -34,6 +34,7 @@ import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
 import Skeleton from "react-loading-skeleton";
 import noImage from "../../assets/images/image-not-available.jpg";
+import AddProductQuantity from "../../Components/shared/AddProductQuantity";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -269,6 +270,10 @@ export const ProductPage = () => {
       setProdAddedQty(0);
     }
   };
+
+  const getProductImageOfColorId = (colorId) => {
+    return productVariants.filter((item) => ((item.color_id === colorId) && item?.image !== ''))[0]?.image
+  }
 
   const formatDeliveryDate = (date) => {
     const options = {
@@ -1182,54 +1187,11 @@ export const ProductPage = () => {
               </button>
             )
           ) : (
-            <div
-              className={`${styles.addedQuantityBtnBox} w-fit d-inline-flex gap-3 align-items-center position-relative justify-content-center w-100`}
-            >
-              <span
-                role="button"
-                onClick={(e) =>
-                  updateProdQty(
-                    e,
-                    ProductData?.product_id
-                      ? ProductData.product_id
-                      : ProductData.id,
-                    ProductData?.no_of_quantity_allowed,
-                    prodAddedQty,
-                    "minus",
-                    ProductData?.stock
-                  )
-                }
-                className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-              >
-                -
-              </span>
-              <span className="d-inline-flex flex-shrink-0">
-                <input
-                  type="text"
-                  readOnly
-                  value={prodAddedQty}
-                  className={`${styles.countValue} d-inline-block text-center`}
-                />
-              </span>
-              <span
-                role="button"
-                onClick={(e) =>
-                  updateProdQty(
-                    e,
-                    ProductData?.product_id
-                      ? ProductData.product_id
-                      : ProductData.id,
-                    ProductData?.no_of_quantity_allowed,
-                    prodAddedQty,
-                    "plus",
-                    ProductData?.stock
-                  )
-                }
-                className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-              >
-                +
-              </span>
-            </div>
+            <AddProductQuantity
+              prodAddedQty={prodAddedQty}
+              ProductData={ProductData}
+              updateProdQty={updateProdQty}
+            />
           )}
         </div>
       </div>
@@ -1601,9 +1563,9 @@ export const ProductPage = () => {
                         :
                         <div className="d-flex gap-2">
                           {productVariants
-                            .filter((variant, index, self) =>
-                              index === self.findIndex((v) => v.color_code === variant.color_code)
-                            )
+                            .filter((variant, index, self) => {
+                              return index === self.findIndex((v) => v.color_code === variant.color_code)
+                            })
                             .map((variant) => (
                               <div key={variant.color_code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: "column", marginRight: '10px' }}>
                                 <Link
@@ -1611,14 +1573,26 @@ export const ProductPage = () => {
                                   className={`color-option`}
                                   style={{
                                     backgroundColor: variant.color_code,
-                                    minWidth: '30px',
-                                    width: '30px',
-                                    minHeight: '30px',
-                                    height: '30px',
+                                    minWidth: '60px',
+                                    width: '60px',
+                                    minHeight: '60px',
+                                    height: '60px',
                                     borderRadius: '50%',
                                     border: (ProductData?.color_id === variant?.color_id) && '2px solid red'
                                   }}
-                                ></Link>
+                                >
+                                  {
+                                    getProductImageOfColorId(variant?.color_id) &&
+                                    <img src={getProductImageOfColorId(variant?.color_id)} alt={variant.color_name}
+                                      style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'fill',
+                                        borderRadius: '50%',
+                                      }}
+                                    />
+                                  }
+                                </Link>
                                 <span style={{
                                   fontSize: '12px',
                                 }}>{variant.color_name}</span>
@@ -1718,54 +1692,11 @@ export const ProductPage = () => {
                       </button>
                     )
                   ) : (
-                    <div
-                      className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center justify-content-center position-relative`}
-                    >
-                      <span
-                        role="button"
-                        onClick={(e) =>
-                          updateProdQty(
-                            e,
-                            ProductData?.product_id
-                              ? ProductData.product_id
-                              : ProductData.id,
-                            ProductData?.no_of_quantity_allowed,
-                            prodAddedQty,
-                            "minus",
-                            ProductData?.stock
-                          )
-                        }
-                        className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-                      >
-                        -
-                      </span>
-                      <span className="d-inline-flex flex-shrink-0">
-                        <input
-                          type="text"
-                          readOnly
-                          value={prodAddedQty}
-                          className={`${styles.countValue} d-inline-block text-center`}
-                        />
-                      </span>
-                      <span
-                        role="button"
-                        onClick={(e) =>
-                          updateProdQty(
-                            e,
-                            ProductData?.product_id
-                              ? ProductData.product_id
-                              : ProductData.id,
-                            ProductData?.no_of_quantity_allowed,
-                            prodAddedQty,
-                            "plus",
-                            ProductData?.stock
-                          )
-                        }
-                        className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-                      >
-                        +
-                      </span>
-                    </div>
+                    <AddProductQuantity
+                      prodAddedQty={prodAddedQty}
+                      ProductData={ProductData}
+                      updateProdQty={updateProdQty}
+                    />
                   )}
                   <Link to="/checkout">
                     <span
@@ -2362,8 +2293,8 @@ const SizeGuideModal = ({
             </button>
           ) : (
             <button
-            disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
-            className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
+              disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
+              className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
                 ? styles.disableCartBtn
                 : ""
                 } col-5 d-inline-flex align-items-center w-100 justify-content-center text-uppercase`}
@@ -2373,54 +2304,11 @@ const SizeGuideModal = ({
             </button>
           )
         ) : (
-          <div
-            className={`${styles.itemQuantityBtnBox} d-inline-flex align-items-center position-relative`}
-          >
-            <span
-              role="button"
-              onClick={(e) =>
-                updateProdQty(
-                  e,
-                  ProductData?.product_id
-                    ? ProductData.product_id
-                    : ProductData.id,
-                  ProductData?.no_of_quantity_allowed,
-                  prodAddedQty,
-                  "minus",
-                  ProductData?.stock
-                )
-              }
-              className={`${styles.decrease_btn} ${styles.minusIcon} d-inline-flex align-items-center justify-content-center`}
-            >
-              -
-            </span>
-            <span className="d-inline-flex flex-shrink-0">
-              <input
-                type="text"
-                readOnly
-                value={prodAddedQty}
-                className={`${styles.countValue} d-inline-block text-center`}
-              />
-            </span>
-            <span
-              role="button"
-              onClick={(e) =>
-                updateProdQty(
-                  e,
-                  ProductData?.product_id
-                    ? ProductData.product_id
-                    : ProductData.id,
-                  ProductData?.no_of_quantity_allowed,
-                  prodAddedQty,
-                  "plus",
-                  ProductData?.stock
-                )
-              }
-              className={`${styles.increase_btn} ${styles.plusIcon} d-inline-flex align-items-center justify-content-center`}
-            >
-              +
-            </span>
-          </div>
+          <AddProductQuantity
+            prodAdded={prodAdded}
+            prodAddedQty={prodAddedQty}
+            updateProdQty={updateProdQty}
+          />
         )}
       </div>
     </div>

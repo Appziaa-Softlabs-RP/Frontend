@@ -6,6 +6,7 @@ import styles from "./CartAside.module.css";
 import { DeleteIcon } from "../siteIcons";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
+import AddProductQuantity from "../shared/AddProductQuantity";
 
 export const CartAside = ({ setCartPop }) => {
   const [cartData, setCartData] = useState([]);
@@ -266,7 +267,7 @@ export const CartAside = ({ setCartPop }) => {
                             }}
                           >
                             {item?.is_hot_deals === 1 &&
-                            item.deal_price !== 0 ? (
+                              item.deal_price !== 0 ? (
                               <span
                                 style={{
                                   display: "flex",
@@ -305,65 +306,11 @@ export const CartAside = ({ setCartPop }) => {
                           className={`col-12 p-0 d-inline-flex align-items-center justify-content-between position-relative mt-2`}
                         >
                           <div className={`d-inline-flex align-items-center`}>
-                            <span
-                              className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`}
-                              name="minus"
-                              role="button"
-                              onClick={(e) =>
-                                updateProdQty(
-                                  e,
-                                  item.product_id,
-                                  item?.no_of_quantity_allowed,
-                                  item?.quantity,
-                                  "minus",
-                                  item?.stock
-                                )
-                              }
-                            >
-                              <svg
-                                className="icon iconMinus"
-                                fill="none"
-                                viewBox="0 0 10 2"
-                              >
-                                <path
-                                  d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
-                                  fill="currentColor"
-                                ></path>
-                              </svg>
-                            </span>
-                            <input
-                              className={`${styles.quantityInput} flex-shrink-0 d-inline-block text-center`}
-                              type="number"
-                              value={item.quantity || ""}
-                              minLength="1"
-                              maxLength="5"
+                            <AddProductQuantity
+                              prodAddedQty={item.quantity}
+                              ProductData={item}
+                              updateProdQty={updateProdQty}
                             />
-                            <span
-                              className={`${styles.quantityButton} flex-shrink-0 d-inline-flex align-items-center justify-content-center`}
-                              name="plus"
-                              role="button"
-                              onClick={(e) =>
-                                updateProdQty(
-                                  e,
-                                  item.product_id,
-                                  item?.no_of_quantity_allowed,
-                                  item?.quantity,
-                                  "plus",
-                                  item?.stock
-                                )
-                              }
-                            >
-                              <svg
-                                className="icon iconPlus"
-                                fill="none"
-                                viewBox="0 0 10 10"
-                              >
-                                <path
-                                  d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
-                                  fill="currentColor"
-                                ></path>
-                              </svg>
-                            </span>
                           </div>
                           <span
                             onClick={() => removeThisProd(item.product_id)}

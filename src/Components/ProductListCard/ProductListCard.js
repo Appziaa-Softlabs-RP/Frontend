@@ -7,6 +7,7 @@ import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import { ProductOfferCard } from "../ProductOfferCard/ProductOfferCard";
+import AddProductQuantity from "../shared/AddProductQuantity";
 
 export const ProductListCard = ({ setSelectedOfferProductId,
     offers,
@@ -14,7 +15,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
     setSelectedOfferId,
     Product,
     index,
-    hideQty}) => {
+    hideQty }) => {
     const [prodAdded, setProdAdded] = useState(false);
     const [prodAddedQty, setProdAddedQty] = useState(0);
     const [userInfo, setUserInfo] = useState({});
@@ -23,7 +24,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
     const windowWidth = appData.appData.windowWidth;
 
     let discountOff = '';
-    if(Product?.mrp > Product?.selling_price){
+    if (Product?.mrp > Product?.selling_price) {
         discountOff = ((Product?.mrp - Product?.selling_price) * 100) / Product?.mrp;
         discountOff = Math.ceil(discountOff);
     }
@@ -80,14 +81,14 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                 product_name: prodName,
                 stock: stockQTY,
                 mrp: Mrp,
-                selling_price:sellingPrice,
+                selling_price: sellingPrice,
                 quantity: Quantity,
                 no_of_quantity_allowed: noQty,
                 is_hot_deals: dealType,
                 deal_type_id: dealId
             }
             ApiService.addToCart(payload).then((res) => {
-                if(res?.message === 'Add successfully.'){
+                if (res?.message === 'Add successfully.') {
                     appData.setAppData({ ...appData.appData, cartSaved: true });
                     localStorage.setItem('cartSaved', true);
                     let resCart = res.payload_addTocart;
@@ -95,7 +96,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                     let cartID = resCart[resProdId].cart_id;
                     let cartProdID = cartInfo.findIndex((obj) => obj.product_id === ProdId);
                     cartInfo[cartProdID].cart_id = cartID;
-                    
+
                     appData.setAppData({ ...appData.appData, cartData: cartInfo, cartCount: cartInfo?.length });
                     localStorage.setItem('cartData', JSON.stringify(cartInfo));
                 }
@@ -115,9 +116,9 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                 AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
             } else {
                 let newQty = currQty + 1;
-                if(stock >= newQty){
+                if (stock >= newQty) {
                     cartInfo[cartProdID].quantity = newQty;
-                }else{
+                } else {
                     AppNotification('Error', 'You have reached the product quantity limit.', 'danger');
                 }
             }
@@ -125,7 +126,7 @@ export const ProductListCard = ({ setSelectedOfferProductId,
             let newQty = currQty - 1;
             if (newQty === 0) {
                 let cartID = appData.appData.cartID;
-                if(appData.appData.cartSaved === true && cartID !== null && cartID != undefined){
+                if (appData.appData.cartSaved === true && cartID !== null && cartID != undefined) {
                     const payload = {
                         store_id: parseInt(enviroment.STORE_ID),
                         customer_id: userInfo.customer_id,
@@ -178,11 +179,11 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                     <div className="col-12 p-0 d-inline-flex align-items-center">
                         <div className={`${styles.offerImgContainer} flex-shrink-0 text-decoration-none position-relative d-inline-block`}>
                             {Product?.image !== '' ? (
-                                <img src={Product?.image} alt={Product?.name ?? 'product'} className="object-fit-contain"/>
-                            ) : (   
-                                <img src={notAvail} alt={Product?.name} className="object-fit-contain"/>
+                                <img src={Product?.image} alt={Product?.name ?? 'product'} className="object-fit-contain" />
+                            ) : (
+                                <img src={notAvail} alt={Product?.name} className="object-fit-contain" />
                             )}
-                            
+
                             {Product?.stock === 0 &&
                                 <span className={`${styles.soldOutText} position-absolute d-inline-flex align-items-center`}>Sold Out</span>
                             }
@@ -192,15 +193,15 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                                 <span className={`${styles.offerItemName}`}>{Product.product_name}</span>
                             </div>
                             <div className={`d-inline-flex align-items-center col-12 mb-1 flex-wrap`}>
-                                    {Product.selling_price === Product.mrp ? (
-                                        <span className={`${styles.offerPrice}`}><b>₹ {Product.mrp}</b></span>
-                                    ) : (
-                                        <React.Fragment>
-                                            <span className={`${styles.offerPrice}`}><b>₹ {Product.selling_price}</b> <del>₹ {Product.mrp}</del></span>
-                                            <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff}% &nbsp;OFF</span>
-                                            <span className={`${styles.savePrice} col-12 d-inline-block p-0 float-left`}>Save ₹ {Product?.mrp - Product?.selling_price}</span>
-                                        </React.Fragment>
-                                    )}
+                                {Product.selling_price === Product.mrp ? (
+                                    <span className={`${styles.offerPrice}`}><b>₹ {Product.mrp}</b></span>
+                                ) : (
+                                    <React.Fragment>
+                                        <span className={`${styles.offerPrice}`}><b>₹ {Product.selling_price}</b> <del>₹ {Product.mrp}</del></span>
+                                        <span className={`${styles.offerPercentage} d-inline-flex`}>{discountOff}% &nbsp;OFF</span>
+                                        <span className={`${styles.savePrice} col-12 d-inline-block p-0 float-left`}>Save ₹ {Product?.mrp - Product?.selling_price}</span>
+                                    </React.Fragment>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -209,61 +210,56 @@ export const ProductListCard = ({ setSelectedOfferProductId,
                             <div className="col-12 p-0">
                                 {!prodAdded ? (
                                     <div className={`${styles.itemPeice}`}>
-                                        <button className="d-inline-flex flex-shrink-0" onClick={(e) => addToCart(e,Product?.product_id)}>
+                                        <button className="d-inline-flex flex-shrink-0" onClick={(e) => addToCart(e, Product?.product_id)}>
                                             <span className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
                                         </button>
                                     </div>
                                 ) : (
-                                <div className={`${styles.itemPeice} d-inline-flex`}>
-                                    <button className="d-inline-flex flex-shrink-0">
-                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'minus', Product?.stock)} className={`${styles.decreaseBtn} d-inline-flex align-items-center justify-content-center`}>-</span>
-                                    </button>
-                                                    
-                                    <span className="d-inline-flex flex-shrink-0">
-                                        <input type="text" readOnly value={prodAddedQty} className={`${styles.countValue} d-inline-block`}/>
-                                    </span>
-
-                                    <button className="d-inline-flex flex-shrink-0">
-                                        <span onClick={(e) => updateProdQty(e, Product?.product_id ? Product.product_id : Product.id, Product?.no_of_quantity_allowed, prodAddedQty, 'plus', Product?.stock)} className={`${styles.increaseBtn} d-inline-flex align-items-center justify-content-center`}>+</span>
-                                    </button>
-                                </div>
+                                    <div className={`${styles.itemPeice} d-inline-flex`}>
+                                        <AddProductQuantity
+                                            sm={true}
+                                            prodAddedQty={prodAddedQty}
+                                            ProductData={Product}
+                                            updateProdQty={updateProdQty}
+                                        />
+                                    </div>
                                 )}
                             </div>
                         }
                     </div>
                 </div>
                 {
-            (offers && offers?.products?.length > 0) ?
-            <div className={`${styles.featuredProductBox} col-12 d-inline-flex flex-column py-4`}>
-            <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
-                <h5 className={`${styles.availSizeTitle} font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${windowWidth === "mobile" && 'px-4'}`}>
-                Applicable Offer - {offers?.name}
-                </h5>
-                {/* <ReactOwlCarousel className={`${styles.allFeaturedProduct} ${windowWidth === "mobile" && 'px-3'} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}> */}
-                <div style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap"
-                }}>
-                    {offers?.products?.map((item, index) => {
-                        return (<div key={index}>
-                          <ProductOfferCard
-                          offer_id={offers?.id}
-                          setSelectedOfferProductId={setSelectedOfferProductId}
-                          selectedOfferId={selectedOfferId}
-                          setSelectedOfferId={setSelectedOfferId}
-                          key={index}
-                          item={item}
-                            index={index} />
-                          </div>    
-                        )
-                    })}
-            </div>
-                {/* </ReactOwlCarousel> */}
-            </div>
-        </div>
-            : null
-          }
+                    (offers && offers?.products?.length > 0) ?
+                        <div className={`${styles.featuredProductBox} col-12 d-inline-flex flex-column py-4`}>
+                            <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
+                                <h5 className={`${styles.availSizeTitle} font-bold mt-0 col-12 d-inline-flex align-items-center justify-content-between ${windowWidth === "mobile" && 'px-4'}`}>
+                                    Applicable Offer - {offers?.name}
+                                </h5>
+                                {/* <ReactOwlCarousel className={`${styles.allFeaturedProduct} ${windowWidth === "mobile" && 'px-3'} brandSilder col-12 pb-4 owl-theme`} margin={10} dots={false} items={`${windowWidth === 'mobile' ? 2 : 5 }`} stagePadding={20} loop={false} nav={true}> */}
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap"
+                                }}>
+                                    {offers?.products?.map((item, index) => {
+                                        return (<div key={index}>
+                                            <ProductOfferCard
+                                                offer_id={offers?.id}
+                                                setSelectedOfferProductId={setSelectedOfferProductId}
+                                                selectedOfferId={selectedOfferId}
+                                                setSelectedOfferId={setSelectedOfferId}
+                                                key={index}
+                                                item={item}
+                                                index={index} />
+                                        </div>
+                                        )
+                                    })}
+                                </div>
+                                {/* </ReactOwlCarousel> */}
+                            </div>
+                        </div>
+                        : null
+                }
             </div>
         </React.Fragment>
     )
