@@ -221,7 +221,9 @@
     background: #FFF;
 }
 .productDetailBox {
+    margin-top: 48px;
     background: #FFF;
+    border-radius: 6px;
 }
 .shareIcon {
     z-index: 1055;

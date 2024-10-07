@@ -123,6 +123,27 @@ ApiService.VerifyOTPReg = function (data) {
   });
 };
 
+ApiService.submitReview = function (data) {
+  return fetch({
+    url: "/store/reviews/add",
+    method: "post",
+    data: data,
+  });
+};
+
+ApiService.getReviews = function (data) {
+  const cacheKey = "/store/reviews" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/reviews",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
 ApiService.AllCategory = function (data) {
   const cacheKey = "/store/verticalWithCatList" + JSON.stringify(data);
   return cacheFetch(

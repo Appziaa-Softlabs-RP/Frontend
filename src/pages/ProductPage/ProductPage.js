@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ProductPage.module.css";
-import ReactOwlCarousel from "react-owl-carousel";
+import axios from "axios";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { ThreeDots } from "react-loader-spinner";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import noImage from "../../assets/images/image-not-available.jpg";
+import ReactOwlCarousel from "react-owl-carousel";
 import {
   Link,
   useLocation,
@@ -11,30 +14,31 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
+import delivery from "../../assets/images/free-delivery.png";
+import orignal from "../../assets/images/original.png";
+import ShowReviews from "../../Components/AddReview/ShowReviews";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
-import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
-import { useApp } from "../../context/AppContextProvider";
-import { Header } from "../../Components/Header/Header";
 import { Footer } from "../../Components/Footer/Footer";
+import { Header } from "../../Components/Header/Header";
+import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
+  CopyIcon,
   CrossIcon,
   FacebookIcon,
   LocationIcon,
+  PinterestIcon,
   ShareIcon,
   TwitterIcon,
   WhatsAppIcon,
-  PinterestIcon,
-  CopyIcon,
 } from "../../Components/siteIcons";
-import { AppNotification } from "../../utils/helper";
+import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
-import axios from "axios";
-import delivery from "../../assets/images/free-delivery.png";
-import orignal from "../../assets/images/original.png";
-import replacement from "../../assets/images/7-days-money-back-guarantee-icon.png";
 import ApiService from "../../services/ApiService";
-import { Helmet } from "react-helmet";
-import { ThreeDots } from "react-loader-spinner";
+import { AppNotification } from "../../utils/helper";
+import styles from "./ProductPage.module.css";
+import AddReview from "../../Components/AddReview/AddReview";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -65,10 +69,17 @@ export const ProductPage = () => {
   const [isSpecilization, setIsSpecilization] = useState(false);
   const userInfo = appData?.appData?.user;
   const pageCurrentURL = encodeURIComponent(window.location.href);
+  const [productLoading, setProductLoading] = useState(true);
 
   const setMainImage = (image, count) => {
     setActiveImg(count);
     setProdMainImg(image);
+  };
+
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
   };
 
   const openProductColpse = () => { };
@@ -370,6 +381,7 @@ export const ProductPage = () => {
     };
 
     // Fetch product details based on the slug
+    setProductLoading(true);
     ApiService.productDetails(payload)
       .then((res) => {
         if (res.message === "Product Detail") {
@@ -423,6 +435,9 @@ export const ProductPage = () => {
       })
       .catch((err) => {
         AppNotification("Error", "Sorry, Product detail not found.", "danger");
+      })
+      .finally(() => {
+        setProductLoading(false);
       });
   }, [slug, navigate, searchParams]);
 
@@ -569,10 +584,11 @@ export const ProductPage = () => {
             <div
               className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
             >
-              {prodMainImg ? (
+              {!productLoading ? (
                 <img
                   src={ProductData?.image}
                   alt={ProductData?.name}
+                  onError={(e) => setNoImage(e)}
                   className="col-12 d-inline-block"
                   style={{
                     maxHeight: "500px",
@@ -605,10 +621,11 @@ export const ProductPage = () => {
                   className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
                   key={index}
                 >
-                  {prodMainImg ? (
+                  {!productLoading ? (
                     <img
                       src={enviroment.API_IMAGE_GALLERY_URL + item}
                       alt={ProductData?.name}
+                      onError={(e) => setNoImage(e)}
                       className="col-12 d-inline-block"
                       style={{
                         maxHeight: "500px",
@@ -639,13 +656,14 @@ export const ProductPage = () => {
             })}
           </ReactOwlCarousel>
           {!ProductData?.gallery_images.length ? (
-            prodMainImg ? (
+            !productLoading ? (
               <div
                 className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
               >
                 <img
                   src={prodMainImg}
                   alt={ProductData?.name}
+                  onError={(e) => setNoImage(e)}
                   className="col-12 d-inline-block"
                   style={{
                     maxHeight: "100px",
@@ -681,6 +699,20 @@ export const ProductPage = () => {
           <h2 className={`${styles.productDetailName} col-12 mb-1`}>
             {ProductData?.name}
           </h2>
+
+          <div
+            className={`ms-1`}
+          >
+            {
+              productLoading ?
+                <Skeleton width={100} height={25} />
+                :
+                <ShowReviews
+                  product_id={ProductData?.product_id}
+                  total_rating={ProductData?.total_rating}
+                />
+            }
+          </div>
 
           <div className="ms-2">
             <span className="mb-2">Item Code: {ProductData?.barcode} </span>
@@ -731,7 +763,9 @@ export const ProductPage = () => {
                       key={index}
                       className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                     >
-                      <img src={item.logo} alt={item.description} />
+                      <img src={item.logo} 
+                                        onError={(e) => setNoImage(e)}
+                      alt={item.description} />
                       {item.description}
                     </span>
                   );
@@ -1015,6 +1049,12 @@ export const ProductPage = () => {
               )}
             </div>
           )}
+
+        <AddReview
+          product_id={ProductData?.product_id}
+          total_rating={ProductData?.total_rating}
+        />
+
         <div className={`col-12 d-inline-block mb-5`}>
           <FeaturedProducts product={ProductData?.featured} />
           <SimilarProduct product={ProductData?.similar} />
@@ -1107,10 +1147,15 @@ export const ProductPage = () => {
         </div>
       </div>
 
-      <div className="hideInMobile">
+      <div className="hideInMobile" style={{
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}>
         <Header />
-        <div className="col-12 d-inline-flex">
-          <div className="container">
+        <div className="col-12 d-inline-flex" style={{
+          background: "#EEEEEE"
+        }}>
+          <div className="container-fluid">
             <div
               className={`col-12 d-inline-flex align-items-start position-relative gap-4 mb-4`}
             >
@@ -1121,7 +1166,7 @@ export const ProductPage = () => {
                   className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
                 >
                   <div
-                    className={`${styles.productMainImage} col-12 d-inline-block position-relative`}
+                    className={`${styles.productMainImage} col-12 d-inline-block position-relative bg-white rounded`}
                   >
                     {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
                       <div
@@ -1143,10 +1188,11 @@ export const ProductPage = () => {
                     >
                       <ShareIcon color="#CF112D" />
                     </span>
-                    {prodMainImg ? (
+                    {!productLoading ? (
                       <img
                         src={prodMainImg}
                         alt={ProductData?.name}
+                        // onError={(e) => setNoImage(e)}
                         style={{
                           opacity: (ProductData?.stock === 0 || ProductData?.stock < 0) ? "0.5" : "1",
                         }}
@@ -1183,6 +1229,7 @@ export const ProductPage = () => {
                       <img
                         src={ProductData?.image}
                         alt={ProductData?.name}
+                        onError={(e) => setNoImage(e)}
                         className=""
                         style={{
                           height: "80px",
@@ -1209,6 +1256,7 @@ export const ProductPage = () => {
                           <img
                             src={enviroment.API_IMAGE_GALLERY_URL + item}
                             alt={ProductData?.name}
+                            onError={(e) => setNoImage(e)}
                             className=""
                             style={{
                               height: "80px",
@@ -1306,17 +1354,17 @@ export const ProductPage = () => {
                               " x H " +
                               ProductData?.specifications
                                 ?.package_dimension_height}{" "}
-                            {
-                              ProductData?.specifications
-                                ?.package_dimension_unit === 2
-                                ? <span>inch</span> :
+                              {
                                 ProductData?.specifications
-                                  ?.package_dimension_unit === 3
-                                  ? <span>cm</span> :
+                                  ?.package_dimension_unit === 2
+                                  ? <span>inch</span> :
                                   ProductData?.specifications
-                                    ?.package_dimension_unit === 4
-                                    ? <span>mm</span> : ''
-                            }{" "}
+                                    ?.package_dimension_unit === 3
+                                    ? <span>cm</span> :
+                                    ProductData?.specifications
+                                      ?.package_dimension_unit === 4
+                                      ? <span>mm</span> : ''
+                              }{" "}
                             </span>
                           </p>
                         )}
@@ -1384,37 +1432,65 @@ export const ProductPage = () => {
               <div
                 className={`${styles.productDetailBox} d-inline-flex flex-column gap-3 col-6 flex-shrink-1 align-items-start justify-content-start px-4 pt-5`}
               >
-                {ProductData?.brand_name !== null && (
-                  <h6 className={`${styles.brandName} d-inline-flex m-0`}>
-                    {ProductData?.brand_name}
-                  </h6>
-                )}
-                <h2
-                  className={`${styles.productDetailName} col-12 mb-1 mt-0`}
-                >
-                  {ProductData?.name}
-                </h2>
+                {
+                  productLoading ?
+                    <Skeleton height={18} width={100} />
+                    :
+                    ProductData?.brand_name !== null && (
+                      <h6 className={`${styles.brandName} d-inline-flex m-0`}>
+                        {ProductData?.brand_name}
+                      </h6>
+                    )
+                }
+                {
+                  productLoading ?
+                    <Skeleton height={35} width={300} />
+                    :
+                    <h2
+                      className={`${styles.productDetailName} col-12 m-0 mb-1`}
+                    >
+                      {ProductData?.name}
+                    </h2>
+                }
                 <div
-                  className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
+                  className={``}
                 >
-                  {ProductData?.age_type ? ProductData?.age_type : ""}
-                  {ProductData?.age_type !== null &&
-                    ProductData?.gender_name !== null && (
-                      <span className={`${styles.spaceLine} d-inline-flex`}>
-                        |
-                      </span>
-                    )}
-                  {ProductData?.gender_name ? ProductData?.gender_name : ""}
-                  {ProductData?.category_name !== null &&
-                    ProductData?.gender_name !== null && (
-                      <span className={`${styles.spaceLine} d-inline-flex`}>
-                        |
-                      </span>
-                    )}
-                  {ProductData?.category_name
-                    ? ProductData?.category_name
-                    : ""}
+                  {
+                    productLoading ?
+                      <Skeleton width={100} height={25} />
+                      :
+                      <ShowReviews
+                        product_id={ProductData?.product_id}
+                        total_rating={ProductData?.total_rating}
+                      />
+                  }
                 </div>
+                {
+                  productLoading ?
+                    <Skeleton height={25} width={300} />
+                    :
+                    <div
+                      className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
+                    >
+                      {ProductData?.age_type ? ProductData?.age_type : ""}
+                      {ProductData?.age_type !== null &&
+                        ProductData?.gender_name !== null && (
+                          <span className={`${styles.spaceLine} d-inline-flex`}>
+                            |
+                          </span>
+                        )}
+                      {ProductData?.gender_name ? ProductData?.gender_name : ""}
+                      {ProductData?.category_name !== null &&
+                        ProductData?.gender_name !== null && (
+                          <span className={`${styles.spaceLine} d-inline-flex`}>
+                            |
+                          </span>
+                        )}
+                      {ProductData?.category_name
+                        ? ProductData?.category_name
+                        : ""}
+                    </div>
+                }
                 {
                   ProductData?.article_name &&
                   <span className="ml-3 mb-0">
@@ -1427,27 +1503,31 @@ export const ProductPage = () => {
                   <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
                     Special Price
                   </h2>
-                  {ProductData?.selling_price === ProductData?.mrp ? (
-                    <span className={`${styles.offerPrice}`}>
-                      <b>₹{ProductData?.mrp}</b>
-                    </span>
-                  ) : (
-                    <div className="col-12 d-inline-flex align-items-center gap-3">
-                      <span
-                        className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}
-                      >
-                        <b>₹{ProductData?.selling_price}</b>
-                        <del>₹{ProductData?.mrp}</del>
-                      </span>
-                      {prodDiscount !== "" && (
-                        <span
-                          className={`${styles.offerPercentage} d-inline-flex`}
-                        >
-                          {prodDiscount}% &nbsp;OFF
+                  {
+                    productLoading ?
+                      <Skeleton height={25} width={300} />
+                      :
+                      ProductData?.selling_price === ProductData?.mrp ? (
+                        <span className={`${styles.offerPrice}`}>
+                          <b>₹{ProductData?.mrp}</b>
                         </span>
+                      ) : (
+                        <div className="col-12 d-inline-flex align-items-center gap-3">
+                          <span
+                            className={`${styles.offerPrice} d-inline-flex align-items-center gap-2`}
+                          >
+                            <b>₹{ProductData?.selling_price}</b>
+                            <del>₹{ProductData?.mrp}</del>
+                          </span>
+                          {prodDiscount !== "" && (
+                            <span
+                              className={`${styles.offerPercentage} d-inline-flex`}
+                            >
+                              {prodDiscount}% &nbsp;OFF
+                            </span>
+                          )}
+                        </div>
                       )}
-                    </div>
-                  )}
                 </div>
                 {!prodAdded ? (
                   ProductData?.stock <= 0 ? (
@@ -1545,7 +1625,9 @@ export const ProductPage = () => {
                               key={index}
                               className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                             >
-                              <img src={item.logo} alt={item.description} />
+                              <img src={item.logo}
+                                                onError={(e) => setNoImage(e)}
+                                                alt={item.description} />
                               {item.description}
                             </span>
                           );
@@ -1562,6 +1644,7 @@ export const ProductPage = () => {
                     <img
                       src={delivery}
                       alt="delivery"
+                      onError={(e) => setNoImage(e)}
                       className="object-fit-contain"
                     />
                     <h6
@@ -1581,6 +1664,7 @@ export const ProductPage = () => {
                     <img
                       src={orignal}
                       alt="orignal"
+                      onError={(e) => setNoImage(e)}
                       className="object-fit-contain"
                     />
                     <h6
@@ -1600,6 +1684,7 @@ export const ProductPage = () => {
                     <img
                       src={replacement}
                       alt="replacement"
+                      onError={(e) => setNoImage(e)}
                       className="object-fit-contain"
                     />
                     <h6
@@ -1735,6 +1820,10 @@ export const ProductPage = () => {
                     )}
                   </div>
                 </div>
+                <AddReview
+                  product_id={ProductData?.product_id}
+                  total_rating={ProductData?.total_rating}
+                />
               </div>
             </div>
           </div>
