@@ -35,6 +35,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
 import AddReview from "../../Components/AddReview/AddReview";
+import ShowReviews from "../../Components/AddReview/ShowReviews";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -702,6 +703,57 @@ export const ProductPage = () => {
             }
           </h2>
 
+          <div
+            className={``}
+          >
+            {
+              productLoading ?
+                <Skeleton width={100} height={25} />
+                :
+                <ShowReviews
+                  product_id={ProductData?.product_id}
+                  total_rating={ProductData?.total_rating}
+                />
+            }
+          </div>
+          <div
+            className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
+          >
+            {
+              productLoading ?
+                <Skeleton width={100} height={20} />
+                :
+                <span>
+                  {
+                    ProductData?.stock > 0 ? (
+                      <span
+                        className="rounded"
+                        style={{
+                          padding: "5px 10px",
+                          background: "hsla(0, 0%, 87%, 1)",
+                          color: "#4CAF50",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        In stock
+                      </span>
+                    ) : (
+                      <span
+                        className="rounded"
+                        style={{
+                          padding: "5px 10px",
+                          background: "hsla(0, 0%, 87%, 1)",
+                          color: "red",
+                          fontWeight: "bold",
+                        }}>
+                        Out of stock
+                      </span>
+                    )
+                  }
+                </span>
+            }
+          </div>
+
           <div className="">
             {/* <span className="mb-2">Item Code: {ProductData?.article_name} </span> */}
             {
@@ -852,9 +904,9 @@ export const ProductPage = () => {
               }
             </div>
             <AddReview
-                  product_id={ProductData?.product_id}
-                  total_rating={ProductData?.total_rating}
-                />
+              product_id={ProductData?.product_id}
+              total_rating={ProductData?.total_rating}
+            />
           </div>
         </div>
 
@@ -1477,7 +1529,7 @@ export const ProductPage = () => {
                   }
                 </div>
                 <h2
-                  className={`${styles.productDetailName} col-12 mb-1 mb-2`}
+                  className={`${styles.productDetailName} col-12 mb-1`}
                 >
                   {
                     productLoading ?
@@ -1489,6 +1541,19 @@ export const ProductPage = () => {
                 {/* <span className="ml-3 mb-0">
                   Item Code: {ProductData?.article_name}
                 </span> */}
+                <div
+                  className={``}
+                >
+                  {
+                    productLoading ?
+                      <Skeleton width={100} height={25} />
+                      :
+                      <ShowReviews
+                        product_id={ProductData?.product_id}
+                        total_rating={ProductData?.total_rating}
+                      />
+                  }
+                </div>
                 <div
                   className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
                 >
