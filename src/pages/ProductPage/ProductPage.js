@@ -1,9 +1,9 @@
-import axios from "axios";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { ThreeDots } from "react-loader-spinner";
+import Skeleton from "react-loading-skeleton";
 import ReactOwlCarousel from "react-owl-carousel";
 import {
   Link,
@@ -12,10 +12,12 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import noImage from "../../assets/images/image-not-available.jpg";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import AddProductQuantity from "../../Components/shared/AddProductQuantity";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
   CopyIcon,
@@ -32,9 +34,7 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
-import Skeleton from "react-loading-skeleton";
-import noImage from "../../assets/images/image-not-available.jpg";
-import AddProductQuantity from "../../Components/shared/AddProductQuantity";
+import AddReview from "../../Components/AddReview/AddReview";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -654,7 +654,7 @@ export const ProductPage = () => {
                 className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
               >
                 <img
-                  src={prodMainImg}
+                  src={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
                   alt={ProductData?.name}
                   onError={(e) => setNoImage(e)}
                   className="col-12 d-inline-block"
@@ -767,14 +767,26 @@ export const ProductPage = () => {
                             className={`color-option`}
                             style={{
                               backgroundColor: variant.color_code,
-                              minWidth: '30px',
-                              width: '30px',
-                              minHeight: '30px',
-                              height: '30px',
+                              minWidth: '60px',
+                              width: '60px',
+                              minHeight: '60px',
+                              height: '60px',
                               borderRadius: '50%',
                               border: (ProductData?.color_id === variant?.color_id) && '2px solid red'
                             }}
-                          ></Link>
+                          >
+                            {
+                              getProductImageOfColorId(variant?.color_id) &&
+                              <img src={getProductImageOfColorId(variant?.color_id)} alt={variant.color_name}
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: 'fill',
+                                  borderRadius: '50%',
+                                }}
+                              />
+                            }
+                          </Link>
                           <span style={{
                             fontSize: '12px',
                           }}>{variant.color_name}</span>
@@ -801,7 +813,7 @@ export const ProductPage = () => {
                   prodDiscount={prodDiscount}
                   productLoading={productLoading}
                   productData={ProductData}
-                  prodMainImg={prodMainImg}
+                  prodMainImg={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
                   sizeGuide={ProductData?.size_guide}
                   ProductData={ProductData}
                   addToCart={addToCart}
@@ -839,6 +851,10 @@ export const ProductPage = () => {
                   </div>
               }
             </div>
+            <AddReview
+                  product_id={ProductData?.product_id}
+                  total_rating={ProductData?.total_rating}
+                />
           </div>
         </div>
 
@@ -1239,7 +1255,7 @@ export const ProductPage = () => {
                     </span>
                     {!productLoading ? (
                       <img
-                        src={prodMainImg}
+                        src={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
                         onError={(e) => setNoImage(e)}
                         alt={ProductData?.name}
                         style={{
@@ -1276,8 +1292,8 @@ export const ProductPage = () => {
                       onClick={() => setMainImage(ProductData?.image, -1)}
                     >
                       <img
-                        src={ProductData?.image}
                         alt={ProductData?.name}
+                        src={(ProductData?.image || ProductData?.image === "") ? getProductImageOfColorId(ProductData?.color_id) : ProductData?.image}
                         onError={(e) => setNoImage(e)}
                         className="bg-white rounded"
                         style={{
@@ -1619,7 +1635,7 @@ export const ProductPage = () => {
                         prodDiscount={prodDiscount}
                         productData={ProductData}
                         productLoading={productLoading}
-                        prodMainImg={prodMainImg}
+                        prodMainImg={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
                         sizeGuide={ProductData?.size_guide}
                         ProductData={ProductData}
                         addToCart={addToCart}
@@ -1906,7 +1922,10 @@ export const ProductPage = () => {
                   </div>
                 </div>
 
-                {/* <AddReview /> */}
+                <AddReview
+                  product_id={ProductData?.product_id}
+                  total_rating={ProductData?.total_rating}
+                />
 
               </div>
             </div>
@@ -2087,7 +2106,7 @@ const SizeGuideModal = ({
         <div>
           {!productLoading ? (
             <img
-              src={ProductData?.image}
+              src={prodMainImg}
               onError={(e) => setNoImage(e)}
               alt={ProductData?.name}
               className="d-inline-block"
@@ -2232,7 +2251,6 @@ const SizeGuideModal = ({
             <table className="table table-bordered">
               <thead>
                 <tr>
-                  <th></th>
                   <th>UK</th>
                   <th>US</th>
                   <th>EURO</th>
@@ -2247,9 +2265,6 @@ const SizeGuideModal = ({
               <tbody>
                 {sizeData.map((size, index) => (
                   <tr key={index}>
-                    <td>
-                      <input id='size' name='size' type="radio" />
-                    </td>
                     <td>{size.uk}</td>
                     <td>{size.us}</td>
                     <td>{size.euro}</td>
@@ -2337,20 +2352,19 @@ const SizeSkeleton = () => {
 
 const ColorSkeleton = () => {
   return (
-    <div className="d-flex gap-2">
+    <div className="d-flex gap-3">
       {[...Array(4)].map((_, index) => (
         <div key={index} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '5px', justifyContent: 'center' }}>
           <div
             className="skeleton-circle"
             style={{
               backgroundColor: '#e0e0e0',
-              minWidth: '30px',
-              width: '30px',
-              minHeight: '30px',
+              minWidth: '60px',
+              width: '60px',
+              minHeight: '60px',
               margin: '0 auto',
-              height: '30px',
+              height: '60px',
               borderRadius: '50%',
-              marginRight: '10px'
             }}
           ></div>
           <div

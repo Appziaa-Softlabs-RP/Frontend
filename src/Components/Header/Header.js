@@ -10,7 +10,6 @@ import { AppNotification } from "../../utils/helper";
 import { CartAside } from "../CartAside/CartAside";
 import { LoginPopup } from "../LoginPopup/LoginPopup";
 import {
-  BackArrowIcon,
   CartIcon,
   MailIcon,
   MenuIcons,
@@ -167,28 +166,28 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     'Accesories'
   ];
 
-    const [placeholderText, setPlaceholderText] = useState('');
-    const [currentItem, setCurrentItem] = useState(0);
-    const [currentChar, setCurrentChar] = useState(0);
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [currentItem, setCurrentItem] = useState(0);
+  const [currentChar, setCurrentChar] = useState(0);
 
-    useEffect(() => {
-      if (currentItem < searchTexts.length) {
-        if (currentChar < searchTexts[currentItem].length) {
-          const timeoutId = setTimeout(() => {
-            setPlaceholderText((prev) => prev + searchTexts[currentItem][currentChar]);
-            setCurrentChar((prev) => prev + 1);
-          }, 100); // Adjust the typing speed here
-          return () => clearTimeout(timeoutId);
-        } else {
-          const timeoutId = setTimeout(() => {
-            setPlaceholderText('');
-            setCurrentChar(0);
-            setCurrentItem((prev) => (prev + 1) % searchTexts.length); // Loop through items
-          }, 1000); // Adjust the delay between items here
-          return () => clearTimeout(timeoutId);
-        }
+  useEffect(() => {
+    if (currentItem < searchTexts.length) {
+      if (currentChar < searchTexts[currentItem].length) {
+        const timeoutId = setTimeout(() => {
+          setPlaceholderText((prev) => prev + searchTexts[currentItem][currentChar]);
+          setCurrentChar((prev) => prev + 1);
+        }, 100); // Adjust the typing speed here
+        return () => clearTimeout(timeoutId);
+      } else {
+        const timeoutId = setTimeout(() => {
+          setPlaceholderText('');
+          setCurrentChar(0);
+          setCurrentItem((prev) => (prev + 1) % searchTexts.length); // Loop through items
+        }, 1000); // Adjust the delay between items here
+        return () => clearTimeout(timeoutId);
       }
-    }, [currentChar, currentItem]);
+    }
+  }, [currentChar, currentItem]);
 
 
   const handleMouseLeave = () => {
@@ -329,7 +328,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                         }}
                         value={searchProd}
                         onChange={(e) => searchShopProd(e, e.target.value)}
-                        placeholder={'Search For '+placeholderText}
+                        placeholder={'Search For ' + placeholderText}
                         onKeyDown={handleKeyDown}
                       />
                       {searchProdList?.length > 0 && (
@@ -539,7 +538,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   }}
                   value={searchProd}
                   onChange={(e) => searchShopProd(e, e.target.value)}
-                  placeholder={'Search For '+placeholderText}
+                  placeholder={'Search For ' + placeholderText}
                   onKeyDown={handleKeyDown}
                 />
                 {searchProdList?.length > 0 && (

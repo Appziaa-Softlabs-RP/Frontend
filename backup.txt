@@ -1,0 +1,181 @@
+// Review Routes
+Route::post('store/reviews', array('uses' => 'api\ReviewController@index'));
+Route::post('store/reviews/add', array('uses' => 'api\ReviewController@store'));
+
+
+// Review Controller
+<?php
+
+namespace App\Http\Controllers\api;
+
+use App\Services\ReviewService;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\config;
+use Validator;
+use DB;
+use Helper;
+use App\Models\api\ApiModel;
+use View;
+use Mail;
+use Log;
+
+class ReviewController extends Controller
+{
+    protected $reviewService;
+
+    public function __construct(
+        ReviewService $reviewService
+    )
+    {
+        $this->reviewService = $reviewService;
+    }
+   
+    protected function _json_response($success, $error, $data, $code=400)
+    {
+        $data = !empty($data) ? $data :  new \stdClass();
+        $response_array = array('success' => $success, 'code' => $code, 'error' => $error, 'data'=> $data);
+        return $response_array;
+    }
+
+    public function header_response($response_array)
+    {
+        return response()->json($response_array)
+                         ->header('Content-Type', 'text/plain');
+    }
+
+    protected function _response_array($result, $method='')
+    {
+        $data = $method!='' ? new \stdClass() : array();
+        if($result)
+        {
+            $response_array = $this->_json_response(1, [], $result, 200);
+        }
+        else
+        {
+            $errorMessage = array();
+            array_push($errorMessage, "Records not available");
+            $response_array = array('success' => 0, 'code' => 204, 'error' => $errorMessage, 'data'=> $data);
+        }
+
+        return $response_array;
+    }    
+
+    public function index(Request $request)
+    {
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+        $result = $this->reviewService->getProductReviews($validated);
+        return $this->header_response($this->_response_array($result));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'product_id' => 'required|exists:products,id',
+            'rating' => 'required',
+            'review' => 'required'
+        ]);
+
+        $review = $this->reviewService->store($validated);
+
+        return $this->returnJsonResponse('success', $review, 'Review stored successfully');
+    }
+
+}
+
+
+// Review Service:
+
+<?php
+
+namespace App\Services;
+use App\Repositories\ReviewRepository;
+
+class ReviewService
+{
+    protected $reviewRepository;
+
+    public function __construct(
+        ReviewRepository $reviewRepository
+    ) {
+        $this->reviewRepository = $reviewRepository;
+    }
+
+    public function getProductReviews($productId)
+    {
+        return $this->reviewRepository->getProductReviews($productId);
+    }
+
+    public function store($validated)
+    {
+        return $this->reviewRepository->store(
+            $validated['customer_id'],
+            $validated['product_id'],
+            $validated['rating'],
+            $validated['review']
+        );
+    }
+}
+
+// Review Repository
+<?php
+
+namespace App\Repositories;
+use App\Models\api\Review;
+
+class ReviewRepository
+{
+    protected $review;
+
+    public function __construct(
+        Review $review
+    ) {
+        $this->review = $review;
+    }
+
+    public function store($userId, $productId, $rating, $review)
+    {
+        return $this->review->create([
+            'customer_id' => $userId,
+            'product_id' => $productId,
+            'rating' => $rating,
+            'review' => $review,
+        ]);
+    }
+
+    public function getProductReviews($productId)
+    {
+        return $this->review->where('product_id', $productId)->get();
+    }
+}
+
+// Review Model
+
+<?php
+
+namespace App\Models\api;
+
+use App\Models\employee\CustomerModel;
+use Illuminate\Database\Eloquent\Model;
+use DB;
+use Session;
+use Helper;
+
+class Review extends Model
+{
+     protected $table = 'reviews';
+
+     protected $fillable = ['customer_id', 'product_id', 'rating', 'review', 'status'];
+ 
+     public $timestamps = true;
+ 
+    public function customer()
+    {
+        return $this->belongsTo(CustomerModel::class);
+    }
+}

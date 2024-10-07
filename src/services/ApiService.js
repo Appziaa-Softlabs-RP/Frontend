@@ -96,6 +96,22 @@ ApiService.sendOTP = function (data) {
   });
 };
 
+ApiService.submitReview = function (data) {
+  return fetch({
+    url: "/store/reviews/add",
+    method: "post",
+    data: data,
+  });
+};
+
+ApiService.getReviews = function (data) {
+  return fetch({
+    url: "/store/reviews",
+    method: "post",
+    data: data,
+  });
+};
+
 ApiService.VerifyOTP = function (data) {
   return fetch({
     url: "user/verifyotp",
