@@ -120,7 +120,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => {})
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     } else if (activeApi === "categorySub") {
       ApiService.CategoryBySubProd(apiPayload)
         .then((res) => {
@@ -133,7 +136,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => {})
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     } else if (activeApi === "subChild") {
       ApiService.CategoryByProd(apiPayload)
         .then((res) => {
@@ -146,7 +152,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => {})
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     }
   };
 
