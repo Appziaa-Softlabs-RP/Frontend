@@ -35,12 +35,12 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setSubShopCategory(res?.payload_categoryBySubCategory);
       })
-      .catch((err) => {});
+      .catch((err) => { });
     ApiService.CategoryByProd(payload)
       .then((res) => {
         setShopCategoryProd(res?.payload_CategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const getSubCategoryProd = (subId) => {
@@ -57,7 +57,7 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategoryProd(res.payload_SubCategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const getCategoryProd = (currentCat) => {
@@ -74,7 +74,7 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategoryProd(res.payload_CategoryByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const fetchProducts = () => {
@@ -94,14 +94,14 @@ export const SubCategory = ({ verticalSlug }) => {
       .then((res) => {
         setShopCategory(res.payload_verticalByCategory);
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     setApiPayload(payload);
     ApiService.StoreCategoryProd(payload)
       .then((res) => {
         setShopCategoryProd(res.payload_VerticalByProduct);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const LoadMoreProducts = () => {
@@ -120,7 +120,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { })
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     } else if (activeApi === "categorySub") {
       ApiService.CategoryBySubProd(apiPayload)
         .then((res) => {
@@ -133,7 +136,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { })
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     } else if (activeApi === "subChild") {
       ApiService.CategoryByProd(apiPayload)
         .then((res) => {
@@ -146,7 +152,10 @@ export const SubCategory = ({ verticalSlug }) => {
           let newProduct = [...prevProdArr];
           setShopCategoryProd(newProduct);
         })
-        .catch((err) => {});
+        .catch((err) => { })
+        .finally(() => {
+          setApiPayload((prev) => ({ ...prev, page: pageCount }));
+        });
     }
   };
 
@@ -165,7 +174,7 @@ export const SubCategory = ({ verticalSlug }) => {
           .then((res) => {
             setSubShopCategory(res?.payload_categoryBySubCategory);
           })
-          .catch((err) => {});
+          .catch((err) => { });
       }
     });
   }, [shopCategory]);
@@ -185,9 +194,8 @@ export const SubCategory = ({ verticalSlug }) => {
               items={4}
             >
               <div
-                className={`${
-                  catActive === "" && styles.active
-                } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
+                className={`${catActive === "" && styles.active
+                  } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
                 onClick={() => fetchProducts()}
               >
                 <div
@@ -209,9 +217,8 @@ export const SubCategory = ({ verticalSlug }) => {
                 return (
                   <div
                     key={index}
-                    className={`${
-                      catActive === item?.category_id && styles.active
-                    } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
+                    className={`${catActive === item?.category_id && styles.active
+                      } d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
                     onClick={() => getSubCategory(item?.category_id)}
                     ref={(element) => (slideRef.current[index] = element)}
                   >
@@ -241,9 +248,8 @@ export const SubCategory = ({ verticalSlug }) => {
             >
               <span
                 onClick={() => getCategoryProd(currentCat)}
-                className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${
-                  styles.productsItemsName
-                } ${subCatActive === "" && styles.active}`}
+                className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${styles.productsItemsName
+                  } ${subCatActive === "" && styles.active}`}
               >
                 All
               </span>
@@ -252,11 +258,9 @@ export const SubCategory = ({ verticalSlug }) => {
                   <span
                     key={index}
                     onClick={() => getSubCategoryProd(item?.subcategory_id)}
-                    className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${
-                      styles.productsItemsName
-                    } ${
-                      item?.subcategory_id === subCatActive && styles.active
-                    }`}
+                    className={`d-inline-flex align-items-center flex-shrink-0 text-nowrap ${styles.productsItemsName
+                      } ${item?.subcategory_id === subCatActive && styles.active
+                      }`}
                   >
                     {item?.name}
                   </span>
@@ -282,9 +286,8 @@ export const SubCategory = ({ verticalSlug }) => {
                 <React.Fragment key={index}>
                   {item.name !== "" && (
                     <div
-                      className={`${
-                        windowWidth === "mobile" ? "col-6" : "col-3"
-                      } px-2 flex-shrink-0 mb-2`}
+                      className={`${windowWidth === "mobile" ? "col-6" : "col-3"
+                        } px-2 flex-shrink-0 mb-2`}
                       key={index}
                     >
                       <ProductCard item={item} index={index} />

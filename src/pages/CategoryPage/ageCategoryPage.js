@@ -89,6 +89,7 @@ export const AgeCategoryPage = () => {
   const LoadMoreProducts = () => {
     let pageCount = apiPayload?.page;
     pageCount = pageCount + 1;
+    
     ApiService.ageGroupProduct(apiPayload)
       .then((res) => {
         if (res.message === "Fetch successfully.") {
