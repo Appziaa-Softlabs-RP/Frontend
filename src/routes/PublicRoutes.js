@@ -30,6 +30,7 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 import Sitemap from "../Components/Sitemap/SitemapNew";
 import { ShopVerticalPage } from "../pages/CategoryPage/shopVerticalPage";
 import ContactUsPage from "../pages/ContactUs/ContactUs";
+import { SubCategoryPage } from "../pages/SubCategoryPage/SubCategoryPage";
 
 export const PublicRoutes = () => {
   return (
@@ -40,7 +41,7 @@ export const PublicRoutes = () => {
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
-      <Route path="/store/:categorySlug" element={<ShopCategoryPage />} />
+      <Route path="/store/:verticalSlug" element={<SubCategoryPage />} />
       <Route path="/store-product/:category" element={<StoreProductCategory />} />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
