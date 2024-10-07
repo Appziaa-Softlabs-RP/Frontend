@@ -26,6 +26,10 @@ export default function ShowReviews({ product_id, total_rating = null }) {
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
+    if(!total_rating) {
+        return null;
+    }
+
     return (
         <div className="">
             <div className='d-flex flex-row align-items-center'>
