@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from './MyOrdersBox.module.css';
 import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
@@ -13,25 +13,25 @@ export const MyOrdersBox = () => {
 
     const openOrderDetail = (id) => {
         const payload = {
-            company_id:parseInt(enviroment.COMPANY_ID),
+            company_id: parseInt(enviroment.COMPANY_ID),
             store_id: parseInt(enviroment.STORE_ID),
-            customer_id:userInfo?.customer_id,
+            customer_id: userInfo?.customer_id,
             order_id: id
         }
-        navigate('/order-details', {state: {payload: payload}});
+        navigate('/order-details', { state: { payload: payload } });
     }
 
     useEffect(() => {
-        if(userInfo?.customer_id){
+        if (userInfo?.customer_id) {
             const payload = {
-                company_id:parseInt(enviroment.COMPANY_ID),
+                company_id: parseInt(enviroment.COMPANY_ID),
                 store_id: parseInt(enviroment.STORE_ID),
-                customer_id:userInfo?.customer_id
+                customer_id: userInfo?.customer_id
             }
             ApiService.orderList(payload).then((res) => {
                 allOrder(res?.payload_orderList);
             }).catch((err) => {
-                
+
             });
         }
     }, []);
@@ -39,12 +39,12 @@ export const MyOrdersBox = () => {
         <React.Fragment>
             <div className="col-12 d-inline-flex px-3 flex-column gap-2 p-3">
                 {orders?.length > 0 && orders.map((item, index) => {
-                    return(
+                    return (
                         <div className={`${styles.orderBox} col-12 d-inline-flex flex-column rounded p-2`} key={index}>
                             <h1 className={`${styles.orderLabel} col-12 d-inline-flex mb-2`}>Order ID: {item?.order_id}</h1>
                             <div className="d-inline-flex col-12 justify-content-between gap-3">
                                 <span className={`${styles.orderImag} flex-shrink-0 d-inline-flex`}>
-                                    <img src={item?.image} alt={item?.name} className="h-100 w-100 object-fit-cover"/>
+                                    <img src={item?.image} alt={item?.name} className="h-100 w-100 object-fit-cover" />
                                 </span>
                                 <div className="flex-grow-1 d-inline-flex flex-column gap-1">
                                     <span className={`${styles.orderItemName} col-12 d-inline-flex`}></span>

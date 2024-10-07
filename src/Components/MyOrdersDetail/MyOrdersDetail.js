@@ -60,6 +60,7 @@ export const MyOrdersDetail = ({ orderDetail }) => {
                                     </div>
                                 </Link>
                                 <div className={`d-inline-flex flex-wrap gap-2 ps-5 col-12 mb-3 mt-3`}>
+                                    {/* {JSON.stringify(item)} */}
                                     <span className={`${styles.assurityTabs} d-inline-flex align-items-center`}>Fastest Delivery</span>
                                     <span className={`${styles.assurityTabs} d-inline-flex align-items-center`}>100% Genuine Product</span>
                                 </div>
@@ -86,9 +87,14 @@ export const MyOrdersDetail = ({ orderDetail }) => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="d-inline-flex justify-content-end col-12">
-                                            <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`} onClick={() => cancelItem(item.item_id, item.name)}>Cancel Item</span>
-                                        </div>
+                                        {/* {JSON.stringify(orderDetail)} */}
+                                        {
+                                            !orderDetail?.is_shiprocket_shipment_created ?
+                                                <div className="d-inline-flex justify-content-end col-12">
+                                                    <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`} onClick={() => cancelItem(item.item_id, item.name)}>Cancel Item</span>
+                                                </div>
+                                                : null
+                                        }
                                     </React.Fragment>
                                 }
                             </div>
