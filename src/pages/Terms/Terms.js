@@ -35,7 +35,7 @@ export const Terms = () => {
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
+            <span className="c4">&nbsp;October 1, 2024</span>
           </p>
           <p className="c6">
             <span className="c2">
@@ -56,7 +56,7 @@ export const Terms = () => {
             </span>
           </p>
           <p className="c6">
-            <span className="c1">1. Account Creation and Use</span>
+            <span className="c1 fw-bold">1. Account Creation and Use</span>
           </p>
           <ul className="c10 lst-kix_41vytponpesc-0 start">
             <li className="c0 li-bullet-0">
@@ -80,7 +80,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">2. Orders and Payments</span>
+            <span className="c1 fw-bold">2. Orders and Payments</span>
           </p>
           <ul className="c10 lst-kix_x9trviihoyda-0 start">
             <li className="c0 li-bullet-0">
@@ -107,7 +107,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">3. Shipping and Delivery</span>
+            <span className="c1 fw-bold">3. Shipping and Delivery</span>
           </p>
           <ul className="c10 lst-kix_hys2k6nfua2y-0 start">
             <li className="c0 li-bullet-0">
@@ -135,7 +135,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">4. Returns and Refunds</span>
+            <span className="c1 fw-bold">4. Returns and Refunds</span>
           </p>
           <ul className="c10 lst-kix_vlvevcfz125y-0 start">
             <li className="c0 li-bullet-0">
@@ -146,7 +146,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">5. Intellectual Property</span>
+            <span className="c1 fw-bold">5. Intellectual Property</span>
           </p>
           <ul className="c10 lst-kix_ui22japon8s6-0 start">
             <li className="c0 li-bullet-0">
@@ -164,7 +164,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">6. User Conduct</span>
+            <span className="c1 fw-bold">6. User Conduct</span>
           </p>
           <ul className="c10 lst-kix_t7wxppec3y21-0 start">
             <li className="c0 li-bullet-0">
@@ -186,7 +186,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">7. Disclaimer of Warranties</span>
+            <span className="c1 fw-bold">7. Disclaimer of Warranties</span>
           </p>
           <ul className="c10 lst-kix_9wcnank9vdef-0 start">
             <li className="c0 li-bullet-0">
@@ -199,7 +199,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">8. Limitation of Liability</span>
+            <span className="c1 fw-bold">8. Limitation of Liability</span>
           </p>
           <ul className="c10 lst-kix_p13n24n4ehlw-0 start">
             <li className="c0 li-bullet-0">
@@ -211,7 +211,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">9. Indemnification</span>
+            <span className="c1 fw-bold">9. Indemnification</span>
           </p>
           <ul className="c10 lst-kix_28a2ovzdh5yk-0 start">
             <li className="c0 li-bullet-0">
@@ -223,7 +223,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">10. Changes to Terms &amp; Conditions</span>
+            <span className="c1 fw-bold">10. Changes to Terms &amp; Conditions</span>
           </p>
           <ul className="c10 lst-kix_3hwx62c9dori-0 start">
             <li className="c0 li-bullet-0">
@@ -236,7 +236,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">11. Governing Law</span>
+            <span className="c1 fw-bold">11. Governing Law</span>
           </p>
           <ul className="c10 lst-kix_5fuohnhegco1-0 start">
             <li className="c0 li-bullet-0">
@@ -250,7 +250,7 @@ export const Terms = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">12. Contact Us</span>
+            <span className="c1 fw-bold">12. Contact Us</span>
           </p>
           <p className="c6">
             <span className="c4">
@@ -261,7 +261,7 @@ export const Terms = () => {
             <li className="c0 li-bullet-0">
               <span className="c2">Email:</span>
               <span className="c15">
-                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                <Link className="text-black ms-1 fs-6" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                 {process.env.REACT_APP_EMAIL_ADDRESS}
                 </Link>
               </span>
@@ -274,8 +274,7 @@ export const Terms = () => {
               <span className="c2">Address:</span>
               <span className="c8">&nbsp;</span>
               <span className="c14">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.,
-                India,{" "}
+                {enviroment.STORE_ADDRESS},{" "}
               </span>
             </li>
           </ul>

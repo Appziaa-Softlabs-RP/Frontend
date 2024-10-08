@@ -28,7 +28,7 @@ export const Privacy = () => {
             <span className="c2">&nbsp;2024-02-29</span>
           </p>
           <p className="c0">
-            <span className="c1">Introduction</span>
+            <span className="c1 fw-bold">Introduction</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -36,21 +36,20 @@ export const Privacy = () => {
               &quot;us,&quot; or &quot;our&quot;) collects, uses, and discloses
               your personal information when you visit our website at
               {process.env.REACT_APP_URL} (the &quot;Site&quot;) or make purchases at our
-              physical store located at 42, Cycle Market, Jhandewalan Extension,
-              New Delhi 110055. (the &quot;Store&quot;).
+              physical store located at {enviroment.STORE_ADDRESS}. (the &quot;Store&quot;).
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Information We Collect</span>
+            <span className="c1 fw-bold">Information We Collect</span>
           </p>
           <p className="c0">
-            <span className="c2">
+            <span className="c2 fw-bold">
               We collect the following types of information:
             </span>
           </p>
           <ul className="c4 lst-kix_ynkx6yj7mq8n-0 start">
             <li className="c3 li-bullet-0">
-              <span className="c6">Personal Information:</span>
+              <span className="c6 fw-bold">Personal Information:</span>
               <span className="c2">
                 &nbsp;This includes information that can be used to identify
                 you, such as your name, email address, phone number, billing and
@@ -58,7 +57,7 @@ export const Privacy = () => {
               </span>
             </li>
             <li className="c3 li-bullet-0">
-              <span className="c6">Device Information:</span>
+              <span className="c6 fw-bold">Device Information:</span>
               <span className="c2">
                 &nbsp;This includes information about your device, such as your
                 browser type, IP address, operating system, and referring
@@ -66,7 +65,7 @@ export const Privacy = () => {
               </span>
             </li>
             <li className="c3 li-bullet-0">
-              <span className="c6">Usage Information:</span>
+              <span className="c6 fw-bold">Usage Information:</span>
               <span className="c2">
                 &nbsp;This includes information about your activity on the Site,
                 such as the pages you visit, the products you view, and the
@@ -75,10 +74,10 @@ export const Privacy = () => {
             </li>
           </ul>
           <p className="c0">
-            <span className="c1">How We Collect Information</span>
+            <span className="c1 fw-bold">How We Collect Information</span>
           </p>
           <p className="c0">
-            <span className="c2">
+            <span className="c2 fw-bold">
               We collect information in the following ways:
             </span>
           </p>
@@ -109,10 +108,10 @@ export const Privacy = () => {
             </li>
           </ul>
           <p className="c0">
-            <span className="c1">How We Use Your Information</span>
+            <span className="c1 fw-bold">How We Use Your Information</span>
           </p>
           <p className="c0">
-            <span className="c2">
+            <span className="c2 fw-bold">
               We use your information for the following purposes:
             </span>
           </p>
@@ -146,7 +145,7 @@ export const Privacy = () => {
             </li>
           </ul>
           <p className="c0">
-            <span className="c1">Sharing Your Information</span>
+            <span className="c1 fw-bold">Sharing Your Information</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -165,7 +164,7 @@ export const Privacy = () => {
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Your Choices</span>
+            <span className="c1 fw-bold">Your Choices</span>
           </p>
           <p className="c0">
             <span className="c9">
@@ -177,7 +176,7 @@ export const Privacy = () => {
             <span className="c1">{process.env.REACT_APP_EMAIL_ADDRESS}</span>
           </p>
           <p className="c0">
-            <span className="c1">Data Retention</span>
+            <span className="c1 fw-bold">Data Retention</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -187,7 +186,7 @@ export const Privacy = () => {
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Security</span>
+            <span className="c1 fw-bold">Security</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -198,7 +197,7 @@ export const Privacy = () => {
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Children&#39;s Privacy</span>
+            <span className="c1 fw-bold">Children&#39;s Privacy</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -210,7 +209,7 @@ export const Privacy = () => {
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Changes to this Privacy Policy</span>
+            <span className="c1 fw-bold">Changes to this Privacy Policy</span>
           </p>
           <p className="c0">
             <span className="c2">
@@ -221,7 +220,7 @@ export const Privacy = () => {
             </span>
           </p>
           <p className="c0">
-            <span className="c1">Contact Us</span>
+            <span className="c1 fw-bold">Contact Us</span>
           </p>
           <p className="c0">
             <span className="c9">
@@ -229,8 +228,8 @@ export const Privacy = () => {
               contact us at{" "}
             </span>
             <span className="c15 c16">
-              <Link className="c7" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
-              {process.env.REACT_APP_EMAIL_ADDRESS}
+              <Link className="text-black fs-6" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                {process.env.REACT_APP_EMAIL_ADDRESS}
               </Link>
             </span>
             <span className="c6">&nbsp;</span>

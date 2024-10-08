@@ -20,18 +20,18 @@ export const Cancellation = () => {
       ) : (
         <Header />
       )}
-      <div className="min-vh-100 col-12 d-inline-flex flex-column">
+      <div className="min-vh-100 col-12 mt-5 d-inline-flex flex-column">
         <div className="container">
           <h1>Cancellation Policy</h1>
           <p className="c6">
-            <span className="c7">{process.env.REACT_APP_BUSINESS_NAME} Cancellation Policy</span>
+            <span className="c7 fw-bold">{process.env.REACT_APP_BUSINESS_NAME} Cancellation Policy</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
+            <span className="c4">&nbsp;October 1, 2024</span>
           </p>
           <p className="c6">
-            <span className="c1">Cancellation Window:</span>
+            <span className="c1 fw-bold">Cancellation Window:</span>
           </p>
           <p className="c6">
             <span className="c8">{process.env.REACT_APP_BUSINESS_NAME} offers a </span>
@@ -42,7 +42,7 @@ export const Cancellation = () => {
             </span>
           </p>
           <p className="c6">
-            <span className="c1">Items Eligible for Cancellation:</span>
+            <span className="c1 fw-bold">Items Eligible for Cancellation:</span>
           </p>
           <ul className="c10 lst-kix_isgwu580cs8w-0 start">
             <li className="c0 li-bullet-0">
@@ -65,7 +65,7 @@ export const Cancellation = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Cancellation Process:</span>
+            <span className="c1 fw-bold">Cancellation Process:</span>
           </p>
           <ul className="c10 lst-kix_cb5fqzi5fw09-0 start">
             <li className="c0 li-bullet-0">
@@ -75,7 +75,7 @@ export const Cancellation = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                <Link className="text-black fs-6" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                   {process.env.REACT_APP_EMAIL_ADDRESS}
                 </Link>
               </span>
@@ -99,8 +99,7 @@ export const Cancellation = () => {
                 location at{" "}
               </span>
               <span className="c14 c18">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
+                {enviroment.STORE_ADDRESS},{" "}
               </span>
               <span className="c4">
                 &nbsp;within the 7-day Cancellation window. Please bring your
@@ -109,7 +108,7 @@ export const Cancellation = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Shipping Costs:</span>
+            <span className="c1 fw-bold">Shipping Costs:</span>
           </p>
           <ul className="c10 lst-kix_aafslp5ju28a-0 start">
             <li className="c0 li-bullet-0">
@@ -126,7 +125,7 @@ export const Cancellation = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Refunds:</span>
+            <span className="c1 fw-bold">Refunds:</span>
           </p>
           <ul className="c10 lst-kix_aucshdx3yxsx-0 start">
             <li className="c0 li-bullet-0">
@@ -144,7 +143,7 @@ export const Cancellation = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Exclusions:</span>
+            <span className="c1 fw-bold">Exclusions:</span>
           </p>
           <ul className="c10 lst-kix_ja24afuyk4no-0 start">
             <li className="c0 li-bullet-0">
@@ -163,7 +162,7 @@ export const Cancellation = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Contact Us:</span>
+            <span className="c1 fw-bold">Contact Us:</span>
           </p>
           <p className="c6">
             <span className="c8">
@@ -171,7 +170,7 @@ export const Cancellation = () => {
               contact us at{" "}
             </span>
             <span className="c15">
-              <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+              <Link className="text-black fs-6" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                 {process.env.REACT_APP_EMAIL_ADDRESS}
               </Link>
             </span>

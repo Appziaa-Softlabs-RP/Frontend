@@ -23,15 +23,15 @@ export const Return = () => {
       <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
         <div className="container">
           <h1>Return Policy</h1>
-          <p className="c6">
+          <p className="c6 fw-bold">
             <span className="c7">{process.env.REACT_APP_BUSINESS_NAME} Return Policy</span>
           </p>
           <p className="c6">
             <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
+            <span className="c4">&nbsp;October 1, 2024</span>
           </p>
           <p className="c6">
-            <span className="c1">Return Window:</span>
+            <span className="c1 fw-bold">Return Window:</span>
           </p>
           <p className="c6">
             <span className="c8">{process.env.REACT_APP_BUSINESS_NAME} offers a </span>
@@ -42,7 +42,7 @@ export const Return = () => {
             </span>
           </p>
           <p className="c6">
-            <span className="c1">Items Eligible for Return:</span>
+            <span className="c1 fw-bold">Items Eligible for Return:</span>
           </p>
           <ul className="c10 lst-kix_isgwu580cs8w-0 start">
             <li className="c0 li-bullet-0">
@@ -65,7 +65,7 @@ export const Return = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Return Process:</span>
+            <span className="c1 fw-bold">Return Process:</span>
           </p>
           <ul className="c10 lst-kix_cb5fqzi5fw09-0 start">
             <li className="c0 li-bullet-0">
@@ -75,7 +75,7 @@ export const Return = () => {
                 contact us via email at{" "}
               </span>
               <span className="c15">
-                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+                <Link className="c17 fs-6 text-black" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                   {process.env.REACT_APP_EMAIL_ADDRESS}
                 </Link>
               </span>
@@ -98,8 +98,7 @@ export const Return = () => {
                 &nbsp;You may return items purchased in-store to our location at{" "}
               </span>
               <span className="c14 c18">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
+                {enviroment.STORE_ADDRESS},{" "}
               </span>
               <span className="c4">
                 &nbsp;within the 7-day return window. Please bring your receipt
@@ -107,10 +106,10 @@ export const Return = () => {
               </span>
             </li>
           </ul>
-          <p className="c6">
-            <span className="c1">Shipping Costs:</span>
-          </p>
-          <ul className="c10 lst-kix_aafslp5ju28a-0 start">
+          {/* <p className="c6">
+            <span className="c1 fw-bold">Shipping Costs:</span>
+          </p> */}
+          {/* <ul className="c10 lst-kix_aafslp5ju28a-0 start">
             <li className="c0 li-bullet-0">
               <span className="c4">
                 You are responsible for the cost of shipping the returned
@@ -123,9 +122,9 @@ export const Return = () => {
                 location.
               </span>
             </li>
-          </ul>
+          </ul> */}
           <p className="c6">
-            <span className="c1">Refunds:</span>
+            <span className="c1 fw-bold">Refunds:</span>
           </p>
           <ul className="c10 lst-kix_aucshdx3yxsx-0 start">
             <li className="c0 li-bullet-0">
@@ -143,12 +142,12 @@ export const Return = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Exclusions:</span>
+            <span className="c1 fw-bold">Exclusions:</span>
           </p>
           <ul className="c10 lst-kix_ja24afuyk4no-0 start">
             <li className="c0 li-bullet-0">
               <span className="c4">
-                This return policy applies only to purchases made from
+                This return policy applies only to purchases made from&nbsp;
                 {process.env.REACT_APP_BUSINESS_NAME}. Items purchased from other retailers or through
                 third-party marketplaces may have different return policies.
               </span>
@@ -161,7 +160,7 @@ export const Return = () => {
             </li>
           </ul>
           <p className="c6">
-            <span className="c1">Contact Us:</span>
+            <span className="c1 fw-bold">Contact Us:</span>
           </p>
           <p className="c6">
             <span className="c8">
@@ -169,7 +168,7 @@ export const Return = () => {
               us at{" "}
             </span>
             <span className="c15">
-              <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
+              <Link className="text-black fs-6" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
                 {process.env.REACT_APP_EMAIL_ADDRESS}
               </Link>
             </span>

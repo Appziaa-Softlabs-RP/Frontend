@@ -25,7 +25,7 @@ export const Payments = () => {
           <h1>Payments</h1>
           <p className="c6">
             <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
+            <span className="c4">&nbsp;October 1, 2024</span>
           </p>
           <p className="c6">
             <span className="c1">1. Introduction</span>
@@ -181,8 +181,7 @@ export const Payments = () => {
               <span className="c2">Address:</span>
               <span className="c8">&nbsp;</span>
               <span className="c14">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
+              {enviroment.STORE_ADDRESS},{" "}
               </span>
             </li>
           </ul>
