@@ -71,9 +71,13 @@ export const MyOrdersDetail = ({orderDetail}) => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="d-inline-flex justify-content-end col-12">
-                                        <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`} onClick={() => cancelItem(item.item_id, item.name)}>Cancel Item</span>
-                                    </div>
+                                    {
+                                            !orderDetail?.is_shiprocket_shipment_created ?
+                                                <div className="d-inline-flex justify-content-end col-12">
+                                                    <span role="button" className={`${styles.reSchduleBtn} d-inline-flex align-items-center px-3`} onClick={() => cancelItem(item.item_id, item.name)}>Cancel Item</span>
+                                                </div>
+                                                : null
+                                        }
                                 </React.Fragment>
                             }
                         </div>
