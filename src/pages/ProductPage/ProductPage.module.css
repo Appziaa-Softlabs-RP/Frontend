@@ -20,6 +20,7 @@
 }
 .productDetailName{
     font-size: 16px;
+    font-weight: 400 !important;
     line-height: 18px;
     color: #000;
 }
@@ -29,14 +30,11 @@
     color: #16253B;
 }
 .offerPercentage{
-    background: #389956;
-    color: #FFF;
+    color: rgba(253, 42, 42, 0.613);
 	font-weight: 600;
 	border-radius: 4px;
-	font-size: 14px;
+	font-size: 24px;
 	line-height: 10px;
-	padding: 6px 10px;
-	margin-left: 10px;
 }
 .inclusivTax{
     font-size: 14px;
@@ -73,7 +71,7 @@
 	z-index: 5;
 }
 .soldOutText{
-    background: #ED1F29;
+    background: #000;
 	-webkit-transform: rotate(-5deg) translateY(-50%);
 	transform: rotate(-5deg) translateY(-50%);
 	border-radius: 4px;
@@ -90,7 +88,6 @@
 }
 /* Desktop CSS */
 .productContainer{
-    background: #FFF;
     border-radius: 8px;
 }
 .productMainImage{
@@ -99,17 +96,34 @@
 }
 .productGalleryRow .galleryBox{
     border: 1px solid #EEE;
-    height: 100%;
+    height: 80px;
+    max-height: 83px;
+    width: 83px;
+    max-width: 83px;
 }
 .productGalleryRow .galleryBox.activeGallery{
-    border: 1px solid var(--PRIMARY_COLOR);
+    border: 2px solid red;
+    padding: 0px;
     height: 100%;
 }
 .continueShop {
     background: var(--ADD_BUTTON_COLOR);
+    text-transform: uppercase;
+    letter-spacing: 3px;
     padding: 0px 10px;
     color: #FFF;
-    border-radius: 10px;
+    border: 2px solid var(--ADD_BUTTON_COLOR);
+    height: 50px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+}
+.wishlist {
+    background: #FFF;
+    border: 2px solid var(--ADD_BUTTON_COLOR);
+    padding: 0px 10px;
+    color: black;
+    width: 100%;
     height: 50px;
     font-size: 16px;
     line-height: 16px;
@@ -117,17 +131,31 @@
 }
 .specialTitle{
     font-size: 16px;
-    color: #808080;
-    font-weight: 500;
+    color: black;
+    font-weight: 600;
 }
 .productDescHeader{
     padding: 15px;
     border-bottom: 1px solid #999;
 }
 .productDescTitle{
-    color: #151515;
+    background-color: white;
+    color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 5px;
     font-size: 16px;
+    font-weight: 600;
 }
+
+.productDescTitle h4{
+    font-size: 16px;
+    margin: 0px;
+}
+
 .prodDescAnswer{
     padding: 24px;
     color: #151515;
@@ -138,6 +166,13 @@
     color: #000;
     font-weight: 700;
 }
+.deliveryInputBox{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 100px;
+    width: 100%;
+    align-items: center;
+}
 .deliveryInputBox svg{
     height: 30px;
     width: 30px;
@@ -147,11 +182,12 @@
     position: absolute;
 }
 .deliveryInput{
-    height: 50px;
+    /* height: 50px; */
     border: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #bfbdbd;
     box-shadow: none;
-    padding: 10px 80px 10px 40px;
+    padding: 5px 10px;
+    font-size: 15px;
     background: transparent;
 }
 .deliveryInput:focus{
@@ -159,11 +195,11 @@
 }
 .deliveryBtn{
     box-shadow: none;
-    border: none;
+    border: 1px solid black;
     right: 0;
     top: 0;
-    height: 100%;
-    padding: 0 10px;
+    padding: 5px 10px;
+    height: fit-content;
     background: transparent;
     font-size: 14px;
     font-weight: 600;
@@ -208,7 +244,9 @@
     background: #FFF;
 }
 .productDetailBox {
+    margin-top: 48px;
     background: #FFF;
+    border-radius: 6px;
 }
 .shareIcon {
     z-index: 1055;
@@ -307,7 +345,7 @@
 }
 .productSubLine {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
 }
 .brandName {
     font-weight: 700;
@@ -330,6 +368,8 @@
 }
 @media screen and (min-width:568px) {
     .productDetailName{
+        margin: 0px;
+        text-align: left;
         font-size: 28px;
         line-height: 34px;
         font-weight: 600;

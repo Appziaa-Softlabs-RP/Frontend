@@ -7,39 +7,39 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { ProductCard } from "../ProductCard/ProductCard";
 
-export const NewArrival = () => {
+export const HomeCategories = () => {
     const appData = useApp();
     let windowWidth = appData.appData.windowWidth;
-    const [productData, setProductData] = useState([]);
-
+    const [categoriesData, setCategoriesData] = useState([]);
     const isMobile = windowWidth === "mobile";
 
     useEffect(() => {
         const payload = {
-            store_id: parseInt(enviroment.STORE_ID)
+            company_id: parseInt(enviroment.COMPANY_ID),
         }
-        ApiService.newArrivals(payload).then((res) => {
-            setProductData(res.payload_newarrivalRandom);
+        ApiService.homeCategories(payload).then((res) => {
+            setCategoriesData(res.payload);
         }).catch((err) => {
 
         });
     }, []);
     return (
-        <div className='border-section'>
-            {productData?.length > 0 &&
-                <div className={`col-12 ${windowWidth === "desktop" && 'px-3'} d-inline-flex`}>
-                    <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
+        categoriesData?.length > 0 &&
+        categoriesData.map((category, index) => (
+            <div className='border-section'>
+                <div className={`col-12 d-inline-flex`}>
+                    <div className={`container-fluid`}>
                         <div className={`col-12 ${windowWidth === 'mobile' ? 'px-3' : 'm-0'} d-inline-flex flex-column`}>
                             <div className="titlesWrapper">
                                 <h5
                                     className={`titleMainSmall col-12`}
                                 >
-                                    Featured collection
+                                    Deals for you
                                 </h5>
                                 <p
                                     className={`subTitleLarge col-12`}
                                 >
-                                    New Arrivals
+                                    {category?.cname}
                                 </p>
                             </div>
                             <ReactOwlCarousel
@@ -57,32 +57,31 @@ export const NewArrival = () => {
                                     1210: { items: 4 },
                                 }}
                             >
-                                {productData
-                                    ?.sort((a, b) => b.stock - a.stock)
-                                    .map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="item"
-                                            style={{
-                                                padding: "15px",
-                                                transition: "transform 0.3s",
-                                                cursor: "pointer",
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.transform = "scale(1.05)";
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.transform = "scale(1)";
-                                            }}
-                                        >
-                                            <ProductCard item={item} index={index} />
-                                        </div>
-                                    ))}
+                                {category?.products.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="item"
+                                        style={{
+                                            padding: "15px",
+                                            transition: "transform 0.3s",
+                                            cursor: "pointer",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = "scale(1.05)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "scale(1)";
+                                        }}
+                                    >
+                                        <ProductCard item={item} index={index} />
+                                    </div>
+                                ))}
                             </ReactOwlCarousel>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        ))
+
     )
 }

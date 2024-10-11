@@ -17,13 +17,13 @@
   margin-bottom: 15px;
   font-weight: 700;
   font-size: 15px;
-  color: #000;
+  color: white;
 }
 
 .footerMenu li a {
   display: inline-block;
   padding: 4px 0;
-  color: #000;
+  color: white;
   font-size: 14px;
 }
 
@@ -47,7 +47,8 @@
 /* Desktop CSS */
 .footerContainer {
   margin-top: 20px;
-  background-color: var(--MENU_HOVER_COLOR);
+  background-color: var(--PRIMARY_COLOR);
+  color: white;
 }
 .imgBoxText .imgBoxTitle {
   font-size: 18px;
@@ -62,12 +63,12 @@
   width: 80px;
 }
 .footerTabCol h5 {
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 14px;
 }
 .footerTabCol ul li a {
-  color: #555;
+  color: #e9e7e7;
   font-size: 14px;
 }
 .copyright p {
@@ -78,6 +79,6 @@
   width: 15px;
 }
 .whatsAppLink {
-  color: #111;
+  color: white;
   font-size: 14px;
 }

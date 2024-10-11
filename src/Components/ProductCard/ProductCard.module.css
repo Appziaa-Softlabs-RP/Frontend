@@ -1,7 +1,6 @@
+
 .singleFeaturedProduct {
-  border: 1px solid #ddd;
-  padding: 10px 12px 45px;
-  background: #fff;
+  background: transparent;
   border-radius: 10px;
 }
 .featureOffBox {
@@ -17,7 +16,7 @@
   z-index: 1;
 }
 .featuredImageBox {
-  /* padding-top: 100%; */
+  padding: 0px;
   border-radius: 5px;
 }
 .featuredImageBox img {
@@ -38,7 +37,7 @@
   text-transform: uppercase;
   font-weight: bold;
   color: #fff;
-  font-size: 11px;
+  font-size: 16px;
   text-align: center;
   padding: 4px 5px;
   z-index: 2;
@@ -68,7 +67,7 @@
   white-space: normal;
 }
 .offerPrice {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   color: #16253b;
 }
@@ -80,6 +79,7 @@
 }
 .addCartBtn {
   background: var(--ADD_BUTTON_COLOR);
+  border: none;
   padding: 0 15px;
   color: #fff;
   border-radius: 10px;
@@ -174,7 +174,13 @@
   }
   .singleFeaturedProduct {
     padding-bottom: 60px;
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  .singleFeaturedProduct:hover{
+    transform: scale(0.95);
+  }
+
   .countValue {
     width: 40px;
   }

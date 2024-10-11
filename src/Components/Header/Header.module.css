@@ -2,19 +2,37 @@
   padding: 15px 0px 150px;
   background: var(--PRIMARY_COLOR);
 }
+
 .menuIconBox,
 .cartIconBox {
   height: 50px;
   width: 50px;
+  margin: 0px 10px;
 }
+
 .menuIconBox svg,
 .cartIconBox svg {
   height: 25px;
   width: 25px;
 }
+
 .siteLogoBox img {
-  height: 70px;
+  position: absolute;
+  height: 40px;
 }
+
+.cartCountMobile {
+  font-size: 10px;
+  line-height: 11px;
+  background: var(--SECONDARY_COLOR);
+  color: var(--PRIMARY_COLOR);
+  height: 15px;
+  padding: 0px 5px;
+  top: 0px;
+  right: 10px;
+  border-radius: 6px;
+}
+
 .cartCount {
   font-size: 10px;
   line-height: 11px;
@@ -22,50 +40,77 @@
   color: var(--PRIMARY_COLOR);
   height: 15px;
   padding: 0px 5px;
-  top: 6px;
-  right: 6px;
+  top: -12px;
+  right: -5px;
   border-radius: 6px;
 }
+
 .searchProdInput {
-  height: 40px;
-  border-radius: 35px;
-  color: #000;
+  height: 50px;
+  border-radius: 10px;
+  color: #212020;
   font-size: 15px;
   box-shadow: none;
   border: none;
   padding: 15px;
 }
+
+.searchProdInput::placeholder {
+  color: rgb(167, 165, 165);
+  font-weight: 500;
+}
+
 .searchProdInput:focus {
   outline: none;
 }
+
 .topHeaderSale {
-  background: var(--SECONDARY_COLOR);
-  height: 30px;
+  background: #007B61;
 }
+
+.dealsLinkWrapper{
+  min-height: 42px;
+}
+
 .dealsLink {
-  font-size: 16px;
+  font-size: 11px;
+  font-weight: 500;
   line-height: 16px;
-  color: #fff;
+  color: #FFF;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
+
 .headerRow {
   background: var(--PRIMARY_COLOR);
-  height: 74px;
+  /* height: 74px; */
+  padding: 20px;
 }
+
 /* Desktop CSS */
 .supportDrop svg {
   height: 20px;
   width: 20px;
-  color: #fff;
+  /* color: #FFF; */
 }
+
 .supportDrop .supportText {
   font-size: 16px;
-  color: #fff;
   font-weight: 500;
 }
+
+.supportDrop {
+  color: #ffffff;
+}
+
+.supportDrop:hover {
+  color: #FAC100;
+}
+
 .supportDropDown {
   opacity: 0;
   visibility: hidden;
-  background: #fff;
+  background: #FFF;
   left: 50%;
   transition: all ease 400ms;
   -webkit-transition: all ease 400ms;
@@ -74,32 +119,37 @@
   top: 70px;
   width: 320px;
   border-radius: 4px;
-  box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.10);
   z-index: 5;
   padding: 20px;
 }
+
 .supportDrop:hover .supportDropDown {
   transform: translateX(-50%) translateY(0%);
   -webkit-transform: translateX(-50%) translateY(0%);
   opacity: 1;
   visibility: visible;
 }
+
 .timingPhoneBox {
-  background: #e0f9fe;
+  background: #fff7db;
   padding: 10px;
   border-radius: 10px;
 }
+
 .timingPhoneBox .timingCallIcon {
   position: absolute;
   height: 25px;
   top: 50%;
   margin-top: -12px;
 }
+
 .supportTimings {
   font-size: 14px;
   color: #000;
   line-height: 1.5;
 }
+
 .supportPhoneNumber,
 .mailtoEmail {
   font-size: 18px;
@@ -107,115 +157,145 @@
   font-weight: 600;
   line-height: 2;
 }
+
 .mailtoBox {
   background: #f8f8f8;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0px;
 }
+
 .mailtoBox svg {
   height: 25px;
   width: 25px;
 }
+
 .supportLinks {
   font-size: 14px;
   color: #000;
 }
+
 .dotSymbol {
   font-size: 20px;
   color: #000;
 }
+
 .searchIcon,
 .searchIcon svg {
   height: 20px;
   width: 20px;
 }
+
 .inputSearch {
-  height: 45px;
+  padding: 25px;
+  width: 100vw;
+  left: 0;
+  right: 0;
   border-radius: 6px;
-  background: #fff;
-  font-size: 16px;
+  background: #edecec;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   color: #000;
   border: none;
   box-shadow: none;
 }
+
 .inputSearch:focus {
   border: none;
   box-shadow: none;
   outline: none;
 }
+
 .headerNavList {
-  background: #fff;
+  background: #FFF;
 }
-.headerMenuRow {
-  height: 50px;
+
+.headerMenuItems{
+  display: flex;
+  padding: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: fit-content;
+  gap: 10px;
 }
+
 .headerNavBox {
-  min-width: "fit-content";
-  margin: 0 15px;
+  cursor: pointer;
+  padding: 10px;
   white-space: nowrap;
 }
+
 .menuName,
 .subMenuName {
-  font-size: 15px;
-  color: #000;
+  font-size: 14px;
+  color: var(--SECONDARY_COLOR);
 }
+
 .menuName {
-  font-weight: 500;
+  min-width: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+.headerNavBox:hover .menuName {
+  text-decoration: underline;
+}
+
+.menuName {
+  font-weight: 600;
+}
+
 .menuName svg {
   transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   height: 8px;
   width: 8px;
-  transition: transform 0.1s, -webkit-transform 0.1s;
+  transition: transform .1s, -webkit-transform .1s;
 }
+
 .SubMenuList {
-  background: #fff;
+  background: var(--PRIMARY_COLOR);
+  color: white;
   z-index: 5;
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
-  top: 48px;
-  border-radius: 5px;
+  box-shadow: 0px 4px 16px 0px rgba(255, 255, 255, 0.2);
+  top: 100%;
   padding: 12px;
   min-width: 240px;
-  left: 0px;
-  opacity: 0;
-  visibility: hidden;
 }
-.headerNavBox:hover .SubMenuList:after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  margin-left: -5px;
-  background: #fff;
-  height: 10px;
-  width: 10px;
-  position: absolute;
-  top: -5px;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  display: inline-block;
-}
+
 .headerNavBox:hover .SubMenuList {
   opacity: 1;
   visibility: visible;
 }
+
 .subMenuName {
   min-height: 40px;
+  color: white;
   border-radius: 4px;
 }
+
 .headerNavBox:hover .menuName svg {
   transform: rotate(-90deg) scaleX(-1);
   -webkit-transform: rotate(-90deg) scaleX(-1);
 }
+
 .subMenuName:hover {
   font-weight: 500;
-  background: var(--MENU_HOVER_COLOR);
+  background: var(--SECONDARY_COLOR);
+}
+
+.subMenuName:hover span {
+  transform: rotate(90deg) translateY(-11px) !important;
 }
 .userAccountDrop {
-  background: #fff;
+  background: #FFF;
   z-index: 5;
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
   top: 74px;
   border-radius: 5px;
   padding: 12px;
@@ -224,50 +304,72 @@
   opacity: 1;
   visibility: visible;
 }
+
 .accountOption {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
   height: 45px;
   font-size: 15px;
   font-weight: 500;
   color: #000;
   padding: 0 10px;
-  transition: 0.1s;
+  transition: .1s;
 }
+
 .accountOption:last-child {
   border-bottom: none;
 }
+
 .accountOption:hover {
   background: var(--MENU_HOVER_COLOR);
 }
+
 .userName {
   font-size: 12px;
   line-height: 12px;
   color: var(--SECONDARY_COLOR);
 }
+
 .showSearchList {
   top: 55px;
   max-height: 230px;
-  background: #fff;
+  background: #FFF;
   z-index: 5;
-  box-shadow: 0px 16px 16px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 16px 16px 0px rgba(0, 0, 0, 0.30);
 }
+
 .searchRow {
   font-size: 16px;
   color: #000;
-  border-bottom: 1px solid #eee;
-  transition: 0.2s;
+  border-bottom: 1px solid #EEE;
+  transition: .2s;
 }
+
 .searchRow:hover {
   background: var(--MENU_HOVER_COLOR);
 }
+
 .showSearchListMobile.showSearchList {
   top: 40px;
-  box-shadow: 0px 3px 7px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 7px 5px rgba(0, 0, 0, 0.20);
   border-radius: 10px;
 }
-@media screen and (min-width: 568px) {
-  .cartCount {
-    top: -8px;
-    right: -8px;
+
+@media screen and (max-width: 560px) {
+  .hideInMobile {
+      display: none !important;
+  }
+}
+
+
+@media screen and (max-width:1070px) {
+  .supportHideOnMobile {
+      display: none;
+  }
+}
+
+
+@media screen and (max-width:900px) {
+  .headerNavBox {
+      margin: 0px 5px;
   }
 }

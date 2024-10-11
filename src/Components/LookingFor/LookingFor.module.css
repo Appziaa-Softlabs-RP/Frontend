@@ -3,18 +3,45 @@
     font-weight: 700;
 }
 .thumbItem img{
-    /* height: 160px; */
-    margin: 5px;
-    border-radius: 6px;
+    height: 100%;
+    width: 100%;
+    overflow: visible;
     object-fit: cover;
 }
+
+.lookingForContainer{
+    height: 160px;
+    max-height: 160px;
+    width: auto;
+    border-radius: 10px;
+    overflow: visible;
+}
+
+.thumbItem img {
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.thumbItem:hover img {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.thumbItem{
+    padding: 0px 16px;
+}
 .thumbName{
-    font-family: 'Roboto', sans-serif;
-    color: #000;
-    font-size: 16px;
+    color: var(--PRIMARY_COLOR);
     font-weight: bold;
+    font-size: 16px;
 }
 
 .thumbName:hover {
-    color: green;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width:1000px) {
+    .thumbItem{
+        padding: 0px;
+    }
 }

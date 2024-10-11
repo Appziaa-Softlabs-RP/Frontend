@@ -3,14 +3,25 @@ import styles from "./CategoryShop.module.css";
 import ApiService from "../../services/ApiService";
 import { enviroment } from "../../enviroment";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContextProvider";
+import noImage from "../../assets/images/image-not-available.jpg";
 
 export const CategoryShop = () => {
   const [shopCategory, setShopCategory] = useState([]);
   const navigate = useNavigate();
+  const appData = useApp();
 
-  const getCategoryProd = (name, id) => {
-    let category = name?.replaceAll("[^A-Za-z0-9]", "-");
-    navigate(`/store/${category}`, { state: { cat: id } });
+  let windowWidth = appData.appData.windowWidth;
+
+
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
+  };
+
+  const getCategoryProd = (name, name_url) => {
+    navigate(`/store/${name_url}`);
   };
 
   useEffect(() => {
@@ -28,43 +39,46 @@ export const CategoryShop = () => {
       {shopCategory.length > 0 && (
         <div className="col-12 d-inline-flex flex-column p-3">
           <div
-            className={`${styles.categoryBox} col-12 d-inline-flex flex-column p-3`}
+            className={`${styles.categoryBox} col-12 d-inline-flex flex-column py-2`}
           >
-            <h5
-              className={`${styles.exploreByCategoryHeader} col-12 d-inline-flex`}
-            >
-              Explore by Category
-            </h5>
+            {windowWidth === "desktop" && (
+              <h2
+                className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2 `}
+              >
+                Shop By Category
+              </h2>
+            )}
+            {windowWidth === "mobile" && (
+              <h2
+                className={`${styles.exploreByCategoryHeader} mb-2 ps-3 d-inline-block col-12 text-black fs-3 py-2`}
+              >
+                Shop By Category
+              </h2>
+            )}
             <div
-              className={`${styles.lookingContainer} col-12 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}
+              className={`${styles.lookingContainer} col-12 px-2 d-inline-flex flex-wrap align-items-stretch p-0 row-gap-3`}
             >
               {shopCategory.map((item, index) => {
                 return (
                   <div
                     key={index}
                     className={`${styles.categoryblock} d-inline-flex flex-column gap-2`}
-                    onClick={() =>
-                      getCategoryProd(item?.name, item?.vertical_id)
-                    }
+                    onClick={() => getCategoryProd(item?.name, item?.name_url)}
                   >
                     <div
                       className={`${styles.imgBox} d-inline-flex align-items-center justify-content-center overflow-hidden`}
                     >
                       <img
-                        src={
-                          (item.image && item.image) != ""
-                            ? item.image
-                            : "/images/loading.jpg"
-                        }
+                        src={item.image}
+                        onError={(e) => setNoImage(e)}
                         alt={item?.name}
                         className="object-fit-cover h-100 col-12 d-inline-block start-0 top-0"
                       />
                     </div>
                     <p
-                      className={`${styles.categoryProdName} col-12 text-center m-0`}
+                      className={`${styles.categoryProdName} col-12 text-center m-0 fs-6`}
                     >
                       {item?.name}
-                      {JSON.stringify(item.image)}
                     </p>
                   </div>
                 );

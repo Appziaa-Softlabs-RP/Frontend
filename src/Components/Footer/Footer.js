@@ -180,7 +180,7 @@ export const Footer = () => {
                     rel="noopener"
                     title={`${enviroment.BUSINESS_NAME} on Instagram`}
                   >
-                    <InstagramIcon />
+                    <InstagramIcon color="white" />
                     <span className="icon__fallback-text">Instagram</span>
                   </Link>
                 </li>
@@ -194,7 +194,7 @@ export const Footer = () => {
                     rel="noopener"
                     title={`${enviroment.BUSINESS_NAME} on Facebook`}
                   >
-                    <FacebookIcon />
+                    <FacebookIcon color="white" />
                     <span className="icon__fallback-text">Facebook</span>
                   </Link>
                 </li>
@@ -208,7 +208,7 @@ export const Footer = () => {
                     rel="noopener"
                     title={`${enviroment.BUSINESS_NAME}  on Twitter`}
                   >
-                    <TwitterIcon />
+                    <TwitterIcon color="white" />
                     <span className="icon__fallback-text">Twitter</span>
                   </Link>
                 </li>
@@ -222,7 +222,7 @@ export const Footer = () => {
                     rel="noopener"
                     title={`${enviroment.BUSINESS_NAME} on LinkedIn`}
                   >
-                    <LinkedInIcon />
+                    <LinkedInIcon color="white" />
                     <span className="icon__fallback-text">LinkedIn</span>
                   </Link>
                 </li>
@@ -423,7 +423,7 @@ export const Footer = () => {
                         target="_blank"
                         className="text-decoration-none"
                       >
-                        <FacebookIcon />
+                        <FacebookIcon color="white" />
                       </Link>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
@@ -432,12 +432,12 @@ export const Footer = () => {
                         target="_blank"
                         className="text-decoration-none"
                       >
-                        <TwitterIcon />
+                        <TwitterIcon color="white" />
                       </Link>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
                       <Link to={enviroment.INSTAGRAM_LINK} target="_blank">
-                        <InstagramIcon />
+                        <InstagramIcon color="white" />
                       </Link>
                     </li>
                     <li className={`${styles.socialIcon} list-unstyled`}>
@@ -446,7 +446,7 @@ export const Footer = () => {
                         target="_blank"
                         className="text-decoration-none"
                       >
-                        <YoutubeIcon />
+                        <YoutubeIcon color="white" />
                       </Link>
                     </li>
                   </ul>
