@@ -113,13 +113,7 @@ export const ProductCard = ({ item, index }) => {
             ""
           )}
         </Link>
-        <div style={{
-          fontSize: "13px",
-          fontWeight: "500",
-        }} className="mt-2" >
-          {item?.gender_name}
-        </div>
-        <div>
+        <div className="mt-4">
           <Link
             to={`/product/${item?.name_url}`}
             style={{
