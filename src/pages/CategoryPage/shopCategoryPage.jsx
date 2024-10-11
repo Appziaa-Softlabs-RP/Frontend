@@ -105,7 +105,7 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: verticalSlug,
+      vertical_slug: categorySlug,
     };
     setFilterVert(categorySlug);
     setFilterCatg(categorySlug);
@@ -132,6 +132,19 @@ export const ShopCategoryPage = () => {
         className={`mt-4 col-12 d-inline-flex flex-column mt-4`}
       >
         <div className="hero">
+          {/* {locationState?.state?.banner !== "" &&
+            locationState?.state?.banner !== null &&
+            locationState?.state?.banner !== undefined && (
+              <div
+                className={`${styles.ageBannerRow} col-12 d-inline-flex mb-4`}
+              >
+                <img
+                  src={locationState.state.banner[0]?.image}
+                  alt="Banner"
+                  className="col-12 d-inline-block"
+                />
+              </div>
+            )} */}
           {loading && <ProductListLoader />}
           {loading === false && (
             <div
@@ -155,38 +168,38 @@ export const ShopCategoryPage = () => {
                 <div
                   className={`${styles.productContainer
                     } flex-shrink-1 d-inline-flex flex-wrap`}>
-                  <div
-                    className={`${styles.sortContainer} hideInMobile col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
-                  >
-                    <span
-                      onClick={() => resetSortFilter()}
-                      role="button"
-                      className={`${styles.clearAllBtn} d-inline-flex`}
+                    <div
+                      className={`${styles.sortContainer} hideInMobile col-12 d-inline-flex align-items-end flex-column gap-2 p-3 px-4 mb-3`}
                     >
-                      Clear All
-                    </span>
-                    <div className="col-12 d-inline-flex justify-content-end align-items-center">
-                      <span className={`${styles.sortBy} d-inline-flex me-2`}>
-                        Sort By
-                      </span>
                       <span
-                        onClick={() => priceDescending()}
+                        onClick={() => resetSortFilter()}
                         role="button"
-                        className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ""
-                          } d-inline-flex px-1`}
+                        className={`${styles.clearAllBtn} d-inline-flex`}
                       >
-                        Price: Low to High
+                        Clear All
                       </span>
-                      <span
-                        onClick={() => priceAscending()}
-                        role="button"
-                        className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ""
-                          }`}
-                      >
-                        Price: High to Low
-                      </span>
+                      <div className="col-12 d-inline-flex justify-content-end align-items-center">
+                        <span className={`${styles.sortBy} d-inline-flex me-2`}>
+                          Sort By
+                        </span>
+                        <span
+                          onClick={() => priceDescending()}
+                          role="button"
+                          className={`${styles.priceLow} ${isDescendingOrder ? "fw-bold" : ""
+                            } d-inline-flex px-1`}
+                        >
+                          Price: Low to High
+                        </span>
+                        <span
+                          onClick={() => priceAscending()}
+                          role="button"
+                          className={`${styles.priceLow} d-inline-flex px-1 ${isAscendingOrder ? "fw-bold" : ""
+                            }`}
+                        >
+                          Price: High to Low
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
                   {ProductData?.length > 0 ? (
                     <InfiniteScroll
@@ -327,24 +340,24 @@ export const ShopCategoryPage = () => {
             </div>
           )}
 
-        <div
-          className={`${styles.productBtnBox} hideInDesktop d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
-        >
-          <span
-            className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-            onClick={() => setSortPopup(true)}
+          <div
+            className={`${styles.productBtnBox} hideInDesktop d-inline-flex align-items-stretch col-12 position-sticky bottom-0 start-0`}
           >
-            {" "}
-            <SortByIcon />
-            Sort By
-          </span>
-          <span
-            className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
-            onClick={() => setFilterPopup(true)}
-          >
-            <FilterIcon /> Filters
-          </span>
-        </div>
+            <span
+              className={`${styles.goCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setSortPopup(true)}
+            >
+              {" "}
+              <SortByIcon />
+              Sort By
+            </span>
+            <span
+              className={`${styles.AddCartBtn} position-relative col-6 d-inline-flex align-items-center justify-content-center gap-2`}
+              onClick={() => setFilterPopup(true)}
+            >
+              <FilterIcon /> Filters
+            </span>
+          </div>
 
       </div>
       <Footer />

@@ -255,6 +255,18 @@ ApiService.CategoryBySubProd = function (data) {
     cacheKey
   );
 };
+ApiService.CategoryBySubProdBySlug = function (data) {
+  const cacheKey = "/store/SubCategoryByProductBySlug" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/SubCategoryByProductBySlug",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
 
 ApiService.DealsOfProduct = function (data) {
   const cacheKey = "/store/normalDeals" + JSON.stringify(data);

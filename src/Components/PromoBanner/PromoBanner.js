@@ -84,7 +84,7 @@ export const PromoBanner = ({ type }) => {
                               alt={item?.name}
                               className=" col-12 d-inline-block"
                               style={{
-                                height: "40rem",
+                                height: "38rem",
                                 borderRadius: "0px !important",
                               }}
                             />

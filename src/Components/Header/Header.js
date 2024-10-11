@@ -660,7 +660,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                               >
                                 {catHoveredItem?.subcatList?.map((subCatNme, subIdx) => (
                                   <Link
-                                    to={`/store-product/vertical/${subCatNme?.name_url}/category/${catHoveredItem?.name_url}`}
+                                    to={`/category/${catHoveredItem?.name_url}/sub-category/${subCatNme?.name_url}`}
                                     style={{ textDecoration: 'none' }}
                                     key={subIdx}
                                     className={`${styles.subMenuName} col-12 justify-content-between align-items-center px-3 d-inline-flex py-2`}

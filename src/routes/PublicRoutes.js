@@ -1,11 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { SubSubCategoryShop } from "../Components/SubSubCategory/SubSubCategoryShop";
 import { AboutUs } from "../pages/AboutUs/AboutUs";
 import { AddAddress } from "../pages/AddAddress/AddAddress";
 import { Cancellation } from "../pages/Cancellation/Cancellation";
 import { AgeCategoryPage } from "../pages/CategoryPage/ageCategoryPage";
 import { BrandCategoryPage } from "../pages/CategoryPage/brandCategoryPage";
 import { ShopCategoryPage } from "../pages/CategoryPage/shopCategoryPage";
+import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
 import { Faq } from "../pages/Faq/Faq";
 import { Home } from "../pages/Home/Home";
 import { Login } from "../pages/Login/Login";
@@ -23,7 +25,6 @@ import { Return } from "../pages/Return/Return";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
 import { ShopOffers } from "../pages/ShopOffers/ShopOffers";
 import { ShoppingCart } from "../pages/ShoppingCart/ShoppingCart";
-import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
 import { Terms } from "../pages/Terms/Terms";
 import { VerifyOtp } from "../pages/VerifyOtp/VerifyOtp";
 import { ProtectedRoutes } from "./ProtectedRoutes";
@@ -46,6 +47,11 @@ export const PublicRoutes = () => {
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
 
         element={<ShopCategoryPage />}
+      />
+      <Route
+        path="/category/:categorySlug/sub-category/:subCategorySlug"
+
+        element={<SubSubCategoryShop />}
       />
       <Route
         path="/store-product/brand/:brandId"
