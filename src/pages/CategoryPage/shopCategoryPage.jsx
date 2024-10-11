@@ -18,7 +18,7 @@ import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
 
 export const ShopCategoryPage = () => {
-  const { categorySlug } = useParams();
+  const { categorySlug, verticalSlug } = useParams();
 
   const [ProductData, setProductData] = useState([]);
   const [ProductActualData, setProductActualData] = useState([]);
@@ -105,7 +105,7 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: categorySlug,
+      vertical_slug: verticalSlug,
     };
     setFilterVert(categorySlug);
     setFilterCatg(categorySlug);

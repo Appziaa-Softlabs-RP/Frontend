@@ -28,7 +28,7 @@
 }
 
 .promoBanner img {
-  transition: all 5s ease-in-out;
+  transition: all 3s ease-in-out;
 }
 
 .promoBanner:hover img{

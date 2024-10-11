@@ -46,20 +46,8 @@ export const PromoBanner = ({ type }) => {
           <div>
             {allBanner?.length > 0 && (
               <div className={`col-12 d-inline-flex flex-column mt-3`}>
-                <div className="container p-md-0">
+                <div className="container-fluid">
                   <div className={`col-12 d-inline-flex flex-column py-3`}>
-                    <div className="titlesWrapper">
-                      <h5
-                        className={`titleMainSmall col-12`}
-                      >
-                        Explore the collection
-                      </h5>
-                      <p
-                        className={`subTitleLarge col-12`}
-                      >
-                        Promo Banner
-                      </p>
-                    </div>
                     <ReactOwlCarousel
                       className={`${styles.bannerContainer} brandSilder col-12 d-inline-block owl-theme`}
                       margin={10}
@@ -97,6 +85,7 @@ export const PromoBanner = ({ type }) => {
                               className="object-fit-cover col-12 d-inline-block"
                               style={{
                                 height: "40rem",
+                                borderRadius: "0px !important",
                               }}
                             />
                           </div>
