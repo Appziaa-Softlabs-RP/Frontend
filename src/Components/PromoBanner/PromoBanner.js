@@ -38,7 +38,7 @@ export const PromoBanner = ({ type }) => {
   };
 
   return (
-    <div className="border-section">
+    <div className="">
       <div>
         {loading ? (
           <PromoBannerLoader />
@@ -46,11 +46,11 @@ export const PromoBanner = ({ type }) => {
           <div>
             {allBanner?.length > 0 && (
               <div className={`col-12 d-inline-flex flex-column mt-3`}>
-                <div className="container-fluid">
+                <div className="container-fluid px-4">
                   <div className={`col-12 d-inline-flex flex-column py-3`}>
                     <ReactOwlCarousel
                       className={`${styles.bannerContainer} brandSilder col-12 d-inline-block owl-theme`}
-                      margin={10}
+                      margin={20}
                       nav={true}
                       loop={true}
                       dots={false}
@@ -58,7 +58,7 @@ export const PromoBanner = ({ type }) => {
                         0: {
                           items: 1,
                         },
-                        600: {
+                        700: {
                           items: 2,
                         },
                         1000: {
@@ -82,7 +82,7 @@ export const PromoBanner = ({ type }) => {
                             <img
                               src={item?.image}
                               alt={item?.name}
-                              className="object-fit-cover col-12 d-inline-block"
+                              className=" col-12 d-inline-block"
                               style={{
                                 height: "40rem",
                                 borderRadius: "0px !important",
