@@ -13,12 +13,11 @@ import {
   BackArrowIcon,
   CartIcon,
   CrossIcon,
-  DownArrowIcon,
   MailIcon,
   MenuIcons,
   SearchIcon,
   SupportIcon,
-  UserIcon,
+  UserIcon
 } from "../siteIcons";
 import styles from "./Header.module.css";
 
@@ -627,9 +626,11 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                               {subNme.name}
 
                               <span style={{
-                                height: '0.7rem',
-                                width: '0.7rem',
-                                transform: 'rotate(270deg)',
+                                height: '1rem',
+                                width: '1rem',
+                                transform: 'rotate(180deg)',
+                                display: 'flex',
+                                alignItems: 'center',
                               }}>
                                 {
                                   subNme?.subcatList?.length > 0 && (
@@ -653,8 +654,8 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                                 className={`${styles.SubMenuList} d-inline-flex flex-column gap-1`}
                                 style={{
                                   position: 'absolute',
-                                  top: '0',
-                                  left: '100%',
+                                  top: '-12px',
+                                  left: '103%',
                                 }}
                               >
                                 {catHoveredItem?.subcatList?.map((subCatNme, subIdx) => (

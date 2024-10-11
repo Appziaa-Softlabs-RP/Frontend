@@ -39,70 +39,14 @@ export const PromoBanner = ({ type }) => {
 
   return (
     <div className="border-section">
-      {/* Mobile Structure */}
-      <div className={'hideInDesktop'}>
-        {allBanner?.length > 0 && (
-          <div className={`col-12 d-inline-flex flex-column px-3 pb-3`}>
-            <div
-              className={`${type === "Promo Banner"
-                ? styles.categoryBox
-                : type === "Offers"
-                  ? styles.offersBox
-                  : ""
-                } col-12 d-inline-flex flex-column`}
-            >
-              <div className="titlesWrapper">
-                <h5
-                  className={`titleMainSmall col-12`}
-                >
-                  Explore the collection
-                </h5>
-                <p
-                  className={`subTitleLarge col-12`}
-                >
-                  Promo Banner
-                </p>
-              </div>
-              <ReactOwlCarousel
-                className={`${styles.bannerContainer} col-12 d-inline-block owl-theme`}
-                margin={10}
-                loop={false}
-                dots={true}
-                items={1}
-                stagePadding={15}
-              >
-                {allBanner?.map((item, index) => {
-                  return (
-                    <div
-                      className={styles.banner}
-                      onClick={() => redirectToLink(item)}
-                      key={index}
-                    >
-                      <img
-                        src={item?.image}
-                        alt={item?.name}
-                        className="object-fit-cover col-12 d-inline-block"
-                        style={{
-                          width: "100%",
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </ReactOwlCarousel>
-            </div>
-          </div>
-        )}
-      </div>
-      {/* Desktop Structure */}
-      <div className={'hideInMobile'}>
+      <div>
         {loading ? (
           <PromoBannerLoader />
         ) : (
           <div>
             {allBanner?.length > 0 && (
               <div className={`col-12 d-inline-flex flex-column mt-3`}>
-                <div className="container">
+                <div className="container p-md-0">
                   <div className={`col-12 d-inline-flex flex-column py-3`}>
                     <div className="titlesWrapper">
                       <h5
@@ -122,12 +66,17 @@ export const PromoBanner = ({ type }) => {
                       nav={true}
                       loop={true}
                       dots={false}
-                      items={`${type === "Promo Banner"
-                        ? 3
-                        : type === "Offers"
-                          ? 1
-                          : ""
-                        }`}
+                      responsive={{
+                        0: {
+                          items: 1,
+                        },
+                        600: {
+                          items: 2,
+                        },
+                        1000: {
+                          items: 3,
+                        },
+                      }}
                       stagePadding={0}
                     >
                       {allBanner.map((item, index) => {
@@ -135,14 +84,20 @@ export const PromoBanner = ({ type }) => {
                           <div
                             onClick={() => redirectToLink(item)}
                             key={index}
+                            className={`${styles.promoBanner}`}
                             style={{
                               cursor: "pointer",
+                              maxWidth: "100%",
+                              overflow: "hidden",
                             }}
                           >
                             <img
                               src={item?.image}
                               alt={item?.name}
                               className="object-fit-cover col-12 d-inline-block"
+                              style={{
+                                height: "40rem",
+                              }}
                             />
                           </div>
                         );

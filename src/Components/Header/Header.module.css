@@ -290,7 +290,8 @@
 }
 
 .subMenuName:hover span {
-  transform: rotate(90deg) translateY(-11px) !important;
+  scale: 1.1;
+  animation: scale 0.2s ease;
 }
 .userAccountDrop {
   background: #FFF;

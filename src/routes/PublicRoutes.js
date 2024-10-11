@@ -44,6 +44,7 @@ export const PublicRoutes = () => {
       />
       <Route
         path="/store-product/vertical/:verticalSlug/category/:categorySlug"
+
         element={<ShopCategoryPage />}
       />
       <Route

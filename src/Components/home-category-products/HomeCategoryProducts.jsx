@@ -28,7 +28,7 @@ export const HomeCategories = () => {
         categoriesData.map((category, index) => (
             <div className='border-section'>
                 <div className={`col-12 d-inline-flex`}>
-                    <div className={`container-fluid`}>
+                    <div className={`container-md-fluid container`}>
                         <div className={`col-12 ${windowWidth === 'mobile' ? 'px-3' : 'm-0'} d-inline-flex flex-column`}>
                             <div className="titlesWrapper">
                                 <h5

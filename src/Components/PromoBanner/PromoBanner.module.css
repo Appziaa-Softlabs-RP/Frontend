@@ -26,3 +26,12 @@
 .banner{
   cursor: pointer;
 }
+
+.promoBanner img {
+  transition: all 5s ease-in-out;
+}
+
+.promoBanner:hover img{
+  scale: 1.05;
+  transform: scale(1.05);
+}

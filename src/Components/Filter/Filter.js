@@ -40,7 +40,7 @@ export const Filter = ({
           gender: genderFilter,
           age: ageFilter,
           allBrands: brands,
-          length: brands.length,
+          length: brands?.length,
         }));
       })
       .catch((err) => {});
@@ -53,7 +53,7 @@ export const Filter = ({
     ApiService.storeFilterBrand(payload)
       .then((res) => {
         let allBrand = res.payload_categoryByBrand;
-        if (allBrand.length) {
+        if (allBrand?.length) {
           allBrand.sort(function (a, b) {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
               return -1;
@@ -67,9 +67,9 @@ export const Filter = ({
           getAgeBrandOption(allBrand);
         }
       })
-      .catch((err) => {
-        getAgeBrandOption();
-      });
+     
+      getAgeBrandOption();
+
   }, [filterCatg]);
 
   const filterBrand = (id) => {
@@ -121,7 +121,7 @@ export const Filter = ({
 
   const searchBrandName = (val) => {
     setSearchBrand(val);
-    if (val.length > 0) {
+    if (val?.length > 0) {
       var result = allBrandLen.allBrands.filter(searchByFirstName);
       setAllBrands(result);
     } else {
@@ -131,7 +131,7 @@ export const Filter = ({
 
   const searchByFirstName = (item) => {
     return (
-      item.name.toLowerCase().substring(0, searchBrand.length) ==
+      item.name.toLowerCase().substring(0, searchBrand?.length) ==
       searchBrand.toLowerCase()
     );
   };
@@ -144,7 +144,7 @@ export const Filter = ({
       to_price: allfilterVal.priceMax,
       brand_id: allfilterVal.brandId ? allfilterVal.brandId : null,
       gender: allfilterVal.genderId ? [allfilterVal.genderId] : null,
-      age: allfilterVal.ageGroup,
+      age: [allfilterVal.ageGroup],
       page: 1,
       result_per_page: 1000,
     };
@@ -187,7 +187,7 @@ export const Filter = ({
                   onChange={(e) => searchBrandName(e.target.value)}
                 />
               </li>
-              {allBrands.length > 0 &&
+              {allBrands?.length > 0 &&
                 allBrands?.map((item, index) => {
                   return (
                     <li
@@ -248,7 +248,7 @@ export const Filter = ({
             <ul
               className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
             >
-              {allBrandLen.age.length > 0 &&
+              {allBrandLen.age?.length > 0 &&
                 allBrandLen.age?.map((item, index) => {
                   return (
                     <li
@@ -277,7 +277,67 @@ export const Filter = ({
             </ul>
           </div>
         )}
-        
+
+        {allBrandLen.gender?.length > 0 && (
+          <div
+            className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
+          >
+            <div className="mb-4 d-flex align-items-center justify-content-between">
+              <h5 className={`${styles.filterTitle}`}>Gender</h5>
+              <div
+                style={{
+                  display: "flex",
+                  padding: "10px",
+                  justifyContent: "end",
+                }}
+              >
+                <button
+                  onClick={resetFilterGender}
+                  style={{
+                    border: "none",
+                    padding: "5px 10px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    width: "fit-content",
+                  }}
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            <ul
+              className={`${styles.brandScroll} col-12 d-inline-flex list-unstyled flex-column gap-3 overflow-y-auto`}
+            >
+              {allBrandLen.gender?.length > 0 &&
+                allBrandLen.gender?.map((item, index) => {
+                  return (
+                    <li
+                      className={`${styles.filterRow} col-12 d-inline-flex align-items-center`}
+                      key={index}
+                    >
+                      <label
+                        className="d-inline-flex align-items-center gap-2 text-capitalize"
+                        onClick={() => filterGender(item.gender_id)}
+                      >
+                        <input
+                          type="radio"
+                          className={`${styles.address_option}`}
+                          checked={allfilterVal.genderId === item.gender_id}
+                          value={item.gender_id}
+                          name="gender"
+                        />
+                        <div
+                          className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
+                        ></div>
+                        {item.gender_name}
+                      </label>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        )}
+
         <div
           className={`${styles.filterBox} d-inline-flex flex-column col-12 p-3`}
         >
