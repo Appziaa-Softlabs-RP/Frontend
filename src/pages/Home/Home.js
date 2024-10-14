@@ -10,9 +10,14 @@ import { LimitedOffers } from "../../Components/LimitedOffers/LimitedOffers";
 import { LookingFor } from "../../Components/LookingFor/LookingFor";
 import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
+import Reviews from "../../Components/Reviews/Reviews";
 import { ShopAge } from "../../Components/ShopAge/ShopAge";
 import { HomeCategories } from "../../Components/home-category-products/HomeCategoryProducts";
 import { useApp } from "../../context/AppContextProvider";
+import WhoAreWe from "../../Components/WhoAreWe/WhoAreWe";
+import TopBrands from "../../assets/topBrands/TopBrands";
+import OurProcess from "../../Components/OurProcess/OurProcess";
+import { AllStores } from "../../Components/AllStores/AllStores";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -33,11 +38,9 @@ export const Home = () => {
 
         <DealShop />
 
-        <HomeCategories />
-
         <NewArrival />
 
-        <PromoBanner type="Promo Banner" />
+        <HomeCategories />
 
         <ShopAge />
 
@@ -46,6 +49,16 @@ export const Home = () => {
         <LimitedOffers />
 
         <BrandFocus />
+
+        <Reviews />
+
+        <WhoAreWe />
+
+        <TopBrands />
+
+        <OurProcess />
+
+        <AllStores />
 
         <Footer />
       </div>

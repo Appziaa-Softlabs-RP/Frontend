@@ -72,6 +72,19 @@ ApiService.productVariantInfo = function (data) {
   );
 };
 
+ApiService.getAllStores = function (data) {
+  const cacheKey = "/store/get-all-stores" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/get-all-stores",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
 ApiService.signIn = function (data) {
   return fetch({
     url: "user/signin",
@@ -255,6 +268,20 @@ ApiService.CategoryBySubProd = function (data) {
     cacheKey
   );
 };
+
+ApiService.GetAllBrands = function (data) {
+  const cacheKey = "/store/getAllBrands" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/getAllBrands",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
 ApiService.CategoryBySubProdBySlug = function (data) {
   const cacheKey = "/store/SubCategoryByProductBySlug" + JSON.stringify(data);
   return cacheFetch(

@@ -26,78 +26,74 @@ export const BrandFocus = () => {
       .then((res) => {
         setBrandData(res.payload_brandOffer.brand_offer);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
   return (
     <React.Fragment>
       {brandData?.length > 0 && (
         <div
-          className={`col-12 ${
-            windowWidth === "desktop" && "p-3 mt-2"
-          } d-inline-flex`}
+          className={`col-12 p-2 d-inline-flex my-5`}
         >
           <div className={`${windowWidth === "mobile" && "p-0"} container`}>
             <div
-              className={`col-12 ${
-                windowWidth === "mobile" ? "p-3" : "mt-3"
-              } d-inline-flex flex-column`}
+              className={`col-12 ${windowWidth === "mobile" ? "p-3" : "mt-3"
+                } d-inline-flex flex-column`}
             >
-              <h6
-                className={`${styles.brandInTitle} col-12 ${
-                  windowWidth === "desktop" ? "mb-4" : "mb-3"
-                } mt-0 fs-2`}
-              >
-                {windowWidth === "mobile"
-                  ? "Brands in Focus"
-                  : "✨ Brands in Focus ✨"}
-              </h6>
+              <div className="titlesWrapper">
+                <h5
+                  className={`titleMainSmall col-12`}
+                >
+                  Offerings
+                </h5>
+                <p
+                  className={`subTitleLarge col-12`}
+                >
+                  Best of the brands
+                </p>
+              </div>
               <ReactOwlCarousel
                 className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
                 margin={10}
                 dots={false}
-                items={`${windowWidth === "mobile" ? 1 : 4}`}
-                loop={false}
+                responsive={{
+                  0: {
+                    items: 2,
+                  },
+                  600: {
+                    items: 3,
+                  },
+                  1000: {
+                    items: 6,
+                  },
+                }}
+                loop={true}
                 nav={true}
+                autoplay={true}
+                autoplayTimeout={3000}
+                autoplayHoverPause={true}
+                autoHeight={true}
                 stagePadding={`${windowWidth === "mobile" ? 50 : 0}`}
               >
                 {brandData?.map((item, index) => {
                   return (
                     <div
                       key={index}
-                      className={`${styles.brandItemCard} item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`}
+                      className={`item flex-shrink-1 d-inline-block position-relative text-decoration-none col-12 overflow-hidden mouse-cursor`}
                       onClick={() =>
                         showBrandProd(item.brand_id, item.brand_offer)
                       }
                     >
-                      <span
-                        className={`${styles.brandItemPhotoBox} position-relative col-12 d-inline-block`}
-                      >
-                        <img
-                          src={item.offer_image}
-                          alt=""
-                          className="object-contain p-0 col-12 d-inline-block position-absolute h-100 start-0 top-0"
-                        />
-                      </span>
                       <div
-                        className={`${styles.brandTextBlock} position-relative col-12 p-0 d-inline-flex flex-column align-items-center`}
+                        className={`position-relative col-12 p-0 d-inline-flex flex-column align-items-center`}
                       >
                         <img
                           src={item.brand_icon}
                           alt=""
-                          className="object-contain p-0 col-12 d-inline-block"
+                          style={{
+                            maxHeight: "100px",
+                            maxWidth: "100px",
+                          }}
                         />
-                        <label
-                          className={`${styles.productPromoteText} col-12 p-0 text-center mb-2`}
-                        >
-                          {item.brand_offer}
-                        </label>
-                        <div className="col-12 p-0 d-inline-flex justify-content-center mb-4">
-                          <span
-                            className={`${styles.productShopText} text-uppercase d-inline-block text-center`}
-                          >
-                            Shop Now
-                          </span>
-                        </div>
                       </div>
                     </div>
                   );

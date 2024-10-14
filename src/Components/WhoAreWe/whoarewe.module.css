@@ -1,0 +1,18 @@
+.mainContainer{
+    background: var(--PRIMARY_COLOR);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 3rem;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 768px){
+    .mainContainer{
+        grid-template-columns: 1fr;
+    }
+}

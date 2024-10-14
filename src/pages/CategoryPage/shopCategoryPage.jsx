@@ -18,7 +18,7 @@ import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
 
 export const ShopCategoryPage = () => {
-  const { categorySlug, verticalSlug } = useParams();
+  const { verticalSlug } = useParams();
 
   const [ProductData, setProductData] = useState([]);
   const [ProductActualData, setProductActualData] = useState([]);
@@ -105,10 +105,10 @@ export const ShopCategoryPage = () => {
     setLoading(true);
     const payload = {
       store_id: parseInt(enviroment.STORE_ID),
-      vertical_slug: categorySlug,
+      vertical_slug: verticalSlug,
     };
-    setFilterVert(categorySlug);
-    setFilterCatg(categorySlug);
+    setFilterVert(verticalSlug);
+    setFilterCatg(verticalSlug);
     payload.page = 1;
     payload.result_per_page = 10;
     console.log(payload);
