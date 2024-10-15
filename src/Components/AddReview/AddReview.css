@@ -55,7 +55,7 @@ h2 {
 
 .submited-box .loader {
     border: 5px solid transparent;
-    border-top: 5px solid #4dc7b7;
+    border-top: 5px solid var(--PRIMARY_COLOR);
     border-bottom: 5px solid black;
     border-radius: 50%;
     width: 60px;

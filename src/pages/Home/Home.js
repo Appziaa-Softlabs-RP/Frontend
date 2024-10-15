@@ -18,6 +18,7 @@ import WhoAreWe from "../../Components/WhoAreWe/WhoAreWe";
 import TopBrands from "../../assets/topBrands/TopBrands";
 import OurProcess from "../../Components/OurProcess/OurProcess";
 import { AllStores } from "../../Components/AllStores/AllStores";
+import WeGrow from "../../Components/WeGrow/WeGrow";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -59,6 +60,8 @@ export const Home = () => {
         <OurProcess />
 
         <AllStores />
+
+        <WeGrow variant={'component'} />
 
         <Footer />
       </div>

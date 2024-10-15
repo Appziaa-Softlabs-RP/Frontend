@@ -1,18 +1,22 @@
 .mainContainer{
     background: var(--PRIMARY_COLOR);
+}
+.wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding: 3rem;
+    padding: 5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .right{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 @media (max-width: 768px){
-    .mainContainer{
+    .wrapper{
         grid-template-columns: 1fr;
     }
 }

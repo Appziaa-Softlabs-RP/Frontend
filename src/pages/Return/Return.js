@@ -19,9 +19,12 @@ export const Return = () => {
       ) : (
         <Header />
       )}
-      <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
+      <h1 className="titleMainSmall fw-bold mt-5">Return Policy</h1>
+      <div className="min-vh-100 col-12 d-inline-flex flex-column pt-2" style={{
+        letterSpacing: "1px",
+        fontSize: "14px",
+      }}>
         <div className="container">
-          <h1>Return Policy</h1>
           <p className="c6">
             <span className="c7">Neverused owned and operated by Iksh Retail Private Limited Return Policy</span>
           </p>

@@ -139,7 +139,7 @@
     border-bottom: 1px solid #999;
 }
 .productDescTitle{
-    background-color: white;
+    background-color: rgb(233, 232, 232);
     color: black;
     width: 100%;
     display: flex;

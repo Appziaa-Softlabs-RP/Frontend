@@ -13,10 +13,13 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import noImage from "../../assets/images/image-not-available.jpg";
+import AddReview from "../../Components/AddReview/AddReview";
+import ShowReviews from "../../Components/AddReview/ShowReview";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
+import AddProductQuantity from "../../Components/shared/AddProductQuantity";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
   CopyIcon,
@@ -33,9 +36,6 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
-import AddReview from "../../Components/AddReview/AddReview";
-import AddProductQuantity from "../../Components/shared/AddProductQuantity";
-import ShowReviews from "../../Components/AddReview/ShowReview";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -49,7 +49,7 @@ export const ProductPage = () => {
   const [deliveryDetail, setDeliveryDetail] = useState({});
   const [activeImg, setActiveImg] = useState("");
   const [prodDiscount, setProdDiscount] = useState(0);
-  const [descActive, setDescActive] = useState("Description");
+  const [descActive, setDescActive] = useState("");
   const [prodDesc, setProdDesc] = useState({
     __html: ProductData?.description,
   });
@@ -553,7 +553,7 @@ export const ProductPage = () => {
         overflowX: "hidden",
       }}>
         <PageHeader title={ProductData?.name} />
-        <div className="col-12 d-inline-block position-relative">
+        <div className="col-12 bg-white d-inline-block position-relative">
           {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
             <div
               className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}
@@ -688,11 +688,12 @@ export const ProductPage = () => {
         </div>
 
         <div
-          className={`${styles.productAllDetail} col-12 d-flex flex-column gap-3 p-4`}
+          className={`${styles.productAllDetail} m-0 col-12 d-flex flex-column gap-3 p-4`}
         >
           <h2 className={`${styles.productDetailName} col-12 mb-1 text-start m-0`}
             style={{
               fontSize: "1.5rem",
+              lineHeight: "1.2",
             }}
           >
             {
@@ -829,11 +830,187 @@ export const ProductPage = () => {
             </div>
           )}
 
+        <div className="col-12 d-inline-block p-2 bg-white w-100 d-flex justify-content-center">
+          <img src={'/images/quality-insurance.webp'} alt={ProductData?.name} />
+        </div>
+
+        <div className="col-12 d-inline-block p-4 bg-white">
+          <h3
+            className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}
+          >
+            Delivery &amp; Services
+          </h3>
+          <div className={`col-12 d-inline-block`}>
+            <div
+              className={`${styles.deliveryInputBox} d-inline-flex align-items-center col-12 position-relative mb-1`}
+            >
+              <p style={{
+                width: '30px',
+                height: '30px',
+              }}>
+                <LocationIcon color={'gray'} />
+              </p>
+              <input
+                type="number"
+                className={`${styles.deliveryInput} w-100 d-inline-block position-relative`}
+                maxLength="6"
+                minLength="6"
+                placeholder="Enter Delivery Pincode"
+                disabled={deliveryShowed}
+                onChange={(e) => {
+                  if (e.target.value.length > 6) {
+                    AppNotification("Error", "Please enter a valid pincode.", "danger");
+                    return;
+                  }
+                  setPincode(e.target.value)
+                }}
+                value={pincode || ""}
+              />
+              {
+                deliveryShowed ?
+                  <button
+                    aria-label="Check Delivery"
+                    onClick={() => {
+                      setDeliveryShowed(false);
+                      setPincode("");
+                      setDeliveryDetail({});
+                    }}
+                    type="button"
+                    className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center border-success text-success`}
+                  >
+                    Change
+                  </button>
+                  :
+                  <button
+                    aria-label="Check Delivery"
+                    onClick={() => getDeliveyPincode(pincode)}
+                    type="button"
+                    className={`${styles.deliveryBtn} d-inline-flex align-items-center justify-content-center`}
+                  >
+                    Check
+                  </button>
+              }
+            </div>
+            <span
+              className={`${styles.checkZiperror} col-12 d-inline-block`}
+            ></span>
+            {Object.keys(deliveryDetail)?.length > 0 && (
+              <div
+                className={`${styles.checkDeliveryResponse} d-inline-flex flex-column col-12 gap-2 mt-3 p-3`}
+              >
+                {deliveryDetail.max_days !== "" ||
+                  deliveryDetail.min_days !== "" ? (
+                  <p
+                    className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '180px 1fr',
+                    }}
+                  >
+                    <span
+                      className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                    >
+                      Expected Delivery Date:
+                    </span>
+                    <span>
+                      {deliveryDetail.min_days !== "" ? (
+                        <span>
+                          <strong
+                            className={`${styles.checkDeliveryDate} d-inline-flex`}
+                          >
+                            {
+                              formatDeliveryDate(new Date().setDate(new Date().getDate() + deliveryDetail.min_days))
+                            }
+                          </strong>
+                        </span>
+                      ) : null}
+                      {deliveryDetail.max_days !== "" &&
+                        deliveryDetail.min_days !== "" && (
+                          <span>&nbsp;-&nbsp;</span>
+                        )}
+                      {deliveryDetail.max_days !== "" ? (
+                        <span>
+                          <strong
+                            className={`${styles.checkDeliveryDate} d-inline-flex`}
+                          >
+                            {
+                              formatDeliveryDate(new Date().setDate(new Date().getDate() + deliveryDetail.max_days))
+                            }
+                          </strong>
+                        </span>
+                      ) : null}
+                    </span>
+                  </p>
+                ) : (
+                  ""
+                )}
+
+                <p
+                  className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '180px 1fr',
+                  }}
+                >
+                  <span>Available for Pickup at: </span>
+                  <strong
+                    id="deliveryLoc"
+                    className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                  >
+                    Shop No - 01, Old Delhi Road Opposite Hudda Office Gurugram Haryana - 122015
+                  </strong>
+                </p>
+                <p
+                  className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '180px 1fr',
+                  }}
+                >
+                  <span>Store Contact: </span>
+                  <span
+                    className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                  >
+                    <Link
+                      className={`${styles.checkDeliveryDateOuter} d-inline-flex fw-bold text-black`}
+                      to={`tel:${enviroment.PHONE_NUMBER}`}
+                      id="storeTel"
+                    >
+                      {enviroment.PHONE_NUMBER}
+                    </Link>
+                  </span>
+                </p>
+                <p
+                  className={`${styles.checkDeliveryDateOuter} col-12 mb-1`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '180px 1fr',
+                  }}
+                >
+                  <span>Locate Store: </span>
+                  <span
+                    className={`${styles.checkDeliveryLabel} d-inline-flex`}
+                  >
+                    <a
+                      href="https://g.co/kgs/t5Z1TUd"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${styles.checkDeliveryDateOuter} d-inline-flex fw-bold text-black`}
+                    >
+                      Google Map
+                    </a>
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
         {isSpecializationDetail &&
           isOtherDetail &&
           ProductData?.description !== "Not available" && (
             <div
-              className={`${styles.productDesciptionBox} col-12 d-inline-block mb-3 p-4`}
+              className={`${styles.productDesciptionBox} col-12 d-inline-block p-2 py-4`}
             >
               <h2
                 className={`${styles.availSizeTitle} mb-3 col-12 d-inline-block p-0`}
@@ -849,7 +1026,7 @@ export const ProductPage = () => {
                     className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                     style={{
                       height: "fit-content",
-                      background: "rgba(207, 16, 46, 0.12)",
+                      background: "rgb(233, 232, 232)",
                     }}
                   >
                     <button
@@ -901,7 +1078,7 @@ export const ProductPage = () => {
                     className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                     style={{
                       height: "fit-content",
-                      background: "rgba(207, 16, 46, 0.12)",
+                      background: "rgb(233, 232, 232)",
                     }}
                   >
                     <button
@@ -1030,14 +1207,14 @@ export const ProductPage = () => {
               )}
               {isOtherDetail && (
                 <div
-                  className={`${styles.productCollapseBox} mb-4 mt-3 active col-12 d-inline-block p-0`}
+                  className={`${styles.productCollapseBox} py-4 active col-12 d-inline-block p-0`}
                   onClick={openProductColpse(this)}
                 >
                   <div
                     className={`${styles.productTabBox} col-12 d-inline-flex align-items-center justify-content-between`}
                     style={{
                       height: "fit-content",
-                      background: "rgba(207, 16, 46, 0.12)",
+                      background: "rgb(233, 232, 232)",
                     }}
                   >
                     <button
@@ -1112,7 +1289,7 @@ export const ProductPage = () => {
               )}
             </div>
           )}
-        <div className={`col-12 d-inline-block mb-5`}>
+        <div className={`col-12 d-inline-block pb-5`}>
           <FeaturedProducts product={ProductData?.featured} />
           <SimilarProduct product={ProductData?.similar} />
         </div>
@@ -1158,10 +1335,15 @@ export const ProductPage = () => {
       <div className="hideInMobile" style={{
         maxWidth: "100vw",
         overflowX: "hidden",
+        background: "#EEEEEE",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
       }}>
         <Header />
         <div className="col-12 d-inline-flex" style={{
-          background: "#EEEEEE"
+          maxWidth: "1200px",
+          margin: "auto",
         }}>
           <div className="container-fluid">
             <div
@@ -1280,31 +1462,17 @@ export const ProductPage = () => {
                 </div>
                 <div className="col-12 d-flex flex-column m-3">
                   <div className="d-flex align-items-center justify-content-between flex-column gap-2">
-                    {ProductData?.description &&
-                      ProductData?.description !== "Not available" &&
-                      (
-                        <div
-                          className={`col-4 text-center ${descActive === "Description" ? styles.tabActive : ""
-                            } ${styles.productDescTitle}`}
-                          onClick={() => setDescActive("Description")}
-                          role="button"
-                        >
-                          <h4>Product Description</h4>
-                          <span>+</span>
-                        </div>
-                      )}
-                    {descActive === "Description" &&
-                      ProductData?.description !== "Not available" && (
-                        <div
-                          className={`d-flex flex-column col-12`}
-                          dangerouslySetInnerHTML={prodDesc}
-                        ></div>
-                      )}
-                    {otherInfo && (
+                    {(ProductData?.specifications) && (
                       <div
-                        className={`col-4 text-center ${descActive === "Specifications" ? styles.tabActive : ""
+                        className={`col-4 p-3 m-0 text-center ${descActive === "Specifications" ? styles.tabActive : ""
                           } ${styles.productDescTitle}`}
-                        onClick={() => setDescActive("Specifications")}
+                        onClick={() => {
+                          if (descActive === "Specifications") {
+                            setDescActive("")
+                            return;
+                          }
+                          setDescActive("Specifications")
+                        }}
                         role="button"
                       >
                         <h4>Specifications</h4>
@@ -1359,9 +1527,15 @@ export const ProductPage = () => {
                     )}
                     {featuresInfo && (
                       <div
-                        className={`col-4 text-center ${descActive === "Features" ? styles.tabActive : ""
+                        className={`col-4 p-3 m-0 text-center  text-center ${descActive === "Features" ? styles.tabActive : ""
                           } ${styles.productDescTitle}`}
-                        onClick={() => setDescActive("Features")}
+                        onClick={() => {
+                          if (descActive === "Features") {
+                            setDescActive("")
+                            return;
+                          }
+                          setDescActive("Features")
+                        }}
                         role="button"
                       >
                         <h4>Other Information</h4>
@@ -1412,7 +1586,7 @@ export const ProductPage = () => {
                       :
                       <div className="d-inline-flex align-items-center gap-2 fs-6 fw-light mb-3">
                         {ProductData?.category_name ? (
-                          <span className={`${styles.categoryName} d-inline-flex m-0`}>
+                          <span className={`${styles.categoryName} titleMainSmall d-inline-flex m-0`}>
                             {ProductData?.category_name}
                           </span>
                         ) : null}
@@ -1529,6 +1703,32 @@ export const ProductPage = () => {
                     </div>
                   )}
                 </div>
+                {ProductData?.description &&
+                  ProductData?.description !== "Not available" &&
+                  (
+                    <div
+                      className={`col-4 p-3 m-0 text-center ${descActive === "Description" ? styles.tabActive : ""
+                        } ${styles.productDescTitle}`}
+                      onClick={() => {
+                        if (descActive === "Description") {
+                          setDescActive("")
+                          return;
+                        }
+                        setDescActive("Description")
+                      }}
+                      role="button"
+                    >
+                      <h4>Product Description</h4>
+                      <span>+</span>
+                    </div>
+                  )}
+                {descActive === "Description" &&
+                  ProductData?.description !== "Not available" && (
+                    <div
+                      className={`d-flex flex-column col-12 p-1`}
+                      dangerouslySetInnerHTML={prodDesc}
+                    ></div>
+                  )}
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: '1fr',
@@ -1599,6 +1799,9 @@ export const ProductPage = () => {
                     </div>
                   )}
 
+                <div className="col-12 d-inline-block pt-3 mb-3">
+                  <img src={'/images/quality-insurance.webp'} alt={ProductData?.name} />
+                </div>
                 <div className="col-12 d-inline-block mt-3 mb-3">
                   <h3
                     className={`${styles.deliveryHeading} col-12 d-inline-block mt-0 mb-4`}
@@ -1780,7 +1983,7 @@ export const ProductPage = () => {
             </div>
           </div>
         </div>
-        <div className={`col-12 d-inline-block mb-5`}>
+        <div className={`col-12 d-inline-block pb-5`}>
           <FeaturedProducts product={ProductData?.featured} />
           <SimilarProduct product={ProductData?.similar} />
         </div>
@@ -1876,357 +2079,5 @@ export const ProductPage = () => {
         </div>
       </div>
     </React.Fragment>
-  );
-};
-
-const SizeGuideModal = ({
-  prodDiscount,
-  productData,
-  productLoading,
-  prodMainImg,
-  prodAdded,
-  ProductData,
-  addToCart,
-  prodAddedQty,
-  updateProdQty,
-}) => {
-  const [modalShow, setModalShow] = useState(false);
-  const [isSizeInCm, setSizeInCm] = useState(true);
-
-  const setNoImage = (e) => {
-    if (e.target) {
-      e.target.src = noImage;
-    }
-  };
-  const sizeData = [
-    { uk: 5, us: 6, euro: 39, cm: 23.4, inches: 9.21 },
-    { uk: 6, us: 7, euro: 40, cm: 24.4, inches: 9.61 },
-    { uk: 7, us: 8, euro: 41, cm: 25.4, inches: 10.00 },
-    { uk: 8, us: 9, euro: 42, cm: 26.4, inches: 10.40 },
-    { uk: 9, us: 10, euro: 43, cm: 27.4, inches: 10.80 },
-    { uk: 10, us: 11, euro: 44, cm: 28.4, inches: 11.20 },
-    { uk: 11, us: 12, euro: 45, cm: 29.4, inches: 11.57 },
-  ];
-
-  return <>
-    <button className="btn fw-bold text-danger"
-      onClick={() => setModalShow(true)}
-    >
-      See Guide &gt;
-    </button>
-    <div
-      show={modalShow}
-      onHide={() => setModalShow(false)}
-      size="lg"
-      className="position-absolute"
-      style={{
-        top: '0px',
-        maxHeight: '100vh',
-        overflowY: 'scroll',
-        right: '0px',
-        background: 'white',
-        height: 'fit-content',
-        zIndex: '10',
-        padding: '20px 10px',
-        animation: 'slide 0.5s',
-        transition: 'transform 0.5s',
-        transform: modalShow ? 'translateX(0px)' : 'translateX(1000px)',
-        display: modalShow ? 'flex' : 'none',
-        flexDirection: 'column',
-        gap: '20px',
-      }}
-    >
-      {/* HideBtn */}
-      <div className="closeBtn">
-        <button className="btn p-0"
-          onClick={() => setModalShow(false)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-          </svg>
-        </button>
-      </div>
-
-      {/* ProductInfo */}
-      <div className="productInfo" style={{
-        display: 'flex',
-        gap: '20px',
-      }}>
-        <div>
-          {!productLoading ? (
-            <img
-              src={prodMainImg}
-              onError={(e) => setNoImage(e)}
-              alt={ProductData?.name}
-              className="d-inline-block"
-              style={{
-                height: "100px",
-                width: "100px",
-              }}
-            />
-          ) : (
-            <div
-              className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-              style={{
-                height: "500px",
-              }}
-            >
-              <ThreeDots
-                visible={true}
-                height="80"
-                width="80"
-                color="#000"
-                radius="9"
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-            </div>
-          )}
-        </div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '5px',
-          fontSize: '16px',
-        }}>
-          <p className="m-0">{ProductData?.category_name
-            ? ProductData?.category_name
-            : ""}</p>
-          <p style={{
-            fontWeight: 'bold',
-            margin: '0px',
-          }}>{productData?.name}</p>
-          <div
-            className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
-          >
-            {ProductData?.selling_price === ProductData?.mrp ? (
-              <span className={`${styles.offerPrice}`} style={{
-                fontSize: '16px',
-              }}>
-                <b>₹{ProductData?.mrp}</b>
-              </span>
-            ) : (
-              <div className="col-12 d-inline-flex align-items-center gap-3 fw-bold">
-                <span
-                  className={`${styles.offerPrice} d-inline-flex align-items-center gap-2 fw-bold`}
-                  style={{
-                    fontSize: '16px',
-                  }}
-                >
-                  <b>₹{ProductData?.selling_price}</b>
-                  <del>₹{ProductData?.mrp}</del>
-                </span>
-                {prodDiscount !== "" && (
-                  <span
-                    className={`${styles.offerPercentage} d-inline-flex fw-bold`}
-                    style={{
-                      fontSize: '16px',
-                    }}
-                  >
-                    {prodDiscount}% &nbsp;OFF
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Breakline */}
-      <div className="breakline" style={{
-        minHeight: '1px',
-        height: '1px',
-        width: '100%',
-        borderBottom: '2px dashed gray',
-      }}>
-      </div>
-
-      {/* SizeTypeHeading */}
-      <div className="sizeTypeAndHeading" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}>
-        <h2 className="text-danger text-start m-0" style={{
-          fontSize: '1rem'
-        }}>Size Chart</h2>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '10px',
-            background: '#D9D9D9',
-            padding: '5px',
-            borderRadius: '5px',
-          }}
-        >
-          <button
-            onClick={() => setSizeInCm(true)}
-            className="btn"
-            style={{
-              fontSize: '12px',
-              padding: '5px',
-              background: isSizeInCm ? 'red' : '#D9D9D9',
-              color: isSizeInCm ? 'white' : 'black',
-              fontWeight: 'bold',
-            }}
-          >cm</button>
-          <button
-            className="btn"
-            onClick={() => setSizeInCm(false)}
-            style={{
-              fontSize: '12px',
-              padding: '5px',
-              background: !isSizeInCm ? 'red' : '#D9D9D9',
-              color: !isSizeInCm ? 'white' : 'black',
-              fontWeight: 'bold',
-            }}
-          >inch</button>
-        </div>
-      </div>
-
-      {/* SizeTable */}
-      <div className="d-flex flex-column gap-4">
-        <div className="row position-relative">
-          <div className="col-xl-6 h-100">
-            <div style={{
-              display: 'flex',
-              justifyContent: 'end',
-              alignItems: 'center',
-            }}>
-            </div>
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>UK</th>
-                  <th>US</th>
-                  <th>EURO</th>
-                  {
-                    isSizeInCm ?
-                      <th>To Fit Foot Length (cm)</th>
-                      :
-                      <th>To Fit Foot Length (in)</th>
-                  }
-                </tr>
-              </thead>
-              <tbody>
-                {sizeData.map((size, index) => (
-                  <tr key={index}>
-                    <td>{size.uk}</td>
-                    <td>{size.us}</td>
-                    <td>{size.euro}</td>
-                    <td>
-                      {
-                        isSizeInCm ?
-                          <td>{size.cm}</td>
-                          :
-                          <td>{size.inches}</td>
-                      }
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="col-xl-6" style={{
-            minHeight: '100%',
-            height: '100%',
-          }}>
-            <img src="/images/footlen.svg" alt="footlen" style={{
-              height: '100%',
-              width: 'auto'
-            }} />
-          </div>
-        </div>
-        {!prodAdded ? (
-          ProductData?.stock <= 0 ? (
-            <button
-              style={{
-                border: "none",
-                background: "black",
-                cursor: "not-allowed",
-                opacity: "0.5",
-              }}
-              disabled={true}
-              type="button"
-              className={`${styles.continueShop} col-5 w-100 d-inline-flex align-items-center justify-content-center text-uppercase`}
-            >
-              Out of stock
-            </button>
-          ) : (
-            <button
-              disabled={productLoading || ProductData?.stock === 0 || ProductData?.stock < 0}
-              className={`${styles.continueShop} ${ProductData?.stock === 0 || ProductData?.stock < 0
-                ? styles.disableCartBtn
-                : ""
-                } col-5 d-inline-flex align-items-center w-100 justify-content-center text-uppercase`}
-              onClick={(e) => addToCart(e, ProductData)}
-            >
-              Add to cart
-            </button>
-          )
-        ) : (
-          <AddProductQuantity
-            prodAdded={prodAdded}
-            prodAddedQty={prodAddedQty}
-            updateProdQty={updateProdQty}
-          />
-        )}
-      </div>
-    </div>
-  </>
-}
-
-const SizeSkeleton = () => {
-  return (
-    <div className="d-flex">
-      {[...Array(5)].map((_, index) => (
-        <div
-          key={index}
-          className="skeleton-text"
-          style={{
-            backgroundColor: '#e0e0e0',
-            width: '35px',
-            height: '35px',
-            borderRadius: '50%',
-            marginRight: '10px'
-          }}
-        ></div>
-      ))}
-    </div>
-  );
-};
-
-const ColorSkeleton = () => {
-  return (
-    <div className="d-flex gap-3">
-      {[...Array(4)].map((_, index) => (
-        <div key={index} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '5px', justifyContent: 'center' }}>
-          <div
-            className="skeleton-circle"
-            style={{
-              backgroundColor: '#e0e0e0',
-              minWidth: '60px',
-              width: '60px',
-              minHeight: '60px',
-              margin: '0 auto',
-              height: '60px',
-              borderRadius: '50%',
-            }}
-          ></div>
-          <div
-            className="skeleton-text"
-            style={{
-              backgroundColor: '#e0e0e0',
-              width: '40px',
-              height: '16px',
-              borderRadius: '4px'
-            }}
-          ></div>
-        </div>
-      ))}
-    </div>
   );
 };

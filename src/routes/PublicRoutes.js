@@ -8,6 +8,7 @@ import { AgeCategoryPage } from "../pages/CategoryPage/ageCategoryPage";
 import { BrandCategoryPage } from "../pages/CategoryPage/brandCategoryPage";
 import { ShopCategoryPage } from "../pages/CategoryPage/shopCategoryPage";
 import { StoreProductCategory } from "../pages/CategoryPage/StoreProduct";
+import ContactUsPage from "../pages/ContactUs/ContactUs";
 import { Faq } from "../pages/Faq/Faq";
 import { Home } from "../pages/Home/Home";
 import { Login } from "../pages/Login/Login";
@@ -17,7 +18,7 @@ import { MyOrders } from "../pages/MyOrders/MyOrders";
 import { Offers } from "../pages/Offers/Offers";
 import { OrderDetails } from "../pages/OrderDetails/OrderDetails";
 import { Payments } from "../pages/Payments/Payments";
-import { Press } from "../pages/Press/Press";
+import { ShippingPolicy } from "../pages/Press/Press";
 import { Privacy } from "../pages/Privacy/Privacy";
 import { ProductPage } from "../pages/ProductPage/ProductPage";
 import { Register } from "../pages/Register/Register";
@@ -82,6 +83,7 @@ export const PublicRoutes = () => {
         path="/add-new-address"
         element={<ProtectedRoutes element={<AddAddress />} />}
       />
+      <Route path="/contact-us" element={<ContactUsPage />} />
       <Route path="/privacy-policy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/return-policy" element={<Return />} />
@@ -89,7 +91,7 @@ export const PublicRoutes = () => {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/faq" element={<Faq />} />
       <Route path="/Cancellation-policy" element={<Cancellation />} />
-      <Route path="/press" element={<Press />} />
+      <Route path="/shipping-information-policy" element={<ShippingPolicy />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

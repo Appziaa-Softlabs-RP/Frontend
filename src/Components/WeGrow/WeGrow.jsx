@@ -1,69 +1,57 @@
 import React, { useState } from 'react';
 import { Card, Button, Modal, Form } from 'react-bootstrap';
-import { CheckCircleFill } from 'react-bootstrap-icons';
+import { StarFill, CheckCircleFill } from 'react-bootstrap-icons';
+import ContactUs from '../ContactUs/ContactUs';
 
-export default function WeGrow() {
+export default function WeGrow({ variant = 'subcomponent' }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
 
+    const isComponentVariant = variant === 'component';
+
     return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%'
-        }}>
-            <Card style={{ width: '300px', textAlign: 'center', padding: '20px', fontSize: '12px', fontWeight: '600' }}>
-                <Card.Body>
-                    <CheckCircleFill color="var(--PRIMARY_COLOR)" size={40} className="mb-3" />
-                    <Card.Title style={{ color: 'var(--PRIMARY_COLOR)', fontSize: '24px', fontWeight: 'bold' }}>WE GROW TOGETHER</Card.Title>
-                    <Card.Text style={{ color: 'var(--PRIMARY_COLOR)', marginBottom: '20px' }}>
-                        <p>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '100%', width: '90%', maxWidth: '800px', margin: isComponentVariant ? '40px auto' : '0' }}>
+            <Card className={`text-${isComponentVariant ? 'left' : 'center'}`} style={{ width: isComponentVariant ? '100%' : '90%', background: isComponentVariant ? 'var(--PRIMARY_COLOR)' : 'white' }}>
+                <Card.Body className={isComponentVariant ? 'd-flex flex-column gap-2 flex-md-row justify-content-between align-items-center' : 'd-flex flex-column gap-2 align-items-center'}>
+                    {/* 1st Column: Icon */}
+                    <div className="d-flex align-items-center justify-content-center">
+                        {isComponentVariant ? (
+                            <StarFill color="white" size={30} className="" />
+                        ) : (
+                            <CheckCircleFill color="var(--PRIMARY_COLOR)" size={25} />
+                        )}
+                    </div>
+
+                    {/* 2nd Column: Text */}
+                    <div className={`flex-grow-1 ${isComponentVariant ? 'text-center text-md-start' : ''} ms-3`}>
+                        <Card.Title className="m-0" style={{ color: isComponentVariant ? 'white' : 'var(--PRIMARY_COLOR)', fontSize: '30px', fontWeight: 'bold' }}>
+                            WE GROW {isComponentVariant ? '' : <br />} TOGETHER
+                        </Card.Title>
+                        <Card.Text style={{ color: isComponentVariant ? 'white' : 'var(--PRIMARY_COLOR)' }}>
                             OPT A FRANCHISE & BECOME AN OWNER
-                        </p>
-                    </Card.Text>
-                    <Button variant="success" onClick={handleShow}
-                        style={{
-                            backgroundColor: 'var(--PRIMARY_COLOR)',
-                            border: '0',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                        }}
-                        className='btn w-75 p-2 rounded-5'
-                    >
+                        </Card.Text>
+                    </div>
+
+                    {/* 3rd Column: Button */}
+                    <Button variant="success" onClick={handleShow} className="btn w-75 p-2 rounded-5" style={{ backgroundColor: isComponentVariant ? 'white' : 'var(--PRIMARY_COLOR)', border: '0', color: isComponentVariant ? 'var(--PRIMARY_COLOR)' : 'white', maxWidth: '200px' }}>
                         WRITE TO US
                     </Button>
                 </Card.Body>
             </Card>
 
+            {/* Modal */}
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Contact Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="formName">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter your name" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter your email" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formPhone">
-                            <Form.Label>Phone Number</Form.Label>
-                            <Form.Control type="tel" placeholder="Enter your phone number" />
-                        </Form.Group>
-                    </Form>
+                    <ContactUs />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Submit
                     </Button>
                 </Modal.Footer>
             </Modal>
