@@ -212,6 +212,8 @@
 }
 
 .headerMenuItems{
+  max-width: 90%;
+  margin: 0 auto;
   display: flex;
   padding: 10px;
   flex-wrap: wrap;
@@ -219,12 +221,12 @@
   justify-content: center;
   height: 100%;
   min-height: fit-content;
-  gap: 10px;
+  gap: 20px;
 }
 
 .headerNavBox {
   cursor: pointer;
-  padding: 10px;
+  padding: 2px 5px;
   white-space: nowrap;
 }
 
@@ -236,14 +238,14 @@
 
 .menuName {
   min-width: 150px;
-  max-width: 150px;
+  /* max-width: 150px; */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .headerNavBox:hover .menuName {
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .menuName {

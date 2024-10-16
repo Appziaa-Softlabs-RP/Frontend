@@ -181,20 +181,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     });
   };
 
-  const handleCatMouseEnter = (item, index) => {
-    // if index is smae then set hoveredItem to null
-    if (hoveredItem === item) {
-      return handleMouseLeave();
-    }
-    const element = document.getElementById(`cat-menu-${index}`);
-    setCatHoveredItem(item);
-    let pos = element.getBoundingClientRect();
-
-    setHoveredPosition({
-      left: `${[pos.left]}px`,
-    });
-  };
-
   const handleMouseLeave = () => {
     setHoveredItem(null);
     setHoveredPosition({});
@@ -208,6 +194,36 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
       document.removeEventListener("click", handleMouseLeave);
     };
   }, []);
+  //   Televisions
+  // Refrigerator
+  // Washing Machines
+  // Air Care
+  // Home Appliances
+  // Lifestyle
+  // Mobiles & Laptops
+
+  const getCatIcon = (catName) => {
+    switch (catName) {
+      case "Televisions":
+        return "/icons/tv.svg";
+      case "Refrigerator":
+        return "/icons/fridge.svg";
+      case "Washing Machines":
+        return "/icons/washing-machine.svg";
+      case "Air Care":
+        return "/icons/air-conditioner.svg";
+      case "Home Appliances":
+        return "/icons/old-television.svg";
+      case "Lifestyle":
+        return "/icons/cycle.svg";
+      case "Mobiles & Laptops":
+        return "/icons/laptop-webcam.svg";
+      case "Sound systems":
+        return "/icons/speakers.svg";
+      default:
+        return "/icons/tv.svg";
+    }
+  }
 
   return (
     <>
@@ -577,6 +593,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             whiteSpace: 'nowrap',
                           }}
                         >
+                          <img src={getCatIcon(item.name)} alt={item.name} style={{
+                            height: '1.5rem',
+                            width: '1.5rem',
+                          }} />
                           <span
                             className={`${styles.menuNameText}`}
                             style={{
@@ -589,7 +609,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           >
                             {item.name}
                           </span>
-                          {
+                          {/* {
                             item?.catList?.length > 0 && (
                               <BackArrowIcon
                                 color="#000"
@@ -599,7 +619,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                                   verticalAlign: 'middle',
                                 }}
                               />
-                            )}
+                            )} */}
                         </div>
                       </div>
                     ))}
