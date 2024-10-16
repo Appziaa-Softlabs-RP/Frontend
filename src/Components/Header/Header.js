@@ -205,23 +205,23 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   const getCatIcon = (catName) => {
     switch (catName) {
       case "Televisions":
-        return "/icons/tv.svg";
+        return "/images/tv.svg";
       case "Refrigerator":
-        return "/icons/fridge.svg";
+        return "/images/fridge.svg";
       case "Washing Machines":
-        return "/icons/washing-machine.svg";
+        return "/images/washing-machine.svg";
       case "Air Care":
-        return "/icons/air-conditioner.svg";
+        return "/images/air-conditioner.svg";
       case "Home Appliances":
-        return "/icons/old-television.svg";
+        return "/images/old-television.svg";
       case "Lifestyle":
-        return "/icons/cycle.svg";
+        return "/images/cycle.svg";
       case "Mobiles & Laptops":
-        return "/icons/laptop-webcam.svg";
+        return "/images/laptop-webcam.svg";
       case "Sound systems":
-        return "/icons/speakers.svg";
+        return "/images/speakers.svg";
       default:
-        return "/icons/tv.svg";
+        return "/images/tv.svg";
     }
   }
 
