@@ -24,7 +24,8 @@
 
 .heroBannerLoader {
   display: flex;
-  padding: 10px;
+  padding: 0px;
+  width: 100%;
   background-color: #FFF;
 }
 
@@ -67,6 +68,6 @@
 
 .headerNavWrapper {
   position: relative;
-  height: 50px;
+  height: 28px;
   margin-top: 20px;
 }

@@ -8,10 +8,10 @@ export const HeaderNavLoader = () => {
   return (
     <div className={styles.headerNavWrapper}>
       <div className='container d-flex justify-content-around'>
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
-        <Skeleton height={40} width={"80%"} containerClassName='w-100 h-100' />
+        <Skeleton height={20} width={"80%"} containerClassName='w-100 h-100' />
+        <Skeleton height={20} width={"80%"} containerClassName='w-100 h-100' />
+        <Skeleton height={20} width={"80%"} containerClassName='w-100 h-100' />
+        <Skeleton height={20} width={"80%"} containerClassName='w-100 h-100' />
       </div>
     </div>
   )
@@ -59,9 +59,7 @@ export const ProductListLoader = () => {
 export const HeroBannerLoader = () => {
   return (
     <div className={styles.heroBannerLoader}>
-      <div className='container'>
-        <Skeleton containerClassName='h-100 w-100' height={250} width={"100%"} />
-      </div>
+        <Skeleton containerClassName='h-100 w-100' height={374} width={"100%"} />
     </div>
   );
 }
