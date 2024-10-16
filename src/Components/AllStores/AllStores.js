@@ -49,12 +49,12 @@ export const AllStores = () => {
         <Container fluid style={{ fontFamily: 'Arial, sans-serif' }} className='container'>
           <Row>
             <Col md={6} style={{ padding: 0 }}>
-              <img src="/placeholder.svg?height=600&width=600" alt="Location" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={activeLocation.photo} alt="Location" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Col>
             <Col md={6} style={{ backgroundColor: '#fff', padding: '2rem', paddingTop: '6rem' }}>
-              <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px' }}>
-                <h6 className='titleMainSmall text-start' style={{ color: '#666' }}>{activeLocation.city_id}</h6>
-                <h2 className='subTitleLarge text-start'>{activeLocation.store_name}</h2>
+              <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px', height: "300px" }}>
+                <h6 className='subTitleLarge text-start' style={{ color: '#666' }}>{activeLocation.city_id}</h6>
+                {/* <h2 className='subTitleLarge text-start'>{activeLocation.store_name}</h2> */}
                 <p>{activeLocation.address}</p>
                 <p>Call Us:&nbsp;
                     <a href={`tel:${activeLocation.contact}`} style={{ color: '#a1a1a1', textDecoration: 'underline' }}>
