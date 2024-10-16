@@ -210,7 +210,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       {/* Mobile Structure */}
       <div
         className={`hideInDesktop`}
@@ -333,27 +333,29 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
             )}
         </div>
       </div>
+      {/* Delivering India Section */}
+      <div
+        className={`${styles.topHeaderSale} hideInMobile col-12 owl-theme`}>
+        <div
+          className={`col-12 ${styles.dealsLinkWrapper} d-inline-flex align-items-center justify-content-center h-100`}
+        >
+          <span
+            className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
+            title="Superdeals"
+          >
+            Delivering Across India
+          </span>
+        </div>
+      </div>
 
       {/* Desktop Structure */}
       <div className={`hideInMobile col-12 d-inline-flex flex-column`} style={{
-        position: 'relative'
+        position: 'sticky',
+        top: '0',
+        zIndex: '999',
       }}>
         <div
-          className={`${styles.topHeaderSale} col-12 owl-theme`}>
-          <div
-            className={`col-12 ${styles.dealsLinkWrapper} d-inline-flex align-items-center justify-content-center h-100`}
-          >
-            <span
-              className={`d-inline-block text-decoration-none ${styles.dealsLink}`}
-              title="Superdeals"
-            >
-              Delivering Across India
-            </span>
-          </div>
-        </div>
-        <div
-          className={`${styles.headerRow} col-12 d-inline-flex align-items-center `}
-        >
+          className={`${styles.headerRow} col-12 d-inline-flex align-items-center `}>
           <div className="container h-100 d-flex align-items-stretch p-0">
             <div
               className={`${styles.headerInnerRow} col-12 d-inline-flex flex-wrap align-items-stretch gap-3`}
@@ -608,7 +610,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           setHoveredItem(hoveredItem)
                         }}
                         onClick={() => setHoveredItem(hoveredItem)}
-                      onMouseLeave={handleMouseLeave}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="position-relative">
 
@@ -742,6 +744,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         {loginPop === true && <LoginPopup setLoginPop={setLoginPop} />}
         {cartPop === true && <CartAside setCartPop={setCartPop} />}
       </div>
-    </React.Fragment>
+    </>
   );
 };

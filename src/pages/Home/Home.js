@@ -27,7 +27,7 @@ export const Home = () => {
 
   return (
     <React.Fragment>
-      <div className="col-12 d-inline-flex flex-column">
+      <div className="position-relative col-12 d-inline-flex flex-column">
         <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
         {/* hero banner */}
