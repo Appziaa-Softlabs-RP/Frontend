@@ -616,6 +616,7 @@ export const ProductPage = () => {
                   key={index}
                 >
                   {!productLoading ? (
+                    <>
                     <img
                       src={enviroment.API_IMAGE_GALLERY_URL + item}
                       onError={(e) => setNoImage(e)}
@@ -626,6 +627,7 @@ export const ProductPage = () => {
                         width: "auto",
                       }}
                     />
+                    </>
                   ) : (
                     <div
                       className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
@@ -1418,7 +1420,7 @@ export const ProductPage = () => {
                     >
                       <img
                         alt={ProductData?.name}
-                        src={(ProductData?.image || ProductData?.image === "") ? getProductImageOfColorId(ProductData?.color_id) : ProductData?.image}
+                        src={(!ProductData?.image || ProductData?.image === "") ? getProductImageOfColorId(ProductData?.color_id) : ProductData?.image}
                         onError={(e) => setNoImage(e)}
                         className="bg-white rounded"
                         style={{
