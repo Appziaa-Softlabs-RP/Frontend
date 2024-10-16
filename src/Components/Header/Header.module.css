@@ -65,7 +65,7 @@
 }
 
 .topHeaderSale {
-  background: #007B61;
+  background: var(--SECONDARY_COLOR)
 }
 
 .dealsLinkWrapper{
@@ -83,8 +83,8 @@
 
 .headerRow {
   background: var(--PRIMARY_COLOR);
-  /* height: 74px; */
-  padding: 20px;
+  height: 80px;
+  /* padding: 20px; */
 }
 
 /* Desktop CSS */
@@ -231,7 +231,7 @@
 .menuName,
 .subMenuName {
   font-size: 14px;
-  color: var(--SECONDARY_COLOR);
+  color: var(--PRIMARY_COLOR);
 }
 
 .menuName {

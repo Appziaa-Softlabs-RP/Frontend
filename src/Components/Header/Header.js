@@ -355,16 +355,22 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         zIndex: '999',
       }}>
         <div
-          className={`${styles.headerRow} col-12 d-inline-flex align-items-center `}>
+          className={`${styles.headerRow} col-12 d-inline-flex align-items-center`}>
           <div className="container h-100 d-flex align-items-stretch p-0">
             <div
-              className={`${styles.headerInnerRow} col-12 d-inline-flex flex-wrap align-items-stretch gap-3`}
+              className={`p-0 m-0 positoin-relative h-100 col-12 d-inline-flex flex-wrap align-items-stretch gap-3`}
             >
               <h1
                 onClick={() => routeHome()}
                 itemtype="http://schema.org/Organization"
-                style={{ cursor: "pointer" }}
-                className={`${styles.siteLogoBox} d-inline-flex align-items-center justify-content-center col-2 w-100`}
+                style={{
+                  cursor: "pointer",
+                  position: 'absolute',
+                  left: '0',
+                  top: '0',
+                  right: '0',
+                }}
+                className={`${styles.siteLogoBox} m-0 d-inline-flex justify-content-center col-2 w-100`}
               >
                 <span class="visually-hidden">
                   {enviroment.REACT_APP_BUSINESS_NAME}
@@ -372,7 +378,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                 <img
                   src={siteLogo}
                   alt={enviroment.REACT_APP_BUSINESS_NAME ?? 'Logo'}
-                  className="object-fit-contain mt-5"
+                  className="object-fit-contain mt-3"
                 />
               </h1>
               <div className="d-inline-flex align-items-stretch w-100 justify-content-end gap-4">
