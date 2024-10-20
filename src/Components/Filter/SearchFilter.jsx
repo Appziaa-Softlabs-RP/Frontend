@@ -171,6 +171,17 @@ export const SearchFilter = ({
             .catch((err) => { });
     };
 
+    const getGenderName = (gender) => {
+        switch (gender) {
+            case "Boy":
+                return "Men";
+            case "Girl":
+                return "Women";
+            default:
+                return gender;
+        }
+    }
+
     //update when filter value change
     useEffect(() => {
         fetchFilterProd();
@@ -342,7 +353,7 @@ export const SearchFilter = ({
                                             <div
                                                 className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
                                             ></div>
-                                            {item.gender_name}
+                                            {getGenderName(item.gender_name)}
                                         </label>
                                     </li>
                                 );

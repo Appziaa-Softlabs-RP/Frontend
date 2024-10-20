@@ -234,6 +234,17 @@ export const ProductCard = ({ item, index }) => {
     }
   };
 
+  const getGenderName = (gender) => {
+    switch(gender){
+      case "Boys":
+        return "Men";
+      case "Girls":
+        return "Women";
+      default:
+        return gender;
+    }
+  }
+
   useEffect(() => {
     checkProdAdded();
     setUserInfo(appData.appData.user);
@@ -340,7 +351,7 @@ export const ProductCard = ({ item, index }) => {
           fontSize: "13px",
           fontWeight: "500",
         }} className="mt-2" >
-          {item?.gender_name}
+          {getGenderName(item?.gender_name)}
         </div>
         <div>
           <Link

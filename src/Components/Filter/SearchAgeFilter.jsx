@@ -122,6 +122,17 @@ export const SearchAgeFilter = ({
     }
   };
 
+  const getGenderName = (gender) => {
+    switch(gender){
+      case "Boy":
+        return "Men";
+      case "Girl":
+        return "Women";
+      default:
+        return gender;
+    }
+  }
+
   const searchByFirstName = (item) => {
     return (
       item?.name?.toLowerCase().substring(0, searchBrand?.length) ==
@@ -265,7 +276,7 @@ export const SearchAgeFilter = ({
                         <div
                           className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
                         ></div>
-                        {item.gender_name}
+                        {getGenderName(item.gender_name)}
                       </label>
                     </li>
                   );

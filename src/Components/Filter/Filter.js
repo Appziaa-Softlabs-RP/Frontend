@@ -159,6 +159,18 @@ export const Filter = ({
       .catch((err) => {});
   };
 
+
+  const getGenderName = (gender) => {
+    switch(gender){
+      case "Boy":
+        return "Men";
+      case "Girl":
+        return "Women";
+      default:
+        return gender;
+    }
+  }
+
   useEffect(() => {
     // fetchFilterProd();
   }, [allfilterVal]);
@@ -329,7 +341,7 @@ export const Filter = ({
                         <div
                           className={`${styles.customRadio} d-inline-flex flex-shrink-0 me-1 position-relative`}
                         ></div>
-                        {item.gender_name}
+                        {getGenderName(item.gender_name)}
                       </label>
                     </li>
                   );
