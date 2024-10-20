@@ -34,7 +34,7 @@ export const AllStores = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return null;
 
     if(storeData.length === 0) return null;
 
@@ -61,7 +61,7 @@ export const AllStores = () => {
                                         <Nav.Link
                                             eventKey={loc.city_id}
                                             style={{
-                                                borderBottom: loc.city_id === activeLocation.city_id ? '2px solid #000' : 'none',
+                                                borderBottom: loc.city_id === activeLocation.city_id ? '2px solid red' : 'none',
                                                 padding: '0.5rem',
                                                 margin: '1rem'
                                             }}
@@ -69,6 +69,7 @@ export const AllStores = () => {
                                             <p  style={{
                                                 color: '#000',
                                                 fontSize: '15px',
+                                                fontWeight: loc.city_id === activeLocation.city_id ? 'bold' : 'normal',
                                                 margin: 0,
                                                 padding: 0
                                             }}>{loc.city_id}</p>
@@ -80,7 +81,7 @@ export const AllStores = () => {
                     </Row>
                     <Row>
                         <Col md={6} style={{ padding: 0 }}>
-                            <img src={activeLocation?.photo} alt="Location" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img src={activeLocation?.photo} alt="Location" style={{ width: '100%', height: '100%', maxHeight: '500px', objectFit: 'cover' }} />
                         </Col>
                         <Col md={6} style={{ backgroundColor: '#fff', padding: '2rem', paddingTop: '6rem' }}>
                             <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px', height: "300px" }}>
