@@ -36,7 +36,13 @@ export const AllStores = () => {
     if (storeData.length === 0) return null;
 
     return (
-        <Container fluid className="bg-white border-bottom border-light py-5">
+        <Container fluid className="bg-white border-bottom border-light py-5"
+            style={{
+                position: "relative",
+                maxWidth: '800px',
+                margin: "0 auto"
+            }}
+        >
             <Container>
                 <Row className="mb-4">
                     <Col>
@@ -64,7 +70,6 @@ export const AllStores = () => {
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'fill',
-                                    maxHeight: '500px',
                                     display: 'block',
                                 }}
                             />
