@@ -7,7 +7,7 @@ import { AppNotification } from "../../utils/helper";
 import ApiService from "../../services/ApiService";
 import { useApp } from "../../context/AppContextProvider";
 
-export const PageHeader = ({title, hide}) => {
+export const PageHeader = ({ title, hide }) => {
     const navigate = useNavigate();
     const [searchPop, setSeacrhPop] = useState(false);
     const [searchProd, setSearchProd] = useState('');
@@ -20,49 +20,49 @@ export const PageHeader = ({title, hide}) => {
 
     let prodTime = ''
     const searchShopProd = (event, val) => {
-      setSearchProd(val);
-      clearTimeout(prodTime);
-      if(val.length > 2){
-        prodTime = setTimeout(function(){
-          const payload = {
-            store_id: parseInt(enviroment.STORE_ID),
-            keyword: val
-          }
-          ApiService.storeSearch(payload).then((res) => {
-            if(res.message === "Fetch successfully."){
-              setSearchProdList(res.payload_searchAI);
-            }
-          }).catch((err) => {
-          })
-        }, 500);
-      }
+        setSearchProd(val);
+        clearTimeout(prodTime);
+        if (val.length > 2) {
+            prodTime = setTimeout(function () {
+                const payload = {
+                    store_id: parseInt(enviroment.STORE_ID),
+                    keyword: val
+                }
+                ApiService.storeSearch(payload).then((res) => {
+                    if (res.message === "Fetch successfully.") {
+                        setSearchProdList(res.payload_searchAI);
+                    }
+                }).catch((err) => {
+                })
+            }, 500);
+        }
     }
-  
+
     const openProductId = (prodId, name) => {
-      setSearchProdList([]);
-      setSearchProd(name);
-      const payload = {
-        product_id: prodId,
-        company_id: parseInt(enviroment.COMPANY_ID),
-        store_id: parseInt(enviroment.STORE_ID)
-      }
-      ApiService.productDetails(payload).then((res) => {
-          if (res.message === "Product Detail") {
-              navigate(`/product?id=${prodId}`, { state: { product: res.payload } })
-          } else {
-              AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-          }
-      }).catch((err) => {
-          AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
-      });
-    }
-  
-    const handleKeyDown = (event) => {
-      if(searchProd.length > 2 && event.code === "Enter"){
-        let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
         setSearchProdList([]);
-        navigate(`/search-product/${category}`, { state: { keyword: searchProd }});
-      }
+        setSearchProd(name);
+        const payload = {
+            product_id: prodId,
+            company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
+        }
+        ApiService.productDetails(payload).then((res) => {
+            if (res.message === "Product Detail") {
+                navigate(`/product?id=${prodId}`, { state: { product: res.payload } })
+            } else {
+                AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+            }
+        }).catch((err) => {
+            AppNotification('Error', 'Sorry, Product detail not found.', 'danger');
+        });
+    }
+
+    const handleKeyDown = (event) => {
+        if (searchProd.length > 2 && event.code === "Enter") {
+            let category = searchProd?.replaceAll("[^A-Za-z0-9]", "-");
+            setSearchProdList([]);
+            navigate(`/search-product/${category}`, { state: { keyword: searchProd } });
+        }
     };
 
     const openSearchClick = () => {
@@ -100,9 +100,9 @@ export const PageHeader = ({title, hide}) => {
                     {searchProdList?.length > 0 &&
                         <div className={`${styles.showSearchList} ${styles.showSearchListMobile} position-absolute d-inline-flex flex-column start-0 col-11 end-0 m-auto overflow-y-auto`}>
                             {searchProdList.map((item, idx) => {
-                            return (
-                                <span className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
-                            )
+                                return (
+                                    <span className={`${styles.searchRow} p-3 d-inline-block text-truncate col-12`} role="button" key={idx} onClick={() => openProductId(item.id, item.name)}>{item.name}</span>
+                                )
                             })}
                         </div>
                     }

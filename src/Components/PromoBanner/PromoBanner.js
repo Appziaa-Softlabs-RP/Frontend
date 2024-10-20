@@ -33,7 +33,7 @@ export const PromoBanner = ({ type }) => {
         `/store-product/vertical/${item?.vertical_name_url}/category/${item?.category_name_url}`
       );
     } else if (item?.product_id) {
-      navigate(`/product/${item?.product_name_url}`);
+      navigate(`/product/${item?.product_name_url}/${item?.product_id}`);
     }
   };
 

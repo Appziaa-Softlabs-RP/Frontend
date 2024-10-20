@@ -41,7 +41,7 @@ export const ProductPage = () => {
   const appData = useApp();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { slug } = useParams();
+  const { slug, prodId } = useParams();
   const locationState = useLocation();
   const [ProductData, setProductData] = useState(locationState?.state?.product);
   const [prodMainImg, setProdMainImg] = useState("");
@@ -342,9 +342,9 @@ export const ProductPage = () => {
   }, [appData.appData]);
 
   useEffect(() => {
-    let prodId = searchParams.get("id");
     const payload = {
       product_slug: slug,
+      product_id: prodId,
       company_id: parseInt(enviroment.COMPANY_ID),
       store_id: parseInt(enviroment.STORE_ID),
     };

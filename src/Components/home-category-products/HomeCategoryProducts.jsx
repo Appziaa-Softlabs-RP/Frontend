@@ -18,6 +18,7 @@ export const HomeCategories = () => {
     useEffect(() => {
         const payload = {
             company_id: parseInt(enviroment.COMPANY_ID),
+            store_id: parseInt(enviroment.STORE_ID)
         }
         ApiService.homeCategories(payload).then((res) => {
             setCategoriesData(res.payload);

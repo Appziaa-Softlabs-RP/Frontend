@@ -109,10 +109,10 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
     }
   };
 
-  const openProductId = (prodId, name) => {
+  const openProductId = (prodId, name, id) => {
     setSearchProdList([]);
     setSearchProd(name);
-    navigate(`/product/${prodId}`);
+    navigate(`/product/${prodId}/id=${id}`);
   };
 
   const handleKeyDown = (event) => {
@@ -336,7 +336,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                           role="button"
                           key={idx}
                           onClick={() =>
-                            openProductId(item.name_url, item.name)
+                            openProductId(item.name_url, item.name, item.product_id)
                           }
                         >
                           {item.name}
@@ -754,7 +754,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                             role="button"
                             key={idx}
                             onClick={() =>
-                              openProductId(item.name_url, item.name)
+                              openProductId(item.name_url, item.name, item.product_id)
                             }
                           >
                             {item.name}

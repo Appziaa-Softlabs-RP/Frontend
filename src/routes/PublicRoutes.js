@@ -38,6 +38,7 @@ export const PublicRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/verify" element={<VerifyOtp />} />
       <Route path="/product/:slug" element={<ProductPage />} />
+      <Route path="/product/:slug/:prodId" element={<ProductPage />} />
       <Route path="/shop-offers" element={<ShopOffers />} />
       <Route path="/store/:categoryId" element={<ShopCategoryPage />} />
       <Route
