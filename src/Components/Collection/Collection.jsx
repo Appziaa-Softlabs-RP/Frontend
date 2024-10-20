@@ -1,29 +1,35 @@
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import noImage from "../../assets/images/image-not-available.jpg";
+import kidsCollection from '../../assets/images/kids.svg';
 import mensCollection from '../../assets/images/mens.jpeg';
+import womensCollection from '../../assets/images/womensCollection.jpeg';
 import { enviroment } from '../../enviroment';
 import ApiService from '../../services/ApiService';
 import styles from './Collection.module.css';
-import womensCollection from '../../assets/images/womensCollection.jpeg';
-import kidsCollection from '../../assets/images/kids.svg';
 
 export default function Collections({ type }) {
 
     const [shopCategory, setShopCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const payload = {
             store_id: parseInt(enviroment.STORE_ID),
             vertical_slug: type,
         };
+        setLoading(true);
         ApiService.StoreSubCategory(payload)
             .then((res) => {
                 console.log(res)
                 // only selecting 4
                 setShopCategory(res?.payload_verticalByCategory.slice(0, 4));
             })
-            .catch((err) => { });
+            .catch((err) => { })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [type]);
 
     const getTitle = ({ type }) => {
@@ -60,32 +66,55 @@ export default function Collections({ type }) {
                     gridTemplateColumns: 'repeat(2, 1fr)',
                     gap: '0.9rem',
                 }}>
-                    {shopCategory.map((item, index) => {
-                        return (
-                            <Link to={`/store/${item?.name_url}`}
-                                key={index}
-                                className={`position-relative ${styles.categoryCollection}`}
-                            >
-                                <img
-                                    src={item?.image === "" ? noImage : item?.image}
-                                    alt={item?.name}
-                                    className={`${styles.imageResponsive}`}
+                    {
+                        loading ? (
+                            Array.from({ length: 4 }).map((_, index) =>
+                                <div
+                                    className={`position-relative ${styles.categoryCollection}`}
+                                >
+                                    <Skeleton className={`${styles.imageResponsive}`}
                                     style={{
                                         width: "100%",
                                         height: "100%",
+                                        minHeight: "300px",
+                                        minWidth: "300px",
                                     }}
-                                />
-                                <p
-                                    className={`text-center mt-2 ${styles.categoryName}`}
-                                    style={{
-                                        fontSize: "1rem",
-                                    }}
+                                    />
+                                    <p
+                                        className={`text-center mt-2 ${styles.categoryName}`}
+                                        style={{
+                                            fontSize: "1rem",
+                                        }}
+                                    >
+                                        <Skeleton width={150} height={30} />
+                                    </p>
+                                </div>))
+                            :
+                            (shopCategory.map((item, index) => (
+                                <Link to={`/store/${item?.name_url}`}
+                                    key={index}
+                                    className={`position-relative ${styles.categoryCollection}`}
                                 >
-                                    {item?.name}
-                                </p>
-                            </Link>
-                        );
-                    })}
+                                    <img
+                                        src={item?.image === "" ? noImage : item?.image}
+                                        alt={item?.name}
+                                        className={`${styles.imageResponsive}`}
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                        }}
+                                    />
+                                    <p
+                                        className={`text-center mt-2 ${styles.categoryName}`}
+                                        style={{
+                                            fontSize: "1rem",
+                                        }}
+                                    >
+                                        {item?.name}
+                                    </p>
+                                </Link>
+                            ))
+                            )}
                 </div>
             </div>
             <div className='col-12 col-md-6 position-relative'

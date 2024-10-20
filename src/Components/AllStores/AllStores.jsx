@@ -1,13 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Nav, Row } from 'react-bootstrap';
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
+import styles from './AllStores.module.css';
 
 export const AllStores = () => {
-
     const [storeData, setStoreData] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -25,86 +22,71 @@ export const AllStores = () => {
         ApiService.getAllStores(payload)
             .then((res) => {
                 if (res.payload.length === 0) return;
-                const removeDuplicateCityId = res.payload.filter((v, i, a) => a.findIndex(t => (t.city_id === v.city_id)) === i);
+                const removeDuplicateCityId = res.payload.filter((v, i, a) =>
+                    a.findIndex(t => (t.city_id === v.city_id)) === i
+                );
                 setStoreData(removeDuplicateCityId);
-                // remove duplicate city_id
                 setActiveLocation(res.payload[0]);
             })
-            .catch((err) => { })
+            .catch((err) => { console.error(err); })
             .finally(() => setLoading(false));
     }, []);
 
     if (loading) return null;
-
-    if(storeData.length === 0) return null;
+    if (storeData.length === 0) return null;
 
     return (
-        <div style={{
-            background: 'rgb(242, 242, 242)'
-        }}
-            className='border-section'
-        >
-            <div style={{
-                padding: '2rem',
-                maxWidth: '1000px',
-            }} className='mx-auto'>
-                <Container fluid style={{ fontFamily: 'Arial, sans-serif' }} className='container'>
+        <Container fluid className="bg-white border-bottom border-light py-5">
+            <Container>
+                <Row className="mb-4">
+                    <Col>
+                        <Nav className="justify-content-center" activeKey={activeLocation?.city_id} onSelect={(selectedKey) => handleLocationChange(selectedKey)}>
+                            {storeData.map((loc, index) => (
+                                <Nav.Item key={index}>
+                                    <Nav.Link
+                                        eventKey={loc.city_id}
+                                        className={`px-3 py-2 mx-2 ${loc.city_id === activeLocation?.city_id ? 'border-bottom border-2 border-danger fw-bold' : ''}`}
+                                    >
+                                        <span className='fs-6 text-black'>{loc.city_id}</span>
+                                    </Nav.Link>
+                                </Nav.Item>
+                            ))}
+                        </Nav>
+                    </Col>
+                </Row>
                 <Row>
-                        <Col>
-                            <Nav
-                                className="justify-content-center"
-                                // activeKey={activeLocation.city_id}
-                                onSelect={(selectedKey) => handleLocationChange(selectedKey)}
-                            >
-                                {storeData.map((loc, index) => (
-                                    <Nav.Item key={index}>
-                                        <Nav.Link
-                                            eventKey={loc.city_id}
-                                            style={{
-                                                borderBottom: loc.city_id === activeLocation.city_id ? '2px solid red' : 'none',
-                                                padding: '0.5rem',
-                                                margin: '1rem'
-                                            }}
-                                        >
-                                            <p  style={{
-                                                color: '#000',
-                                                fontSize: '15px',
-                                                fontWeight: loc.city_id === activeLocation.city_id ? 'bold' : 'normal',
-                                                margin: 0,
-                                                padding: 0
-                                            }}>{loc.city_id}</p>
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                ))}
-                            </Nav>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={6} style={{ padding: 0 }}>
-                            <img src={activeLocation?.photo} alt="Location" style={{ width: '100%', height: '100%', maxHeight: '500px', objectFit: 'cover' }} />
-                        </Col>
-                        <Col md={6} style={{ backgroundColor: '#fff', padding: '2rem', paddingTop: '6rem' }}>
-                            <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '15px', height: "300px" }}>
-                                <h6 className='subTitleLarge fw-bold text-start' style={{ color: '#666' }}>{activeLocation?.city_id}</h6>
-                                <p>{activeLocation?.address}</p>
-                                <p>Call Us:&nbsp;
-                                    <a href={`tel:${activeLocation?.contact}`} style={{ color: '#a1a1a1', textDecoration: 'underline' }}>
-                                        <span className='text-black fs-6'>{activeLocation?.contact}</span>
-                                    </a>
-                                </p>
-                                <p>Email: &nbsp;
-                                    <a href={`mailto:${activeLocation?.email}`} style={{ color: '#a1a1a1', textDecoration: 'underline' }}>
-                                    <span className='text-black fs-6'>{activeLocation?.email}</span>
-                                    </a>
-                                </p>
-                                <a href="#" style={{ color: '#a1a1a1', textDecoration: 'underline' }}>
-                                    <span className='text-black fs-6'>MAP</span>
-                                </a>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        </div>
+                    <Col md={12} className="position-relative m-0 p-0 mb-md-0">
+                        <div className={styles.activeImage}>
+                            <img
+                                src={`${activeLocation?.photo}`}
+                                alt="store"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'fill',
+                                    maxHeight: '500px',
+                                    display: 'block',
+                                }}
+                            />
+                        </div>
+                    </Col>
+                    <Col md={12} className={`position-relative d-flex align-items-center p-0`}>
+                        <div className={`text-white p-4 w-100  ${styles.activeLocatoin}`}>
+                            <h2 className="mb-4">{activeLocation?.city_id}</h2>
+                            <p>{activeLocation?.address}</p>
+                            <p>
+                                Call Us: <a href={`tel:${activeLocation?.contact}`} className="text-white">{activeLocation?.contact}</a>
+                            </p>
+                            <p>
+                                Email: <a href={`mailto:${activeLocation?.email}`} className="text-white">{activeLocation?.email}</a>
+                            </p>
+                            <a href="#" className="text-white">MAP</a>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+        </Container>
     );
 };
+
+export default AllStores;

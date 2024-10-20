@@ -49,7 +49,7 @@
   margin-top: 1rem;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 943px) {
   .productsContainer {
     width: 50%;
   }
@@ -69,7 +69,7 @@
   }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 943px) {
   .productCardsContainer {
     width: 100%;
   }
@@ -93,14 +93,14 @@
 
 .heroBannerLoader {
   display: flex;
-  height: calc(100vw / 4.77);
+  height: calc(100vw / 3.2);
   width: 100%;
   margin: 20px 0px;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 943px) {
   .heroBannerLoader {
-    min-height: calc((100vw / 4.77)*1.6);
+    min-height: calc((100vw / 4.77)*6.5);
   }
 }
 
@@ -159,7 +159,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 943px) {
   .smallBox {
     height: 110px;
     /* width: 110px; */

@@ -31,7 +31,7 @@ export const Home = () => {
         {/* hero banner */}
         <HeroBanner />
 
-        <ShopAge />
+        {/* <ShopAge /> */}
 
         {/* Mobile Structure */}
         {/* <div className={`hideInDesktop`}>
@@ -74,7 +74,7 @@ export const Home = () => {
 
         <Reviews />
 
-        <BrandGallery />
+        {/* <BrandGallery /> */}
 
         <Footer />
       </div>
