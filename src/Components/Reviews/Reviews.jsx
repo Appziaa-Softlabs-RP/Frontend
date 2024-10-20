@@ -114,7 +114,7 @@ export default function Reviews() {
                     }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
                     <Link to="https://g.page/r/CQAJ2DtYp5XOEBM/review" rel="noopener noreferrer"
                         target="_blank">
-                        <button className={`${styles.reviewBtn} text-white py-2 px-5 mt-3 mb-2`}>Write a Review</button>
+                        <button className={`btn btn-sm btn-danger text-white py-2 px-3 mt-1 mb-2`}>Write a Review</button>
                     </Link>
                 </div>
             </div>
