@@ -178,7 +178,7 @@ export const SubCategory = ({ verticalSlug }) => {
                 <p className={`${styles.categoryProdName} col-12 text-center m-0`}>All</p>
               </div>
 
-              {shopCategory.map((item, index) => (
+              {shopCategory?.map((item, index) => (
                 <div
                   key={index}
                   className={`${catActive === item?.category_id && styles.active} d-inline-flex flex-column flex-shrink-0 col-12 gap-1`}
@@ -202,7 +202,7 @@ export const SubCategory = ({ verticalSlug }) => {
               >
                 All
               </span>
-              {subShopCategory.map((item, index) => (
+              {subShopCategory?.map((item, index) => (
                 <span
                   key={index}
                   onClick={() => getSubCategoryProd(item?.subcategory_id)}
@@ -226,7 +226,7 @@ export const SubCategory = ({ verticalSlug }) => {
             next={loadMoreProducts}
             hasMore={true}
           >
-            {categoryProd.map((item, index) => {
+            {categoryProd?.map((item, index) => {
               return (
                 <React.Fragment key={index}>
                   {item.name !== "" && (

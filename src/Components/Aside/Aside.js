@@ -119,7 +119,7 @@ export const Aside = ({ asideOpen, setAsideOpen, navItems, setNavItems }) => {
                 {/* </li> */}
                 <li className="ps-4">
                   <ul className="list-unstyled m-0 p-0">
-                    {navItems.map((item, index) => (
+                    {navItems?.map((item, index) => (
                       <li key={index} className="mb-2">
                         <div
                           className="d-flex flex-column"
@@ -153,7 +153,7 @@ export const Aside = ({ asideOpen, setAsideOpen, navItems, setNavItems }) => {
                             <div
                               className="d-flex flex-column gap-1 ms-4"
                             >
-                              {item.catList.map((subNme, subIdx) => (
+                              {item?.catList?.map((subNme, subIdx) => (
                                 <Link
                                   to={`/store-product/${subNme?.name_url}`}
                                   key={subIdx}
