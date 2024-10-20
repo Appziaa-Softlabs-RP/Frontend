@@ -316,6 +316,7 @@ export const ProductCard = ({ item, index }) => {
                 opacity: item.stock <= 0 ? "0.5" : "1",
                 height: "100%",
                 width: "100%",
+                margin: "0px",
                 objectFit: "cover",
               }}
               src={
@@ -349,16 +350,17 @@ export const ProductCard = ({ item, index }) => {
         </Link>
         <div style={{
           fontSize: "13px",
+          margin: "6px",
           fontWeight: "500",
-        }} className="mt-2" >
+        }} className="mt-1" >
           {getGenderName(item?.gender_name)}
         </div>
         <div>
           <Link
             to={`/product/${item?.name_url}`}
             style={{
-              margin: "5px 0px",
               textDecoration: "none",
+              margin: "6px",
               minHeight: "25px",
               display: "-webkit-box",
               WebkitLineClamp: "2",
@@ -372,10 +374,17 @@ export const ProductCard = ({ item, index }) => {
             }}
             className={`${styles.offerItemName} col-12 p-0`}
           >
+            <span style={{
+              color: "#000",
+              fontSize: "14px",
+            }}>
             {item.name}
+            </span>
           </Link>
           {item?.is_deal === 1 && item.deals_price !== 0 ? (
-            <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap">
+            <div className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap" style={{
+              margin: "6px",
+            }}>
               <span className={`${styles.offerPrice} d-inline-flex`}>
                 <b>₹{Math.round(item.deals_price)}</b>
               </span>
@@ -386,7 +395,7 @@ export const ProductCard = ({ item, index }) => {
           ) : item.mrp > item.selling_price ? (
             <div
               style={{
-                margin: "10px 0px",
+                margin: "10px 6px",
                 fontWeight: "400",
               }}
               className="col-12 p-0 d-inline-flex align-items-center gap-2 flex-wrap"
@@ -401,7 +410,7 @@ export const ProductCard = ({ item, index }) => {
           ) : (
             <div
               style={{
-                margin: "5px 0px",
+                margin: "6px",
               }}
               className="col-12 float-left p-0 d-inline-block"
             >

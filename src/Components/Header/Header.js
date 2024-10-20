@@ -19,8 +19,8 @@ import {
 } from "../siteIcons";
 import styles from "./Header.module.css";
 
-import { useAppStore } from "../../store";
 import Skeleton from "react-loading-skeleton";
+import { useAppStore } from "../../store";
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
   const appData = useApp();
@@ -49,11 +49,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
       setAsideOpen(true);
     }
   };
-
-  const openCart = () => {
-    navigate("/checkout");
-  };
-
+  
   const routeHome = () => {
     navigate("/");
   };
@@ -209,7 +205,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {/* Desktop Structure */}
-      <div className={`col-12 d-inline-flex shadow-sm flex-column px-2 px-md-5 `} style={{
+      <div className={`col-12 d-inline-flex shadow-sm flex-column px-0 px-md-5 `} style={{
         position: 'relative',
       }}>
         <div
@@ -512,8 +508,9 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           </div>
           {/* Search box */}
           <div
-            className={`${styles.supportDrop} p-0 d-flex align-items-center gap-1 position-relative hideInDesktop`}
+            className={`${styles.supportDrop} p-0 mb-3 d-flex align-items-center gap-1 position-relative hideInDesktop`}
             style={{
+              minWidth: '100vw',
               width: '100%',
               margin: "auto",
               maxWidth: '500px',
