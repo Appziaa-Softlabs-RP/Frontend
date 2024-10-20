@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { enviroment } from "../../enviroment";
 import {
   FacebookIcon,
-  LinkedInIcon,
-  TwitterIcon,
-  YoutubeIcon
+  InstagramIcon
 } from "../siteIcons";
 import styles from "./Footer.module.css";
 
@@ -39,14 +37,22 @@ export const Footer = () => {
               </div>
               <div>
                 <p className="mt-3">FOLLOW ON SOCIAL MEDIA</p>
-                <div className="d-flex p-0 m-0 gap-0 justify-content-center" style={{
+                <div className="d-flex p-0 m-0 gap-3" style={{
                   maxHeight: "20px",
                   maxWidth: "150px",
                 }}>
+                  <a href="https://www.instagram.com/stepsforever.official/" target="_" style={{
+                      width: "25px",
+                      height: "25px",
+                    }}>
+                    <InstagramIcon color={'#FFF'} />
+                  </a>
+                  <a href="https://www.facebook.com/profile.php?id=61566483668511" target="_" style={{
+                      width: "25px",
+                      height: "25px",
+                    }}>
                   <FacebookIcon color={'#FFF'} />
-                  <LinkedInIcon color={'#FFF'} />
-                  <TwitterIcon color={'#FFF'} />
-                  <YoutubeIcon color={'#FFF'} />
+                  </a>
                 </div>
               </div>
             </div>

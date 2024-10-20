@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AllStores } from "../../Components/AllStores/AllStores";
 import { Aside } from "../../Components/Aside/Aside";
 import { BrandFocus } from "../../Components/BrandFocus/BrandFocus";
 import Collections from "../../Components/Collection/Collection";
@@ -12,9 +13,6 @@ import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import OurStory from "../../Components/OurStory/OurStory";
 import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
 import Reviews from "../../Components/Reviews/Reviews";
-import { ShopAge } from "../../Components/ShopAge/ShopAge";
-import BrandGallery from "../../Components/BrandGallery/BrandGallery";
-import { AllStores } from "../../Components/AllStores/AllStores";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
