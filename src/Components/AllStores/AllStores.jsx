@@ -85,7 +85,7 @@ export const AllStores = () => {
                             <p>
                                 Email: <a href={`mailto:${activeLocation?.email}`} className="text-white">{activeLocation?.email}</a>
                             </p>
-                            <a href="#" className="text-white">MAP</a>
+                            <a href={`https://www.google.com/maps?q=${activeLocation?.lat},${activeLocation?.lon}`} className="text-white">MAP</a>
                         </div>
                     </Col>
                 </Row>

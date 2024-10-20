@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
-import { AppNotification } from "../../utils/helper";
-import styles from "./CartAside.module.css";
-import { DeleteIcon } from "../siteIcons";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
+import { AppNotification } from "../../utils/helper";
 import AddProductQuantity from "../shared/AddProductQuantity";
+import { DeleteIcon } from "../siteIcons";
+import styles from "./CartAside.module.css";
+import noImage from "../../assets/images/image-not-available.jpg";
 
 export const CartAside = ({ setCartPop }) => {
   const [cartData, setCartData] = useState([]);
@@ -22,6 +23,12 @@ export const CartAside = ({ setCartPop }) => {
   const showProductDetail = (name_url) => {
     navigate(`/product/${name_url}`);
     closeDrawer();
+  };
+
+  const setNoImage = (e) => {
+    if (e.target) {
+      e.target.src = noImage;
+    }
   };
 
   const updateProdQty = (e, prodID, allowQty, currQty, type, stock) => {
@@ -233,6 +240,7 @@ export const CartAside = ({ setCartPop }) => {
                         onClick={() => showProductDetail(item.name_url)}
                       >
                         <img
+                          onError={(e) => setNoImage(e)}
                           src={item?.image}
                           alt={item?.product_name}
                           className="col-12 d-inline-block object-fit-contain"

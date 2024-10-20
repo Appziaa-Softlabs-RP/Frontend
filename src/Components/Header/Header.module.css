@@ -35,13 +35,13 @@
 .cartCount {
     font-size: 10px;
     line-height: 11px;
-    background: var(--SECONDARY_COLOR);
-    color: var(--PRIMARY_COLOR);
+    background: rgb(235, 1, 1);
+    color: white;
     height: 15px;
     padding: 0px 5px;
     top: -12px;
     right: -5px;
-    border-radius: 6px;
+    border-radius: 50px;
 }
 
 .searchProdInput {

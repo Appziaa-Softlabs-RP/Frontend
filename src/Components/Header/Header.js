@@ -209,7 +209,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {/* Desktop Structure */}
-      <div className={`col-12 d-inline-flex flex-column px-2 px-md-5 `} style={{
+      <div className={`col-12 d-inline-flex shadow-sm flex-column px-2 px-md-5 `} style={{
         position: 'relative',
       }}>
         <div
@@ -225,7 +225,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
               }}
             >
 
-              <div className="col-4 d-flex gap-2p align-items-center">
+              <div className="col-4 d-flex gap-2 align-items-center">
                 <span
                   className={`${styles.menuIconBox} m-0 d-md-none d-inline-flex align-items-center`}
                   onClick={openAsideMenu}
@@ -246,12 +246,13 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                     alt={enviroment.REACT_APP_BUSINESS_NAME ?? "Logo"}
                     className="object-fit-contain mt-4"
                     style={{
-                      maxWidth: "80px",
-                      marginTop: "10px",
+                      maxWidth: "100px",
+                      minHeight: "50px",
+                      transform: 'translateY(-5px)',
                     }}
                   />
                 </h1>
-                <div className="d-flex d-none d-md-flex position-relative align-items-center ps-5 h-100">
+                <div className="d-flex d-none d-md-flex position-relative align-items-center ps-3 h-100">
                   {
                     loading ? (
                       <div className="d-flex flex-row gap-2">
