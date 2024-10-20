@@ -205,7 +205,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
   return (
     <React.Fragment>
       {/* Desktop Structure */}
-      <div className={`col-12 d-inline-flex shadow-sm flex-column px-0 px-md-5 `} style={{
+      <div className={`col-12 d-inline-flex shadow-sm flex-column px-2 px-md-5 `} style={{
         position: 'relative',
       }}>
         <div
@@ -510,7 +510,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           <div
             className={`${styles.supportDrop} p-0 mb-3 d-flex align-items-center gap-1 position-relative hideInDesktop`}
             style={{
-              minWidth: '100vw',
               width: '100%',
               margin: "auto",
               maxWidth: '500px',

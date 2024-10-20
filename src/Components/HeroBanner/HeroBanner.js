@@ -101,7 +101,7 @@ export const HeroBanner = ({ allBanner }) => {
     <React.Fragment>
     {/* Mobile Structure */}
     <div
-      className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex px-3 mt-1`}
+      className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex mt-1`}
       style={{
         minHeight: "538px",
       }}
