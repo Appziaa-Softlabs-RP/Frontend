@@ -5,7 +5,6 @@ import { SearchCategoryFilter } from "../../Components/Filter/SearchCategoryFilt
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { ProductListLoader } from "../../Components/Loader/Loader";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
 import {
     BackArrowIcon,
@@ -16,6 +15,7 @@ import {
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import styles from "./CategoryPage.module.css";
+import { Aside } from "../../Components/Aside/Aside";
 
 export const StoreProductCategory = () => {
     const locationState = useLocation();
@@ -39,6 +39,8 @@ export const StoreProductCategory = () => {
         setIsDscendingOrder(false);
         setIsAscendingOrder(false);
     };
+    const [asideOpen, setAsideOpen] = useState(false);
+    const [navItems, setNavItems] = useState([]);
 
     const priceAscending = () => {
         let originalProduct = [...ProductData];
@@ -123,14 +125,10 @@ export const StoreProductCategory = () => {
 
     return (
         <React.Fragment>
-            {/* Mobile Structure */}
-            <div className="hideInDesktop">
-                <PageHeader title="Explore Category" />
-            </div>
 
-            {/* Desktop Structure */}
-            <div className="hideInMobile">
-                <Header />
+            <div className="">
+                <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+                <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
             </div>
 
             <div

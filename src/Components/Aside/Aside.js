@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "./Aside.module.css";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
+import styles from "./Aside.module.css";
+import { BackArrowIcon, DownArrowIcon } from "../siteIcons";
+import { ArrowDown, ChevronDoubleDown, ChevronDown, ChevronRight } from "react-bootstrap-icons";
 
-export const Aside = ({ asideOpen, setAsideOpen }) => {
+export const Aside = ({ asideOpen, setAsideOpen, navItems, setNavItems }) => {
   const navigate = useNavigate();
   const appData = useApp();
   const userInfo = appData?.appData?.user;
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  const handleClick = (index) => {
+    setActiveIndex(activeIndex === index ? null : index)
+  }
 
   const openLoginPage = () => {
     navigate("/login");
@@ -17,12 +23,12 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
   const openAccountPage = () => {
     navigate("/my-account");
   };
+
   return (
     <React.Fragment>
       <div
-        className={`${styles.gradientMenuDrawer} ${
-          asideOpen === true && styles.openDrawer
-        } position-fixed h-100 col-12 top-0 start-0`}
+        className={`${styles.gradientMenuDrawer} ${asideOpen === true && styles.openDrawer
+          } position-fixed h-100 col-12 top-0 start-0`}
       >
         <div
           className={`${styles.menuDrawerInnerContainer} position-absolute h-100 d-inline-flex flex-column`}
@@ -100,7 +106,7 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
               className={`${styles.menuDrawerNavigation} col-12 d-inline-flex`}
             >
               <ul className={`${styles.menuDrawerMenu} list-unstyled col-12`}>
-                <li>
+                {/* <li>
                   <Link
                     className={`${styles.menuDrawerMenuItem} text-decoration-none d-inline-flex align-items-center`}
                     aria-current="page"
@@ -109,7 +115,70 @@ export const Aside = ({ asideOpen, setAsideOpen }) => {
                       <path d="m83.5 100h-67c-9 0-16.5-7.6-16.5-16.7v-36.5c0-4.6 2-9.1 5.5-12.2l33.5-30.4c6.5-5.6 15.5-5.6 22 0l33.5 30.4c3.5 3 5.5 7.6 5.5 12.2v36.5c-.5 9.6-7.5 16.7-16.5 16.7zm-33.5-89.7c-1.5 0-3 .5-4.5 1.5l-33.5 30.4c-1.5 1-2 3-2 5.1v36.5c0 3.5 3 6.6 6.5 6.6h66.5c3.5 0 6.5-3 6.5-6.6v-36.5c0-2-1-3.5-2-5.1l-33.5-30.4c-1-1-2.5-1.5-4-1.5z"></path>
                     </svg>
                     <span className="menu-text">Home</span>
-                  </Link>
+                  </Link> */}
+                {/* </li> */}
+                <li className="ps-4">
+                  <ul className="list-unstyled m-0 p-0">
+                    {navItems.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        <div
+                          className="d-flex flex-column"
+                        >
+                          <span
+                            className="d-flex align-items-center btn justify-content-between gap-2 mb-2"
+                            onClick={() => handleClick(index)}
+                            style={{
+                              color: '#333',
+                              fontWeight: activeIndex === index ? 'bold' : 'normal',
+                              fontSize: '16px',
+                              textDecoration: 'none',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {item.name}
+                            {/* if items are there show arrow down icon */}
+                            {
+                              item.catList?.length > 0 && (
+                                <span
+                                  style={{
+                                    rotate: activeIndex === index ? '90deg' : '0deg',
+                                  }}
+                                >
+                                <ChevronRight />
+                                </span>
+                              )
+                            }
+                          </span>
+                          {item.catList?.length > 0 && activeIndex === index && (
+                            <div
+                              className="d-flex flex-column gap-1 ms-4"
+                            >
+                              {item.catList.map((subNme, subIdx) => (
+                                <Link
+                                  to={`/store-product/${subNme?.name_url}`}
+                                  key={subIdx}
+                                  className="d-flex align-items-center py-1"
+                                  style={{
+                                    textDecoration: 'none',
+                                    color: '#333',
+                                    fontSize: '14px',
+                                    transition: 'color 0.3s',
+                                  }}
+                                  onMouseEnter={(e) => e.target.style.color = '#007bff'}
+                                  onMouseLeave={(e) => e.target.style.color = '#333'}
+                                >
+                                  <span className="text-black" style={{
+                                    fontSize: '14px',
+                                  }}>{subNme.name}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
                 </li>
               </ul>
             </nav>

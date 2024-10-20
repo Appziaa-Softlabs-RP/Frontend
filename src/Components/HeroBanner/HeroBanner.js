@@ -114,6 +114,7 @@ export const HeroBanner = ({ allBanner }) => {
           margin={5}
           loop={true}
           dots={true}
+          autoPlay={true}
           items={1}
         >
           {heroBanners?.length > 0 &&
@@ -137,6 +138,9 @@ export const HeroBanner = ({ allBanner }) => {
                         src={item?.mobile_image}
                         alt={item?.name}
                         className="object-fit-cover col-12 d-inline-block"
+                        style={{
+                          borderRadius: "0px"
+                        }}
                       />
                     </div>
                   )}

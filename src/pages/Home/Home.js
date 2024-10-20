@@ -16,6 +16,7 @@ import Reviews from "../../Components/Reviews/Reviews";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
 
   return (
     <React.Fragment>
@@ -24,21 +25,10 @@ export const Home = () => {
         maxWidth: "100vw",
         overflowX: "hidden",
       }}>
-        <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
-        <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
+        <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+        <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
         {/* hero banner */}
         <HeroBanner />
-
-        {/* <ShopAge /> */}
-
-        {/* Mobile Structure */}
-        {/* <div className={`hideInDesktop`}>
-          <CategoryShop />
-        </div> */}
-        {/* Desktop Structure */}
-        {/* <div className={`hideInMobile`}>
-          <LookingFor />
-        </div> */}
 
         <DealShop />
 

@@ -13,10 +13,12 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import noImage from "../../assets/images/image-not-available.jpg";
+import AddReview from "../../Components/AddReview/AddReview";
+import ShowReviews from "../../Components/AddReview/ShowReviews";
+import { Aside } from "../../Components/Aside/Aside";
 import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProducts";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import AddProductQuantity from "../../Components/shared/AddProductQuantity";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
@@ -34,8 +36,6 @@ import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
-import AddReview from "../../Components/AddReview/AddReview";
-import ShowReviews from "../../Components/AddReview/ShowReviews";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -71,7 +71,8 @@ export const ProductPage = () => {
   const [productLoading, setProductLoading] = useState(true);
 
   const [deliveryShowed, setDeliveryShowed] = useState(false);
-
+  const [asideOpen, setAsideOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
   const setMainImage = (image, count) => {
     setActiveImg(count);
     setProdMainImg(image);
@@ -552,8 +553,12 @@ export const ProductPage = () => {
         maxWidth: "100vw",
         overflowX: "hidden",
       }}>
-        <PageHeader title={ProductData?.name} />
-        <div className="col-12 d-inline-block position-relative">
+
+<div className="">
+                <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+                <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
+            </div>
+                    <div className="col-12 d-inline-block position-relative">
           {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
             <div
               className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}

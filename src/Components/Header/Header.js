@@ -22,7 +22,7 @@ import styles from "./Header.module.css";
 import Skeleton from "react-loading-skeleton";
 import { useAppStore } from "../../store";
 
-export const Header = ({ setAsideOpen, asideOpen }) => {
+export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
   const appData = useApp();
   const [loading, setLoading] = useState(true);
   const navItems = useAppStore((state) => state.navItems);
@@ -145,6 +145,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
           }
         });
         setNavItems(allSubCategory);
+        setFetchedNavItems(allSubCategory);
         setCategories(allCatList);
         setLoading(false);
       })
@@ -204,7 +205,6 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
 
   return (
     <React.Fragment>
-      {/* Desktop Structure */}
       <div className={`col-12 d-inline-flex shadow-sm flex-column px-2 px-md-5 `} style={{
         position: 'relative',
       }}>
