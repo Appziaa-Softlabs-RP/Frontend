@@ -230,6 +230,19 @@ ApiService.sendContactUsEmail = function (data) {
   });
 };
 
+ApiService.getAllStores = function (data) {
+  const cacheKey = "/store/get-all-stores" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/get-all-stores",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
 ApiService.CategoryByProd = function (data) {
   const cacheKey = "/store/CategoryByProduct" + JSON.stringify(data);
   return cacheFetch(
