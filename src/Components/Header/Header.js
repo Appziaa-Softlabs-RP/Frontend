@@ -20,6 +20,7 @@ import {
 import styles from "./Header.module.css";
 
 import { useAppStore } from "../../store";
+import Skeleton from "react-loading-skeleton";
 
 export const Header = ({ setAsideOpen, asideOpen }) => {
   const appData = useApp();
@@ -251,41 +252,49 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
                   />
                 </h1>
                 <div className="d-flex d-none d-md-flex position-relative align-items-center ps-5 h-100">
-                  {navItems.length > 0 &&
-                    navItems.map((item, index) => (
-                      <div
-                        className={`${styles.headerNavBox} w-fit position-relative d-flex align-items-center m-0 h-100 px-3`}
-                        key={index}
-                      >
-                        <span
-                          className={`${styles.menuName} d-flex align-items-center gap-2`}
-                        >
-                          {item.name}
-                        </span>
-                        {item.catList?.length > 0 && (
-                          <div
-                            className={`${styles.SubMenuList} d-flex flex-column gap-1 position-absolute`}
-                          >
-                            {item.catList.map((subNme, subIdx) => (
-                              <Link
-                                to={`/store-product/${subNme?.name_url}`}
-                                key={subIdx}
-                                className={`${styles.subMenuName} col-12 d-flex align-items-center px-3 py-2`}
-                                style={{
-                                  textDecoration: "none",
-                                }}
-                              >
-                                <p style={{
-                                  margin: '0',
-                                  padding: '0',
-                                  fontSize: '16px'
-                                }}>{subNme.name}</p>
-                              </Link>
-                            ))}
-                          </div>
-                        )}
+                  {
+                    loading ? (
+                      <div className="d-flex flex-row gap-2">
+                      <Skeleton width={100} height={30} />
+                      <Skeleton width={100} height={30} />
+                      <Skeleton width={100} height={30} />
                       </div>
-                    ))}
+                    ) :
+                      navItems.length > 0 &&
+                      navItems.map((item, index) => (
+                        <div
+                          className={`${styles.headerNavBox} w-fit position-relative d-flex align-items-center m-0 h-100 px-3`}
+                          key={index}
+                        >
+                          <span
+                            className={`${styles.menuName} d-flex align-items-center gap-2`}
+                          >
+                            {item.name}
+                          </span>
+                          {item.catList?.length > 0 && (
+                            <div
+                              className={`${styles.SubMenuList} d-flex flex-column gap-1 position-absolute`}
+                            >
+                              {item.catList.map((subNme, subIdx) => (
+                                <Link
+                                  to={`/store-product/${subNme?.name_url}`}
+                                  key={subIdx}
+                                  className={`${styles.subMenuName} col-12 d-flex align-items-center px-3 py-2`}
+                                  style={{
+                                    textDecoration: "none",
+                                  }}
+                                >
+                                  <p style={{
+                                    margin: '0',
+                                    padding: '0',
+                                    fontSize: '16px'
+                                  }}>{subNme.name}</p>
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
                 </div>
               </div>
 

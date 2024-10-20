@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import womenNoImage from "../../assets/images/female-no-image.png";
 import noImage from "../../assets/images/image-not-available.jpg";
+import kidsNoImage from "../../assets/images/kids-no-image.png";
+import menNoImage from "../../assets/images/men-no-image.png";
 import { useApp } from "../../context/AppContextProvider";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
@@ -11,13 +14,18 @@ export const ProductCard = ({ item, index }) => {
   const [prodAdded, setProdAdded] = useState(false);
   const [prodAddedQty, setProdAddedQty] = useState(0);
   const [userInfo, setUserInfo] = useState({});
-  const navigate = useNavigate();
   const appData = useApp();
 
-  const setNoImage = (e) => {
-    if (e.target) {
-      e.target.src = noImage;
-    }
+  const getNoImage = (verticalType = '') => {
+      if (verticalType === "Men") {
+        return menNoImage;
+      } else if (verticalType === "Women") {
+        return womenNoImage;
+      } else if (verticalType === "Kids") {
+        return kidsNoImage;
+      } else {
+        return noImage;
+      }
   };
 
   const addToCart = (e, item) => {
@@ -240,40 +248,40 @@ export const ProductCard = ({ item, index }) => {
       >
         {item?.is_deal
           ? parseFloat(item.mrp) > parseFloat(item.deals_price) && (
-              <span
-                className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
-              >
-                {Math.ceil(((item?.mrp - item?.deals_price) * 100) / item?.mrp)}
-                % OFF
-              </span>
-            )
+            <span
+              className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
+            >
+              {Math.ceil(((item?.mrp - item?.deals_price) * 100) / item?.mrp)}
+              % OFF
+            </span>
+          )
           : parseFloat(item.mrp) > parseFloat(item.selling_price) && (
-              <span
-                className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
-                style={{
-                  borderRadius: '100px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: "7px",
-                  width: "40px",
-                  height: "40px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span style={{
-                  margin: "1px"
-                }}>
-                  {Math.ceil(
-                    ((item?.mrp - item?.selling_price) * 100) / item?.mrp
-                  )}
-                  %
-                </span>{" "}
-                <span style={{
-                  margin: "1px"
-                }}>OFF</span>
-              </span>
-            )}
+            <span
+              className={`${styles.featureOffBox} position-absolute d-inline-flex align-items-center`}
+              style={{
+                borderRadius: '100px',
+                display: 'flex',
+                flexDirection: 'column',
+                padding: "7px",
+                width: "40px",
+                height: "40px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{
+                margin: "1px"
+              }}>
+                {Math.ceil(
+                  ((item?.mrp - item?.selling_price) * 100) / item?.mrp
+                )}
+                %
+              </span>{" "}
+              <span style={{
+                margin: "1px"
+              }}>OFF</span>
+            </span>
+          )}
 
         <Link
           to={`/product/${item?.name_url}`}
@@ -293,7 +301,6 @@ export const ProductCard = ({ item, index }) => {
             className={`d-flex align-items-center ${styles.productImgContainer}`}
           >
             <img
-              onError={(e) => setNoImage(e)}
               style={{
                 opacity: item.stock <= 0 ? "0.5" : "1",
                 height: "100%",
@@ -303,10 +310,10 @@ export const ProductCard = ({ item, index }) => {
               src={
                 item?.image
                   ? item.image?.replace(
-                      "https://rewardsplus.in/uploads/app/public/cogendermpany",
-                      "https://merchant.rewardsplus.in/uploads/app/public/company"
-                    )
-                  : item?.image_url ?? noImage
+                    "https://rewardsplus.in/uploads/app/public/cogendermpany",
+                    "https://merchant.rewardsplus.in/uploads/app/public/company"
+                  )
+                  : item?.image_url ?? getNoImage(item?.vertical_name)
               }
               alt="--"
               className={`${styles.productImg}`}
