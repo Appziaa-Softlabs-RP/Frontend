@@ -1,0 +1,40 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    position: relative;
+    max-width: 70%;
+    max-height: 70%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

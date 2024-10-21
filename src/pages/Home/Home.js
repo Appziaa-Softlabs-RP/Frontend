@@ -13,6 +13,7 @@ import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import OurStory from "../../Components/OurStory/OurStory";
 import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
 import Reviews from "../../Components/Reviews/Reviews";
+import LaunchEvent from "../../Components/LaunchEvent/LaunchEvent";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -27,6 +28,10 @@ export const Home = () => {
       }}>
         <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
+
+        {/* Launch event */}
+        <LaunchEvent />
+
         {/* hero banner */}
         <HeroBanner />
 
