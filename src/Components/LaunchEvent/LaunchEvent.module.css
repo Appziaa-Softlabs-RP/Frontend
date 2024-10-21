@@ -32,6 +32,16 @@
     cursor: pointer;
     z-index: 10;
 }
+@media (max-width: 768px) {
+    .modal {
+        max-width: 100%;
+        max-height: 80%;
+    }
+    .closeButton{
+        top: 5px;
+        right: 5px;
+    }
+}
 
 .eventImage {
     width: 100%;
