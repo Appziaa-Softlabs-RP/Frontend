@@ -119,9 +119,9 @@ export const SubCategory = ({ verticalSlug }) => {
     setApiPayload((prev) => ({ ...prev, page: pageCount }));
 
     const fetchApi =
-      activeApi === "categorySub"
-        ? ApiService.CategoryBySubProd(apiPayload)
-        : ApiService.CategoryByProd(apiPayload);
+    activeApi === "categorySub"
+      ? ApiService.CategoryBySubProd({ ...apiPayload, page: pageCount })
+      : ApiService.CategoryByProd({ ...apiPayload, page: pageCount });
 
     fetchApi
       .then((res) => {
@@ -158,7 +158,7 @@ export const SubCategory = ({ verticalSlug }) => {
     </div>
   }
 
-  if(shopCategory.length === 0) {
+  if (shopCategory.length === 0) {
     return <NoProductFound />
   }
 
