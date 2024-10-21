@@ -619,7 +619,7 @@ const PaymentMode = ({
               </label>
             </div>
             <div
-              className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-center align-items-center`}
+              className={`${styles.payBtnBox} col-12 d-inline-flex p-3 justify-content-end align-items-center`}
             >
               <span
                 onClick={() =>

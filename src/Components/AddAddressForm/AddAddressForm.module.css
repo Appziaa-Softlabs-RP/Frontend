@@ -51,9 +51,10 @@
     font-weight: 700;
 }
 .saveAddrsBtn{
-    background: var(--SECONDARY_COLOR);    height: 60px;
+    background: var(--PRIMARY_COLOR);
+    height: 60px;
     font-size: 18px;
-    color: #FFF;
+    color: var(--SECONDARY_COLOR);
 }
 .customRadio{
     border: 1px solid var(--ADD_BUTTON_COLOR);
