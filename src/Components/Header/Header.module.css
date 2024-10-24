@@ -209,10 +209,14 @@
     white-space: nowrap;
 }
 
-.menuName,
-.subMenuName {
+.menuName {
     font-size: 16px;
     color: #fff !important;
+}
+
+.subMenuName {
+    font-size: 16px;
+    color: var(--PRIMARY_COLOR) !important;
 }
 
 .menuName {
@@ -223,7 +227,7 @@
 }
 .headerNavBox:hover {
     transition: all ease 400ms;
-    border-bottom: 3px solid white;
+    border-color: white !important;
 }
 
 .menuName svg {
@@ -235,33 +239,19 @@
 }
 
 .SubMenuList {
-    background: #fff;
+    background: white;
     z-index: 30;
     transition: all ease 400ms;
-    transform: translateY(-4px);
+    transform: translateY(-1px);
     top: 86px;
     border-radius: 0px 0px 5px 5px;
     padding: 12px;
     min-width: 240px;
     left: 0px;
+    color: black;
     opacity: 0;
     visibility: hidden;
 }
-
-/* .headerNavBox:hover .SubMenuList:after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    margin-left: -5px;
-    background: #fff;
-    height: 10px;
-    width: 10px;
-    position: absolute;
-    top: -5px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    display: inline-block;
-} */
 
 .headerNavBox:hover .SubMenuList {
     opacity: 1;
@@ -290,7 +280,7 @@
 
 .subMenuName:hover {
     font-weight: 700;
-    background: #ebeaea;
+    background: var(--MENU_HOVER_COLOR);
     color: white;
 }
 

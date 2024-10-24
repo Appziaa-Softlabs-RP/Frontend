@@ -10,6 +10,7 @@ import ApiService from "../../services/ApiService";
 import { useAppStore } from "../../store";
 import { AppNotification } from "../../utils/helper";
 import { HeroBannerLoader } from "../Loader/Loader";
+import 'owl.carousel/dist/assets/owl.carousel.css';
 
 export const HeroBanner = ({ allBanner }) => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export const HeroBanner = ({ allBanner }) => {
     <React.Fragment>
       {/* Mobile Structure */}
       <div
-        className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex px-3`}
+        className={`${styles.heroBannerContainer} hideInDesktop heroBannerMobile col-12 d-inline-flex m-0`}
       >
         {loading ? (
           <HeroBannerLoader />
@@ -133,6 +134,9 @@ export const HeroBanner = ({ allBanner }) => {
                           src={item?.mobile_image}
                           alt={item?.name}
                           className="object-fit-cover col-12 d-inline-block"
+                          style={{
+                            borderRadius: "0px",
+                          }}
                         />
                       </div>
                     )}
@@ -144,20 +148,25 @@ export const HeroBanner = ({ allBanner }) => {
       </div>
 
       {/* Desktop Structure */}
-      <div className={`hideInMobile`}>
+      <div className={`${styles.heroBannerContainer} hideInMobile`}>
         {loading ? (
           <HeroBannerLoader />
         ) : (
           <div className={`col-12 d-inline-flex`}>
             <ReactOwlCarousel
-              className={`${styles.desktopBanner} heroBanner col-12 d-inline-block owl-theme`}
-              margin={0}
-              loop={true}
-              dots={false}
-              nav={true}
-              stagePadding={0}
+              className={`owl-theme`}
+              style={{
+                position: 'relative',
+                maxWidth: '100%',
+                width: '100%',
+              }}
+              dots={true}
               items={1}
+              loop={true}
               autoplay={true}
+              autoplayTimeout={3000}
+              autoplayHoverPause={true}
+              nav={false}
             >
               {heroBanners.map((item, index) => {
                 return (

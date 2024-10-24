@@ -49,7 +49,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
       setAsideOpen(true);
     }
   };
-  
+
   const routeHome = () => {
     navigate("/");
   };
@@ -159,9 +159,11 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
   }, [appData?.appData]);
 
   const searchTexts = [
-    'Shoes',
-    'Sandals',
-    'Accesories'
+    'Chaina Ram',
+    'Sevpak',
+    'Sweets',
+    'Namkeen',
+    'Gulab Jamun'
   ];
 
   const [placeholderText, setPlaceholderText] = useState('');
@@ -207,10 +209,11 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
     <React.Fragment>
       <div className={`col-12 d-inline-flex shadow-sm flex-column px-2 px-md-5 `} style={{
         position: 'relative',
+        zIndex: '1000',
         background: 'var(--PRIMARY_COLOR)'
       }}>
         <div
-          className={`${styles.headerRow} m-0 col-12 p-0 row d-inline-flex align-items-center`}
+          className={`${styles.headerRow} m-0 col-12 p-0 row d-inline-flex align-items-center mx-md-4`}
         >
           <div className="container-fluid p-0 w-100 mx-auto col-11 d-flex align-items-stretch">
             <div
@@ -224,7 +227,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
 
               <div className="col-4 d-flex gap-2 align-items-center">
                 <span
-                  className={`${styles.menuIconBox} m-0 d-md-none d-inline-flex align-items-center`}
+                  className={`${styles.menuIconBox} m-0 me-3 d-md-none d-inline-flex align-items-center`}
                   onClick={openAsideMenu}
                 >
                   <MenuIcons color={enviroment.SECONDARY_COLOR} />
@@ -232,7 +235,9 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                 <h1
                   onClick={() => routeHome()}
                   itemtype="http://schema.org/Organization"
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                  }}
                   className={`d-flex align-items-center h-100`}
                 >
                   <span className="visually-hidden">
@@ -241,10 +246,10 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                   <img
                     src={siteLogo}
                     alt={enviroment.REACT_APP_BUSINESS_NAME ?? "Logo"}
-                    className="object-fit-contain mt-4"
+                    className="object-fit-contain siteMainLogo mt-3 py-3"
                     style={{
-                      maxWidth: "100px",
-                      minHeight: "50px",
+                      maxWidth: "100%",
+                      minWidth: '120px',
                       transform: 'translateY(-5px)',
                     }}
                   />
@@ -253,9 +258,9 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                   {
                     loading ? (
                       <div className="d-flex flex-row gap-2">
-                      <Skeleton width={100} height={30} />
-                      <Skeleton width={100} height={30} />
-                      <Skeleton width={100} height={30} />
+                        <Skeleton width={100} height={30} />
+                        <Skeleton width={100} height={30} />
+                        <Skeleton width={100} height={30} />
                       </div>
                     ) :
                       navItems.length > 0 &&
@@ -265,7 +270,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                           key={index}
                         >
                           <span
-                            className={`${styles.menuName} d-flex align-items-center gap-2`}
+                            className={`${styles.menuName} d-flex align-items-center gap-2 fs-5`}
                           >
                             {item.name}
                           </span>
@@ -322,14 +327,14 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                       <span
                         className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                         style={{
-                          left: '55px',
+                          left: '56px',
                         }}
                       >
                         <SearchIcon color="#000" />
                       </span>
                       <input
                         type="search"
-                        className={`${styles.inputSearch} d-inline-flex col-12 pe-1`}
+                        className={`${styles.inputSearch} d-inline-flex col-12 pe-3`}
                         style={{
                           padding: '0 0 0 30px',
                         }}
@@ -428,7 +433,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
 
                 {userInfo && userInfo?.customer_id ? (
                   <div
-                    className={`${styles.supportDrop} d-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
+                    className={`${styles.supportDrop} hideInMobile d-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
                     role="button"
                     onClick={() => openAccountDetail()}
                   >
@@ -532,7 +537,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                 <span
                   className={`${styles.searchIcon} position-absolute top-0 bottom-0 m-auto d-inline-flex align-items-center`}
                   style={{
-                    left: '5px'
+                    left: '10px'
                   }}
                 >
                   <SearchIcon color="#000" />
@@ -541,7 +546,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                   type="search"
                   className={`${styles.inputSearch} d-inline-flex col-12 pe-3`}
                   style={{
-                    padding: '0 0 0 30px',
+                    padding: '0 0 0 35px',
                   }}
                   value={searchProd}
                   onChange={(e) => searchShopProd(e, e.target.value)}
