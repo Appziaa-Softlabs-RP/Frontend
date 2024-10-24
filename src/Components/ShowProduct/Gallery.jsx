@@ -174,6 +174,7 @@ export default function ProductGallery({
                 border: '1px solid skyblue',
                 position: 'absolute',
                 pointerEvents: 'none',
+                background: 'rgba(0, 0, 0, 0.1)',
                 zIndex: 100,
             }}
         ></div>
@@ -195,6 +196,9 @@ export default function ProductGallery({
         ></canvas>
         <div
             className={`${styles.productMainImage} col-12 d-inline-block position-relative bg-white rounded`}
+            style={{
+                cursor: "grab",
+            }}
         >
             {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
                 <div
