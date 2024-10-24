@@ -20,6 +20,7 @@ import { FeaturedProducts } from "../../Components/FeaturedProducts/FeaturedProd
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import AddProductQuantity from "../../Components/shared/AddProductQuantity";
+import ProductGallery from "../../Components/ShowProduct/Gallery";
 import { SimilarProduct } from "../../Components/SimilarProduct/SimilarProduct";
 import {
   CopyIcon,
@@ -47,7 +48,6 @@ export const ProductPage = () => {
   const [prodMainImg, setProdMainImg] = useState("");
   const [pincode, setPincode] = useState("");
   const [deliveryDetail, setDeliveryDetail] = useState({});
-  const [activeImg, setActiveImg] = useState("");
   const [prodDiscount, setProdDiscount] = useState(0);
   const [descActive, setDescActive] = useState("Description");
   const [prodDesc, setProdDesc] = useState({
@@ -73,10 +73,6 @@ export const ProductPage = () => {
   const [deliveryShowed, setDeliveryShowed] = useState(false);
   const [asideOpen, setAsideOpen] = useState(false);
   const [navItems, setNavItems] = useState([]);
-  const setMainImage = (image, count) => {
-    setActiveImg(count);
-    setProdMainImg(image);
-  };
 
   const setNoImage = (e) => {
     if (e.target) {
@@ -554,143 +550,21 @@ export const ProductPage = () => {
         overflowX: "hidden",
       }}>
 
-<div className="">
-                <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
-                <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
-            </div>
-                    <div className="col-12 d-inline-block position-relative">
-          {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
-            <div
-              className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}
-            >
-              <span
-                className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
-              >
-                Sold Out
-              </span>
-            </div>
-          ) : (
-            ""
-          )}
-          <ReactOwlCarousel
-            className={`${styles.bannerContainer} col-12 owl-theme`}
-            margin={0}
-            loop={false}
-            dots={true}
-            items={1}
-          >
-            <div
-              className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
-            >
-              {!productLoading ? (
-                <img
-                  src={ProductData?.image}
-                  alt={ProductData?.name}
-                  onError={(e) => setNoImage(e)}
-                  className="col-12 d-inline-block"
-                  style={{
-                    minHeight: "300px",
-                    maxHeight: "500px",
-                    width: "auto",
-                  }}
-                />
-              ) : (
-                <div
-                  className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                  style={{
-                    height: "500px",
-                  }}
-                >
-                  <ThreeDots
-                    visible={true}
-                    height="80"
-                    width="80"
-                    color="#000"
-                    radius="9"
-                    ariaLabel="three-dots-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                  />
-                </div>
-              )}
-            </div>
-            {ProductData?.gallery_images?.map((item, index) => {
-              return (
-                <div
-                  className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
-                  key={index}
-                >
-                  {!productLoading ? (
-                    <img
-                      src={enviroment.API_IMAGE_GALLERY_URL + item}
-                      onError={(e) => setNoImage(e)}
-                      alt={ProductData?.name}
-                      className="col-12 d-inline-block"
-                      style={{
-                        maxHeight: "500px",
-                        width: "auto",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                      style={{
-                        height: "500px",
-                      }}
-                    >
-                      <ThreeDots
-                        visible={true}
-                        height="80"
-                        width="80"
-                        color="#000"
-                        radius="9"
-                        ariaLabel="three-dots-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </ReactOwlCarousel>
-          {productLoading && !ProductData?.gallery_images.length ? (
-            !productLoading ? (
-              <div
-                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-              >
-                <img
-                  src={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
-                  alt={ProductData?.name}
-                  onError={(e) => setNoImage(e)}
-                  className="col-12 d-inline-block"
-                  style={{
-                    maxHeight: "100px",
-                    width: "auto",
-                  }}
-                />
-              </div>
-            ) : (
-              <div
-                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                style={{
-                  height: "100px",
-                }}
-              >
-                <ThreeDots
-                  visible={true}
-                  height="80"
-                  width="80"
-                  color="#000"
-                  radius="9"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                />
-              </div>
-            )
-          ) : null}
+        <div className="">
+          <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+          <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
         </div>
+
+        <ProductGallery
+          ProductData={ProductData}
+          styles={styles}
+          productLoading={productLoading}
+          setNoImage={setNoImage}
+          prodMainImg={prodMainImg}
+          getProductImageOfColorId={getProductImageOfColorId}
+          setProdMainImg={setProdMainImg}
+          setProdSharePop={setProdSharePop}
+        />
 
         <div
           className={`${styles.productAllDetail} col-12 d-flex flex-column gap-3 p-4`}
@@ -1284,114 +1158,18 @@ export const ProductPage = () => {
               <div
                 className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}
               >
-                <div
-                  className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
-                >
-                  <div
-                    className={`${styles.productMainImage} col-12 d-inline-block position-relative bg-white rounded`}
-                  >
-                    {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
-                      <div
-                        className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100 top-0`}
-                      >
-                        <span
-                          className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
-                        >
-                          Sold Out
-                        </span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    <span
-                      className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`}
-                      role="button"
-                      onClick={() => setProdSharePop(true)}
-                    >
-                      <ShareIcon color="#000" />
-                    </span>
-                    {!productLoading ? (
-                      <img
-                        src={prodMainImg === "" ? getProductImageOfColorId(ProductData?.color_id) : prodMainImg}
-                        onError={(e) => setNoImage(e)}
-                        alt={ProductData?.name}
-                        style={{
-                          opacity: (ProductData?.stock === 0 || ProductData?.stock < 0) ? "0.5" : "1",
-                        }}
-                        className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
-                      />
-                    ) : (
-                      <div className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
-                        <ThreeDots
-                          visible={true}
-                          height="80"
-                          width="80"
-                          color="#000"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <ReactOwlCarousel
-                    key={activeImg}
-                    className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`}
-                    margin={10}
-                    loop={false}
-                    dots={false}
-                    items={6}
-                  >
-                    <div
-                      className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
-                        } col-12 d-inline-flex p-0 rounded align-items-center justify-content-center`}
-                      onClick={() => setMainImage(ProductData?.image, -1)}
-                    >
-                      <img
-                        alt={ProductData?.name}
-                        src={(ProductData?.image || ProductData?.image === "") ? getProductImageOfColorId(ProductData?.color_id) : ProductData?.image}
-                        onError={(e) => setNoImage(e)}
-                        className="bg-white rounded"
-                        style={{
-                          height: "80px",
-                          maxHeight: "80px",
-                          maxWidth: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </div>
+                <ProductGallery
+                  sm={false}
+                  ProductData={ProductData}
+                  styles={styles}
+                  productLoading={productLoading}
+                  setNoImage={setNoImage}
+                  prodMainImg={prodMainImg}
+                  getProductImageOfColorId={getProductImageOfColorId}
+                  setProdMainImg={setProdMainImg}
+                  setProdSharePop={setProdSharePop}
+                />
 
-                    {ProductData?.gallery_images?.map((item, index) => {
-                      return (
-                        <div
-                          className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
-                            } col-12 d-inline-flex p-0 rounded align-items-center justify-content-center`}
-                          onClick={() =>
-                            setMainImage(
-                              enviroment.API_IMAGE_GALLERY_URL + item,
-                              index
-                            )
-                          }
-                          key={index}
-                        >
-                          <img
-                            src={enviroment.API_IMAGE_GALLERY_URL + item}
-                            alt={ProductData?.name}
-                            onError={(e) => setNoImage(e)}
-                            className="bg-white m-0 rounded"
-                            style={{
-                              height: "80px",
-                              maxHeight: "80px",
-                              maxWidth: "100%",
-                              objectFit: "contain",
-                            }}
-                          />
-                        </div>
-                      );
-                    })}
-                  </ReactOwlCarousel>
-                </div>
                 <div className="col-12 d-flex flex-column m-3">
                   <div className="d-flex align-items-center justify-content-between flex-column gap-2">
                     {ProductData?.description &&
@@ -1526,7 +1304,9 @@ export const ProductPage = () => {
                       :
                       <div className="d-inline-flex align-items-center gap-2">
                         {ProductData?.category_name ? (
-                          <span className={`${styles.categoryName} d-inline-flex m-0`}>
+                          <span className={`m-0`} style={{
+                            zIndex: '-1',
+                          }}>
                             {ProductData?.category_name}
                           </span>
                         ) : null}
@@ -1561,6 +1341,9 @@ export const ProductPage = () => {
                 </div>
                 <div
                   className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
+                  style={{
+                    zIndex: '-1',
+                  }}
                 >
                   {
                     productLoading ?
