@@ -377,7 +377,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                     <div
                       className={`${styles.timingPhoneBox} d-flex col-12 align-items-center gap-3`}
                     >
-                      <SupportIcon color="#fff" />
+                      <SupportIcon color="black" />
                       <div className="d-flex flex-column">
                         <label
                           className={`${styles.supportTimings} col-12 p-0 text-center`}
@@ -432,7 +432,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
 
                 {userInfo && userInfo?.customer_id ? (
                   <div
-                    className={`${styles.supportDrop} hideInMobile d-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
+                    className={`${styles.supportDrop} hideInMobile text-black d-flex flex-column align-items-center gap-1 position-relative justify-content-center`}
                     role="button"
                     onClick={() => openAccountDetail()}
                   >

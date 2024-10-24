@@ -1,83 +1,151 @@
-.siteFooter {
-	background: #f9f9fb;
-	padding: 30px 20px 10px 20px;
-	margin-top: 50px;
+.footer {
+	background-color: var(--PRIMARY_COLOR);
+	padding: 3rem 0 1.5rem;
+	color: white;
 }
 
-.footerBlocks {
-	gap: 30px;
+.container {
+	position: relative;
+	max-width: 100vw;
+	overflow: hidden;
 }
 
-.footerBlocks .footerBlock {
-	width: calc(50% - 15px);
-	float: left;
+.borderTop {
+	position: absolute;
+	top: -10px;
+	left: 0;
+	right: 0;
+	height: 10px;
+	background-repeat: repeat-x;
 }
 
-.footerTitle {
-	margin-bottom: 15px;
-	font-weight: 700;
-	font-size: 15px;
-	color: #000;
+.logoWrapper {
+	margin-bottom: 1rem;
 }
 
-.footerMenu li a {
-	display: inline-block;
-	padding: 4px 0;
-	color: #000;
-	font-size: 14px;
+.logo {
+	max-width: 120px;
+	height: auto;
 }
 
-.footerMenu li svg {
-	height: 20px;
-	width: 20px;
-	display: inline-block;
-	margin-right: 10px;
+.description {
+	font-size: 0.9rem;
+	line-height: 1.6;
+	margin-bottom: 1rem;
 }
 
-.footerIconLink {
-	gap: 10px;
-}
-
-.footerSection {
-	margin-top: 15px;
-	padding: 15px;
-	border-top: 1px solid #e8e8e1;
-}
-
-/* Desktop CSS */
-.footerContainer {
-	margin-top: 20px;
-	background-color: white;
-}
-.imgBoxText .imgBoxTitle {
-	font-size: 18px;
-}
-.imgBoxText .imgBoxDesc {
-	font-size: 13px;
-}
-.imgBoxImg {
-	min-height: 95px;
-}
-.imgBoxImg svg{
-	width: 80px;
-}
-.footerTabCol h5 {
-	color: black;
+.heading {
 	font-weight: bold;
-	font-size: 14px;
+	margin-bottom: 1rem;
+	font-size: 1.1rem;
 }
-.footerTabCol ul li a {
-	color: #555;
-	font-size: 14px;
+
+.list {
+	padding-left: 0;
+	list-style-type: none;
 }
-.copyright p {
-	font-size: 14px;
+
+.link {
+	color: #fff;
+	text-decoration: none;
+	font-size: 0.9rem;
+	line-height: 2;
 }
-.socialIcon svg{
-	height: 15px;
-	width: 15px;
+
+.link:hover {
+	text-decoration: underline;
 }
-.whatsAppLink{
-	color: #111;
-	font-size: 14px;
+
+.newsletterForm {
+	display: flex;
+	flex-direction: column;
+}
+
+.emailInput {
+	margin-bottom: 0.5rem;
+	padding: 0.5rem;
+	border: 1px solid #fff;
+	border-radius: 4px;
+}
+
+.submitButton {
+	background-color: #fff;
+	border: none;
+	color: var(--PRIMARY_COLOR);
+	padding: 0.5rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+	background-color: #7c3b05;
+}
+
+.divider {
+	margin: 2rem 0;
+	border-color: rgba(94, 44, 4, 0.2);
+}
+
+.bottomFooter {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.copyright {
+	font-size: 0.8rem;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.socialIcons {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-end;
+}
+
+.socialLink {
+	color: #fff;
+	font-size: 1.2rem;
+	transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+	color: #7c3b05;
+}
+
+.contactInfo {
+	margin-top: 1.5rem;
+	text-align: center;
+	font-size: 0.9rem;
+}
+
+.contact {
+	margin-bottom: 0.5rem;
+}
+
+.whatsAppLink {
+	display: inline-flex;
+	align-items: center;
+	color: #fff;
+	text-decoration: none;
+	margin-top: 0.5rem;
+}
+
+.whatsAppLink i {
+	margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+	.bottomFooter {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.socialIcons {
+		justify-content: center;
+		margin-top: 1rem;
+	}
 }

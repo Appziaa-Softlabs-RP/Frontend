@@ -1,161 +1,97 @@
-import { useState } from "react";
-import ReactOwlCarousel from "react-owl-carousel";
-import { Link } from "react-router-dom";
-import { reviews } from "../../constants/data";
-import styles from "./Review.module.css";
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import React, { useRef } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { StarFill } from 'react-bootstrap-icons';
+import OwlCarousel from 'react-owl-carousel';
+import styles from './Review.module.css';
+
+const testimonials = [
+    {
+        id: 1,
+        name: 'Ritu Juneja',
+        content: 'I would call your efforts public service. Getting the best eatables from the heart of Delhi to cater to our taste buds. Prompt delivery, always on time. Thank you so much. Appreciate your efforts.',
+        rating: 5,
+    },
+    {
+        id: 2,
+        name: 'Amit Sharma',
+        content: 'Exceptional service and authentic flavors! The dishes truly capture the essence of Old Delhi. Fast delivery and great packaging.',
+        rating: 5,
+    },
+    {
+        id: 3,
+        name: 'Priya Gupta',
+        content: 'A taste of home delivered to my doorstep. The quality and taste are unmatched. Highly recommend to anyone missing Delhi street food!',
+        rating: 5,
+    },
+];
 
 export default function Reviews() {
+    const carouselRef = useRef(null); // Ref for the carousel
 
-    const settings = {
-        items: 3, // Number of items to display on desktop by default
-        margin: 10,
+    const options = {
+        items: 1,
+        loop: true,
+        nav: false, // Disable default navigation
         dots: false,
-        loop: false,
-        nav: true,
         responsive: {
             0: {
                 items: 1,
             },
-            300: {
-                items: 1.01,
-            },
-            380: {
-                items: 1.08,
-            },
-            400: {
-                items: 1.1,
-            },
-            460: {
-                items: 1.1,
-            },
-            510: {
-                items: 1.2,
-            },
-            550: {
-                items: 1.3,
-            },
-            620: {
-                items: 1.7
-            },
-            700: {
+            600: {
                 items: 1,
             },
-            800: {
-                items: 1.3,
-            },
-            900: {
-                items: 1.7,
-            },
             1000: {
-                items: 1.8,
+                items: 1,
             },
-            1100: {
-                items: 2.3,
-            },
-            1200: {
-                items: 2.5,
-            },
-            1300: {
-                items: 2.7,
-            },
-            1400: {
-                items: 3,
-            }
         },
     };
 
-    const ShowReview = ({ review }) => {
-        const [showMore, setShowMore] = useState(false);
-
-        if (showMore) {
-            return <div style={{
-                maxHeight: "200px",
-                overflow: "auto",
-                paddingRight: "20px"
-            }}>
-                <p className="mb-0">{review}</p>
-                <button onClick={() => setShowMore(false)} className="text-sm text-primary" style={{ background: "none", border: "none" }}>Show Less</button>
-            </div>
-        } else {
-            return <>
-                <p className="mb-0">{review.length > 200 ? review.slice(0, 200) + "..." : review}</p>
-                {review.length > 200 &&
-                    <button onClick={() => setShowMore(true)} className="text-sm text-primary" style={{
-                        background: "none",
-                        border: "none",
-                        width: 'fit-content'
-                    }}>Show More</button>}
-            </>
-        }
-    }
-
-    return <div style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%"
-    }}>
-        <div className={`${styles.sliderContainer}`}>
-
-            <div className="col-md-3" style={{
-                minWidth: "300px",
-            }} >
-                <img src="/review/Group.png" alt="rewview" style={{
-                    width: "60px",
-                    marginBottom: "-20px"
-                }} />
-                <div className="ms-4">
-                    <p style={{
-                        fontSize: "1.125rem"
-                    }}><b>The {process.env.REACT_APP_BUSINESS_NAME} Testimonials</b></p>
-                    <p className="text-sm mt-3" style={{
-                        color: "#1a1a1a"
-                    }}>We&apos;re overwhelmed with these messages. <br /> Now, it's your turn to share. Leave a review and tell others about your experience with {process.env.REACT_APP_BUSINESS_NAME}.</p>
-                    <Link to="https://g.page/r/CT1OymFWT-JYEBM/review" rel="noopener noreferrer"
-                        target="_blank">
-                        <button className={`${styles.reviewBtn} text-white py-2 px-5 mt-3 mb-2`}>Write a Review</button>
-                    </Link>
-                </div>
-            </div>
-
-            <div className={`${styles.carousalBody}`} style={{
-                position: "relative",
-                overflow: "hidden",
-            }}>
-                <ReactOwlCarousel className={`${styles.brandSilder} brandSilder s-theme`}  {...settings}>
-                    {reviews.map((review) => (
-                        <div key={review.id} className={`${styles.sliderItem} p-3 rounded-md`} style={{
-                            background: "rgb(242 236 236)",
-                            color: "#291845",
-                            borderRadius: "5px"
-                        }}>
-                            <div className="d-flex justify-content-between" style={{ alignItems: "center" }}>
-                                <div className="d-flex" style={{ alignItems: "center" }}>
-                                    <img src={review.image} alt="rewview" style={{ width: "50px" }} />
-                                    <div className="px-2">
-                                        <p className="mb-0"><b>{review.name}</b></p>
-                                        <p className="mb-0">{review.date}</p>
+    return (
+        <section className={styles.customerExperience}>
+            <Container>
+                <Row className="justify-content-center text-center">
+                    <Col md={10} lg={8} className='position-relative'>
+                        <h2 className={`${styles.title} textSpecial`}>
+                            <span className={styles.titleDark} style={{
+                                textDecoration: 'underline',
+                            }}>We Value</span>{' '}
+                            <span className={styles.titleLight}>your feedback</span>
+                        </h2>
+                        <OwlCarousel ref={carouselRef} className="owl-theme" {...options}>
+                            {testimonials.map((testimonial) => (
+                                <div key={testimonial.id} className={styles.testimonialItem}>
+                                    <div className={styles.testimonialContent}>
+                                        <p>{testimonial.content}</p>
+                                        <div style={{
+                                            textAlign: 'center',
+                                        }}>
+                                            <h3 style={{
+                                                fontSize: '16px'
+                                            }}>{testimonial.name}</h3>
+                                            <div className={styles.rating}>
+                                                {[...Array(testimonial.rating)].map((_, index) => (
+                                                    <StarFill key={index} className={styles.star} size={20} fill="#FFA500" color="#FFA500" />
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <img src="/review/gimg.png" alt="rewview" style={{ maxWidth: "30px" }} />
-                            </div>
-                            <div className="d-flex my-2">
-                                {Array(review.rating).fill(0).map((_, index) => (
-                                    <p style={{
-                                        margin: '2px'
-                                    }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg>
-                                    </p>
-                                ))}
-                            </div>
-                            <p className="text-sm" style={{ display: "flex", flexDirection: 'column' }}>
-                                <ShowReview review={review?.review} />
-                            </p>
+                            ))}
+                        </OwlCarousel>
+                        {/* Custom Navigation Buttons */}
+                        <div className={styles.customNav}>
+                            <button className={`${styles.navButton} ${styles.prev}`} onClick={() => carouselRef.current.prev()}>
+                                ‹
+                            </button>
+                            <button className={`${styles.navButton} ${styles.next}`} onClick={() => carouselRef.current.next()}>
+                                ›
+                            </button>
                         </div>
-                    ))}
-                </ReactOwlCarousel>
-            </div>
-        </div>
-    </div>
+                    </Col>
+                </Row>
+            </Container>
+        </section>
+    );
 }

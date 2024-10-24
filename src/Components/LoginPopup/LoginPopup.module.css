@@ -7,7 +7,7 @@
     border-radius: 6px;
     min-height: 470px;
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
 }
 .loginGradientBox{
     background: var(--PRIMARY_COLOR);

@@ -11,7 +11,6 @@ import { LookingFor } from "../../Components/LookingFor/LookingFor";
 import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
 import Reviews from "../../Components/Reviews/Reviews";
-import { ShopAge } from "../../Components/ShopAge/ShopAge";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);

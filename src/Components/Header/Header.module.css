@@ -138,20 +138,27 @@
 
 .supportTimings {
     font-size: 14px;
-    color: #fff;
+    color: black;
     line-height: 1.5;
 }
 
-.supportPhoneNumber,
+.supportPhoneNumber {
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+    line-height: 2;
+}
+
 .mailtoEmail {
     font-size: 18px;
-    color: #fff;
+    color: white;
     font-weight: 600;
     line-height: 2;
 }
 
 .mailtoBox {
-    background: #f8f8f8;
+    background: black;
+    color: white;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0px;
@@ -302,7 +309,7 @@
     height: 45px;
     font-size: 15px;
     font-weight: 500;
-    color: #fff;
+    color: black;
     padding: 0 10px;
     transition: .1s;
 }

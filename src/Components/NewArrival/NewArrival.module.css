@@ -1,3 +1,16 @@
+.newArrivalContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 450px;
+  height: 450px;
+  background-image: url('/public/images/rang-full.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
 .brandInTitle {
   color: #1d2a39;
   font-size: 16px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import siteLogo from "../../assets/images/site_logo.png";
+import siteLogo from "../../assets/images/site_logo_dark.jpeg";
 import { enviroment } from "../../enviroment";
 import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";

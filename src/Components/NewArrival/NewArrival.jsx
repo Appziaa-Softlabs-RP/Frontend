@@ -38,12 +38,19 @@ export const NewArrival = () => {
 
 
     return (
-        <React.Fragment>
+        <div className="position-relative">
             {productData?.length > 0 &&
-                <div className={`col-12 ${windowWidth === "desktop" && 'p-3 mt-2'} d-inline-flex`}>
+                <div className={`col-12 ${styles.newArrivalContainer} ${windowWidth === "desktop" && 'p-3 mt-2'} py-5 d-inline-flex`} style={{
+                    background: "#522627"
+                }}>
                     <div className={`${windowWidth === "mobile" && 'p-0'} container`}>
                         <div className={`col-12 ${windowWidth === 'mobile' ? 'p-3' : 'mt-3'} d-inline-flex flex-column`}>
-                            <h2 className={`${styles.brandInTitle} col-12 ${windowWidth === "desktop" ? 'mb-4 fs-2' : 'mb-3 fs-3'} mt-0 fs-2`}>{windowWidth === 'mobile' ? 'New Arrivals!' : '✨ New Arrivals! ✨'}</h2>
+                            <h2 className={`${styles.title} textSpecial text-center mb-4`}>
+                                <span className="text-white" style={{
+                                    textDecoration: 'underline',
+                                }}>Season's</span>{' '}
+                                <span style={{ color: "#ffa500" }}>flavour</span>
+                            </h2>
                             <ReactOwlCarousel className={`${styles.brandSilder} brandSilder col-12 owl-theme`}
                                 margin={10}
                                 dots={false}
@@ -65,6 +72,6 @@ export const NewArrival = () => {
                     </div>
                 </div>
             }
-        </React.Fragment>
+        </div>
     )
 }

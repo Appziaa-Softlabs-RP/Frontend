@@ -19,7 +19,9 @@ export const Faq = () => {
         <Header />
       )}
       <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
-        <div className="container"></div>
+        <div className="container">
+          <p className="fs-1 fw-bold text-center">COMING SOON</p>
+        </div>
       </div>
       <Footer />
     </React.Fragment>
