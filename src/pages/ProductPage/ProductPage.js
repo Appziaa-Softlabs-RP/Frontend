@@ -39,6 +39,7 @@ import ApiService from "../../services/ApiService";
 import { AppNotification } from "../../utils/helper";
 import styles from "./ProductPage.module.css";
 import AddReview from "../../Components/AddReview/AddReview";
+import ProductGallery from "../../Components/ShowProduct/Gallery";
 
 export const ProductPage = () => {
   const appData = useApp();
@@ -558,140 +559,20 @@ export const ProductPage = () => {
         </Helmet>
       )}
 
-      <div className="hideInDesktop">
+      <div className="hideInDesktop" style={{
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}>
         <PageHeader title={ProductData?.name} />
-        <div className="col-12 d-inline-block position-relative">
-          {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
-            <div
-              className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100`}
-            >
-              <span
-                className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
-              >
-                Sold Out
-              </span>
-            </div>
-          ) : (
-            ""
-          )}
-          <ReactOwlCarousel
-            className={`${styles.bannerContainer} col-12 owl-theme`}
-            margin={0}
-            loop={false}
-            dots={true}
-            items={1}
-          >
-            <div
-              className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
-            >
-              {!productLoading ? (
-                <img
-                  src={ProductData?.image}
-                  alt={ProductData?.name}
-                  onError={(e) => setNoImage(e)}
-                  className="col-12 d-inline-block"
-                  style={{
-                    maxHeight: "500px",
-                    width: "auto",
-                  }}
-                />
-              ) : (
-                <div
-                  className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                  style={{
-                    height: "500px",
-                  }}
-                >
-                  <ThreeDots
-                    visible={true}
-                    height="80"
-                    width="80"
-                    color="#CF102E"
-                    radius="9"
-                    ariaLabel="three-dots-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                  />
-                </div>
-              )}
-            </div>
-            {ProductData?.gallery_images?.map((item, index) => {
-              return (
-                <div
-                  className={`col-12 d-inline-block bg-white d-flex align-items-center justify-content-center w-full`}
-                  key={index}
-                >
-                  {!productLoading ? (
-                    <img
-                      src={enviroment.API_IMAGE_GALLERY_URL + item}
-                      alt={ProductData?.name}
-                      onError={(e) => setNoImage(e)}
-                      className="col-12 d-inline-block"
-                      style={{
-                        maxHeight: "500px",
-                        width: "auto",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                      style={{
-                        height: "500px",
-                      }}
-                    >
-                      <ThreeDots
-                        visible={true}
-                        height="80"
-                        width="80"
-                        color="#CF102E"
-                        radius="9"
-                        ariaLabel="three-dots-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </ReactOwlCarousel>
-          {!ProductData?.gallery_images.length ? (
-            !productLoading ? (
-              <div
-                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-              >
-                <img
-                  src={prodMainImg}
-                  alt={ProductData?.name}
-                  onError={(e) => setNoImage(e)}
-                  className="col-12 d-inline-block"
-                  style={{
-                    maxHeight: "100px",
-                    width: "auto",
-                  }}
-                />
-              </div>
-            ) : (
-              <div
-                className={`col-12 d-inline-block d-flex align-items-center justify-content-center w-full`}
-                style={{
-                  height: "500px",
-                }}
-              >
-                <ThreeDots
-                  visible={true}
-                  height="80"
-                  width="80"
-                  color="#CF102E"
-                  radius="9"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                />
-              </div>
-            )
-          ) : null}
-        </div>
+        <ProductGallery
+          ProductData={ProductData}
+          styles={styles}
+          productLoading={productLoading}
+          setNoImage={setNoImage}
+          prodMainImg={prodMainImg}
+          setProdMainImg={setProdMainImg}
+          setProdSharePop={setProdSharePop}
+        />
 
         <div
           className={`${styles.productAllDetail} col-12 d-inline-block p-4`}
@@ -763,9 +644,9 @@ export const ProductPage = () => {
                       key={index}
                       className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                     >
-                      <img src={item.logo} 
-                                        onError={(e) => setNoImage(e)}
-                      alt={item.description} />
+                      <img src={item.logo}
+                        onError={(e) => setNoImage(e)}
+                        alt={item.description} />
                       {item.description}
                     </span>
                   );
@@ -1162,114 +1043,16 @@ export const ProductPage = () => {
               <div
                 className={`d-inline-flex flex-column gap-3 col-6 flex-shrink-1 position-sticky top-0 mt-5`}
               >
-                <div
-                  className={`${styles.productContainer} d-inline-flex flex-column gap-3 col-12 pb-3`}
-                >
-                  <div
-                    className={`${styles.productMainImage} col-12 d-inline-block position-relative bg-white rounded`}
-                  >
-                    {ProductData?.stock === 0 || ProductData?.stock < 0 ? (
-                      <div
-                        className={`${styles.productSoldOutBox} position-absolute col-12 p-0 h-100 top-0`}
-                      >
-                        <span
-                          className={`${styles.soldOutText} text-center text-uppercase position-absolute d-block`}
-                        >
-                          Sold Out
-                        </span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    <span
-                      className={`${styles.shareIcon} d-inline-flex align-items-center justify-content-center position-absolute top-0 end-0 p-3`}
-                      role="button"
-                      onClick={() => setProdSharePop(true)}
-                    >
-                      <ShareIcon color="#CF112D" />
-                    </span>
-                    {!productLoading ? (
-                      <img
-                        src={prodMainImg}
-                        alt={ProductData?.name}
-                        // onError={(e) => setNoImage(e)}
-                        style={{
-                          opacity: (ProductData?.stock === 0 || ProductData?.stock < 0) ? "0.5" : "1",
-                        }}
-                        className="object-fit-contain m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block position-absolute"
-                      />
-                    ) : (
-                      <div className="m-auto bottom-0 end-0 h-100 top-0 start-0 col-12 d-inline-block d-flex align-items-center justify-content-center position-absolute">
-                        <ThreeDots
-                          visible={true}
-                          height="80"
-                          width="80"
-                          color="#CF102E"
-                          radius="9"
-                          ariaLabel="three-dots-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <ReactOwlCarousel
-                    key={activeImg}
-                    className={`${styles.productGalleryRow} col-12 owl-theme galleryBox px-3`}
-                    margin={10}
-                    loop={false}
-                    dots={false}
-                    items={6}
-                  >
-                    <div
-                      className={`${styles.galleryBox} ${activeImg === -1 ? styles.activeGallery : ""
-                        } col-12 d-inline-flex align-items-center justify-content-center`}
-                      onClick={() => setMainImage(ProductData?.image, -1)}
-                    >
-                      <img
-                        src={ProductData?.image}
-                        alt={ProductData?.name}
-                        onError={(e) => setNoImage(e)}
-                        className=""
-                        style={{
-                          height: "80px",
-                          maxHeight: "80px",
-                          maxWidth: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </div>
-
-                    {ProductData?.gallery_images?.map((item, index) => {
-                      return (
-                        <div
-                          className={`${styles.galleryBox} ${activeImg === index ? styles.activeGallery : ""
-                            } col-12 d-inline-flex align-items-center justify-content-center`}
-                          onClick={() =>
-                            setMainImage(
-                              enviroment.API_IMAGE_GALLERY_URL + item,
-                              index
-                            )
-                          }
-                          key={index}
-                        >
-                          <img
-                            src={enviroment.API_IMAGE_GALLERY_URL + item}
-                            alt={ProductData?.name}
-                            onError={(e) => setNoImage(e)}
-                            className=""
-                            style={{
-                              height: "80px",
-                              maxHeight: "80px",
-                              maxWidth: "100%",
-                              objectFit: "contain",
-                            }}
-                          />
-                        </div>
-                      );
-                    })}
-                  </ReactOwlCarousel>
-                </div>
+                <ProductGallery
+                  sm={false}
+                  ProductData={ProductData}
+                  styles={styles}
+                  productLoading={productLoading}
+                  setNoImage={setNoImage}
+                  prodMainImg={prodMainImg}
+                  setProdMainImg={setProdMainImg}
+                  setProdSharePop={setProdSharePop}
+                />
                 <div className={`col-12 d-inline-flex flex-column my-3`}>
                   <div
                     className={`${styles.productDescHeader} col-12 d-inline-flex align-items-center justify-content-between`}
@@ -1470,7 +1253,7 @@ export const ProductPage = () => {
                     <Skeleton height={25} width={300} />
                     :
                     <div
-                      className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
+                      className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0`}
                     >
                       {ProductData?.age_type ? ProductData?.age_type : ""}
                       {ProductData?.age_type !== null &&
@@ -1498,7 +1281,7 @@ export const ProductPage = () => {
                   </span>
                 }
                 <div
-                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4 position-relative`}
+                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 mb-4`}
                 >
                   <h2 className={`${styles.specialTitle} d-inline-flex m-0`}>
                     Special Price
@@ -1626,8 +1409,8 @@ export const ProductPage = () => {
                               className={`${styles.bankOfferText} col-12 d-inline-flex align-items-center gap-3`}
                             >
                               <img src={item.logo}
-                                                onError={(e) => setNoImage(e)}
-                                                alt={item.description} />
+                                onError={(e) => setNoImage(e)}
+                                alt={item.description} />
                               {item.description}
                             </span>
                           );

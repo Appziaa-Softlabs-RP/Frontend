@@ -25,7 +25,7 @@ import { AppNotification } from "../../utils/helper";
 import { useAppStore } from "../../store";
 import { HeaderNavLoader } from "../Loader/Loader";
 
-export const Header = ({ setAsideOpen, asideOpen }) => {
+export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
   const appData = useApp();
   const [loading, setLoading] = useState(true);
   const navItems = useAppStore((state) => state.navItems);
@@ -151,6 +151,7 @@ export const Header = ({ setAsideOpen, asideOpen }) => {
         });
         setNavItems(allSubCategory);
         setCategories(allCatList);
+        setFetchedNavItems(allSubCategory);
         setLoading(false);
       })
       .catch((err) => {

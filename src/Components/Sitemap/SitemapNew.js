@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const Sitemap = () => {
   const [asideOpen, setAsideOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
 
   const [data, setData] = useState({
     brands: [],
@@ -86,8 +87,9 @@ const Sitemap = () => {
 
   return (
     <>
-      <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
-      <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
+      <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+      <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
+
       <div className="sitemap">
         <h1>Sitemap</h1>
 

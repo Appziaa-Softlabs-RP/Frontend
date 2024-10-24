@@ -15,12 +15,13 @@ import { ShopAge } from "../../Components/ShopAge/ShopAge";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
 
   return (
-    <React.Fragment>
+    <React.Fragment>̦
       <div className="col-12 d-inline-flex flex-column">
-        <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
-        <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} />
+        <Header asideOpen={asideOpen} setAsideOpen={setAsideOpen} setFetchedNavItems={setNavItems} />
+        <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
         {/* hero banner */}
         <HeroBanner />
 
