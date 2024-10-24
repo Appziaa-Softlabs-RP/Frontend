@@ -261,6 +261,19 @@ ApiService.DealsOfProduct = function (data) {
   );
 };
 
+ApiService.getAllStores = function (data) {
+  const cacheKey = "/store/get-all-stores" + JSON.stringify(data);
+  return cacheFetch(
+    "/store/get-all-stores",
+    {
+      method: "post",
+      body: data,
+      headers: { "Content-Type": "application/json" },
+    },
+    cacheKey
+  );
+};
+
 ApiService.HotDealsProduct = function (data) {
   const cacheKey = "/store/hotDeals" + JSON.stringify(data);
   return cacheFetch(

@@ -1,0 +1,34 @@
+.activeLocatoin{
+	position: absolute;
+	right: 10px;
+	border-radius: 10px;
+	top: -400px;
+	right: 30px;
+	background-color: #ff0000c5;
+	max-width: 400px;
+}
+
+.activeImage{
+	width: 100%;
+	background: transparent;
+	height: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+@media screen and (max-width: 500px) {
+	.activeLocatoin{
+		position: relative;
+		background-color: #FF0000;
+		left: 0px;
+		top: 0;
+		border-radius: 0px;
+		width: 100%;
+		max-width: 100%;
+	}
+	.activeImage{
+		height: 300px;
+	}
+}
