@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import AllStores from "../../Components/AllStores/AllStores";
 import { Aside } from "../../Components/Aside/Aside";
 import { BrandFocus } from "../../Components/BrandFocus/BrandFocus";
-import { CategoryShop } from "../../Components/CategoryShop/CategoryShop";
 import { DealShop } from "../../Components/DealShop/DealShop";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
@@ -12,7 +12,6 @@ import { NewArrival } from "../../Components/NewArrival/NewArrival";
 import { PromoBanner } from "../../Components/PromoBanner/PromoBanner";
 import Reviews from "../../Components/Reviews/Reviews";
 import { ShopAge } from "../../Components/ShopAge/ShopAge";
-import AllStores from "../../Components/AllStores/AllStores";
 
 export const Home = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -29,16 +28,9 @@ export const Home = () => {
         {/* hero banner */}
         <HeroBanner />
 
-        <ShopAge />
+        {/* <ShopAge /> */}
 
-        {/* Mobile Structure */}
-        <div className={`hideInDesktop`}>
-          <CategoryShop />
-        </div>
-        {/* Desktop Structure */}
-        <div className={`hideInMobile`}>
-          <LookingFor />
-        </div>
+        <LookingFor />
 
         <NewArrival />
 

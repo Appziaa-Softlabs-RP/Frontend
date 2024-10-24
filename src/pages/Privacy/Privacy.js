@@ -4,6 +4,7 @@ import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { enviroment } from "../../enviroment";
 
 export const Privacy = () => {
   const appData = useApp();
@@ -35,8 +36,7 @@ export const Privacy = () => {
               &quot;us,&quot; or &quot;our&quot;) collects, uses, and discloses
               your personal information when you visit our website at
               {process.env.REACT_APP_URL} (the &quot;Site&quot;) or make purchases at our
-              physical store located at 42, Cycle Market, Jhandewalan Extension,
-              New Delhi 110055. (the &quot;Store&quot;).
+              physical store located at {enviroment.STORE_ADDRESS} (the &quot;Store&quot;).
             </span>
           </p>
           <p className="c0">

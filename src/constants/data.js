@@ -96,36 +96,6 @@ export const specials = {
             "url": "/store-product/brand/jada"
         },
     ],
-
-    "mainHeading": `${process.env.REACT_APP_BUSINESS_NAME}'s Toy Store - India's most loved place to buy toys for children!`,
-
-    "mainHeadingDescription": `${process.env.REACT_APP_BUSINESS_NAME}'s Toy Store is renowned as India's favorite destination for purchasing children's toys. It offers a wide variety of high-quality, engaging, and fun toys that cater to kids of all ages. Parents and children alike love the store for its excellent customer service, diverse selection, and commitment to bringing joy to playtime.`,
-
-    "subHeading": `Why ${process.env.REACT_APP_BUSINESS_NAME}'s Toy Store?`,
-
-    "subHeadingImpPoints": [
-        {
-            "heading": "Quality Assurance:",
-            "description": "Our toys undergo rigorous testing to ensure they are safe, durable, and meet the highest quality standards."
-        },
-        {
-            "heading": "Expertise:",
-            "description": "Our team consists of toy enthusiasts and professionals who bring years of experience to provide the best play experiences for your children."
-        },
-        {
-            "heading": "Innovative Solutions:",
-            "description": "From interactive toys to educational games, we offer a wide selection of products designed to keep your kids engaged, learning, and having fun."
-        },
-        {
-            "heading": "Customer Satisfaction:",
-            "description": "Your satisfaction is our priority. We strive to provide exceptional service and support, ensuring that every shopping experience is enjoyable for both you and your children."
-        },
-        {
-            "heading": "Convenience:",
-            "description": "Shop online or visit our store by searching for a toy store near me. We offer the best toy solutions for your convenience."
-        },
-
-    ]
 }
 
 export const aboutUs = {

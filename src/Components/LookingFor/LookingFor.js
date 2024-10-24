@@ -4,16 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContextProvider";
 import styles from "./LookingFor.module.css";
 
+import { ArrowRight } from "react-bootstrap-icons";
 import { useAppStore } from "../../store";
-import { enviroment } from "../../enviroment";
 import { LookingForBannerLoader } from "../Loader/Loader";
 
 export const LookingFor = () => {
   const categories = useAppStore((state) => state.categories);
   const [loading, setLoading] = useState(true);
-  const appData = useApp();
   const navigate = useNavigate();
-  let windowWidth = appData.appData.windowWidth;
 
   const subCatProduts = (categorySlug, verticalSlug) => {
     navigate(`/store-product/vertical/${verticalSlug}/category/${categorySlug}`);
@@ -25,32 +23,66 @@ export const LookingFor = () => {
     }
   }, [categories]);
 
-  const responsiveItems =
-    window.innerWidth >= 1300
-      ? 6
-      : window.innerWidth >= 1200
-        ? 5
-        : window.innerWidth >= 992
-          ? 4
-          : window.innerWidth >= 768
-            ? 3
-            : 2.5;
+  // Adjusting responsive settings for the carousel
+  const responsiveSettings = {
+    0: {
+      items: 1.5, // Mobile devices
+    },
+    500: {
+      items: 2, // Mobile devices
+    },
+    768: {
+      items: 3, // Tablets
+    },
+    992: {
+      items: 4, // Small laptops
+    }
+  };
 
+  const getColors = (id, type) => {
+    switch (id) {
+      case 1:
+        return type === 'text' ? "#912E0B" : "#F9D5B8";
+      case 2:
+        return type === 'text' ? "#CB0055" : "#FDA7CF";
+      case 3:
+        return type === 'text' ? "#970011" : "#FDB7A9";
+      case 4:
+        return type === 'text' ? "#4CAF50" : "#81C784";
+      default:
+        return type === 'text' ? "#2E7113" : "#B3E0F9";
+    }
+  }
+
+  const hexToRgb = (hex) => {
+    let r = parseInt(hex.slice(1, 3), 16);
+    let g = parseInt(hex.slice(3, 5), 16);
+    let b = parseInt(hex.slice(5, 7), 16);
+    return `${r}, ${g}, ${b}`;
+  };
 
   return (
     <React.Fragment>
       {loading ? (
         <LookingForBannerLoader />
       ) : (
-        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex mb-3`}>
-          <div
-            className={`${windowWidth === "mobile" && "p-0"
-              } container d-flex flex-column m-auto`}
-          >
-            <h2
-              className={`${styles.categoryHeaderTitle} col-12 d-inline-flex justify-content-center mt-4 mb-3 fs-2`}
-            >
-              ✨ Shop by Category ✨
+        <div className={`${styles.shopAgeBox} px-3 col-12 d-inline-flex my-3`}>
+          <div className={`container d-flex flex-column m-auto`}>
+            <h2 style={{
+              marginBottom: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "end",
+              gap: "20px",
+            }}>
+              <span className="textSpecial">Mithaas</span>
+              <img
+                src="/images/chana-ram.png"
+                alt="Chana Ram"
+                style={{
+                  maxWidth: "190px",
+                }}
+              />
             </h2>
             <div className="col-12 d-inline-flex">
               <ReactOwlCarousel
@@ -58,33 +90,53 @@ export const LookingFor = () => {
                 margin={10}
                 loop={false}
                 dots={false}
-                items={responsiveItems}
+                responsive={responsiveSettings} // Use responsive settings directly
                 nav={true}
               >
                 {categories?.map((item, idx) => {
                   return (
-                    <div
-                      className={`${styles.thumbItem} col-12 d-inline-flex flex-column gap-2 mouse-cursor`}
-                      key={idx}
-                      onClick={() =>
-                        subCatProduts(
-                          item?.category?.name_url,
-                          item?.verticalSlug
-                        )
-                      }
-                    >
-                      <div className={`${styles.lookingForContainer}`}>
-                        <img
-                          src={item?.category?.image}
+                    <div key={idx} className="my-4">
+                      <div className={styles.cardContainer}
+                        style={{
+                          color: getColors(idx + 1, 'text')
+                        }}
+                        onClick={() =>
+                          subCatProduts(
+                            item?.category?.name_url,
+                            item?.verticalSlug
+                          )
+                        }
+                      >
+                        <div className={styles.backgroundGradientColor} style={{
+                          background: `linear-gradient(to bottom, rgba(${hexToRgb(getColors(idx + 1, 'bg'))}, 0.1) 0%, rgba(${hexToRgb(getColors(idx + 1, 'bg'))}, 1) 100%)`
+                        }} />
+                        <img src={item?.category?.image}
                           alt={item?.category?.name}
                           className="object-fit-fill col-12 d-inline-block"
+                          style={{
+                            objectFit: "cover",
+                            width: "100%",
+                            margin: "0px",
+                            transform: "translateY(-6%) scale(1.1)",
+                          }}
                         />
+                        <span>
+                          {item?.category?.name}
+                        </span>
+                        <span style={{
+                          background: getColors(idx + 1, 'text'),
+                          color: "white",
+                          padding: "3px 10px",
+                          borderRadius: "100px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center"
+                        }}>
+                          <ArrowRight style={{
+                            margin: "0px"
+                          }} />
+                        </span>
                       </div>
-                      <p
-                        className={`${styles.thumbName} text-truncate col-12 text-center mb-0`}
-                      >
-                        {item?.category?.name}
-                      </p>
                     </div>
                   );
                 })}

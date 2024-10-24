@@ -260,7 +260,6 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                       <div className="d-flex flex-row gap-2">
                         <Skeleton width={100} height={30} />
                         <Skeleton width={100} height={30} />
-                        <Skeleton width={100} height={30} />
                       </div>
                     ) :
                       navItems.length > 0 &&

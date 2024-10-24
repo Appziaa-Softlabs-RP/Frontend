@@ -4,6 +4,7 @@ import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
 import { Link } from "react-router-dom";
+import { enviroment } from "../../enviroment";
 
 export const Payments = () => {
   const appData = useApp();
@@ -180,8 +181,7 @@ export const Payments = () => {
               <span className="c2">Address:</span>
               <span className="c8">&nbsp;</span>
               <span className="c14">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
+                {enviroment.STORE_ADDRESS}
               </span>
             </li>
           </ul>

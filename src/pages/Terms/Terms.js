@@ -1,292 +1,163 @@
-import React, { useEffect } from "react";
-import { Footer } from "../../Components/Footer/Footer";
+import { useEffect } from "react";
 import { Header } from "../../Components/Header/Header";
 import { PageHeader } from "../../Components/PageHeader/PageHeader";
 import { useApp } from "../../context/AppContextProvider";
-import { Link } from "react-router-dom";
+import { Footer } from "../../Components/Footer/Footer";
 
 export const Terms = () => {
+  const styles = {
+    container: {
+      maxWidth: '800px',
+      margin: '0 auto',
+      padding: '20px',
+      fontFamily: 'Arial, sans-serif',
+      lineHeight: '1.6',
+      color: '#333',
+    },
+    heading: {
+      color: '#8B4513',
+      borderBottom: '2px solid #8B4513',
+      paddingBottom: '10px',
+      marginBottom: '20px',
+    },
+    subheading: {
+      color: '#A0522D',
+      marginTop: '20px',
+      marginBottom: '10px',
+    },
+    paragraph: {
+      marginBottom: '15px',
+    },
+    list: {
+      paddingLeft: '20px',
+      marginBottom: '15px',
+    },
+    listItem: {
+      marginBottom: '10px',
+    },
+    emphasis: {
+      fontWeight: 'bold',
+      color: '#8B4513',
+    },
+    footer: {
+      marginTop: '30px',
+      textAlign: 'center',
+      fontStyle: 'italic',
+      color: '#8B4513',
+    },
+  };
   const appData = useApp();
   let windowWidth = appData.appData.windowWidth;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
-    <React.Fragment>
+    <div>
       {windowWidth === "mobile" ? (
         <PageHeader title="Terms & Conditions" hide={true} />
       ) : (
         <Header />
       )}
-      <div className="min-vh-100 col-12 d-inline-flex flex-column my-5">
-        <div className="container">
-          <h1>Terms & Conditions</h1>
-          <p className="c6">
-            <span className="c4">
-              Here&#39;s a comprehensive Terms &amp; Conditions document for
-              {process.env.REACT_APP_URL}, covering important aspects for an online toy
-              store operating in India.
-            </span>
-          </p>
-          <p className="c6">
-            <span className="c1">{process.env.REACT_APP_URL} Terms &amp; Conditions</span>
-          </p>
-          <p className="c6">
-            <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
-          </p>
-          <p className="c6">
-            <span className="c2">
-              Welcome to {process.env.REACT_APP_URL} (&quot;the Site&quot;). These Terms
-              &amp; Conditions (&quot;Terms&quot;) govern your use of the Site
-              and the purchase of products from {process.env.REACT_APP_BUSINESS_NAME}.
-            </span>
-            <span className="c8">&nbsp;</span>
-            <span className="c1">
-              Please read these Terms carefully before using the Site.
-            </span>
-          </p>
-          <p className="c6">
-            <span className="c1">
-              By accessing or using the Site, you agree to be bound by these
-              Terms. If you do not agree to these Terms, please do not use the
-              Site.
-            </span>
-          </p>
-          <p className="c6">
-            <span className="c1">1. Account Creation and Use</span>
-          </p>
-          <ul className="c10 lst-kix_41vytponpesc-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                To purchase products on the Site, you will need to create an
-                account. You must provide accurate and complete information
-                during account creation.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You are responsible for keeping your account information
-                confidential and secure.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You are responsible for all activities that occur under your
-                account.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">2. Orders and Payments</span>
-          </p>
-          <ul className="c10 lst-kix_x9trviihoyda-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                All prices displayed on the Site are in Indian Rupees (INR).
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We accept various payment methods, including credit cards, debit
-                cards, net banking, and other online payment options.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Orders are subject to our acceptance and product availability.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We reserve the right to refuse or cancel any order for any
-                reason.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">3. Shipping and Delivery</span>
-          </p>
-          <ul className="c10 lst-kix_hys2k6nfua2y-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Shipping costs and delivery times will vary based on your
-                location and the products ordered.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Orders gets delivered within 0 to 7 days.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We provide estimated shipping and delivery times, but delays may
-                occur.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We are not responsible for delays caused by shipping carriers or
-                circumstances beyond our control.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">4. Returns and Refunds</span>
-          </p>
-          <ul className="c10 lst-kix_vlvevcfz125y-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Please refer to our Return Policy for details on returns and
-                refunds.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">5. Intellectual Property</span>
-          </p>
-          <ul className="c10 lst-kix_ui22japon8s6-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                All content on the Site, including text, graphics, logos,
-                images, and software is the property of {process.env.REACT_APP_BUSINESS_NAME} or its
-                licensors and is protected by copyright and trademark laws.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You may not use any content from the Site without our express
-                written permission.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">6. User Conduct</span>
-          </p>
-          <ul className="c10 lst-kix_t7wxppec3y21-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You may not use the Site for any unlawful purpose.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You may not post or transmit any content that is harmful,
-                threatening, abusive, hateful, or defamatory.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You may not infringe on the privacy or intellectual property
-                rights of others.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">7. Disclaimer of Warranties</span>
-          </p>
-          <ul className="c10 lst-kix_9wcnank9vdef-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                THE SITE AND ALL PRODUCTS ARE PROVIDED &quot;AS IS&quot; WITHOUT
-                WARRANTY OF ANY KIND. WE DISCLAIM ALL WARRANTIES, EXPRESS OR
-                IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-                A PARTICULAR PURPOSE.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">8. Limitation of Liability</span>
-          </p>
-          <ul className="c10 lst-kix_p13n24n4ehlw-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                WE WILL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM YOUR USE OF
-                THE SITE, INCLUDING DIRECT, INDIRECT, INCIDENTAL, OR
-                CONSEQUENTIAL DAMAGES.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">9. Indemnification</span>
-          </p>
-          <ul className="c10 lst-kix_28a2ovzdh5yk-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You agree to indemnify and hold {process.env.REACT_APP_BUSINESS_NAME} harmless from any
-                claims or damages that arise from your use of the Site or your
-                violation of these Terms.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">10. Changes to Terms &amp; Conditions</span>
-          </p>
-          <ul className="c10 lst-kix_3hwx62c9dori-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We may update these Terms at any time. We will post the updated
-                Terms on the Site. Your continued use of the Site after any
-                changes are made constitutes your acceptance of the updated
-                Terms.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">11. Governing Law</span>
-          </p>
-          <ul className="c10 lst-kix_5fuohnhegco1-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                These Terms will be governed by and construed in accordance with
-                the laws of India.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">We follow the Delhi High Court</span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">12. Contact Us</span>
-          </p>
-          <p className="c6">
-            <span className="c4">
-              For any questions or concerns, please contact us:
-            </span>
-          </p>
-          <ul className="c10 lst-kix_pcvdgx2icjy4-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c2">Email:</span>
-              <span className="c15">
-                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
-                {process.env.REACT_APP_EMAIL_ADDRESS}
-                </Link>
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c2">Phone:</span>
-              <span className="c4">&nbsp;+91-99997 56468</span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c2">Address:</span>
-              <span className="c8">&nbsp;</span>
-              <span className="c14">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.,
-                India,{" "}
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">
-              By using the {process.env.REACT_APP_URL} website, you acknowledge and agree
-              to these Terms &amp; Conditions.
-            </span>
-          </p>
-        </div>
+      <div style={styles.container}>
+        <h1 style={styles.heading}>Terms & Conditions</h1>
+
+        <p style={styles.paragraph}>
+          <span style={styles.emphasis}>Effective Date: October 20, 2024</span>
+        </p>
+
+        <p style={styles.paragraph}>
+          Welcome to <span style={styles.emphasis}>https://kandavika.com</span> ("the Site"). These Terms & Conditions ("Terms") govern your use of the Site and the purchase of products from <span style={styles.emphasis}>Kandavika</span>. Please read these Terms carefully before using the Site.
+        </p>
+
+        <p style={styles.paragraph}>
+          By accessing or using the Site, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Site.
+        </p>
+
+        <h2 style={styles.subheading}>1. Account Creation and Use</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>To purchase products on the Site, you will need to create an account.</li>
+          <li style={styles.listItem}>You must provide accurate and complete information during account creation.</li>
+          <li style={styles.listItem}>You are responsible for keeping your account information confidential and secure.</li>
+          <li style={styles.listItem}>You are responsible for all activities that occur under your account.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>2. Orders and Payments</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>All prices displayed on the Site are in <span style={styles.emphasis}>Indian Rupees (INR)</span>.</li>
+          <li style={styles.listItem}>We accept various payment methods, including credit cards, debit cards, net banking, and other online payment options.</li>
+          <li style={styles.listItem}>Orders are subject to our acceptance and product availability.</li>
+          <li style={styles.listItem}>We reserve the right to refuse or cancel any order for any reason, including but not limited to errors in product details or pricing.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>3. Shipping and Delivery</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>Shipping costs and delivery times will vary based on your location and the products ordered.</li>
+          <li style={styles.listItem}>Orders are typically delivered within <span style={styles.emphasis}>same day in Delhi/NCR. For outstation it may take 1-4 days</span>.</li>
+          <li style={styles.listItem}>We provide estimated shipping and delivery times, but delays may occur due to unforeseen circumstances.</li>
+          <li style={styles.listItem}>We are not responsible for delays caused by shipping carriers or events beyond our control.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>4. Returns and Refunds</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>Please refer to our <span style={styles.emphasis}>Return Policy</span> for detailed information on returns and refunds.</li>
+          <li style={styles.listItem}>Due to the perishable nature of our products, all orders are final and <span style={styles.emphasis}>non-refundable</span>, except in cases of damaged or incorrect deliveries.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>5. Intellectual Property</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>All content on the Site, including text, graphics, logos, images, and software, is the property of <span style={styles.emphasis}>Kandavika</span> or its licensors and is protected by copyright, trademark, and other intellectual property laws.</li>
+          <li style={styles.listItem}>You may not use any content from the Site without express written permission from <span style={styles.emphasis}>Kandavika</span>.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>6. User Conduct</h2>
+        <ul style={styles.list}>
+          <li style={styles.listItem}>You agree not to use the Site for any unlawful purpose.</li>
+          <li style={styles.listItem}>You may not post or transmit any content that is harmful, threatening, abusive, defamatory, or otherwise objectionable.</li>
+          <li style={styles.listItem}>You agree not to infringe upon the intellectual property rights of <span style={styles.emphasis}>Kandavika</span> or any third parties.</li>
+        </ul>
+
+        <h2 style={styles.subheading}>7. Disclaimer of Warranties</h2>
+        <p style={styles.paragraph}>
+          THE SITE AND ALL PRODUCTS OFFERED ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+        </p>
+
+        <h2 style={styles.subheading}>8. Limitation of Liability</h2>
+        <p style={styles.paragraph}>
+          WE WILL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM YOUR USE OF THE SITE, INCLUDING BUT NOT LIMITED TO DIRECT, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, TO THE MAXIMUM EXTENT PERMITTED BY LAW.
+        </p>
+
+        <h2 style={styles.subheading}>9. Indemnification</h2>
+        <p style={styles.paragraph}>
+          You agree to indemnify and hold <span style={styles.emphasis}>Kandavika</span> harmless from any claims, damages, liabilities, and expenses (including legal fees) arising out of your use of the Site or violation of these Terms.
+        </p>
+
+        <h2 style={styles.subheading}>10. Changes to Terms & Conditions</h2>
+        <p style={styles.paragraph}>
+          We may update these Terms at any time. We will post the updated Terms on the Site. Your continued use of the Site after any changes are made constitutes your acceptance of the updated Terms.
+        </p>
+
+        <h2 style={styles.subheading}>11. Governing Law</h2>
+        <p style={styles.paragraph}>
+          These Terms are governed by and construed in accordance with the laws of <span style={styles.emphasis}>India</span>. Any disputes arising out of these Terms will be subject to the jurisdiction of the <span style={styles.emphasis}>courts of Delhi</span>.
+        </p>
+
+        <h2 style={styles.subheading}>12. Contact Us</h2>
+        <p style={styles.paragraph}>
+          For any questions or concerns, please contact us:
+        </p>
+        <ul style={styles.list}>
+          <li style={styles.listItem}><span style={styles.emphasis}>Email</span>: hello@kandavika.com</li>
+          <li style={styles.listItem}><span style={styles.emphasis}>Phone</span>: +91-9871248137</li>
+          <li style={styles.listItem}><span style={styles.emphasis}>Address</span>: f7, beside 24seven, Block F, East of Kailash, New Delhi, Delhi 110065 New Delhi 110055, India.</li>
+        </ul>
+
+        <p style={styles.footer}>
+          By using <span style={styles.emphasis}>https://kandavika.com</span>, you acknowledge and agree to these Terms & Conditions.
+        </p>
       </div>
       <Footer />
-    </React.Fragment>
+    </div>
   );
-};
+}

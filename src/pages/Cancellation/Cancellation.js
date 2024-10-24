@@ -1,186 +1,97 @@
-import React, { useEffect } from "react";
-import { Footer } from "../../Components/Footer/Footer";
-import { Header } from "../../Components/Header/Header";
-import { PageHeader } from "../../Components/PageHeader/PageHeader";
-import { useApp } from "../../context/AppContextProvider";
-import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { Footer } from '../../Components/Footer/Footer'
+import { Header } from '../../Components/Header/Header'
+import { PageHeader } from '../../Components/PageHeader/PageHeader'
+import { useApp } from '../../context/AppContextProvider';
 
 export const Cancellation = () => {
+  const styles = {
+    container: {
+      maxWidth: '800px',
+      margin: '0 auto',
+      padding: '20px',
+      fontFamily: 'Arial, sans-serif',
+      lineHeight: '1.6',
+      color: '#333',
+    },
+    heading: {
+      color: '#8B4513',
+      borderBottom: '2px solid #8B4513',
+      paddingBottom: '10px',
+      marginBottom: '20px',
+    },
+    section: {
+      marginBottom: '20px',
+    },
+    sectionTitle: {
+      color: '#A0522D',
+      marginBottom: '10px',
+    },
+    list: {
+      paddingLeft: '20px',
+    },
+    listItem: {
+      marginBottom: '10px',
+    },
+    footer: {
+      marginTop: '30px',
+      textAlign: 'center',
+      fontStyle: 'italic',
+      color: '#8B4513',
+    },
+  };
   const appData = useApp();
+
   let windowWidth = appData.appData.windowWidth;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
-    <React.Fragment>
+    <div>
       {windowWidth === "mobile" ? (
         <PageHeader title="Cancellation Policy" hide={true} />
       ) : (
         <Header />
       )}
-      <div className="min-vh-100 col-12 d-inline-flex flex-column">
-        <div className="container">
-          <h1>Cancellation Policy</h1>
-          <p className="c6">
-            <span className="c7">{process.env.REACT_APP_BUSINESS_NAME} Cancellation Policy</span>
-          </p>
-          <p className="c6">
-            <span className="c2">Effective Date:</span>
-            <span className="c4">&nbsp;February 29, 2024</span>
-          </p>
-          <p className="c6">
-            <span className="c1">Cancellation Window:</span>
-          </p>
-          <p className="c6">
-            <span className="c8">{process.env.REACT_APP_BUSINESS_NAME} offers a </span>
-            <span className="c2">7-day Cancellation policy</span>
-            <span className="c4">
-              &nbsp;for all online and in-store purchases. This means you have 7
-              days from the date of purchase to request a Cancellation.
-            </span>
-          </p>
-          <p className="c6">
-            <span className="c1">Items Eligible for Cancellation:</span>
-          </p>
-          <ul className="c10 lst-kix_isgwu580cs8w-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Unopened and unused items in their original packaging with all
-                tags attached are eligible for a full refund.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Opened items may be eligible for store credit or exchange, at
-                our discretion.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Items marked as &quot;Final Sale&quot; or &quot;Clearance&quot;
-                are not eligible for Cancellation or exchange.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">Cancellation Process:</span>
-          </p>
-          <ul className="c10 lst-kix_cb5fqzi5fw09-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c2">Online Purchases:</span>
-              <span className="c8">
-                &nbsp;To initiate a Cancellation for an online purchase, please
-                contact us via email at{" "}
-              </span>
-              <span className="c15">
-                <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
-                  {process.env.REACT_APP_EMAIL_ADDRESS}
-                </Link>
-              </span>
-              <span className="c8">&nbsp;</span>
-              <span className="c4">
-                within the 7-day Cancellation window. Include your order number,
-                the items you wish to Cancellation, and the reason for your
-                Cancellation. We will then provide you with instructions on how
-                to Cancellation the items.
-              </span>
-            </li>
-          </ul>
-          <p className="c11 c23">
-            <span className="c4"></span>
-          </p>
-          <ul className="c10 lst-kix_cb5fqzi5fw09-0">
-            <li className="c0 li-bullet-0">
-              <span className="c2">In-Store Purchases:</span>
-              <span className="c8">
-                &nbsp;You may Cancellation items purchased in-store to our
-                location at{" "}
-              </span>
-              <span className="c14 c18">
-                42, Cycle Market, Jhandewalan Extension, New Delhi 110055.
-                India,{" "}
-              </span>
-              <span className="c4">
-                &nbsp;within the 7-day Cancellation window. Please bring your
-                receipt with you.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">Shipping Costs:</span>
-          </p>
-          <ul className="c10 lst-kix_aafslp5ju28a-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                You are responsible for the cost of shipping the Cancellationed
-                item(s) back to {process.env.REACT_APP_BUSINESS_NAME}.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                For online purchases, we offer free pickup from the delivered
-                location.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">Refunds:</span>
-          </p>
-          <ul className="c10 lst-kix_aucshdx3yxsx-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                Once we receive your Cancellationed item(s) and verify that they
-                meet the Cancellation criteria, we will issue a refund to your
-                original payment method within 7 business days.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                For in-store purchases, refunds will be issued in the same form
-                of payment used for the original purchase.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">Exclusions:</span>
-          </p>
-          <ul className="c10 lst-kix_ja24afuyk4no-0 start">
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                This Cancellation policy applies only to purchases made from
-                {process.env.REACT_APP_BUSINESS_NAME}. Items purchased from other retailers or through
-                third-party marketplaces may have different Cancellation
-                policies.
-              </span>
-            </li>
-            <li className="c0 li-bullet-0">
-              <span className="c4">
-                We reserve the right to deny a Cancellation or exchange if the
-                item(s) are not Cancellationed in accordance with this policy.
-              </span>
-            </li>
-          </ul>
-          <p className="c6">
-            <span className="c1">Contact Us:</span>
-          </p>
-          <p className="c6">
-            <span className="c8">
-              If you have any questions about our Cancellation policy, please
-              contact us at{" "}
-            </span>
-            <span className="c15">
-              <Link className="c17" to={`mailto:${process.env.REACT_APP_EMAIL_ADDRESS}`}>
-                {process.env.REACT_APP_EMAIL_ADDRESS}
-              </Link>
-            </span>
-            <span className="c8">&nbsp;or by phone at</span>
-            <span className="c2">&nbsp;+91-99997 56468</span>
-            <span className="c4">.</span>
-          </p>
+      <div style={styles.container}>
+        <h1 style={styles.heading}>Kandavika.com Policies</h1>
+
+        <p>
+          At Kandavika.com, we are committed to delivering the finest and freshest sweets and snacks, handcrafted with the utmost care and quality. As our products are perishable food items, we follow a strict No Cancellation and No Return policy for the safety and satisfaction of all our customers.
+        </p>
+        <p style={styles.paragraph}>
+          <span style={styles.emphasis}>Effective Date: October 20, 2024</span>
+        </p>
+        <div style={styles.section}>
+          <h2 className="m-0" style={styles.sectionTitle}>Cancellation Policy:</h2>
+          <p>No cancellations are permitted once an order has been confirmed. As our sweets are freshly prepared to order, cancellations are not possible to maintain the quality and freshness of the products.</p>
         </div>
+
+
+        <div style={styles.section}>
+          <h2 className="m-0" style={styles.sectionTitle}>Return Policy:</h2>
+          <ul style={styles.list}>
+            <li style={styles.listItem}>Due to the perishable nature of our sweets and snacks, returns are not accepted once an order has been placed and delivered.</li>
+            <li style={styles.listItem}>We ensure that all products are freshly prepared, packaged, and delivered with the highest standards of hygiene and quality. If you receive an incorrect or damaged item, kindly contact our customer service within 2 hours of delivery with photographic evidence of the issue, and we will work to resolve the matter promptly.</li>
+          </ul>
+        </div>
+
+        <div style={styles.section}>
+          <h2 className="m-0" style={styles.sectionTitle}>Order Modifications:</h2>
+          <p>If you need to make any changes to your order (such as updating delivery details), please reach out to our customer service team within 30 minutes of placing your order. We will do our best to accommodate your request.</p>
+        </div>
+
+        <p>
+          Your satisfaction is our priority, and we strive to make every experience with Kandavika delightful. Should you have any concerns regarding your order, feel free to contact our customer service for further assistance.
+        </p>
+
+        <p style={styles.footer}>
+          Thank you for choosing Kandavika—where tradition meets quality.
+        </p>
       </div>
       <Footer />
-    </React.Fragment>
+    </div>
   );
-};
+}

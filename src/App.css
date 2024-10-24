@@ -29,6 +29,12 @@ body {
   }
 }
 
+.textSpecial{
+  font-family: 'Playball', cursive;
+  font-size: 48px;
+  color: #4A2511;
+}
+
 img {
   max-width: 100%;
 }

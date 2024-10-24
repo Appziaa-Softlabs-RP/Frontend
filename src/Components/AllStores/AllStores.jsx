@@ -37,7 +37,7 @@ export const AllStores = () => {
     if (storeData.length === 0) return null;
 
     return (
-        <Container fluid className="bg-white border-bottom border-light py-5"
+        <Container fluid className="border-bottom border-light py-5"
             style={{
                 position: "relative",
                 maxWidth: '800px',
