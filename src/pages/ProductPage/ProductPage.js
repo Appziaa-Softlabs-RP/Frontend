@@ -1296,7 +1296,7 @@ export const ProductPage = () => {
                   </h6>
                 )} */}
                 <div
-                  className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 col-12 mb-0 position-relative`}
+                  className={`${styles.productSubLine} d-inline-flex align-items-center gap-2 mb-0`}
                 >
                   {
                     productLoading ?
@@ -1304,9 +1304,7 @@ export const ProductPage = () => {
                       :
                       <div className="d-inline-flex align-items-center gap-2">
                         {ProductData?.category_name ? (
-                          <span className={`m-0`} style={{
-                            zIndex: '-1',
-                          }}>
+                          <span className={`m-0`}>
                             {ProductData?.category_name}
                           </span>
                         ) : null}
@@ -1340,10 +1338,7 @@ export const ProductPage = () => {
                   }
                 </div>
                 <div
-                  className={`d-inline-flex align-items-start flex-column gap-2 col-12 position-relative`}
-                  style={{
-                    zIndex: '-1',
-                  }}
+                  className={`d-inline-flex align-items-start flex-column gap-2 w-full`}
                 >
                   {
                     productLoading ?

@@ -86,13 +86,5 @@ export function useMouseOverZoom(
         }
     }, [zoomBounds, mouse.isActive]);
 
-    // Position and style the target canvas
-    useEffect(() => {
-        if (target.current && source.current) {
-            const sourceRect = source.current.getBoundingClientRect();
-            target.current.style.display = "block";
-        }
-    }, [target, source, mouse.isActive]);
-
     return mouse.isActive;
 }

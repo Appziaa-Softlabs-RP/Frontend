@@ -180,7 +180,7 @@ export default function ProductGallery({
         <canvas
             ref={target}
             style={{
-                display: 'none',
+                // display: 'none',
                 position: 'absolute',
                 pointerEvents: 'none',
                 bottom: '100%',
@@ -190,7 +190,7 @@ export default function ProductGallery({
                 width: '30rem',
                 height: '30rem',
                 zIndex: 999,
-                backgroundColor: "transparent",
+                background: "transparent",
             }}
         ></canvas>
         <div
