@@ -1,13 +1,13 @@
 :root {
-  --PRIMARY_COLOR: #cf102e;
+  --PRIMARY_COLOR: #3D0F1A;
   --SECONDARY_COLOR: #fff;
   --MENU_HOVER_COLOR: rgba(207, 16, 45, 0.101);
-  --ADD_BUTTON_COLOR: #cf102e;
+  --ADD_BUTTON_COLOR: #3D0F1A;
   --breakpoint-mobile: 560px;
 }
 
 body {
-  background: #e7ecf2;
+  background: #FBF3E8;
 }
 
 .hero{

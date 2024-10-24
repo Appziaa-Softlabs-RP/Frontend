@@ -23,7 +23,7 @@
 .cartCountMobile {
     font-size: 10px;
     line-height: 11px;
-    background: var(--SECONDARY_COLOR);
+    background: var(--PRIMARY_COLOR);
     color: var(--PRIMARY_COLOR);
     height: 15px;
     padding: 0px 5px;
@@ -35,13 +35,13 @@
 .cartCount {
     font-size: 10px;
     line-height: 11px;
-    background: var(--SECONDARY_COLOR);
-    color: var(--PRIMARY_COLOR);
+    background: rgb(235, 1, 1);
+    color: white;
     height: 15px;
     padding: 0px 5px;
     top: -12px;
     right: -5px;
-    border-radius: 6px;
+    border-radius: 50px;
 }
 
 .searchProdInput {
@@ -76,7 +76,7 @@
 
 .headerRow {
     background: var(--PRIMARY_COLOR);
-    height: 74px;
+    height: 100%;
 }
 
 /* Desktop CSS */
@@ -112,7 +112,7 @@
     width: 320px;
     border-radius: 4px;
     box-shadow: 1px 1px 0px 2px rgba(0, 0, 0, 0.10);
-    z-index: 5;
+    z-index: 30;
     padding: 20px;
 }
 
@@ -138,14 +138,14 @@
 
 .supportTimings {
     font-size: 14px;
-    color: #000;
+    color: #fff;
     line-height: 1.5;
 }
 
 .supportPhoneNumber,
 .mailtoEmail {
     font-size: 18px;
-    color: #000;
+    color: #fff;
     font-weight: 600;
     line-height: 2;
 }
@@ -164,12 +164,12 @@
 
 .supportLinks {
     font-size: 14px;
-    color: #000;
+    color: #fff;
 }
 
 .dotSymbol {
     font-size: 20px;
-    color: #000;
+    color: #fff;
 }
 
 .searchIcon,
@@ -181,15 +181,16 @@
 .inputSearch {
     height: 45px;
     border-radius: 6px;
-    background: #FFF;
     font-size: 16px;
     color: #000;
-    border: none;
+    background: white;
+    border: 2px solid rgba(179, 179, 179, 0);
     box-shadow: none;
 }
 
 .inputSearch:focus {
-    border: none;
+    border: 2px solid black;
+    background: white;
     box-shadow: none;
     outline: none;
 }
@@ -210,25 +211,19 @@
 
 .menuName,
 .subMenuName {
-    font-size: 15px;
-    min-width: 250px;
-    color: #000;
-}
-
-.menuName {
-    min-width: 150px;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.headerNavBox:hover .menuName {
-    font-weight: bold;
+    font-size: 16px;
+    color: #fff !important;
 }
 
 .menuName {
     font-weight: 500;
+}
+ .headerNavBox {
+    border-bottom: 3px solid var(--PRIMARY_COLOR);
+}
+.headerNavBox:hover {
+    transition: all ease 400ms;
+    border-bottom: 3px solid white;
 }
 
 .menuName svg {
@@ -236,18 +231,37 @@
     -webkit-transform: rotate(-90deg);
     height: 8px;
     width: 8px;
-    transition: transform .1s, -webkit-transform .1s;
+    transition: transform 0.1s, -webkit-transform 0.1s;
 }
 
 .SubMenuList {
-    background: #FFF;
-    z-index: 5;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
-    top: 48px;
-    border-radius: 5px;
+    background: #fff;
+    z-index: 30;
+    transition: all ease 400ms;
+    transform: translateY(-4px);
+    top: 86px;
+    border-radius: 0px 0px 5px 5px;
     padding: 12px;
     min-width: 240px;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
 }
+
+/* .headerNavBox:hover .SubMenuList:after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    margin-left: -5px;
+    background: #fff;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: -5px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+} */
 
 .headerNavBox:hover .SubMenuList {
     opacity: 1;
@@ -266,12 +280,23 @@
 
 .subMenuName:hover {
     font-weight: 500;
-    background: #FAC100;
+    background: var(--MENU_HOVER_COLOR);
+}
+
+.headerNavBox:hover .menuName svg {
+    transform: rotate(-90deg) scaleX(-1);
+    -webkit-transform: rotate(-90deg) scaleX(-1);
+}
+
+.subMenuName:hover {
+    font-weight: 700;
+    background: #ebeaea;
+    color: white;
 }
 
 .userAccountDrop {
     background: #FFF;
-    z-index: 5;
+    z-index: 50;
     box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.20);
     top: 74px;
     border-radius: 5px;
@@ -287,7 +312,7 @@
     height: 45px;
     font-size: 15px;
     font-weight: 500;
-    color: #000;
+    color: #fff;
     padding: 0 10px;
     transition: .1s;
 }
@@ -303,7 +328,7 @@
 .userName {
     font-size: 12px;
     line-height: 12px;
-    color: var(--SECONDARY_COLOR);
+    color: var(--PRIMARY_COLOR);
 }
 
 .showSearchList {
@@ -316,7 +341,7 @@
 
 .searchRow {
     font-size: 16px;
-    color: #000;
+    color: #fff;
     border-bottom: 1px solid #EEE;
     transition: .2s;
 }
