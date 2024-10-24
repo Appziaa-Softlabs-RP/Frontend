@@ -14,7 +14,11 @@ export const ProductCard = ({ item, index }) => {
   const [userInfo, setUserInfo] = useState({});
   const appData = useApp();
 
-  const getNoImage = (verticalType = '') => {
+  const getNoImage = ({
+    verticalType = null,
+    gender = null
+  }) => {
+    if (verticalType) {
       if (verticalType === "Men") {
         return menNoImage;
       } else if (verticalType === "Women") {
@@ -22,8 +26,18 @@ export const ProductCard = ({ item, index }) => {
       } else if (verticalType === "Kids") {
         return kidsNoImage;
       } else {
-        return noImage;
+        return menNoImage;
       }
+    } else {
+      switch (gender) {
+        case "Boys":
+          return menNoImage;
+        case "Girls":
+          return womenNoImage;
+        default:
+          return menNoImage;
+      }
+    }
   };
 
   const checkProdAdded = () => {
@@ -46,7 +60,7 @@ export const ProductCard = ({ item, index }) => {
   };
 
   const getGenderName = (gender) => {
-    switch(gender){
+    switch (gender) {
       case "Boys":
         return "Men";
       case "Girls":
@@ -136,7 +150,10 @@ export const ProductCard = ({ item, index }) => {
                     "https://rewardsplus.in/uploads/app/public/cogendermpany",
                     "https://merchant.rewardsplus.in/uploads/app/public/company"
                   )
-                  : item?.image_url ?? getNoImage(item?.vertical_name)
+                  : item?.image_url ?? getNoImage({
+                    verticalType: item?.vertical_name,
+                    gender: item?.gender_name
+                  })
               }
               alt="--"
               className={`${styles.productImg}`}
@@ -189,7 +206,7 @@ export const ProductCard = ({ item, index }) => {
               color: "#000",
               fontSize: "14px",
             }}>
-            {item.name}
+              {item.name}
             </span>
           </Link>
           {item?.is_deal === 1 && item.deals_price !== 0 ? (

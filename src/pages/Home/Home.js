@@ -30,7 +30,7 @@ export const Home = () => {
         <Aside asideOpen={asideOpen} setAsideOpen={setAsideOpen} navItems={navItems} setNavItems={setNavItems} />
 
         {/* Launch event */}
-        <LaunchEvent />
+        {/* <LaunchEvent /> */}
 
         {/* hero banner */}
         <HeroBanner />
