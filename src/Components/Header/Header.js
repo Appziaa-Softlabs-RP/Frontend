@@ -349,7 +349,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                           {searchProdList.map((item, idx) => {
                             return (
                               <span
-                                className={`${styles.searchRow} p-3 text-truncate col-12`}
+                                className={`${styles.searchRow} p-3 text-black text-truncate col-12`}
                                 role="button"
                                 key={idx}
                                 onClick={() =>
@@ -559,7 +559,7 @@ export const Header = ({ setAsideOpen, asideOpen, setFetchedNavItems }) => {
                     {searchProdList.map((item, idx) => {
                       return (
                         <span
-                          className={`${styles.searchRow} p-3 text-truncate col-12`}
+                          className={`${styles.searchRow} p-3 text-black text-truncate col-12`}
                           role="button"
                           key={idx}
                           onClick={() =>
